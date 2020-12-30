@@ -1,0 +1,19 @@
+title: rgcambreakout
+
+navbar:
+  type: inverse
+  left:
+    - icon: fa-home
+      href: index.html
+    - text: "How-to"
+      icon: fas fa-book
+      href: articles/vignette_rgcambreakout.html
+    - icon: fa-file-code-o
+      text: "Reference"
+      href: reference/index.html
+    - icon: fa-newspaper-o
+      text: "News"
+      href: news/index.html
+      
+toc:
+  depth: 2
