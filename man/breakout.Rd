@@ -4,12 +4,14 @@
 \alias{breakout}
 \title{Function to breakout region in gcamdata}
 \usage{
-breakout(gcamdataFolder = NULL, countryNew = NULL)
+breakout(gcamdataFolder = NULL, regionNew = NULL, countriesNew = NULL)
 }
 \arguments{
 \item{gcamdataFolder}{Default = NULL. Full path to gcamdata folder.}
 
-\item{countryNew}{Default = NULL. Name of New Country.}
+\item{regionNew}{Default = NULL. Name of New Region to breakout.}
+
+\item{countriesNew}{Default = NULL. Name of countries in new region.}
 }
 \description{
 Function to breakout region in gcamdata
