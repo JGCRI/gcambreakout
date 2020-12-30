@@ -1,0 +1,41 @@
+---
+title: "breakout"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{breakout}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+<!-------------------------->
+<!-------------------------->
+# Key Links
+<!-------------------------->
+<!-------------------------->
+
+- Github: https://github.com/JGCRI/rgcambreakout
+- Webpage: https://jgcri.github.io/rgcambreakout/
+- GCAM Adding a new region: https://github.com/JGCRI/gcamdata/wiki/Modifying-GCAM-via-the-Data-System
+- GCAM proprietary data (Will need access): https://stash.pnnl.gov/projects/JGCRI/repos/gcam-proprietary-data/browse
+
+
+<!-------------------------->
+<!-------------------------->
+# Setup
+<!-------------------------->
+<!-------------------------->
+Before running rgcambreakout you will need:
+- A running version of GCAM
+- IEA_EnergyBalances_2019.csv file placed in the ./input/inst/extdata/energy
+- CEDS data places in input/gcamdata/inst/extdata/emissions/CEDS
+
+```{r setup}
+library(rgcambreakout)
+```
