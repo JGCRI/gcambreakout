@@ -17,8 +17,7 @@ Imports:
     magrittr,
     data.table,
     utils,
-    tibble,
-    gcamdata (>= 5.1)
+    tibble
 VignetteBuilder: 
     knitr
 Depends: 
