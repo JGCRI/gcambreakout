@@ -1,7 +1,7 @@
 <!-- badges: start -->
 ![pkgdown](https://github.com/JGCRI/rgcambreakout/workflows/pkgdown/badge.svg)
 ![R-CMD](https://github.com/JGCRI/rgcambreakout/workflows/R-CMD/badge.svg)
-![test_coverage](https://github.com/JGCRI/rgcambreakout/workflows/test_coverage/badge.svg)
+[![codecov](https://codecov.io/gh/JGCRI/rgcambreakout/branch/main/graph/badge.svg?token=G36I8JU3HR)](https://codecov.io/gh/JGCRI/rgcambreakout)
 <!-- badges: end -->
 
 <!-- ------------------------>
