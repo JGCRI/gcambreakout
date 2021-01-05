@@ -32,7 +32,7 @@ Before running rgcambreakout you will need:
 
 This script lets users breakout a new region which can be a combination of or a single country from the list of countries found in the file: "/inst/extdata/common/iso_GCAM_regID.csv" under the column country_name. The following example shows how to breakout 'Thailand' and 'Lao Peoples Democratic Republic' as a new region called 'Thailand Laos'.
 
-```{r}
+```{r, eval=F}
 library(rgcambreakout)
 breakout(gcamdataFolder = "PATH_TO_GCAM_FOLDER/input/gcamdata",
          regionNew = "Thailand Laos",
@@ -54,7 +54,7 @@ After the region is broken out the following files will have changed. A copy of 
 
 Users can also restore back to the original files by running the following code. This will replace the newly created files with the versions appended with '_Original'. The gcamdata system will have to be rebuilt using 'install & restart' from R Studio once again followed by driver(). 
 
-```{r}
+```{r, eval=F}
 library(rgcambreakout)
 restore(gcamdataFolder = "PATH_TO_GCAM_FOLDER/input/gcamdata")
 ```

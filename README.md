@@ -1,4 +1,7 @@
 <!-- badges: start -->
+![pkgdown](https://github.com/JGCRI/rgcambreakout/workflows/pkgdown/badge.svg)
+![R-CMD](https://github.com/JGCRI/rgcambreakout/workflows/R-CMD/badge.svg)
+![test_coverage](https://github.com/JGCRI/rgcambreakout/workflows/test_coverage/badge.svg)
 <!-- badges: end -->
 
 <!-- ------------------------>
