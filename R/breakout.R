@@ -21,6 +21,7 @@ breakout <- function(gcamdataFolder = NULL,
 
   NULL -> Col1-> country_name -> GCAM_region_ID -> region
   parent_region_ID <- c()
+  parent_region <- c()
   closeAllConnections()
 
   # Declare File Names
@@ -73,60 +74,60 @@ breakout <- function(gcamdataFolder = NULL,
 
   iso_GCAM_regID = utils::read.csv(file_iso_GCAM_regID, sep = ",",comment.char="#") %>% tibble::as_tibble(); iso_GCAM_regID
 
-  iso_GCAM_regID_comments <- utils::read.csv(file_iso_GCAM_regID, header = F) %>%
+  iso_GCAM_regID_comments <- ((utils::read.csv(file_iso_GCAM_regID, header = F))[,1])%>%
     as.data.frame();
     names(iso_GCAM_regID_comments)<-"Col1"
   iso_GCAM_regID_comments <- iso_GCAM_regID_comments %>%
     dplyr::filter(grepl("#",Col1)); iso_GCAM_regID_comments
 
 
-  GCAM_region_names = data.table::fread(file_GCAM_region_names) %>% tibble::as_tibble(); GCAM_region_names
+  GCAM_region_names = utils::read.csv(file_GCAM_region_names, sep = ",",comment.char="#") %>% tibble::as_tibble(); GCAM_region_names
 
-  GCAM_region_names_comments <- utils::read.csv(file_GCAM_region_names, header = F) %>%
+  GCAM_region_names_comments <- ((utils::read.csv(file_GCAM_region_names, header = F))[,1])%>%
     as.data.frame();
   names(GCAM_region_names_comments)<-"Col1"
   GCAM_region_names_comments <- GCAM_region_names_comments %>%
     dplyr::filter(grepl("#",Col1)); GCAM_region_names_comments
 
 
-  A_bio_frac_prod_R = data.table::fread(file_A_bio_frac_prod_R) %>% tibble::as_tibble(); A_bio_frac_prod_R
+  A_bio_frac_prod_R = utils::read.csv(file_A_bio_frac_prod_R, sep = ",",comment.char="#") %>% tibble::as_tibble(); A_bio_frac_prod_R
 
-  A_bio_frac_prod_R_comments <- utils::read.csv(file_A_bio_frac_prod_R, header = F) %>%
+  A_bio_frac_prod_R_comments <- ((utils::read.csv(file_A_bio_frac_prod_R, header = F))[,1])%>%
     as.data.frame();
   names(A_bio_frac_prod_R_comments)<-"Col1"
   A_bio_frac_prod_R_comments <- A_bio_frac_prod_R_comments %>%
     dplyr::filter(grepl("#",Col1)); A_bio_frac_prod_R_comments
 
-  A_soil_time_scale_R = data.table::fread(file_A_soil_time_scale_R) %>% tibble::as_tibble(); A_soil_time_scale_R
-  A_soil_time_scale_R_comments <- utils::read.csv(file_A_soil_time_scale_R, header = F) %>%
+  A_soil_time_scale_R = utils::read.csv(file_A_soil_time_scale_R, sep = ",",comment.char="#") %>% tibble::as_tibble(); A_soil_time_scale_R
+  A_soil_time_scale_R_comments <- ((utils::read.csv(file_A_soil_time_scale_R, header = F))[,1])%>%
     as.data.frame();
   names(A_soil_time_scale_R_comments)<-"Col1"
   A_soil_time_scale_R_comments <- A_soil_time_scale_R_comments %>%
     dplyr::filter(grepl("#",Col1)); A_soil_time_scale_R_comments
 
-  emissions_A_regions = data.table::fread(file_emissions_A_regions) %>% tibble::as_tibble(); emissions_A_regions
-  emissions_A_regions_comments <- utils::read.csv(file_emissions_A_regions, header = F) %>%
+  emissions_A_regions = utils::read.csv(file_emissions_A_regions, sep = ",",comment.char="#") %>% tibble::as_tibble(); emissions_A_regions
+  emissions_A_regions_comments <- ((utils::read.csv(file_emissions_A_regions, header = F))[,1])%>%
     as.data.frame();
   names(emissions_A_regions_comments)<-"Col1"
   emissions_A_regions_comments <- emissions_A_regions_comments %>%
     dplyr::filter(grepl("#",Col1)); emissions_A_regions_comments
 
-  A23.subsector_interp_R = data.table::fread(file_A23.subsector_interp_R) %>% tibble::as_tibble(); A23.subsector_interp_R
-  A23.subsector_interp_R_comments <- utils::read.csv(file_A23.subsector_interp_R, header = F) %>%
+  A23.subsector_interp_R = utils::read.csv(file_A23.subsector_interp_R, sep = ",",comment.char="#") %>% tibble::as_tibble(); A23.subsector_interp_R
+  A23.subsector_interp_R_comments <- ((utils::read.csv(file_A23.subsector_interp_R, header = F))[,1])%>%
     as.data.frame();
   names(A23.subsector_interp_R_comments)<-"Col1"
   A23.subsector_interp_R_comments <- A23.subsector_interp_R_comments %>%
     dplyr::filter(grepl("#",Col1)); A23.subsector_interp_R_comments
 
-  energy_A_regions = data.table::fread(file_energy_A_regions) %>% tibble::as_tibble(); energy_A_regions
-  energy_A_regions_comments <- utils::read.csv(file_energy_A_regions, header = F) %>%
+  energy_A_regions = utils::read.csv(file_energy_A_regions, sep = ",",comment.char="#") %>% tibble::as_tibble(); energy_A_regions
+  energy_A_regions_comments <- ((utils::read.csv(file_energy_A_regions, header = F))[,1])%>%
     as.data.frame();
   names(energy_A_regions_comments)<-"Col1"
   energy_A_regions_comments <- energy_A_regions_comments %>%
     dplyr::filter(grepl("#",Col1)); energy_A_regions_comments
 
-  offshore_wind_potential_scaler = data.table::fread(file_offshore_wind_potential_scaler) %>% tibble::as_tibble(); offshore_wind_potential_scaler
-  offshore_wind_potential_scaler_comments <- utils::read.csv(file_offshore_wind_potential_scaler, header = F) %>%
+  offshore_wind_potential_scaler = utils::read.csv(file_offshore_wind_potential_scaler, sep = ",",comment.char="#") %>% tibble::as_tibble(); offshore_wind_potential_scaler
+  offshore_wind_potential_scaler_comments <-  ((utils::read.csv(file_offshore_wind_potential_scaler, header = F))[,1])%>%
     as.data.frame();
   names(offshore_wind_potential_scaler_comments)<-"Col1"
   offshore_wind_potential_scaler_comments <- offshore_wind_potential_scaler_comments %>%

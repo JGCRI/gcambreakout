@@ -1,4 +1,7 @@
 <!-- badges: start -->
+![pkgdown](https://github.com/JGCRI/rgcambreakout/workflows/pkgdown/badge.svg)
+![R-CMD](https://github.com/JGCRI/rgcambreakout/workflows/R-CMD/badge.svg)
+![test_coverage](https://github.com/JGCRI/rgcambreakout/workflows/test_coverage/badge.svg)
 <!-- badges: end -->
 
 <!-- ------------------------>
@@ -25,6 +28,7 @@
 - Github: https://github.com/JGCRI/rgcambreakout
 - Webpage: https://jgcri.github.io/rgcambreakout/
 - GCAM Adding a new region: https://github.com/JGCRI/gcamdata/wiki/Modifying-GCAM-via-the-Data-System
+- gcamdata package: https://github.com/JGCRI/gcamdata
 
   
 <!-- ------------------------>
@@ -64,7 +68,6 @@
 
 ```r
 install.packages(“devtools”)
-devtools::install_github(“JGCRI/gcamdata”)
 devtools::install_github(“JGCRI/rgcambreakout”)
 ```
 
@@ -76,7 +79,7 @@ devtools::install_github(“JGCRI/rgcambreakout”)
 
 [Back to Contents](#Contents)
 
-A detailed step-by-step walkthrough and how-to guide is provided on the [How-to](https://jgcri.github.io/rdataviz/articles/vignette_rgcambreakout.html) page. 
+A detailed step-by-step walkthrough and how-to guide is provided on the [How-to](https://jgcri.github.io/rgcambreakout/articles/vignette_rgcambreakout.html) page. 
 
 
 <!-- ------------------------>

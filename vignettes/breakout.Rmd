@@ -16,25 +16,13 @@ knitr::opts_chunk$set(
 
 <!-------------------------->
 <!-------------------------->
-# Key Links
-<!-------------------------->
-<!-------------------------->
-
-- Github: https://github.com/JGCRI/rgcambreakout
-- Webpage: https://jgcri.github.io/rgcambreakout/
-- GCAM Adding a new region: https://github.com/JGCRI/gcamdata/wiki/Modifying-GCAM-via-the-Data-System
-- GCAM proprietary data (Will need access): https://stash.pnnl.gov/projects/JGCRI/repos/gcam-proprietary-data/browse
-
-
-<!-------------------------->
-<!-------------------------->
 # Setup
 <!-------------------------->
 <!-------------------------->
 Before running rgcambreakout you will need:
-- A running version of GCAM
-- IEA_EnergyBalances_2019.csv file placed in the ./input/inst/extdata/energy
-- CEDS data places in input/gcamdata/inst/extdata/emissions/CEDS
+* A running version of GCAM
+* IEA_EnergyBalances_2019.csv file placed in the ./input/inst/extdata/energy
+* CEDS data places in input/gcamdata/inst/extdata/emissions/CEDS
 
 <!-------------------------->
 <!-------------------------->
@@ -44,7 +32,8 @@ Before running rgcambreakout you will need:
 
 This script lets users breakout a new region which can be a combination of or a single country from the list of countries found in the file: "/inst/extdata/common/iso_GCAM_regID.csv" under the column country_name. The following example shows how to breakout 'Thailand' and 'Lao Peoples Democratic Republic' as a new region called 'Thailand Laos'.
 
-```r
+```{r, eval=F}
+library(rgcambreakout)
 breakout(gcamdataFolder = "PATH_TO_GCAM_FOLDER/input/gcamdata",
          regionNew = "Thailand Laos",
          countriesNew = c("Thailand","Lao Peoples Democratic Republic"))
@@ -61,15 +50,11 @@ After the region is broken out the following files will have changed. A copy of 
 * /inst/extdata/energy/A_regions.csv
 * /inst/extdata/energy/offshore_wind_potential_scaler.csv
 
-**After running this script you will need to rebuild the gcamdata system by "install & restart" from R Studio followed by driver().**
+**After running this script you will need to re-build the gcamdata system by "install & restart" from R Studio followed by driver().**
 
 Users can also restore back to the original files by running the following code. This will replace the newly created files with the versions appended with '_Original'. The gcamdata system will have to be rebuilt using 'install & restart' from R Studio once again followed by driver(). 
 
-```r
-restore(gcamdataFolder = "PATH_TO_GCAM_FOLDER/input/gcamdata")
-```
-
-
-```{r setup}
+```{r, eval=F}
 library(rgcambreakout)
+restore(gcamdataFolder = "PATH_TO_GCAM_FOLDER/input/gcamdata")
 ```

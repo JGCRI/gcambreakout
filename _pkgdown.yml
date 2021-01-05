@@ -7,7 +7,7 @@ navbar:
       href: index.html
     - text: "How-to"
       icon: fas fa-book
-      href: articles/vignette_rgcambreakout.html
+      href: articles/breakout.html
     - icon: fa-file-code-o
       text: "Reference"
       href: reference/index.html
