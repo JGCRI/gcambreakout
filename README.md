@@ -79,7 +79,7 @@ devtools::install_github(“JGCRI/rgcambreakout”)
 
 [Back to Contents](#Contents)
 
-A detailed step-by-step walkthrough and how-to guide is provided on the [How-to](https://jgcri.github.io/rgcambreakout/articles/vignette_rgcambreakout.html) page. 
+A detailed step-by-step walkthrough and how-to guide is provided on the <a href="https://jgcri.github.io/rgcambreakout/articles/breakout.html" target="_blank">'How-to'</a>page. 
 
 
 <!-- ------------------------>
