@@ -44,7 +44,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/vignette_rgcambreakout.html">
+  <a href="../articles/breakout.html">
     <span class="fas fa-book"></span>
      
     How-to
@@ -97,29 +97,12 @@
     
 <!-------------------------->
 <!-------------------------->
-<div id="key-links" class="section level1">
-<h1 class="hasAnchor">
-<a href="#key-links" class="anchor"></a>Key Links</h1>
-<!-------------------------->
-<!-------------------------->
-<ul>
-<li>Github: <a href="https://github.com/JGCRI/rgcambreakout" class="uri">https://github.com/JGCRI/rgcambreakout</a>
-</li>
-<li>Webpage: <a href="https://jgcri.github.io/rgcambreakout/" class="uri">https://jgcri.github.io/rgcambreakout/</a>
-</li>
-<li>GCAM Adding a new region: <a href="https://github.com/JGCRI/gcamdata/wiki/Modifying-GCAM-via-the-Data-System" class="uri">https://github.com/JGCRI/gcamdata/wiki/Modifying-GCAM-via-the-Data-System</a>
-</li>
-<li>GCAM proprietary data (Will need access): <a href="https://stash.pnnl.gov/projects/JGCRI/repos/gcam-proprietary-data/browse" class="uri">https://stash.pnnl.gov/projects/JGCRI/repos/gcam-proprietary-data/browse</a>
-</li>
-</ul>
-<!--------------------------><!-------------------------->
-</div>
 <div id="setup" class="section level1">
 <h1 class="hasAnchor">
 <a href="#setup" class="anchor"></a>Setup</h1>
 <!-------------------------->
 <!-------------------------->
-<p>Before running rgcambreakout you will need: - A running version of GCAM - IEA_EnergyBalances_2019.csv file placed in the ./input/inst/extdata/energy - CEDS data places in input/gcamdata/inst/extdata/emissions/CEDS</p>
+<p>Before running rgcambreakout you will need: * A running version of GCAM * IEA_EnergyBalances_2019.csv file placed in the ./input/inst/extdata/energy * CEDS data places in input/gcamdata/inst/extdata/emissions/CEDS</p>
 <!-------------------------->
 <!-------------------------->
 </div>
@@ -130,7 +113,8 @@
 <!-------------------------->
 <p>This script lets users breakout a new region which can be a combination of or a single country from the list of countries found in the file: “/inst/extdata/common/iso_GCAM_regID.csv” under the column country_name. The following example shows how to breakout ‘Thailand’ and ‘Lao Peoples Democratic Republic’ as a new region called ‘Thailand Laos’.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/breakout.html">breakout</a></span><span class="op">(</span>gcamdataFolder <span class="op">=</span> <span class="st">"PATH_TO_GCAM_FOLDER/input/gcamdata"</span>,
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/JGCRI/rgcambreakout">rgcambreakout</a></span><span class="op">)</span>
+<span class="fu"><a href="../reference/breakout.html">breakout</a></span><span class="op">(</span>gcamdataFolder <span class="op">=</span> <span class="st">"PATH_TO_GCAM_FOLDER/input/gcamdata"</span>,
          regionNew <span class="op">=</span> <span class="st">"Thailand Laos"</span>,
          countriesNew <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Thailand"</span>,<span class="st">"Lao Peoples Democratic Republic"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>After the region is broken out the following files will have changed. A copy of each of these files appended with ’_Original’ will remain in the same folders:</p>
@@ -144,12 +128,11 @@
 <li>/inst/extdata/energy/A_regions.csv</li>
 <li>/inst/extdata/energy/offshore_wind_potential_scaler.csv</li>
 </ul>
-<p><strong>After running this script you will need to rebuild the gcamdata system by “install &amp; restart” from R Studio followed by driver().</strong></p>
+<p><strong>After running this script you will need to re-build the gcamdata system by “install &amp; restart” from R Studio followed by driver().</strong></p>
 <p>Users can also restore back to the original files by running the following code. This will replace the newly created files with the versions appended with ’_Original’. The gcamdata system will have to be rebuilt using ‘install &amp; restart’ from R Studio once again followed by driver().</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/restore.html">restore</a></span><span class="op">(</span>gcamdataFolder <span class="op">=</span> <span class="st">"PATH_TO_GCAM_FOLDER/input/gcamdata"</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/JGCRI/rgcambreakout">rgcambreakout</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/JGCRI/rgcambreakout">rgcambreakout</a></span><span class="op">)</span>
+<span class="fu"><a href="../reference/restore.html">restore</a></span><span class="op">(</span>gcamdataFolder <span class="op">=</span> <span class="st">"PATH_TO_GCAM_FOLDER/input/gcamdata"</span><span class="op">)</span></code></pre></div>
 </div>
   </div>
 
