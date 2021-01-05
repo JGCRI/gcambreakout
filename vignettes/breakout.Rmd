@@ -1,5 +1,5 @@
 ---
-title: "breakout"
+title: ""
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{breakout}
@@ -20,6 +20,7 @@ knitr::opts_chunk$set(
 <!-------------------------->
 <!-------------------------->
 Before running rgcambreakout you will need:
+
 * A running version of GCAM
 * IEA_EnergyBalances_2019.csv file placed in the ./input/inst/extdata/energy
 * CEDS data places in input/gcamdata/inst/extdata/emissions/CEDS
@@ -52,7 +53,13 @@ After the region is broken out the following files will have changed. A copy of 
 
 **After running this script you will need to re-build the gcamdata system by "install & restart" from R Studio followed by driver().**
 
-Users can also restore back to the original files by running the following code. This will replace the newly created files with the versions appended with '_Original'. The gcamdata system will have to be rebuilt using 'install & restart' from R Studio once again followed by driver(). 
+<!-------------------------->
+<!-------------------------->
+# Restore Original Files
+<!-------------------------->
+<!-------------------------->
+
+Users can also restore back to the original files by running the following code. This will replace the newly created files with the versions appended with '_Original' and delete the appended files. The gcamdata system will have to be rebuilt using 'install & restart' from R Studio once again followed by driver(). 
 
 ```{r, eval=F}
 library(rgcambreakout)
