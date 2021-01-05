@@ -23,7 +23,8 @@ Before running rgcambreakout you will need:
 
 * A running version of GCAM
 * IEA_EnergyBalances_2019.csv file placed in the ./input/inst/extdata/energy
-* CEDS data places in input/gcamdata/inst/extdata/emissions/CEDS
+* CEDS data placed in input/gcamdata/inst/extdata/emissions/CEDS
+* NOTE: The CEDS data and IEA_EnergyBalances_2019.csv is proprietary data and only accesible to internal JGCRI staff at https://stash.pnnl.gov/scm/jgcri/gcam-proprietary-data.git.
 
 <!-------------------------->
 <!-------------------------->
