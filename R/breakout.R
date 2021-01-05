@@ -457,5 +457,5 @@ breakout <- function(gcamdataFolder = NULL,
 
   closeAllConnections()
   print("Finished running breakout.")
-  print(paste("Please re-run gcamdata from your folder: ",gcamdataFolder,sep=""))
+  print(paste("Please re-build gcamdata and re-run driver() from your folder: ",gcamdataFolder,sep=""))
 }
