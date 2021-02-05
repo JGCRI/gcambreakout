@@ -181,7 +181,10 @@ breakout <- function(gcamdataFolder = NULL,
     parent_region
 
     if(length(regionNew)==0){stop("regionNew not assigned correctly.")}
-    if(length(unique(parent_region_ID))!=1){stop("For now all new countries being broken out must come from same parent region.")}
+    if(length(unique(parent_region_ID))!=1){
+      print(paste("Unique parent_region_ID: ", paste(unique(parent_region_ID),collapse=", "),sep=""))
+      stop("For now all new countries being broken out must come from same parent region.")
+      }
 
     }else{stop("Must enter countriesNew to specify which country or countries to include in new region.")}
   } else {stop("Must enter a regionNew to assign a name for the new region.")}
