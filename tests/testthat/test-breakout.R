@@ -1,5 +1,5 @@
 context("test breakout")
-library(rgcambreakout); library(testthat)
+library(gcambreakout); library(testthat)
 
 test_that("breakout generates new files", {
 
@@ -10,7 +10,7 @@ test_that("breakout generates new files", {
   dir.create(gcamdataFolder)
   file.copy(paste(gcamdataFolderOriginal,"/inst",sep=""), gcamdataFolder, recursive=TRUE)
 
-  rgcambreakout::breakout(gcamdataFolder = gcamdataFolder,
+  gcambreakout::breakout(gcamdataFolder = gcamdataFolder,
                           regionNew = "Thailand Laos",
                           countriesNew = c("Thailand","Lao Peoples Democratic Republic"))
 
@@ -27,6 +27,6 @@ test_that("breakout generates new files", {
     )
     )
 
-  rgcambreakout::restore(gcamdataFolder = paste(getwd(),"/gcamdata_test",sep=""))
+  gcambreakout::restore(gcamdataFolder = paste(getwd(),"/gcamdata_test",sep=""))
 
 })
