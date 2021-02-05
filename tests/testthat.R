@@ -1,4 +1,4 @@
 library(testthat)
-library(rgcambreakout)
+library(gcambreakout)
 
-test_check("rgcambreakout")
+test_check("gcambreakout")

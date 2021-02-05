@@ -1,4 +1,4 @@
-library(rgcambreakout)
+library(gcambreakout)
 library(dplyr)
 library(magrittr)
 
@@ -14,8 +14,8 @@ countriesNew = c("Thailand","Lao Peoples Democratic Republic")
 
 
 # dev tests
-gcamdataFolder = "C:/Z/models/rgcambreakout/tests/testthat/gcamdata_test"
+gcamdataFolder = "C:/Z/models/gcambreakout/tests/testthat/gcamdata_test"
 regionNew = "Thailand Laos"
 countriesNew = c("Thailand","Lao Peoples Democratic Republic")
-rgcambreakout::breakout(gcamdataFolder,regionNew,countriesNew)
-rgcambreakout::restore(gcamdataFolder)
+gcambreakout::breakout(gcamdataFolder,regionNew,countriesNew)
+gcambreakout::restore(gcamdataFolder)

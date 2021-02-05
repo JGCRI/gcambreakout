@@ -1,7 +1,7 @@
 <!-- badges: start -->
-![pkgdown](https://github.com/JGCRI/rgcambreakout/workflows/pkgdown/badge.svg)
-![R-CMD](https://github.com/JGCRI/rgcambreakout/workflows/R-CMD/badge.svg)
-[![codecov](https://codecov.io/gh/JGCRI/rgcambreakout/branch/main/graph/badge.svg?token=G36I8JU3HR)](https://codecov.io/gh/JGCRI/rgcambreakout)
+![pkgdown](https://github.com/JGCRI/gcambreakout/workflows/pkgdown/badge.svg)
+![R-CMD](https://github.com/JGCRI/gcambreakout/workflows/R-CMD/badge.svg)
+[![codecov](https://codecov.io/gh/JGCRI/gcambreakout/branch/main/graph/badge.svg?token=G36I8JU3HR)](https://codecov.io/gh/JGCRI/gcambreakout)
 <!-- badges: end -->
 
 <!-- ------------------------>
@@ -25,8 +25,8 @@
 
 [Back to Contents](#Contents)
 
-- Github: https://github.com/JGCRI/rgcambreakout
-- Webpage: https://jgcri.github.io/rgcambreakout/
+- Github: https://github.com/JGCRI/gcambreakout
+- Webpage: https://jgcri.github.io/gcambreakout/
 - GCAM Adding a new region: https://github.com/JGCRI/gcamdata/wiki/Modifying-GCAM-via-the-Data-System
 - gcamdata package: https://github.com/JGCRI/gcamdata
 - Proprietary Data needed (Only those with access): https://stash.pnnl.gov/scm/jgcri/gcam-proprietary-data.git
@@ -40,7 +40,7 @@
 
 [Back to Contents](#Contents)
 
-`rgcambreakout` is an R package with functions to breakout new regions in the GCAM datasystem.
+`gcambreakout` is an R package with functions to breakout new regions in the GCAM datasystem.
 
 
 <!-- ------------------------>
@@ -69,7 +69,7 @@
 
 ```r
 install.packages(“devtools”)
-devtools::install_github(“JGCRI/rgcambreakout”)
+devtools::install_github(“JGCRI/gcambreakout”)
 ```
 
 <!-- ------------------------>
@@ -80,7 +80,7 @@ devtools::install_github(“JGCRI/rgcambreakout”)
 
 [Back to Contents](#Contents)
 
-A detailed step-by-step walkthrough and how-to guide is provided on the [How-to](https://jgcri.github.io/rgcambreakout/articles/breakout.html) page. 
+A detailed step-by-step walkthrough and how-to guide is provided on the [How-to](https://jgcri.github.io/gcambreakout/articles/breakout.html) page. 
 
 
 <!-- ------------------------>

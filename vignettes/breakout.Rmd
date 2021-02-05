@@ -1,8 +1,8 @@
 ---
-title: ""
+title: "Guide"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{breakout}
+  %\VignetteIndexEntry{Guide}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -12,6 +12,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+options(rmarkdown.html_vignette.check_title = FALSE)
 ```
 
 <!-------------------------->
@@ -19,7 +20,7 @@ knitr::opts_chunk$set(
 # Setup
 <!-------------------------->
 <!-------------------------->
-Before running rgcambreakout you will need:
+Before running gcambreakout you will need:
 
 * A running version of GCAM
 * IEA_EnergyBalances_2019.csv file placed in the ./input/inst/extdata/energy
@@ -35,7 +36,7 @@ Before running rgcambreakout you will need:
 This script lets users breakout a new region which can be a combination of or a single country from the list of countries found in the file: "/inst/extdata/common/iso_GCAM_regID.csv" under the column country_name. The following example shows how to breakout 'Thailand' and 'Lao Peoples Democratic Republic' as a new region called 'Thailand Laos'.
 
 ```{r, eval=F}
-library(rgcambreakout)
+library(gcambreakout)
 breakout(gcamdataFolder = "PATH_TO_GCAM_FOLDER/input/gcamdata",
          regionNew = "Thailand Laos",
          countriesNew = c("Thailand","Lao Peoples Democratic Republic"))
@@ -63,6 +64,6 @@ After the region is broken out the following files will have changed. A copy of 
 Users can also restore back to the original files by running the following code. This will replace the newly created files with the versions appended with '_Original' and delete the appended files. The gcamdata system will have to be rebuilt using 'install & restart' from R Studio once again followed by driver(). 
 
 ```{r, eval=F}
-library(rgcambreakout)
+library(gcambreakout)
 restore(gcamdataFolder = "PATH_TO_GCAM_FOLDER/input/gcamdata")
 ```
