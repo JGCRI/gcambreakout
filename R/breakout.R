@@ -3,6 +3,10 @@
 #' @param gcamdataFolder Default = NULL. Full path to gcamdata folder.
 #' @param regionNew Default = NULL. Name of New Region to breakout.
 #' @param countriesNew Default = NULL. Name of countries in new region.
+#' @param breakoutCountriesNew Default = F. Option to breakout countries from multi-country region.
+#' @param breakoutCountriesNew_elec Default = T. Option to breakout electricity in countries from multi-country region.
+#' @param IEA_EnergyBalances_FileName Default = "IEA_EnergyBalances_2019.csv.gz".
+#' This is proprietary IEA data which can be updated here. It should be placed in .inst/extdata/energy
 #' @importFrom magrittr %>%
 #' @importFrom data.table :=
 #' @export
@@ -10,18 +14,31 @@
 
 breakout <- function(gcamdataFolder = NULL,
                      regionNew = NULL,
-                     countriesNew = NULL) {
+                     countriesNew = NULL,
+                     breakoutCountriesNew = F,
+                     breakoutCountriesNew_elec = F,
+                     IEA_EnergyBalances_FileName = "IEA_EnergyBalances_2019.csv.gz") {
+
+  # gcamdataFolder = NULL
+  # regionNew = NULL
+  # countriesNew = NULL
+  # breakoutCountriesNew = F
+  # breakoutCountriesNew_elec = F
+  # IEA_EnergyBalances_FileName = "IEA_EnergyBalances_2019.csv.gz"
 
   #..................
   # Initialize variables
   # .................
 
+  #library(magrittr)
+
   if(T){
   print("Starting breakout ...")
 
-  NULL -> Col1-> country_name -> GCAM_region_ID -> region
+  NULL -> Col1-> country_name -> GCAM_region_ID -> region ->iso->IEA_memo_ctry
   parent_region_ID <- c()
   parent_region <- c()
+  IEA_memo_ctry_df <- data.frame()
   closeAllConnections()
 
   # Declare File Names
@@ -160,8 +177,9 @@ breakout <- function(gcamdataFolder = NULL,
 
     # Reformat country names and get parent region IDs
     for (i in 1:length(countriesNew)){
-      countriesNew[i] <- unique(iso_GCAM_regID$country_name)[
-      tolower(unique(iso_GCAM_regID$country_name)) == tolower(countriesNew[i])]
+      iso_GCAM_regID_countries <- as.vector(unique(iso_GCAM_regID$country_name))
+      countriesNew[i] <- iso_GCAM_regID_countries[
+      tolower(iso_GCAM_regID_countries) == tolower(countriesNew[i])]
 
     parent_region_ID[i] <- ((iso_GCAM_regID %>%
                               dplyr::filter(
@@ -169,10 +187,9 @@ breakout <- function(gcamdataFolder = NULL,
                               ))$GCAM_region_ID) %>%
       unique()
 
-    parent_region[i] <- ((iso_GCAM_regID %>%
+    parent_region[i] <- ((GCAM_region_names %>%
                             dplyr::filter(
-                              tolower(country_name) == tolower(countriesNew[i])
-                            ))$region_GCAM3) %>%
+                              GCAM_region_ID ==  parent_region_ID[i]))$region) %>%
       unique()
     } # Close loop across countriesNew
 
@@ -455,6 +472,218 @@ breakout <- function(gcamdataFolder = NULL,
                 " to ", filename, sep=""))
   }
 
+
+#..............................
+#...............................
+# Breakout Countries from Multi-Country Region
+#...............................
+#...............................
+
+if(breakoutCountriesNew){
+
+  print("Starting breakout countriesNew ...")
+
+
+  #...............................
+  # Breakout Electricity from Multi-Country Region
+  #...............................
+
+  if(breakoutCountriesNew_elec){
+
+    print("Starting breakout of electricity in countriesNew ...")
+
+
+  #...............................
+  # Check additional files needed
+  #...............................
+
+    if(T){
+
+      closeAllConnections()
+
+      file_IEA_Ctry = paste(gcamdataFolder,"/inst/extdata/energy/mappings/IEA_ctry.csv",sep = "")
+
+      file_list_breakoutCountriesNew <- list(
+        file_IEA_Ctry)
+
+    }
+
+    #..................
+    # Check Inputs
+    # .................
+
+    if(T){
+      print("Checking inputs for electricity breakoutCountriesNew ...")
+
+      # Check that all the input files to be modified exist
+      for(i in 1:length(file_list_breakoutCountriesNew)){
+        if (!file.exists(file_list_breakoutCountriesNew[[i]])) {
+          stop(paste("File ", file_list_breakoutCountriesNew[[i]], " does not exist. Skipping breakoutCountriesNew.", sep = ""))
+        }}
+
+      print("Input checks complete ...")
+    }
+
+    #..................
+    # Read in files to modify
+    # .................
+
+    if(T){
+      print("Reading in files to modify for breakoutCountriesNew...")
+
+      if(file.exists(paste(gcamdataFolder,"/inst/extdata/energy/",IEA_EnergyBalances_FileName,sep = ""))){
+
+        if(IEA_EnergyBalances_FileName == "IEA_EnergyBalances_2019.csv.gz"){
+          IEA_EnergyBalances_Country <- gcambreakout::IEA_EnergyBalances_Countries_2019
+         } else {
+          file_IEA_EnergyBalances = paste(gcamdataFolder,"/inst/extdata/energy/",IEA_EnergyBalances_FileName,sep = "")
+          IEA_EnergyBalances = utils::read.csv(file_IEA_EnergyBalances, sep = ",",comment.char="#") %>% tibble::as_tibble(); IEA_EnergyBalances
+          IEA_EnergyBalances_Country <- unique(IEA_EnergyBalances$COUNTRY)%>%sort()
+        }
+      } else {
+        print(paste("IEA_EnergyBalances file: ", IEA_EnergyBalances_FileName, " doesn't exist.
+                    Using 2019 data from: https://stash.pnnl.gov/projects/JGCRI/repos/gcam-proprietary-data/browse",sep=""))
+        IEA_EnergyBalances_Country <- gcambreakout::IEA_EnergyBalances_Countries_2019
+      }
+
+      IEA_Ctry = utils::read.csv(file_IEA_Ctry, sep = ",",comment.char="#") %>% tibble::as_tibble(); IEA_Ctry
+
+      IEA_Ctry_comments <- ((utils::read.csv(file_IEA_Ctry, header = F))[,1])%>%
+        as.data.frame();
+      names(IEA_Ctry_comments)<-"Col1"
+      IEA_Ctry_comments <- IEA_Ctry_comments %>%
+        dplyr::filter(grepl("#",Col1)); IEA_Ctry_comments
+
+      filename <- gsub("IEA_ctry.csv","IEA_memo_ctry.csv", file_IEA_Ctry)
+      if(!file.exists(filename)){unlink(filename)}
+
+      print("All files read.")
+    }
+
+
+  #...............................
+  # Check if country chosen is available in IEA data
+  # If not then check if it is a Memo country in IEA_EnergyBalances and update
+  # IEA_ctry.csv
+  # IEA_memo_ctry.csv (Create new)
+  #...............................
+
+  # Check if country chosen is available in IEA data
+    for( country_i in countriesNew){
+      if(!tolower(country_i) %in% tolower(IEA_EnergyBalances_Country)){
+
+        print(paste("Country: '",country_i,"' is not in the ", IEA_EnergyBalances_FileName," file COUNTRY Column.", sep =""))
+
+        if(any(grepl(tolower(country_i),tolower(IEA_EnergyBalances_Country)))){
+
+          print(paste("Country: '",country_i,"' appears in the ", IEA_EnergyBalances_FileName," file as: '",
+                      IEA_EnergyBalances_Country[grepl(tolower(country_i),tolower(IEA_EnergyBalances_Country))],
+                      sep =""))
+
+          country_i_IEA <- IEA_EnergyBalances_Country[grepl(tolower(country_i),tolower(IEA_EnergyBalances_Country))]
+
+          #..................
+          # Modify IEA_ctry.csv
+          # .................
+
+          if (T) {
+
+            filename <- file_IEA_Ctry
+            iso_i <- unique((iso_GCAM_regID %>%dplyr::filter(country_name == country_i)))$iso; iso_i
+            IEA_ctry_i <- unique((IEA_Ctry %>%dplyr::filter(iso == iso_i)))$IEA_ctry; IEA_ctry_i
+            # Assign the value from the parent region to the new country
+            IEA_Ctry <- IEA_Ctry %>%
+                                 dplyr::mutate(IEA_ctry = dplyr::case_when(iso==iso_i~country_i_IEA,
+                                                                    TRUE~IEA_ctry));
+            #offshore_wind_potential_scaler %>% as.data.frame()
+
+            file.copy(filename, gsub(".csv","_Original.csv",filename))
+            unlink(filename)
+
+            con <- file(filename, open = "wt")
+            for (i in 1:nrow(IEA_Ctry_comments)) {
+              writeLines(paste(IEA_Ctry_comments[i, ]), con)
+            }
+            utils::write.csv(IEA_Ctry, con, row.names = F)
+            close(con)
+            closeAllConnections()
+
+            print(paste("Replaced data for country: '", country_i,
+                        "' as new IEA country: '", country_i_IEA,
+                        "' to ", filename, sep=""))
+          }
+
+          #..................
+          # Create IEA_memo_ctry.csv
+          # .................
+
+          if (T) {
+
+            filename <- gsub("IEA_ctry.csv","IEA_memo_ctry.csv", file_IEA_Ctry)
+
+            # Assign the value from the parent region to the new country
+            IEA_memo_ctry_df <- IEA_memo_ctry_df %>%
+              dplyr::bind_rows(data.frame(IEA_memo_ctry = c(country_i_IEA),
+                                          iso = iso_i,
+                                          IEA_ctry = IEA_ctry_i));
+            #offshore_wind_potential_scaler %>% as.data.frame()
+
+            file.copy(filename, gsub(".csv","_Original.csv",filename))
+            unlink(filename)
+
+            con <- file(filename, open = "wt")
+            for (i in 1:nrow(gcambreakout::template_IEA_memo_ctry_comments)) {
+              writeLines(paste(gcambreakout::template_IEA_memo_ctry_comments[i, ]), con)
+            }
+            utils::write.csv(IEA_memo_ctry_df, con, row.names = F)
+            close(con)
+            closeAllConnections()
+
+            print(paste("Added country data for: '", country_i,
+                        "' as new IEA country: '", country_i_IEA,
+                        "' with iso: '", iso_i,
+                        "' to ", filename, sep=""))
+          }
+
+        } else {
+          stop(paste("Country: '",country_i,"' is not in any ", IEA_EnergyBalances_FileName,
+                     " file columns (Memo or others). Skipping electricity breakout of countriesNew.", sep =""))
+        }
+      } else {
+        print(paste("Country: '",country_i,"' is in the ", IEA_EnergyBalances_FileName," file COUNTRY Column and will be used as is.", sep =""))
+
+        if (T) {
+
+          filename <- gsub("IEA_ctry.csv","IEA_memo_ctry.csv", file_IEA_Ctry)
+
+          if(!file.exists(filename)){
+
+
+          file.copy(filename, gsub(".csv","_Original.csv",filename))
+          unlink(filename)
+
+          con <- file(filename, open = "wt")
+          for (i in 1:nrow(gcambreakout::template_IEA_memo_ctry_comments)) {
+            writeLines(paste(gcambreakout::template_IEA_memo_ctry_comments[i, ]), con)
+          }
+          utils::write.csv(IEA_memo_ctry, con, row.names = F)
+          close(con)
+          closeAllConnections()
+
+          print(paste("Added country data for: '", country_i,
+                      "' as new IEA country: '", country_i_IEA,
+                      "' with iso: '", iso_i,
+                      "' to ", filename, sep=""))
+          }
+        }
+
+        }
+    }
+
+
+
+  }
+}
 
   #..............................
   #..............................

@@ -4,7 +4,14 @@
 \alias{breakout}
 \title{Function to breakout region in gcamdata}
 \usage{
-breakout(gcamdataFolder = NULL, regionNew = NULL, countriesNew = NULL)
+breakout(
+  gcamdataFolder = NULL,
+  regionNew = NULL,
+  countriesNew = NULL,
+  breakoutCountriesNew = F,
+  breakoutCountriesNew_elec = F,
+  IEA_EnergyBalances_FileName = "IEA_EnergyBalances_2019.csv.gz"
+)
 }
 \arguments{
 \item{gcamdataFolder}{Default = NULL. Full path to gcamdata folder.}
@@ -12,6 +19,13 @@ breakout(gcamdataFolder = NULL, regionNew = NULL, countriesNew = NULL)
 \item{regionNew}{Default = NULL. Name of New Region to breakout.}
 
 \item{countriesNew}{Default = NULL. Name of countries in new region.}
+
+\item{breakoutCountriesNew}{Default = F. Option to breakout countries from multi-country region.}
+
+\item{breakoutCountriesNew_elec}{Default = T. Option to breakout electricity in countries from multi-country region.}
+
+\item{IEA_EnergyBalances_FileName}{Default = "IEA_EnergyBalances_2019.csv.gz".
+This is proprietary IEA data which can be updated here. It should be placed in .inst/extdata/energy}
 }
 \description{
 Function to breakout region in gcamdata

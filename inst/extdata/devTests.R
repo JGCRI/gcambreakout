@@ -1,21 +1,21 @@
+# library(devtools)
+# install_github("JGCRI/gcambreakout")
 library(gcambreakout)
-library(dplyr)
-library(magrittr)
 
-breakout(gcamdataFolder = "C:/Z/models/GCAMVersions/gcam-core_v5p3_sha_feature_southeast-asia-breakout-thailand/input/gcamdata",
+breakout(gcamdataFolder = "C:/Z/models/GCAMVersions/gcam-core_tag_v5.3/input/gcamdata",
          regionNew = "Thailand Laos",
-         countriesNew = c("Thailand","Lao Peoples Democratic Republic"))
+         countriesNew = c("Thailand","Lao Peoples Democratic Republic"),
+         breakoutCountriesNew = T,
+         breakoutCountriesNew_elec = T,
+         IEA_EnergyBalances_FileName = "IEA_EnergyBalances_2019.csv.gz")
 
-restore(gcamdataFolder = "C:/Z/models/GCAMVersions/gcam-core_v5p3_sha_feature_southeast-asia-breakout-thailand/input/gcamdata")
+restore(gcamdataFolder = "C:/Z/models/GCAMVersions/gcam-core_tag_v5.3/input/gcamdata")
 
-gcamdataFolder = "C:/Z/models/GCAMVersions/gcam-core_v5p3_sha_feature_southeast-asia-breakout-thailand/input/gcamdata"
+
+gcamdataFolder = "C:/Z/models/GCAMVersions/gcam-core_tag_v5.3/input/gcamdata"
 regionNew = "Thailand Laos"
 countriesNew = c("Thailand","Lao Peoples Democratic Republic")
+breakoutCountriesNew = T
+breakoutCountriesNew_elec = T
+IEA_EnergyBalances_FileName = "IEA_EnergyBalances_2019.csv.gz"
 
-
-# dev tests
-gcamdataFolder = "C:/Z/models/gcambreakout/tests/testthat/gcamdata_test"
-regionNew = "Thailand Laos"
-countriesNew = c("Thailand","Lao Peoples Democratic Republic")
-gcambreakout::breakout(gcamdataFolder,regionNew,countriesNew)
-gcambreakout::restore(gcamdataFolder)
