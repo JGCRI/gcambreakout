@@ -109,11 +109,24 @@
 <li>CEDS data placed in input/gcamdata/inst/extdata/emissions/CEDS</li>
 <li>NOTE: The CEDS data and IEA_EnergyBalances_2019.csv is proprietary data and only accesible to internal JGCRI staff at <a href="https://stash.pnnl.gov/scm/jgcri/gcam-proprietary-data.git" class="uri">https://stash.pnnl.gov/scm/jgcri/gcam-proprietary-data.git</a>.</li>
 </ul>
+<p>The breakout function can be used to breakout new regions with countries and further subRegions as follows:</p>
+<ul>
+<li>
+<code>regionNew</code>: Region New will breakout a larger region which can be a combination of available countries in “/inst/extdata/common/iso_GCAM_regID.csv” and which must be listed in param <code>countriesNew</code>
+</li>
+<li>
+<code>countriesNew</code>: Is the list of countries which makes up the <code>regionNew</code>
+</li>
+<li>
+<code>breakoutCountriesNew</code>: Is set to <code>F</code> as the default. When turned on (<code>T</code>) all <code>countriesNew</code> within <code>regionNew</code> will also be broken out with their own socio-economics, electricity, buildings, transport data as well as any trade between them if it exists. Individual sectors can be turned off for this country level disaggregation if desired as follows.</li>
+<li>
+<code>breakoutCountriesNew_elec</code>: Default is <code>T</code>. If set to <code>F</code> then electricity will not be broken out for the countries within the <code>regionNew</code>.</li>
+</ul>
 <!--------------------------><!-------------------------->
 </div>
-<div id="breakout-a-new-region" class="section level1">
+<div id="breakout-a-new-multi-country-region" class="section level1">
 <h1 class="hasAnchor">
-<a href="#breakout-a-new-region" class="anchor"></a>Breakout a new region</h1>
+<a href="#breakout-a-new-multi-country-region" class="anchor"></a>Breakout a new multi-country region</h1>
 <!-------------------------->
 <!-------------------------->
 <p>This script lets users breakout a new region which can be a combination of or a single country from the list of countries found in the file: “/inst/extdata/common/iso_GCAM_regID.csv” under the column country_name. The following example shows how to breakout ‘Thailand’ and ‘Lao Peoples Democratic Republic’ as a new region called ‘Thailand Laos’.</p>
@@ -134,8 +147,62 @@
 <li>/inst/extdata/energy/offshore_wind_potential_scaler.csv</li>
 </ul>
 <p><strong>After running this script you will need to re-build the gcamdata system by “install &amp; restart” from R Studio followed by driver().</strong></p>
+<p><strong>NOTE:</strong></p>
+<ul>
+<li>
+<strong>The countries or subregions within the new regions will not have individual data in the model outputs. Only the combined new region will report outputs.</strong> <strong>NOTE: The regionNew will not include electricity trade with other regions</strong>
+</li>
+</ul>
+<!--------------------------><!-------------------------->
+</div>
+<div id="breakout-countries-within-multi-country-region" class="section level1">
+<h1 class="hasAnchor">
+<a href="#breakout-countries-within-multi-country-region" class="anchor"></a>Breakout countries within multi-country region</h1>
 <!-------------------------->
 <!-------------------------->
+<p>When <code>breakoutCountriesNew</code> is set to <code>T</code> (Default is <code>F</code>) this functionality will be activated and each individual <code>countriesNew</code> within the larger <code>regionNew</code> will be broken out. This is useful when users want to represent the individual <code>countriesNew</code> within the larger <code>regionNew</code> as well as for capturing dynamics between the <code>countriesNew</code>. The following files will change:</p>
+<ul>
+<li>Socio-economics</li>
+<li>Electricity sector
+<ul>
+<li>S123: processing of electricity sector inputs and outputs by fuel type. includes cogen (all zeroes)</li>
+<li>S1231: disaggregation of ng single cycle from ng combined cycle</li>
+<li>S2233: generation of tables for XML. Use relative shares from S1231 to downscale L2233 tables.</li>
+<li>should be able to shortcut L223 electricity; going instead from L2233.electricity_water.</li>
+</ul>
+</li>
+<li>End use sectors - general
+<ul>
+<li>S131: general end use partitioning. processing should generally follow LA131.</li>
+<li>electricity demands calculated as:
+<ul>
+<li>generation minus ownuse and T&amp;D losses,</li>
+<li>minus unscalable demands (e.g., refining sector),</li>
+<li>multiplied by each sector’s (bld, ind, trn) share of total elec demands for the combined region</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Industry
+<ul>
+<li>S132: industrial sector demands (energy downscaled from S131, intensities passed down)</li>
+<li>S232: copy structure of LA132, re-set electricity market to combined region</li>
+</ul>
+</li>
+<li>Buildings
+<ul>
+<li>S144: buildings sector (energy downscaled from L131, intensities passed down)</li>
+<li>S244: copy structure of L244, re-set electricity market to combined region</li>
+</ul>
+</li>
+<li>Transportation
+<ul>
+<li>S154: transportation sector (energy downscaled from L131, intensities passed down)</li>
+<li>S254: copy structure of L254, re-set electricity market to combined region</li>
+</ul>
+</li>
+</ul>
+<!--------------------------><!-------------------------->
 </div>
 <div id="restore-original-files" class="section level1">
 <h1 class="hasAnchor">

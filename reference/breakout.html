@@ -135,7 +135,14 @@
     <p>Function to breakout region in gcamdata</p>
     </div>
 
-    <pre class="usage"><span class='fu'>breakout</span><span class='op'>(</span>gcamdataFolder <span class='op'>=</span> <span class='cn'>NULL</span>, regionNew <span class='op'>=</span> <span class='cn'>NULL</span>, countriesNew <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>breakout</span><span class='op'>(</span>
+  gcamdataFolder <span class='op'>=</span> <span class='cn'>NULL</span>,
+  regionNew <span class='op'>=</span> <span class='cn'>NULL</span>,
+  countriesNew <span class='op'>=</span> <span class='cn'>NULL</span>,
+  breakoutCountriesNew <span class='op'>=</span> <span class='cn'>F</span>,
+  breakoutCountriesNew_elec <span class='op'>=</span> <span class='cn'>F</span>,
+  IEA_EnergyBalances_FileName <span class='op'>=</span> <span class='st'>"IEA_EnergyBalances_2019.csv.gz"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -151,6 +158,19 @@
     <tr>
       <th>countriesNew</th>
       <td><p>Default = NULL. Name of countries in new region.</p></td>
+    </tr>
+    <tr>
+      <th>breakoutCountriesNew</th>
+      <td><p>Default = F. Option to breakout countries from multi-country region.</p></td>
+    </tr>
+    <tr>
+      <th>breakoutCountriesNew_elec</th>
+      <td><p>Default = T. Option to breakout electricity in countries from multi-country region.</p></td>
+    </tr>
+    <tr>
+      <th>IEA_EnergyBalances_FileName</th>
+      <td><p>Default = "IEA_EnergyBalances_2019.csv.gz".
+This is proprietary IEA data which can be updated here. It should be placed in .inst/extdata/energy</p></td>
     </tr>
     </table>
 
