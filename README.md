@@ -29,7 +29,7 @@
 - Webpage: https://jgcri.github.io/gcambreakout/
 - GCAM Adding a new region: https://github.com/JGCRI/gcamdata/wiki/Modifying-GCAM-via-the-Data-System
 - gcamdata package: https://github.com/JGCRI/gcamdata
-- Proprietary Data needed (Only those with access): https://stash.pnnl.gov/scm/jgcri/gcam-proprietary-data.git
+- Proprietary Data needed (Limited access): https://stash.pnnl.gov/scm/jgcri/gcam-proprietary-data.git
 
   
 <!-- ------------------------>

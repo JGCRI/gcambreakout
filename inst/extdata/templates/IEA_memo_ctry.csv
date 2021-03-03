@@ -1,0 +1,7 @@
+# File: IEA_memo_ctry.csv,,
+# Title: Mapping between IEA memo countries, iso codes, and IEA countries
+# Comments: This is used for deducting a memo country's data from a parent IEA multi-country region,,
+# Units: NA,,
+# Column types: ccc,,
+# ----------,,
+IEA_memo_ctry,iso,IEA_ctry

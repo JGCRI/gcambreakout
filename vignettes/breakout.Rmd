@@ -27,9 +27,16 @@ Before running gcambreakout you will need:
 * CEDS data placed in input/gcamdata/inst/extdata/emissions/CEDS
 * NOTE: The CEDS data and IEA_EnergyBalances_2019.csv is proprietary data and only accesible to internal JGCRI staff at https://stash.pnnl.gov/scm/jgcri/gcam-proprietary-data.git.
 
+The breakout function can be used to breakout new regions with countries and further subRegions as follows:
+
+* `regionNew`: Region New will breakout a larger region which can be a combination of available countries in  "/inst/extdata/common/iso_GCAM_regID.csv" and which must be listed in param `countriesNew`
+* `countriesNew`: Is the list of countries which makes up the `regionNew`
+* `breakoutCountriesNew`: Is set to `F` as the default. When turned on (`T`) all `countriesNew` within `regionNew` will also be broken out with their own socio-economics, electricity, buildings, transport data as well as any trade between them if it exists. Individual sectors can be turned off for this country level disaggregation if desired as follows.
+* `breakoutCountriesNew_elec`: Default is `T`. If set to `F` then electricity will not be broken out for the countries within the `regionNew`.
+
 <!-------------------------->
 <!-------------------------->
-# Breakout a new region
+# Breakout a new multi-country region
 <!-------------------------->
 <!-------------------------->
 
@@ -55,6 +62,42 @@ After the region is broken out the following files will have changed. A copy of 
 
 **After running this script you will need to re-build the gcamdata system by "install & restart" from R Studio followed by driver().**
 
+**NOTE:** 
+
+* **The countries or subregions within the new regions will not have individual data in the model outputs. Only the combined new region will report outputs.**
+**NOTE: The regionNew will not include electricity trade with other regions**
+
+
+<!-------------------------->
+<!-------------------------->
+# Breakout countries within multi-country region
+<!-------------------------->
+<!-------------------------->
+
+When `breakoutCountriesNew` is set to `T` (Default is `F`) this functionality will be activated and each individual `countriesNew` within the larger `regionNew` will be broken out. This is useful when users want to represent the individual `countriesNew` within the larger `regionNew` as well as for capturing dynamics between the `countriesNew`. The following files will change:
+
+* Socio-economics
+* Electricity sector
+  * S123: processing of electricity sector inputs and outputs by fuel type. includes cogen (all zeroes)
+  * S1231: disaggregation of ng single cycle from ng combined cycle
+  * S2233: generation of tables for XML. Use relative shares from S1231 to downscale L2233 tables.
+  * should be able to shortcut L223 electricity; going instead from L2233.electricity_water.
+* End use sectors - general
+  * S131: general end use partitioning. processing should generally follow LA131.
+  * electricity demands calculated as:
+    * generation minus ownuse and T&D losses,
+    * minus unscalable demands (e.g., refining sector),
+    * multiplied by each sector's (bld, ind, trn) share of total elec demands for the combined region
+* Industry
+  * S132: industrial sector demands (energy downscaled from S131, intensities passed down)
+  * S232: copy structure of LA132, re-set electricity market to combined region
+* Buildings
+  * S144: buildings sector (energy downscaled from L131, intensities passed down)
+  * S244: copy structure of L244, re-set electricity market to combined region
+* Transportation
+  * S154: transportation sector (energy downscaled from L131, intensities passed down)
+  * S254: copy structure of L254, re-set electricity market to combined region
+
 <!-------------------------->
 <!-------------------------->
 # Restore Original Files
@@ -67,3 +110,5 @@ Users can also restore back to the original files by running the following code.
 library(gcambreakout)
 restore(gcamdataFolder = "PATH_TO_GCAM_FOLDER/input/gcamdata")
 ```
+
+
