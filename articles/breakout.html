@@ -124,93 +124,13 @@
 </ul>
 <!--------------------------><!-------------------------->
 </div>
-<div id="breakout-a-new-multi-country-region" class="section level1">
-<h1 class="hasAnchor">
-<a href="#breakout-a-new-multi-country-region" class="anchor"></a>Breakout a new multi-country region</h1>
-<!-------------------------->
-<!-------------------------->
-<p>This script lets users breakout a new region which can be a combination of or a single country from the list of countries found in the file: “/inst/extdata/common/iso_GCAM_regID.csv” under the column country_name. The following example shows how to breakout ‘Thailand’ and ‘Lao Peoples Democratic Republic’ as a new region called ‘Thailand Laos’.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/JGCRI/gcambreakout">gcambreakout</a></span><span class="op">)</span>
-<span class="fu"><a href="../reference/breakout.html">breakout</a></span><span class="op">(</span>gcamdataFolder <span class="op">=</span> <span class="st">"PATH_TO_GCAM_FOLDER/input/gcamdata"</span>,
-         regionNew <span class="op">=</span> <span class="st">"Thailand Laos"</span>,
-         countriesNew <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Thailand"</span>,<span class="st">"Lao Peoples Democratic Republic"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>After the region is broken out the following files will have changed. A copy of each of these files appended with ’_Original’ will remain in the same folders:</p>
-<ul>
-<li>/inst/extdata/common/iso_GCAM_regID.csv</li>
-<li>/inst/extdata/common/GCAM_region_names.csv</li>
-<li>/inst/extdata/aglu/A_bio_frac_prod_R.csv</li>
-<li>/inst/extdata/aglu/A_soil_time_scale_R.csv</li>
-<li>/inst/extdata/emissions/A_regions.csv</li>
-<li>/inst/extdata/energy/A23.subsector_interp_R.csv</li>
-<li>/inst/extdata/energy/A_regions.csv</li>
-<li>/inst/extdata/energy/offshore_wind_potential_scaler.csv</li>
-</ul>
-<p><strong>After running this script you will need to re-build the gcamdata system by “install &amp; restart” from R Studio followed by driver().</strong></p>
-<p><strong>NOTE:</strong></p>
-<ul>
-<li>
-<strong>The countries or subregions within the new regions will not have individual data in the model outputs. Only the combined new region will report outputs.</strong> <strong>NOTE: The regionNew will not include electricity trade with other regions</strong>
-</li>
-</ul>
-<!--------------------------><!-------------------------->
-</div>
-<div id="breakout-countries-within-multi-country-region" class="section level1">
-<h1 class="hasAnchor">
-<a href="#breakout-countries-within-multi-country-region" class="anchor"></a>Breakout countries within multi-country region</h1>
-<!-------------------------->
-<!-------------------------->
-<p>When <code>breakoutCountriesNew</code> is set to <code>T</code> (Default is <code>F</code>) this functionality will be activated and each individual <code>countriesNew</code> within the larger <code>regionNew</code> will be broken out. This is useful when users want to represent the individual <code>countriesNew</code> within the larger <code>regionNew</code> as well as for capturing dynamics between the <code>countriesNew</code>. The following files will change:</p>
-<ul>
-<li>Socio-economics</li>
-<li>Electricity sector
-<ul>
-<li>S123: processing of electricity sector inputs and outputs by fuel type. includes cogen (all zeroes)</li>
-<li>S1231: disaggregation of ng single cycle from ng combined cycle</li>
-<li>S2233: generation of tables for XML. Use relative shares from S1231 to downscale L2233 tables.</li>
-<li>should be able to shortcut L223 electricity; going instead from L2233.electricity_water.</li>
-</ul>
-</li>
-<li>End use sectors - general
-<ul>
-<li>S131: general end use partitioning. processing should generally follow LA131.</li>
-<li>electricity demands calculated as:
-<ul>
-<li>generation minus ownuse and T&amp;D losses,</li>
-<li>minus unscalable demands (e.g., refining sector),</li>
-<li>multiplied by each sector’s (bld, ind, trn) share of total elec demands for the combined region</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Industry
-<ul>
-<li>S132: industrial sector demands (energy downscaled from S131, intensities passed down)</li>
-<li>S232: copy structure of LA132, re-set electricity market to combined region</li>
-</ul>
-</li>
-<li>Buildings
-<ul>
-<li>S144: buildings sector (energy downscaled from L131, intensities passed down)</li>
-<li>S244: copy structure of L244, re-set electricity market to combined region</li>
-</ul>
-</li>
-<li>Transportation
-<ul>
-<li>S154: transportation sector (energy downscaled from L131, intensities passed down)</li>
-<li>S254: copy structure of L254, re-set electricity market to combined region</li>
-</ul>
-</li>
-</ul>
-<!--------------------------><!-------------------------->
-</div>
 <div id="restore-original-files" class="section level1">
 <h1 class="hasAnchor">
 <a href="#restore-original-files" class="anchor"></a>Restore Original Files</h1>
 <!-------------------------->
 <!-------------------------->
 <p>Users can also restore back to the original files by running the following code. This will replace the newly created files with the versions appended with ’_Original’ and delete the appended files. The gcamdata system will have to be rebuilt using ‘install &amp; restart’ from R Studio once again followed by driver().</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/JGCRI/gcambreakout">gcambreakout</a></span><span class="op">)</span>
 <span class="fu"><a href="../reference/restore.html">restore</a></span><span class="op">(</span>gcamdataFolder <span class="op">=</span> <span class="st">"PATH_TO_GCAM_FOLDER/input/gcamdata"</span><span class="op">)</span></code></pre></div>
 </div>
