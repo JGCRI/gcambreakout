@@ -34,69 +34,6 @@ The breakout function can be used to breakout new regions with countries and fur
 * `breakoutCountriesNew`: Is set to `F` as the default. When turned on (`T`) all `countriesNew` within `regionNew` will also be broken out with their own socio-economics, electricity, buildings, transport data as well as any trade between them if it exists. Individual sectors can be turned off for this country level disaggregation if desired as follows.
 * `breakoutCountriesNew_elec`: Default is `T`. If set to `F` then electricity will not be broken out for the countries within the `regionNew`.
 
-<!-------------------------->
-<!-------------------------->
-# Breakout a new multi-country region
-<!-------------------------->
-<!-------------------------->
-
-This script lets users breakout a new region which can be a combination of or a single country from the list of countries found in the file: "/inst/extdata/common/iso_GCAM_regID.csv" under the column country_name. The following example shows how to breakout 'Thailand' and 'Lao Peoples Democratic Republic' as a new region called 'Thailand Laos'.
-
-```{r, eval=F}
-library(gcambreakout)
-breakout(gcamdataFolder = "PATH_TO_GCAM_FOLDER/input/gcamdata",
-         regionNew = "Thailand Laos",
-         countriesNew = c("Thailand","Lao Peoples Democratic Republic"))
-```
-
-After the region is broken out the following files will have changed. A copy of each of these files appended with '_Original' will remain in the same folders:
-
-* /inst/extdata/common/iso_GCAM_regID.csv
-* /inst/extdata/common/GCAM_region_names.csv
-* /inst/extdata/aglu/A_bio_frac_prod_R.csv
-* /inst/extdata/aglu/A_soil_time_scale_R.csv
-* /inst/extdata/emissions/A_regions.csv
-* /inst/extdata/energy/A23.subsector_interp_R.csv
-* /inst/extdata/energy/A_regions.csv
-* /inst/extdata/energy/offshore_wind_potential_scaler.csv
-
-**After running this script you will need to re-build the gcamdata system by "install & restart" from R Studio followed by driver().**
-
-**NOTE:** 
-
-* **The countries or subregions within the new regions will not have individual data in the model outputs. Only the combined new region will report outputs.**
-**NOTE: The regionNew will not include electricity trade with other regions**
-
-
-<!-------------------------->
-<!-------------------------->
-# Breakout countries within multi-country region
-<!-------------------------->
-<!-------------------------->
-
-When `breakoutCountriesNew` is set to `T` (Default is `F`) this functionality will be activated and each individual `countriesNew` within the larger `regionNew` will be broken out. This is useful when users want to represent the individual `countriesNew` within the larger `regionNew` as well as for capturing dynamics between the `countriesNew`. The following files will change:
-
-* Socio-economics
-* Electricity sector
-  * S123: processing of electricity sector inputs and outputs by fuel type. includes cogen (all zeroes)
-  * S1231: disaggregation of ng single cycle from ng combined cycle
-  * S2233: generation of tables for XML. Use relative shares from S1231 to downscale L2233 tables.
-  * should be able to shortcut L223 electricity; going instead from L2233.electricity_water.
-* End use sectors - general
-  * S131: general end use partitioning. processing should generally follow LA131.
-  * electricity demands calculated as:
-    * generation minus ownuse and T&D losses,
-    * minus unscalable demands (e.g., refining sector),
-    * multiplied by each sector's (bld, ind, trn) share of total elec demands for the combined region
-* Industry
-  * S132: industrial sector demands (energy downscaled from S131, intensities passed down)
-  * S232: copy structure of LA132, re-set electricity market to combined region
-* Buildings
-  * S144: buildings sector (energy downscaled from L131, intensities passed down)
-  * S244: copy structure of L244, re-set electricity market to combined region
-* Transportation
-  * S154: transportation sector (energy downscaled from L131, intensities passed down)
-  * S254: copy structure of L254, re-set electricity market to combined region
 
 <!-------------------------->
 <!-------------------------->
