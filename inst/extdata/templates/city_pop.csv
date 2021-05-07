@@ -1,0 +1,131 @@
+# File:bangkok_pop.csv
+# Title: Bangkok and rest-of-Thailand population (all years)
+# Units: millions
+# Description: Computed off-line from SSP database and other data sources
+# Column types: cin
+# ----------
+region,year,population
+Bangkok,1971,3.345900663
+Bangkok,1972,3.41418435
+Bangkok,1973,3.483861581
+Bangkok,1974,3.554960797
+Bangkok,1975,3.627511018
+Bangkok,1976,3.701541855
+Bangkok,1977,3.777083525
+Bangkok,1978,3.854166863
+Bangkok,1979,3.932823329
+Bangkok,1980,4.01308503
+Bangkok,1981,4.094984724
+Bangkok,1982,4.178555841
+Bangkok,1983,4.263832491
+Bangkok,1984,4.35084948
+Bangkok,1985,4.439642327
+Bangkok,1986,4.530247272
+Bangkok,1987,4.622701298
+Bangkok,1988,4.717042141
+Bangkok,1989,4.813308307
+Bangkok,1990,4.911539089
+Bangkok,1991,5.011774581
+Bangkok,1992,5.114055695
+Bangkok,1993,5.218424178
+Bangkok,1994,5.324922631
+Bangkok,1995,5.433594521
+Bangkok,1996,5.544484205
+Bangkok,1997,5.657636944
+Bangkok,1998,5.773098923
+Bangkok,1999,5.890917268
+Bangkok,2000,6.01114007
+Bangkok,2001,6.133816397
+Bangkok,2002,6.258996324
+Bangkok,2003,6.386730943
+Bangkok,2004,6.517072391
+Bangkok,2005,6.650073868
+Bangkok,2006,6.785789661
+Bangkok,2007,6.924275164
+Bangkok,2008,7.065586903
+Bangkok,2009,7.209782554
+Bangkok,2010,7.356920973
+Bangkok,2011,7.507062217
+Bangkok,2012,7.660267569
+Bangkok,2013,7.81659956
+Bangkok,2014,7.976122
+Bangkok,2015,8.1389
+Bangkok,2020,8.305
+Bangkok,2025,9.058788986
+Bangkok,2030,9.779270329
+Bangkok,2035,10.40468083
+Bangkok,2040,10.958289
+Bangkok,2045,11.38571425
+Bangkok,2050,11.74575975
+Bangkok,2055,11.99907109
+Bangkok,2060,12.20812851
+Bangkok,2065,12.30700379
+Bangkok,2070,12.35520203
+Bangkok,2075,12.31085287
+Bangkok,2080,12.23114246
+Bangkok,2085,12.08305885
+Bangkok,2090,11.91144454
+Bangkok,2095,11.69149516
+Bangkok,2100,11.4576123
+Rest of Thailand,1971,26.00203699
+Rest of Thailand,1972,26.53269081
+Rest of Thailand,1973,27.07417429
+Rest of Thailand,1974,27.62670846
+Rest of Thailand,1975,28.19051884
+Rest of Thailand,1976,28.76583555
+Rest of Thailand,1977,29.35289342
+Rest of Thailand,1978,29.95193206
+Rest of Thailand,1979,30.56319598
+Rest of Thailand,1980,31.18693467
+Rest of Thailand,1981,31.82340273
+Rest of Thailand,1982,32.47285993
+Rest of Thailand,1983,33.13557135
+Rest of Thailand,1984,33.8118075
+Rest of Thailand,1985,34.50184439
+Rest of Thailand,1986,35.20596367
+Rest of Thailand,1987,35.92445272
+Rest of Thailand,1988,36.65760482
+Rest of Thailand,1989,37.4057192
+Rest of Thailand,1990,38.16910123
+Rest of Thailand,1991,38.94806247
+Rest of Thailand,1992,39.74292089
+Rest of Thailand,1993,40.55400091
+Rest of Thailand,1994,41.38163358
+Rest of Thailand,1995,42.22615672
+Rest of Thailand,1996,43.08791502
+Rest of Thailand,1997,43.96726022
+Rest of Thailand,1998,44.86455125
+Rest of Thailand,1999,45.78015433
+Rest of Thailand,2000,46.7144432
+Rest of Thailand,2001,47.66779918
+Rest of Thailand,2002,48.64061141
+Rest of Thailand,2003,49.63327695
+Rest of Thailand,2004,50.64620097
+Rest of Thailand,2005,51.67979691
+Rest of Thailand,2006,52.73448664
+Rest of Thailand,2007,53.81070065
+Rest of Thailand,2008,54.90887822
+Rest of Thailand,2009,56.02946757
+Rest of Thailand,2010,57.17292609
+Rest of Thailand,2011,58.3397205
+Rest of Thailand,2012,59.53032704
+Rest of Thailand,2013,60.74523167
+Rest of Thailand,2014,61.98493028
+Rest of Thailand,2015,63.24992886
+Rest of Thailand,2020,64.54074373
+Rest of Thailand,2025,65.08191172
+Rest of Thailand,2030,65.23845033
+Rest of Thailand,2035,64.97952772
+Rest of Thailand,2040,64.26099357
+Rest of Thailand,2045,63.18215478
+Rest of Thailand,2050,61.80591169
+Rest of Thailand,2055,60.29056644
+Rest of Thailand,2060,58.65478595
+Rest of Thailand,2065,56.8855573
+Rest of Thailand,2070,54.99252296
+Rest of Thailand,2075,53.03904749
+Rest of Thailand,2080,51.03990604
+Rest of Thailand,2085,49.0508402
+Rest of Thailand,2090,47.06055672
+Rest of Thailand,2095,45.11970706
+Rest of Thailand,2100,43.20488732

@@ -1,0 +1,61 @@
+# File:bangkok_pcgdp.csv
+# Title: Bangkok and rest-of-Thailand per-capita gdp (all years)
+# Units: thousand 2005 USD per capita
+# Description: Computed off-line from SSP database and other data sources
+# Column types: cin
+# ----------
+region,year,pcgdp
+Bangkok,1971,3.736693702
+Bangkok,1975,4.151881891
+Bangkok,1980,4.613202102
+Bangkok,1985,5.125780113
+Bangkok,1990,5.695311237
+Bangkok,1995,6.328123596
+Bangkok,2000,7.03124844
+Bangkok,2005,9.016968404
+Bangkok,2010,10.74203996
+Bangkok,2015,12.81940598
+Bangkok,2020,16.03013903
+Bangkok,2025,19.91242308
+Bangkok,2030,24.24042458
+Bangkok,2035,28.89029734
+Bangkok,2040,33.98347222
+Bangkok,2045,39.52551197
+Bangkok,2050,45.48269175
+Bangkok,2055,51.86699682
+Bangkok,2060,58.63561824
+Bangkok,2065,65.77091711
+Bangkok,2070,73.23752362
+Bangkok,2075,81.10939681
+Bangkok,2080,89.30265475
+Bangkok,2085,97.6585085
+Bangkok,2090,106.2125223
+Bangkok,2095,114.9259115
+Bangkok,2100,123.8633185
+Rest of Thailand,1971,2.531686419
+Rest of Thailand,1975,2.81298491
+Rest of Thailand,1980,3.125538789
+Rest of Thailand,1985,3.472820877
+Rest of Thailand,1990,3.858689863
+Rest of Thailand,1995,4.287433182
+Rest of Thailand,2000,4.763814646
+Rest of Thailand,2005,6.109180541
+Rest of Thailand,2010,7.27795181
+Rest of Thailand,2015,8.68540978
+Rest of Thailand,2020,10.8607471
+Rest of Thailand,2025,13.43126743
+Rest of Thailand,2030,16.27640341
+Rest of Thailand,2035,19.31421666
+Rest of Thailand,2040,22.61815776
+Rest of Thailand,2045,26.19745751
+Rest of Thailand,2050,30.01802221
+Rest of Thailand,2055,34.09853878
+Rest of Thailand,2060,38.3956876
+Rest of Thailand,2065,42.91370586
+Rest of Thailand,2070,47.61128347
+Rest of Thailand,2075,52.55635765
+Rest of Thailand,2080,57.67321565
+Rest of Thailand,2085,62.88266382
+Rest of Thailand,2090,68.18513538
+Rest of Thailand,2095,73.58142324
+Rest of Thailand,2100,79.08876358

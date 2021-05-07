@@ -1,4 +1,4 @@
-# breakout.R
+# breakoutRegion.R
 #' Function to breakout region in gcamdata
 #' @param gcamdataFolder Default = NULL. Full path to gcamdata folder.
 #' @param regionNew Default = NULL. Name of New Region to breakout.
@@ -8,7 +8,7 @@
 #' @export
 #'
 
-breakout <- function(gcamdataFolder = NULL,
+breakoutRegion <- function(gcamdataFolder = NULL,
                      regionNew = NULL,
                      countriesNew = NULL) {
 
@@ -22,7 +22,6 @@ breakout <- function(gcamdataFolder = NULL,
   # Initialize variables
   # .................
 
-  #library(magrittr)
 
   if(T){
   print("Starting breakout ...")
