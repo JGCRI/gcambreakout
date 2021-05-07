@@ -10,14 +10,13 @@ test_that("restore generates original files", {
   dir.create(gcamdataFolder)
   file.copy(paste(gcamdataFolderOriginal,"/inst",sep=""), gcamdataFolder, recursive=TRUE)
 
-  gcambreakout::breakout(gcamdataFolder = gcamdataFolder,
+  gcambreakout::breakoutRegion(gcamdataFolder = gcamdataFolder,
                           regionNew = "Thailand Laos",
                           countriesNew = c("Thailand","Lao Peoples Democratic Republic"))
 
   gcambreakout::restore(gcamdataFolder = paste(getwd(),"/test",sep=""))
 
   expect_true(all(
-    file.exists(paste(getwd(),"/test/inst/extdata/common/iso_GCAM_regID.csv",sep = "")),
     file.exists(paste(getwd(),"/test/inst/extdata/common/iso_GCAM_regID.csv",sep = "")),
     file.exists(paste(getwd(),"/test/inst/extdata/common/GCAM_region_names.csv",sep = "")),
     file.exists(paste(getwd(),"/test/inst/extdata/aglu/A_bio_frac_prod_R.csv",sep = "")),

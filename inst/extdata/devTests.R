@@ -4,9 +4,13 @@ library(gcambreakout)
 
 gcamdataFolderx <- "C:/Z/models/GCAMVersions/gcam-core_stash/input/gcamdata"
 
-breakout(gcamdataFolder = gcamdataFolderx,
+breakoutRegion(gcamdataFolder = gcamdataFolderx,
          regionNew = "NEWRegion",
          countriesNew = c("Spain","Germany"))
+
+breakoutCity(gcamdataFolder = gcamdataFolderx,
+             region = "Spain",
+             city = "Madrid")
 
 restore(gcamdataFolder = gcamdataFolderx)
 
