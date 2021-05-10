@@ -1,6 +1,6 @@
 # Copyright 2019 Battelle Memorial Institute; see the LICENSE file.
 
-#' module_seasia_X201.socioeconomics_APPEND
+#' module_X201.socioeconomics_APPEND
 #'
 #' Population and GDP of City Chosen and Rest of Region
 #'
@@ -15,7 +15,7 @@
 #' @importFrom assertthat assert_that
 #' @importFrom dplyr bind_rows filter group_by lag mutate order_by select transmute
 #' @author PK, ZK & NB April 2021
-module_seasia_X201.socioeconomics_APPEND <- function(command, ...) {
+module_X201.socioeconomics_APPEND <- function(command, ...) {
   if(command == driver.DECLARE_INPUTS) {
     return(c(FILE = "breakout/city_pop",
              FILE = "breakout/city_pcgdp"))
@@ -31,8 +31,8 @@ module_seasia_X201.socioeconomics_APPEND <- function(command, ...) {
     totalPop <- population <- year <- NULL  # silence package check notes
 
     # Load required inputs
-    city_pop <- get_data(all_data, "seasia/city_pop", strip_attributes = TRUE)
-    city_pcgdp <- get_data(all_data, "seasia/city_pcgdp", strip_attributes = TRUE)
+    city_pop <- get_data(all_data, "breakout/city_pop", strip_attributes = TRUE)
+    city_pcgdp <- get_data(all_data, "breakout/city_pcgdp", strip_attributes = TRUE)
 
     L201.Pop_APPEND <- city_pop %>%
       group_by(region) %>%

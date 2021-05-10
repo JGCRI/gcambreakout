@@ -4,7 +4,7 @@
 #' @param region Default = NULL. Name of The region from which to break out the city.
 #' @param city Default = NULL. Name of city to breakout.
 #' @param popProjection Default = NULL. Projection of population for city.
-#' @param gdpProjection Default = NULL. Projection of per capita gdp for city.
+#' @param pcgdpProjection Default = NULL. Projection of per capita gdp for city.
 #' @importFrom magrittr %>%
 #' @importFrom data.table :=
 #' @export
@@ -64,8 +64,17 @@ breakoutCity <- function(gcamdataFolder = NULL,
     }
 
     # Check projection files
+
     # Check that population file format is correct and contains both city as well as Rest of Region data
+    pop = utils::read.csv(popProjection, sep = ",", comment.char = "#")%>% tibble::as_tibble(); pop
+    if (!(city %in% unique(pop$region) & paste0("Rest of ",region) %in% unique(pop$region) & ncol(pop)==3)){
+      stop("Please check population projection file is formatted correctly.")
+    }
     # Check that pcgdp file format is correct and contains both city as well as Rest of Region data
+    pcgdp = utils::read.csv(pcgdpProjection, sep = ",", comment.char = "#")%>% tibble::as_tibble(); pcgdp
+    if (!(city %in% unique(pcgdp$region) & paste0("Rest of ",region) %in% unique(pcgdp$region) & ncol(pcgdp)==3)){
+      stop("Please check PCGDP projection file is formatted correctly.")
+    }
 
     print("Input checks completed...")
   }
@@ -74,14 +83,24 @@ breakoutCity <- function(gcamdataFolder = NULL,
   # Process Data
   #.............
 
-  # Create a new folder in gcamdata to hold the city breakout files
-  # in ./input/gcamdata/inst/extdata/
+  if(T){
+    # Create a new folder in gcamdata to hold the city breakout files
+    # in ./input/gcamdata/inst/extdata/
+    breakoutFolder=(paste0(gcamdataFolder, "/inst/extdata/breakout"))
+    dir.create(breakoutFolder)
 
-  # Copy the popProjection and pcgdpProjection files to the new city folder
+    # Copy the popProjection and pcgdpProjection files to the new city folder
+    file.copy(popProjection, paste0(breakoutFolder, "/", "city_pop.csv"))
+    file.copy(pcgdpProjection, paste0(breakoutFolder,"/", "city_pcgdp.csv"))
 
-  # Modify the template R files and replace with new city and corresponding region name
+    # Modify the template R files and replace with new city and corresponding region name
+    xfun::gsub_files(c("zchunk_X201.socioeconomic_APPEND.R", "zchunk_Xbatch_socioeconomics_APPEND.R"), "APPEND", paste0(city, "_", region))
 
-  # Copy the modified R files into the R folder: ./input/gcamdata/R/
+    # Copy the modified R files into the R folder: ./input/gcamdata/R/
+    file.copy("zchunk_X201.socioeconomic_APPEND.R", paste0(gcamdataFolder, "/R/zchunk_X201.socioeconomic_", city, "_", region, ".R"))
+    file.copy("zchunk_Xbatch_socioeconomics_APPEND.R" , paste0(gcamdataFolder, "/R/zchunk_Xbatch_socioeconomics_",  city, "_", region, ".R"))
+    }
+
 
   #..............
   # Close out
