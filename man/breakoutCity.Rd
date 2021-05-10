@@ -21,7 +21,7 @@ breakoutCity(
 
 \item{popProjection}{Default = NULL. Projection of population for city.}
 
-\item{gdpProjection}{Default = NULL. Projection of per capita gdp for city.}
+\item{pcgdpProjection}{Default = NULL. Projection of per capita gdp for city.}
 }
 \description{
 Function to breakout region in gcamdata

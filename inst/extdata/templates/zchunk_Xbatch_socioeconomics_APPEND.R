@@ -10,39 +10,39 @@
 #' a vector of output names, or (if \code{command} is "MAKE") all
 #' the generated outputs: \code{socioeconomics_USA.xml}. The corresponding file in the
 #' original data system was \code{batch_socioeconomics_USA.xml} (gcamusa XML).
-module_seasia_batch_socioeconomics_SEA_xml <- function(command, ...) {
+module_seasia_batch_socioeconomics_xml <- function(command, ...) {
   if(command == driver.DECLARE_INPUTS) {
-    return(c("L201.Pop_SEA",
-             "L201.BaseGDP_SEA",
-             "L201.LaborForceFillout_SEA",
-             "L201.LaborProductivity_SEA"))
+    return(c("L201.Pop_APPEND",
+             "L201.BaseGDP_APPEND",
+             "L201.LaborForceFillout_APPEND",
+             "L201.LaborProductivity_APPEND"))
   } else if(command == driver.DECLARE_OUTPUTS) {
-    return(c(XML = "socioeconomics_SEA.xml"))
+    return(c(XML = "socioeconomics_APPEND.xml"))
   } else if(command == driver.MAKE) {
 
     all_data <- list(...)[[1]]
 
     # Load required inputs
-    L201.Pop_SEA <- get_data(all_data, "L201.Pop_SEA")
-    L201.BaseGDP_SEA <- get_data(all_data, "L201.BaseGDP_SEA")
-    L201.LaborForceFillout_SEA <- get_data(all_data, "L201.LaborForceFillout_SEA")
-    L201.LaborProductivity_SEA <- get_data(all_data, "L201.LaborProductivity_SEA")
+    L201.Pop_APPEND <- get_data(all_data, "L201.Pop_APPEND")
+    L201.BaseGDP_APPEND <- get_data(all_data, "L201.BaseGDP_APPEND")
+    L201.LaborForceFillout_APPEND <- get_data(all_data, "L201.LaborForceFillout_APPEND")
+    L201.LaborProductivity_APPEND <- get_data(all_data, "L201.LaborProductivity_APPEND")
 
     # ===================================================
 
     # Produce outputs
-    create_xml("socioeconomics_SEA.xml") %>%
-      add_xml_data(L201.Pop_SEA, "Pop") %>%
-      add_xml_data(L201.BaseGDP_SEA, "BaseGDP") %>%
-      add_xml_data(L201.LaborForceFillout_SEA, "LaborForceFillout") %>%
-      add_xml_data(L201.LaborProductivity_SEA, "LaborProductivity") %>%
-      add_precursors("L201.Pop_SEA",
-                     "L201.BaseGDP_SEA",
-                     "L201.LaborForceFillout_SEA",
-                     "L201.LaborProductivity_SEA") ->
-      socioeconomics_SEA.xml
+    create_xml("socioeconomics_APPEND.xml") %>%
+      add_xml_data(L201.Pop_APPEND, "Pop") %>%
+      add_xml_data(L201.BaseGDP_APPEND, "BaseGDP") %>%
+      add_xml_data(L201.LaborForceFillout_APPEND, "LaborForceFillout") %>%
+      add_xml_data(L201.LaborProductivity_APPEND, "LaborProductivity") %>%
+      add_precursors("L201.Pop_APPEND",
+                     "L201.BaseGDP_APPEND",
+                     "L201.LaborForceFillout_APPEND",
+                     "L201.LaborProductivity_APPEND") ->
+      socioeconomics_APPEND.xml
 
-    return_data(socioeconomics_SEA.xml)
+    return_data(socioeconomics_APPEND.xml)
   } else {
     stop("Unknown command")
   }
