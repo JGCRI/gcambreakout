@@ -90,8 +90,8 @@ breakoutCity <- function(gcamdataFolder = NULL,
     dir.create(breakoutFolder)
 
     # Copy the popProjection and pcgdpProjection files to the new city folder
-    file.copy(popProjection, paste0(breakoutFolder, "/", "city_pop.csv"))
-    file.copy(pcgdpProjection, paste0(breakoutFolder,"/", "city_pcgdp.csv"))
+    file.copy(popProjection, paste0(breakoutFolder, "/", city, "_", region, "_pop.csv"))
+    file.copy(pcgdpProjection, paste0(breakoutFolder,"/", city, "_", region,"_pcgdp.csv"))
 
     # Modify the template R files and replace with new city and corresponding region name
     xfun::gsub_files(c("zchunk_X201.socioeconomic_APPEND.R", "zchunk_Xbatch_socioeconomics_APPEND.R"), "APPEND", paste0(city, "_", region))
