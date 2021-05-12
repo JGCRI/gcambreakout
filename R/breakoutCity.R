@@ -89,16 +89,18 @@ breakoutCity <- function(gcamdataFolder = NULL,
     breakoutFolder=(paste0(gcamdataFolder, "/inst/extdata/breakout"))
     dir.create(breakoutFolder)
 
+    print(getwd())
     # Copy the popProjection and pcgdpProjection files to the new city folder
     file.copy(popProjection, paste0(breakoutFolder, "/", city, "_", region, "_pop.csv"))
     file.copy(pcgdpProjection, paste0(breakoutFolder,"/", city, "_", region,"_pcgdp.csv"))
 
-    # Modify the template R files and replace with new city and corresponding region name
-    xfun::gsub_files(c("zchunk_X201.socioeconomic_APPEND.R", "zchunk_Xbatch_socioeconomics_APPEND.R"), "APPEND", paste0(city, "_", region))
-
     # Copy the modified R files into the R folder: ./input/gcamdata/R/
-    file.copy("zchunk_X201.socioeconomic_APPEND.R", paste0(gcamdataFolder, "/R/zchunk_X201.socioeconomic_", city, "_", region, ".R"))
-    file.copy("zchunk_Xbatch_socioeconomics_APPEND.R" , paste0(gcamdataFolder, "/R/zchunk_Xbatch_socioeconomics_",  city, "_", region, ".R"))
+    file.copy("C:/Users/blah822/OneDrive - PNNL/Documents/GitHub/gcambreakout/inst/extdata/templates/zchunk_X201.socioeconomic_APPEND.R", paste0(gcamdataFolder, "/R/zchunk_X201.socioeconomic_", city, "_", region, ".R"))
+    file.copy("C:/Users/blah822/OneDrive - PNNL/Documents/GitHub/gcambreakout/inst/extdata/templates/zchunk_Xbatch_socioeconomics_APPEND.R" , paste0(gcamdataFolder, "/R/zchunk_Xbatch_socioeconomics_",  city, "_", region, ".R"))
+
+    # Modify the template R files and replace with new city and corresponding region name
+    xfun::gsub_files(c(paste0(gcamdataFolder, "/R/zchunk_X201.socioeconomic_", city, "_", region, ".R"), paste0(gcamdataFolder, "/R/zchunk_Xbatch_socioeconomics_",  city, "_", region, ".R")), "APPEND", paste0(city, "_", region))
+
     }
 
 
