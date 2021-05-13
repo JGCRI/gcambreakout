@@ -1,6 +1,6 @@
 # Copyright 2019 Battelle Memorial Institute; see the LICENSE file.
 
-#' module_seasia_batch_socioeconomics_SEA_xml
+#' module_breakout_Xbatch_socioeconomics_xml_APPEND
 #'
 #' Construct XML data structure for \code{socioeconomics_USA.xml}.
 #'
@@ -10,7 +10,7 @@
 #' a vector of output names, or (if \code{command} is "MAKE") all
 #' the generated outputs: \code{socioeconomics_USA.xml}. The corresponding file in the
 #' original data system was \code{batch_socioeconomics_USA.xml} (gcamusa XML).
-module_seasia_batch_socioeconomics_xml <- function(command, ...) {
+module_breakout_Xbatch_socioeconomics_xml_APPEND <- function(command, ...) {
   if(command == driver.DECLARE_INPUTS) {
     return(c("L201.Pop_APPEND",
              "L201.BaseGDP_APPEND",

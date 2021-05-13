@@ -1,6 +1,6 @@
 # Copyright 2019 Battelle Memorial Institute; see the LICENSE file.
 
-#' module_X201.socioeconomics_APPEND
+#' module_breakout_X201.socioeconomics_APPEND
 #'
 #' Population and GDP of City Chosen and Rest of Region
 #'
@@ -15,10 +15,10 @@
 #' @importFrom assertthat assert_that
 #' @importFrom dplyr bind_rows filter group_by lag mutate order_by select transmute
 #' @author PK, ZK & NB April 2021
-module_X201.socioeconomics_APPEND <- function(command, ...) {
+module_breakout_X201.socioeconomics_APPEND <- function(command, ...) {
   if(command == driver.DECLARE_INPUTS) {
-    return(c(FILE = paste0("breakout/", APPEND, "_pop.csv"),
-             FILE = paste0("breakout/", APPEND,"_pcgdp.csv")))
+    return(c(FILE = "breakout/APPEND_pop",
+             FILE = "breakout/APPEND_pcgdp"))
   } else if(command == driver.DECLARE_OUTPUTS) {
     return(c("L201.Pop_APPEND",
              "L201.BaseGDP_APPEND",
@@ -31,8 +31,8 @@ module_X201.socioeconomics_APPEND <- function(command, ...) {
     totalPop <- population <- year <- NULL  # silence package check notes
 
     # Load required inputs
-    city_pop <- get_data(all_data, paste0("breakout/", APPEND, "_pop.csv"), strip_attributes = TRUE)
-    city_pcgdp <- get_data(all_data, paste0("breakout/", APPEND,"_pcgdp.csv"), strip_attributes = TRUE)
+    city_pop <- get_data(all_data,"breakout/APPEND_pop", strip_attributes = TRUE)
+    city_pcgdp <- get_data(all_data,"breakout/APPEND_pcgdp", strip_attributes = TRUE)
 
     L201.Pop_APPEND <- city_pop %>%
       group_by(region) %>%
@@ -77,28 +77,28 @@ module_X201.socioeconomics_APPEND <- function(command, ...) {
       add_title("City and rest-of-Region Population") %>%
       add_units("thousand persons") %>%
       add_comments("computed off-line") %>%
-      add_precursors(paste0("breakout/", APPEND, "_pop.csv")) ->
+      add_precursors("breakout/APPEND_pop") ->
       L201.Pop_APPEND
 
     L201.BaseGDP_APPEND %>%
       add_title("City and rest-of-Region base GDP") %>%
       add_units("million 1990 USD") %>%
       add_comments("population and GDP of these sub-regions are computed off-line") %>%
-      add_precursors(paste0("breakout/", APPEND, "_pop.csv"), paste0("breakout/", APPEND,"_pcgdp.csv")) ->
+      add_precursors("breakout/APPEND_pop","breakout/APPEND_pcgdp") ->
       L201.BaseGDP_APPEND
 
     L201.LaborForceFillout_APPEND %>%
       add_title("City and rest-of-Region labor force participation rate") %>%
       add_units("unitless") %>%
       add_comments("default value") %>%
-      add_precursors(paste0("breakout/", APPEND,"_pcgdp.csv")) ->
+      add_precursors("breakout/APPEND_pcgdp") ->
       L201.LaborForceFillout_APPEND
 
     L201.LaborProductivity_APPEND %>%
       add_title("City and rest-of-Region labor productivity growth rate") %>%
       add_units("unitless") %>%
       add_comments("calculated from per-capita GDP growth rate") %>%
-      add_precursors(paste0("breakout/", APPEND, "_pop.csv"), paste0("breakout/", APPEND,"_pcgdp.csv")) ->
+      add_precursors("breakout/APPEND_pop","breakout/APPEND_pcgdp") ->
       L201.LaborProductivity_APPEND
 
     return_data(L201.Pop_APPEND,

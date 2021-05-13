@@ -5,20 +5,22 @@ library(gcambreakout)
 gcamdataFolderx <- "C:/Z/models/GCAMVersions/gcam-core_stash/input/gcamdata"
 
 breakoutRegion(gcamdataFolder = gcamdataFolderx,
-         regionNew = "NEWRegion",
-         countriesNew = c("Spain","Germany"))
+         regionNew = "Thailand",
+         countriesNew = c("Thailand"))
+
+# gcamdataFolder = gcamdataFolderx
+# regionNew = "Thailand"
+# countriesNew = c("Thailand")
 
 breakoutCity(gcamdataFolder = gcamdataFolderx,
-             region = "Spain",
-             city = "Madrid")
+             region = "Thailand",
+             city = "Bangkok",
+             popProjection = gcambreakout::template_popProjection,
+             pcgdpProjection = gcambreakout::template_pcgdpProjection)
+
+# gcamdataFolder = gcamdataFolderx
+# region = "Thailand"
+# city = "Bangkok"
 
 restore(gcamdataFolder = gcamdataFolderx)
-
-
-gcamdataFolder = gcamdataFolderx
-regionNew = "Thailand Laos"
-countriesNew = c("Thailand","Lao Peoples Democratic Republic")
-breakoutCountriesNew = T
-breakoutCountriesNew_elec = T
-IEA_EnergyBalances_FileName = "IEA_EnergyBalances_2019.csv.gz"
 
