@@ -95,18 +95,13 @@ breakoutCity <- function(gcamdataFolder = NULL,
 
     # Modify the template R files and replace with new city and corresponding region name
     # R files can be modified directly from the data templates:
-    gcambreakout::template_zchunk_X201.socioeconomic_APPEND
-    gcambreakout::template_zchunk_Xbatch_socioeconomics_APPEND
+    zchunk_X201 <- stringr::str_replace_all(gcambreakout::template_zchunk_X201.socioeconomic_APPEND, "APPEND", paste0(city, "_", region))
+    zchunk_Xbatch <- stringr::str_replace_all(gcambreakout::template_zchunk_Xbatch_socioeconomics_APPEND, "APPEND", paste0(city, "_", region))
 
-    #xfun::gsub_files(c("zchunk_X201.socioeconomic_APPEND.R", "zchunk_Xbatch_socioeconomics_APPEND.R"), "APPEND", paste0(city, "_", region))
 
-    # Copy the modified R files into the R folder: ./input/gcamdata/R/
-    file.copy("zchunk_X201.socioeconomic_APPEND.R", paste0(gcamdataFolder, "/R/zchunk_X201.socioeconomic_", city, "_", region, ".R"))
-    file.copy("zchunk_Xbatch_socioeconomics_APPEND.R" , paste0(gcamdataFolder, "/R/zchunk_Xbatch_socioeconomics_",  city, "_", region, ".R"))
-
-    ##### FIX THIS ..JUST EXAMPLE TO WRITE OUT NEW R FILES
-    readr::write_lines(my_data,paste0(dataFileFolder,"/zchunk_X201.socioeconomic_TEST.R"))
-
+    ##### Write modified R files into the R folder
+    readr::write_lines(zchunk_X201,paste0(gcamdataFolder, "/R/zchunk_X201.socioeconomic_", city, "_", region, ".R"))
+    readr::write_lines(zchunk_Xbatch,paste0(gcamdataFolder, "/R/zchunk_Xbatch_socioeconomics_",  city, "_", region, ".R"))
     }
 
 
