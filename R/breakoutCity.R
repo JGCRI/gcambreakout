@@ -131,12 +131,6 @@ breakoutCity <- function(gcamdataFolder = NULL,
         unlink(paste0(breakoutFolder, "/", city, "_", region, "_pop.csv"))
       }
 
-      if(file.exists(paste0(gcamdataFolder, "/R/zchunk_X201.socioeconomic_", city, "_", region, ".R"))){
-        print(paste0("R file for this city and region already exists: ", paste0(gcamdataFolder, "/R/zchunk_X201.socioeconomic_", city, "_", region, ".R"),
-                     " and will be overwritten."))
-        unlink(paste0(gcamdataFolder, "/R/zchunk_X201.socioeconomic_", city, "_", region, ".R"))
-      }
-
       if(file.exists(paste0(breakoutFolder, "/", city, "_", region, "_pcgdp.csv"))){
         print(paste0("A file for this city and region already exists: ", breakoutFolder, "/", city, "_", region, "_pcgdp.csv",
                      " and will be overwritten."))
@@ -148,6 +142,14 @@ breakoutCity <- function(gcamdataFolder = NULL,
                      " and will be overwritten."))
         unlink(paste0(gcamdataFolder, "/R/zchunk_Xbatch_socioeconomics_xml_",  city, "_", region, ".R"))
       }
+
+      if(file.exists(paste0(gcamdataFolder, "/R/zchunk_X201.socioeconomic_", city, "_", region, ".R"))){
+        print(paste0("R file for this city and region already exists: ", paste0(gcamdataFolder, "/R/zchunk_X201.socioeconomic_", city, "_", region, ".R"),
+                     " and will be overwritten."))
+        unlink(paste0(gcamdataFolder, "/R/zchunk_X201.socioeconomic_", city, "_", region, ".R"))
+      }
+
+      # Check buildings files don't already exist
 
     }
 
@@ -187,18 +189,22 @@ breakoutCity <- function(gcamdataFolder = NULL,
     closeAllConnections()
 
     # Modify the template R files and replace with new city and corresponding region name
-    # R files can be modified directly from the data templates:
+
+    # Modify Socioeconomic R Files
     zchunk_X201 <- stringr::str_replace_all(gcambreakout::template_zchunk_X201.socioeconomic_APPEND, "APPEND", paste0(city, "_", region))
     zchunk_Xbatch <- stringr::str_replace_all(gcambreakout::template_zchunk_Xbatch_socioeconomics_xml_APPEND, "APPEND", paste0(city, "_", region))
+
+    # Modify Buildings R Files
 
 
     ##### Write modified R files into the R folder
     readr::write_lines(zchunk_X201,paste0(gcamdataFolder, "/R/zchunk_X201.socioeconomic_", city, "_", region, ".R"))
-    # Must Regenerate the Pre-Built Data Becuase a new folder has been added
     print(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_X201.socioeconomic_", city, "_", region, ".R"))
 
     readr::write_lines(zchunk_Xbatch,paste0(gcamdataFolder, "/R/zchunk_Xbatch_socioeconomics_xml_",  city, "_", region, ".R"))
     print(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_Xbatch_socioeconomics_xml_",  city, "_", region, ".R"))
+
+    # Write out Buildings Files
   }
 
 
