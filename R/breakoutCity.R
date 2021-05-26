@@ -151,6 +151,18 @@ breakoutCity <- function(gcamdataFolder = NULL,
 
       # Check buildings files don't already exist
 
+      if(file.exists(paste0(gcamdataFolder, "/R/zchunk_Xbatch_building_xml_",  city, "_", region, ".R"))){
+        print(paste0("R file for this city and region already exists: ", paste0(gcamdataFolder, "/R/zchunk_Xbatch_building_xml_",  city, "_", region, ".R"),
+                     " and will be overwritten."))
+        unlink(paste0(gcamdataFolder, "/R/zchunk_Xbatch_building_xml_",  city, "_", region, ".R"))
+      }
+
+      if(file.exists(paste0(gcamdataFolder, "/R/zchunk_X244.building_", city, "_", region, ".R"))){
+        print(paste0("R file for this city and region already exists: ", paste0(gcamdataFolder, "/R/zchunk_X244.building_", city, "_", region, ".R"),
+                     " and will be overwritten."))
+        unlink(paste0(gcamdataFolder, "/R/zchunk_X244.building_", city, "_", region, ".R"))
+      }
+
     }
 
 
@@ -195,7 +207,8 @@ breakoutCity <- function(gcamdataFolder = NULL,
     zchunk_Xbatch <- stringr::str_replace_all(gcambreakout::template_zchunk_Xbatch_socioeconomics_xml_APPEND, "APPEND", paste0(city, "_", region))
 
     # Modify Buildings R Files
-
+    zchunk_X201_build <- stringr::str_replace_all(gcambreakout::template_zchunk_X244.building_APPEND, c("APPEND_CITY" = city, "APPEND_REGION" = region, "APPEND"= paste0(city, "_", region)))
+    zchunk_Xbatch_build <- stringr::str_replace_all(gcambreakout::template_zchunk_Xbatch_building_xml_APPEND, c("APPEND_CITY" = city, "APPEND_REGION" = region, "APPEND"= paste0(city, "_", region)))
 
     ##### Write modified R files into the R folder
     readr::write_lines(zchunk_X201,paste0(gcamdataFolder, "/R/zchunk_X201.socioeconomic_", city, "_", region, ".R"))
@@ -205,6 +218,11 @@ breakoutCity <- function(gcamdataFolder = NULL,
     print(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_Xbatch_socioeconomics_xml_",  city, "_", region, ".R"))
 
     # Write out Buildings Files
+    readr::write_lines(zchunk_X201_build, paste0(gcamdataFolder, "/R/zchunk_X244.building_", city, "_", region, ".R"))
+    print(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_X244.building_", city, "_", region, ".R"))
+
+    readr::write_lines(zchunk_Xbatch_build, paste0(gcamdataFolder, "/R/zchunk_Xbatch_building_xml_",  city, "_", region, ".R"))
+    print(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_Xbatch_building_xml_",  city, "_", region, ".R"))
   }
 
 

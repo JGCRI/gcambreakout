@@ -23,7 +23,8 @@ module_breakout_X201.socioeconomics_APPEND <- function(command, ...) {
     return(c("L201.Pop_APPEND",
              "L201.BaseGDP_APPEND",
              "L201.LaborForceFillout_APPEND",
-             "L201.LaborProductivity_APPEND"))
+             "L201.LaborProductivity_APPEND",
+             "L201.GDP_APPEND"))
   } else if(command == driver.MAKE) {
 
     all_data <- list(...)[[1]]
@@ -69,6 +70,9 @@ module_breakout_X201.socioeconomics_APPEND <- function(command, ...) {
       drop_na() %>%
       select(LEVEL2_DATA_NAMES[["LaborProductivity"]])
 
+    L201.GDP_APPEND <- left_join_error_no_match(L201.Pop_APPEND, L201.PCGDP_APPEND, by = c("region", "year")) %>%
+      mutate(GDP = totalPop * pcgdp) %>%
+      select(region, year, GDP)
 
     # ===================================================
 
@@ -101,10 +105,19 @@ module_breakout_X201.socioeconomics_APPEND <- function(command, ...) {
       add_precursors("breakout/APPEND_pop","breakout/APPEND_pcgdp") ->
       L201.LaborProductivity_APPEND
 
+    L201.GDP_APPEND %>%
+      add_title("City and rest-of-Region total GDP") %>%
+      add_units("million 1990 USD") %>%
+      add_comments("calculated from per-capita GDP and population") %>%
+      add_precursors("breakout/APPEND_pop", "breakout/APPEND_pcgdp") ->
+      L201.GDP_APPEND
+
+
     return_data(L201.Pop_APPEND,
                 L201.BaseGDP_APPEND,
                 L201.LaborForceFillout_APPEND,
-                L201.LaborProductivity_APPEND)
+                L201.LaborProductivity_APPEND,
+                L201.GDP_APPEND)
   } else {
     stop("Unknown command")
   }

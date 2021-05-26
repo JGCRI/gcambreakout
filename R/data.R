@@ -28,6 +28,28 @@
 #' }
 "template_zchunk_Xbatch_socioeconomics_xml_APPEND"
 
+#' Template for zchunk_X244.building_APPEND.R
+#'
+#' @source created by NB, ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_X244.socioeconomic_APPEND
+#' }
+"template_zchunk_X244.building_APPEND"
+
+#' Template for zchunk_Xbatch_building_xml_APPEND.R
+#'
+#' @source created by NB, ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_Xbatch_building_xml_APPEND
+#' }
+"template_zchunk_Xbatch_building_xml_APPEND"
+
 #' Template for pcgdpProjection file inputs
 #'
 #' @source created by NB, ZK
@@ -49,3 +71,4 @@
 #'  gcambreakout::template_popProjection
 #' }
 "template_popProjection"
+
