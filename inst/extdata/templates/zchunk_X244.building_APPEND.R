@@ -185,9 +185,9 @@ module_energy_X244.building_APPEND <- function(command, ...) {
       )
 
     S244.list_nochange_data <- lapply(S244.list_nochange_data,
-                                      FUN = write_to_breakout_regions(data = .,
-                                                                      composite_region = "APPEND_REGION",
-                                                                      disag_regions = c("APPEND_CITY","Rest of APPEND_REGION")))
+                                      FUN = write_to_breakout_regions,
+                                      composite_region = "APPEND_REGION",
+                                      disag_regions = c("APPEND_CITY","Rest of APPEND_REGION"))
 
     S244.pop_gdp_share <- L201.Pop_APPEND %>%
       left_join_error_no_match(L201.GDP_APPEND, by = c("region", "year")) %>%
