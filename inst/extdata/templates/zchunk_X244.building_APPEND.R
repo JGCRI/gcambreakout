@@ -60,10 +60,7 @@ module_energy_X244.building_APPEND <- function(command, ...) {
              "L201.nonghg_steepness",
              "L241.hfc_future",
              "L201.en_pol_emissions",
-             "L201.en_ghg_emissions",
-             FILE = "energy/A44.gcam_consumer",
-             FILE = "common/GCAM_region_names"
-             ))
+             "L201.en_ghg_emissions"))
   } else if(command == driver.DECLARE_OUTPUTS) {
     return(c("S244.DeleteConsumer_APPENDbld",
              "S244.DeleteSupplysector_APPENDbld",
@@ -187,15 +184,10 @@ module_energy_X244.building_APPEND <- function(command, ...) {
       L241.hfc_future = L241.hfc_future
       )
 
-    write_to_APPEND_CITY_RoT <- function(data){
-      data_new <- subset(data, region == "APPEND_REGION") %>%
-        repeat_add_columns(tibble(new_region = c("APPEND_CITY", "Rest of APPEND_REGION"))) %>%
-        mutate(region = new_region) %>%
-        select(-new_region)
-      return(data_new)
-    }
-
-    S244.list_nochange_data <- lapply(S244.list_nochange_data, FUN = write_to_APPEND_CITY_RoT)
+    S244.list_nochange_data <- lapply(S244.list_nochange_data,
+                                      FUN = write_to_breakout_regions(data = .,
+                                                                      composite_region = "APPEND_REGION",
+                                                                      disag_regions = c("APPEND_CITY","Rest of APPEND_REGION")))
 
     S244.pop_gdp_share <- L201.Pop_APPEND %>%
       left_join_error_no_match(L201.GDP_APPEND, by = c("region", "year")) %>%
@@ -205,36 +197,43 @@ module_energy_X244.building_APPEND <- function(command, ...) {
       ungroup() %>%
       select(region, year, popshare, gdpshare)
 
-    downscale_to_APPEND_CITY_RoT <- function(data, share_data, value.column = "value", share.column = "popshare"){
-      data_new <- subset(data, region == "APPEND_REGION") %>%
-        repeat_add_columns(tibble(new_region = c("APPEND_CITY", "Rest of APPEND_REGION"))) %>%
-        mutate(region = new_region) %>%
-        select(-new_region) %>%
-        left_join_error_no_match(share_data, by = c("region", "year"))
-      data_new[[value.column]] = data_new[[value.column]] * data_new[[share.column]]
-      data_new <- data_new[names(data)]
-      return(data_new)
-    }
-
     S244.Floorspace <- L244.Floorspace %>%
-      downscale_to_APPEND_CITY_RoT(share_data = S244.pop_gdp_share, value.column = "base.building.size", share.column = "popshare")
+      downscale_to_breakout_regions(data = .,
+                                    composite_region = "APPEND_REGION",
+                                    disag_regions = c("APPEND_CITY","Rest of APPEND_REGION"),
+                                    share_data = S244.pop_gdp_share, value.column = "base.building.size", share.column = "popshare")
 
     S244.ThermalBaseService <- L244.ThermalBaseService %>%
-      downscale_to_APPEND_CITY_RoT(share_data = S244.pop_gdp_share, value.column = "base.service", share.column = "gdpshare")
+      downscale_to_breakout_regions(data = .,
+                                     composite_region = "APPEND_REGION",
+                                     disag_regions = c("APPEND_CITY","Rest of APPEND_REGION"),
+                                     share_data = S244.pop_gdp_share, value.column = "base.service", share.column = "gdpshare")
 
     S244.GenericBaseService <- L244.GenericBaseService %>%
-      downscale_to_APPEND_CITY_RoT(share_data = S244.pop_gdp_share, value.column = "base.service", share.column = "gdpshare")
+      downscale_to_breakout_regions(data = .,
+                                     composite_region = "APPEND_REGION",
+                                     disag_regions = c("APPEND_CITY","Rest of APPEND_REGION"),
+                                     share_data = S244.pop_gdp_share, value.column = "base.service", share.column = "gdpshare")
 
     S244.StubTechCalInput_bld <- L244.StubTechCalInput_bld %>%
-      downscale_to_APPEND_CITY_RoT(share_data = S244.pop_gdp_share, value.column = "calibrated.value", share.column = "gdpshare")
+      downscale_to_breakout_regions(data = .,
+                                     composite_region = "APPEND_REGION",
+                                     disag_regions = c("APPEND_CITY","Rest of APPEND_REGION"),
+                                     share_data = S244.pop_gdp_share, value.column = "calibrated.value", share.column = "gdpshare")
 
     S244.pol_emissions_bld_APPEND <- L201.en_pol_emissions %>%
       filter(supplysector %in% L244.Supplysector_bld$supplysector) %>%
-      downscale_to_APPEND_CITY_RoT(share_data = S244.pop_gdp_share, value.column = "input.emissions", share.column = "gdpshare")
+      downscale_to_breakout_regions(data = .,
+                                     composite_region = "APPEND_REGION",
+                                     disag_regions = c("APPEND_CITY","Rest of APPEND_REGION"),
+                                     share_data = S244.pop_gdp_share, value.column = "input.emissions", share.column = "gdpshare")
 
     S244.ghg_emissions_bld_APPEND <- L201.en_ghg_emissions %>%
       filter(supplysector %in% L244.Supplysector_bld$supplysector) %>%
-      downscale_to_APPEND_CITY_RoT(share_data = S244.pop_gdp_share, value.column = "input.emissions", share.column = "gdpshare")
+      downscale_to_breakout_regions(data = .,
+                                     composite_region = "APPEND_REGION",
+                                     disag_regions = c("APPEND_CITY","Rest of APPEND_REGION"),
+                                     share_data = S244.pop_gdp_share, value.column = "input.emissions", share.column = "gdpshare")
 
     # Re-compute satiation demand levels in cases where the base-service may now exceed the original assumption of satiation demand limits
     S244.ThermalBaseService %>%

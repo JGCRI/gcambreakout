@@ -211,6 +211,12 @@ breakoutCity <- function(gcamdataFolder = NULL,
     zchunk_Xbatch_build <- stringr::str_replace_all(gcambreakout::template_zchunk_Xbatch_building_xml_APPEND, c("APPEND_CITY" = city, "APPEND_REGION" = region, "APPEND"= paste0(city, "_", region)))
 
     ##### Write modified R files into the R folder
+
+    # Write out Breakout helper functions
+    readr::write_lines(template_breakout_helpers,paste0(gcamdataFolder, "/R/breakout_helpers.R"))
+    print(paste0("Added new file: ", gcamdataFolder, "/R/breakout_helpers.R"))
+
+    # Write out Socioeconomics Files
     readr::write_lines(zchunk_X201,paste0(gcamdataFolder, "/R/zchunk_X201.socioeconomic_", city, "_", region, ".R"))
     print(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_X201.socioeconomic_", city, "_", region, ".R"))
 
@@ -232,13 +238,13 @@ breakoutCity <- function(gcamdataFolder = NULL,
 
   print(paste0("City: ", city, " sucessfully broken out from region: ", region, "."))
   print(paste0("Please re-install gcamdata and re-run driver from your folder: ",gcamdataFolder))
-  print(paste0("After running driver() please add the following xml to your configuration file: socioeconomics_", city, "_", region, ".xml"))
+  print(paste0("After running driver() please add the following xml to your configuration files:"))
+  print(paste0("socioeconomics_", city, "_", region, ".xml"))
+  print(paste0("buidling_", city, "_", region, ".xml"))
   print(paste0("Note: If during gcamdatabuild error: 'Error: .../input/gcamdata/man/GCAM_DATA_MAP.Rd:17: Bad /link text'",
                ", delete './input/gcamdata/man/GCAM_DATA_MAP.Rd' and then run devtools::install() in gcamdata.",
                " (Do not rebuild documentation after deleting GCAM_DATA_MAP.Rd."))
   print("breakoutCity complete.")
-
-
 
 
 }

@@ -6,6 +6,17 @@
 # Template Files
 #-----------------
 
+#' Template for breakout-helpers.R
+#'
+#' @source created by NB, ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_breakout_helpers
+#' }
+"template_breakout_helpers"
+
 #' Template for zchunk_X201.socioeconomic_APPEND.R
 #'
 #' @source created by NB, ZK

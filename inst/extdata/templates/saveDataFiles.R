@@ -5,7 +5,11 @@ library(tibble);library(dplyr);library(devtools); library(readr); library(data.t
 # Templates
 #-------------------
 
-dataFileFolder = "C:/Users/blah822/OneDrive - PNNL/Documents/GitHub/gcambreakout/inst/extdata/templates"
+dataFileFolder = paste0(getwd(),"/inst/extdata/templates"); dataFileFolder
+
+# breakout helpers
+template_breakout_helpers <- readr::read_lines(paste0(dataFileFolder,"/breakout_helpers.R"))
+use_data(template_breakout_helpers, overwrite=T)
 
 # Scoioeconomic R Template
 template_zchunk_X201.socioeconomic_APPEND <- readr::read_lines(paste0(dataFileFolder,"/zchunk_X201.socioeconomic_APPEND.R"))
