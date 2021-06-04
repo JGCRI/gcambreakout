@@ -1,6 +1,6 @@
 # Copyright 2019 Battelle Memorial Institute; see the LICENSE file.
 
-#' module_seasia_batch_liquids_limits_xml_APPEND
+#' module_Xbatch_liquids_limits_xml_APPEND
 #'
 #' Construct XML data structure for \code{socioeconomics_USA.xml}.
 #'
@@ -10,7 +10,7 @@
 #' a vector of output names, or (if \code{command} is "MAKE") all
 #' the generated outputs: \code{socioeconomics_USA.xml}. The corresponding file in the
 #' original data system was \code{batch_socioeconomics_USA.xml} (gcamusa XML).
-module_seasia_batch_liquids_limits_xml_APPEND <- function(command, ...) {
+module_Xbatch_liquids_limits_xml_APPEND <- function(command, ...) {
   if(command == driver.DECLARE_INPUTS) {
     return(c("L270.CreditMkt"))
   } else if(command == driver.DECLARE_OUTPUTS) {
@@ -23,9 +23,9 @@ module_seasia_batch_liquids_limits_xml_APPEND <- function(command, ...) {
     L270.CreditMkt <- get_data(all_data, "L270.CreditMkt")
 
     PortfolioStd_APPEND <- L270.CreditMkt %>%
-      downscale_to_breakout_regions(data = .,
-                                    composite_region = "APPEND_REGION",
-                                    disag_regions = c("APPEND_CITY","Rest of APPEND_REGION"))
+      write_to_breakout_regions(data = .,
+                                composite_region = "APPEND_REGION",
+                                disag_regions = c("APPEND_CITY","Rest of APPEND_REGION"))
 
     # ===================================================
 
