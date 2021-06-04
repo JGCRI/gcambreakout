@@ -1,6 +1,6 @@
 # Copyright 2019 Battelle Memorial Institute; see the LICENSE file.
 
-#' module_seasia_X201.socioeconomics_APPEND
+#' module_breakout_X201.socioeconomics_APPEND
 #'
 #' Population and GDP of City Chosen and Rest of Region
 #'
@@ -15,15 +15,16 @@
 #' @importFrom assertthat assert_that
 #' @importFrom dplyr bind_rows filter group_by lag mutate order_by select transmute
 #' @author PK, ZK & NB April 2021
-module_seasia_X201.socioeconomics_APPEND <- function(command, ...) {
+module_breakout_X201.socioeconomics_APPEND <- function(command, ...) {
   if(command == driver.DECLARE_INPUTS) {
-    return(c(FILE = "breakout/city_pop",
-             FILE = "breakout/city_pcgdp"))
+    return(c(FILE = "breakout/APPEND_pop",
+             FILE = "breakout/APPEND_pcgdp"))
   } else if(command == driver.DECLARE_OUTPUTS) {
     return(c("L201.Pop_APPEND",
              "L201.BaseGDP_APPEND",
              "L201.LaborForceFillout_APPEND",
-             "L201.LaborProductivity_APPEND"))
+             "L201.LaborProductivity_APPEND",
+             "L201.GDP_APPEND"))
   } else if(command == driver.MAKE) {
 
     all_data <- list(...)[[1]]
@@ -31,8 +32,8 @@ module_seasia_X201.socioeconomics_APPEND <- function(command, ...) {
     totalPop <- population <- year <- NULL  # silence package check notes
 
     # Load required inputs
-    city_pop <- get_data(all_data, "seasia/city_pop", strip_attributes = TRUE)
-    city_pcgdp <- get_data(all_data, "seasia/city_pcgdp", strip_attributes = TRUE)
+    city_pop <- get_data(all_data,"breakout/APPEND_pop", strip_attributes = TRUE)
+    city_pcgdp <- get_data(all_data,"breakout/APPEND_pcgdp", strip_attributes = TRUE)
 
     L201.Pop_APPEND <- city_pop %>%
       group_by(region) %>%
@@ -69,6 +70,9 @@ module_seasia_X201.socioeconomics_APPEND <- function(command, ...) {
       drop_na() %>%
       select(LEVEL2_DATA_NAMES[["LaborProductivity"]])
 
+    L201.GDP_APPEND <- left_join_error_no_match(L201.Pop_APPEND, L201.PCGDP_APPEND, by = c("region", "year")) %>%
+      mutate(GDP = totalPop * pcgdp) %>%
+      select(region, year, GDP)
 
     # ===================================================
 
@@ -77,34 +81,43 @@ module_seasia_X201.socioeconomics_APPEND <- function(command, ...) {
       add_title("City and rest-of-Region Population") %>%
       add_units("thousand persons") %>%
       add_comments("computed off-line") %>%
-      add_precursors("breakout/city_pop") ->
+      add_precursors("breakout/APPEND_pop") ->
       L201.Pop_APPEND
 
     L201.BaseGDP_APPEND %>%
       add_title("City and rest-of-Region base GDP") %>%
       add_units("million 1990 USD") %>%
       add_comments("population and GDP of these sub-regions are computed off-line") %>%
-      add_precursors("breakout/city_pop", "breakout/city_pcgdp") ->
+      add_precursors("breakout/APPEND_pop","breakout/APPEND_pcgdp") ->
       L201.BaseGDP_APPEND
 
     L201.LaborForceFillout_APPEND %>%
       add_title("City and rest-of-Region labor force participation rate") %>%
       add_units("unitless") %>%
       add_comments("default value") %>%
-      add_precursors("breakout/city_pcgdp") ->
+      add_precursors("breakout/APPEND_pcgdp") ->
       L201.LaborForceFillout_APPEND
 
     L201.LaborProductivity_APPEND %>%
       add_title("City and rest-of-Region labor productivity growth rate") %>%
       add_units("unitless") %>%
       add_comments("calculated from per-capita GDP growth rate") %>%
-      add_precursors("breakout/city_pop", "breakout/city_pcgdp") ->
+      add_precursors("breakout/APPEND_pop","breakout/APPEND_pcgdp") ->
       L201.LaborProductivity_APPEND
+
+    L201.GDP_APPEND %>%
+      add_title("City and rest-of-Region total GDP") %>%
+      add_units("million 1990 USD") %>%
+      add_comments("calculated from per-capita GDP and population") %>%
+      add_precursors("breakout/APPEND_pop", "breakout/APPEND_pcgdp") ->
+      L201.GDP_APPEND
+
 
     return_data(L201.Pop_APPEND,
                 L201.BaseGDP_APPEND,
                 L201.LaborForceFillout_APPEND,
-                L201.LaborProductivity_APPEND)
+                L201.LaborProductivity_APPEND,
+                L201.GDP_APPEND)
   } else {
     stop("Unknown command")
   }

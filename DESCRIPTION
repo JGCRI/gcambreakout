@@ -17,7 +17,9 @@ Imports:
     magrittr,
     data.table,
     utils,
-    tibble
+    tibble,
+    stringr,
+    readr
 VignetteBuilder: 
     knitr
 Depends: 

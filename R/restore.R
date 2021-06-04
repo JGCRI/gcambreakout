@@ -8,6 +8,9 @@
 
 restore <- function(gcamdataFolder = NULL) {
 
+  # To fold code into readable sections place cursor here and enter: ALT + 0
+  # To unfold: ALT + SHIFT + O (Not zero but O)
+
   #..................
   # Initialize variables
   # .................
@@ -95,13 +98,15 @@ restore <- function(gcamdataFolder = NULL) {
     print("Restoring files ...")
 
     # Delete new files
+    if(length(file_list)>0){
     for(i in 1:length(file_list)){
       if(file_list[[i]] %in% gsub("_Original","",unlist(file_list_orig))){
         unlink(file_list[[i]])
       }
-      }
+      }}
 
     # Check that all the input files to be modified exist
+    if(length(file_list_orig)>0){
     for(i in 1:length(file_list_orig)){
       if( gsub("_Original","",file_list_orig[[i]]) %in% unlist(file_list)){
       file.copy(file_list_orig[[i]], gsub("_Original.csv",".csv",file_list_orig[[i]]))
@@ -111,10 +116,10 @@ restore <- function(gcamdataFolder = NULL) {
       filename <- gsub("IEA_ctry.csv","IEA_memo_ctry.csv", file_IEA_Ctry)
       if(!file.exists(filename)){unlink(filename)}
 
-      }
-
+    }
     }
 
+    }
 
   #..............................
   #..............................

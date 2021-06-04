@@ -1,23 +1,48 @@
 
-library(tibble);library(dplyr);library(devtools)
+library(tibble);library(dplyr);library(devtools); library(readr); library(data.table)
 
 #-------------------
 # Templates
 #-------------------
 
-dataFileFolder = "C:/Z/models/gcambreakout/inst/extdata/templates"
+dataFileFolder = paste0(getwd(),"/inst/extdata/templates"); dataFileFolder
 
-# IEA_memo_ctry
-template_IEA_memo_ctry_comments <- ((utils::read.csv(file=paste(dataFileFolder,"/IEA_memo_ctry.csv",sep=""), header = F))[,1])%>%
-  as.data.frame();
-names(template_IEA_memo_ctry_comments)<-"Col1"
-template_IEA_memo_ctry_comments <- template_IEA_memo_ctry_comments %>%
-  dplyr::filter(grepl("#",Col1)); template_IEA_memo_ctry_comments
-use_data(template_IEA_memo_ctry_comments, overwrite=T)
+# breakout helpers
+template_breakout_helpers <- readr::read_lines(paste0(dataFileFolder,"/breakout_helpers.R"))
+use_data(template_breakout_helpers, overwrite=T)
 
+# Scoioeconomic R Template
+template_zchunk_X201.socioeconomic_APPEND <- readr::read_lines(paste0(dataFileFolder,"/zchunk_X201.socioeconomic_APPEND.R"))
+use_data(template_zchunk_X201.socioeconomic_APPEND, overwrite=T)
 
-# IEA_EnergyBalances Countries
-file_IEA_EnergyBalances <- "C:/Z/models/GCAMVersions/gcam-core_tag_v5.3/input/gcamdata/inst/extdata/energy/IEA_EnergyBalances_2019.csv.gz"
-IEA_EnergyBalances = utils::read.csv(file_IEA_EnergyBalances, sep = ",",comment.char="#") %>% tibble::as_tibble(); IEA_EnergyBalances
-IEA_EnergyBalances_Countries_2019 <- unique(IEA_EnergyBalances$COUNTRY)%>%sort(); IEA_EnergyBalances_Countries_2019
-use_data(IEA_EnergyBalances_Countries_2019, overwrite=T)
+# Socioeconomics Batch Template
+template_zchunk_Xbatch_socioeconomics_xml_APPEND <- readr::read_lines(paste0(dataFileFolder,"/zchunk_Xbatch_socioeconomics_xml_APPEND.R"))
+use_data(template_zchunk_Xbatch_socioeconomics_xml_APPEND, overwrite=T)
+
+# popProjection Template
+template_popProjection <- data.table::fread(paste0(dataFileFolder,"/template_popProjection.csv")) %>% tibble::as_tibble()
+use_data(template_popProjection, overwrite=T)
+
+# pcgdpProjection Template
+template_pcgdpProjection <- data.table::fread(paste0(dataFileFolder,"/template_pcgdpProjection.csv")) %>% tibble::as_tibble()
+use_data(template_pcgdpProjection, overwrite=T)
+
+# Building R Template
+template_zchunk_X244.building_APPEND <- readr::read_lines(paste0(dataFileFolder,"/zchunk_X244.building_APPEND.R"))
+use_data(template_zchunk_X244.building_APPEND, overwrite=T)
+
+# Building Batch Template
+template_zchunk_Xbatch_building_xml_APPEND <- readr::read_lines(paste0(dataFileFolder,"/zchunk_Xbatch_building_xml_APPEND.R"))
+use_data(template_zchunk_Xbatch_building_xml_APPEND, overwrite=T)
+
+# Industry R Template
+template_zchunk_X234.industry_APPEND <- readr::read_lines(paste0(dataFileFolder,"/zchunk_X234.industry_APPEND.R"))
+use_data(template_zchunk_X234.industry_APPEND, overwrite=T)
+
+# Industry Batch Template
+template_zchunk_Xbatch_industry_xml_APPEND <- readr::read_lines(paste0(dataFileFolder,"/zchunk_Xbatch_industry_xml_APPEND.R"))
+use_data(template_zchunk_Xbatch_industry_xml_APPEND, overwrite=T)
+
+# Industry Batch Template
+template_zchunk_Xbatch_liquids_limits_xml_APPEND <- readr::read_lines(paste0(dataFileFolder,"/zchunk_Xbatch_liquids_limits_xml_APPEND.R"))
+use_data(template_zchunk_Xbatch_liquids_limits_xml_APPEND, overwrite=T)
