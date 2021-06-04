@@ -19,7 +19,7 @@ Template for zchunk_X244.building_APPEND.R
 \examples{
 \dontrun{
  library(gcambreakout);
- gcambreakout::template_zchunk_X244.socioeconomic_APPEND
+ gcambreakout::template_zchunk_X244.building_APPEND
 }
 }
 \keyword{datasets}

@@ -56,7 +56,8 @@ downscale_to_breakout_regions <- function(
   disag_regions = NULL,
   share_data = NULL,
   value.column = NULL,
-  share.column = NULL){
+  share.column = NULL,
+  ndigits = energy.DIGITS_CALOUTPUT){
 
   if(is.null(data) | is.null(composite_region) | is.null(disag_regions) | is.null(share_data) |
      is.null(value.column) | is.null(share.column)){
@@ -68,7 +69,7 @@ downscale_to_breakout_regions <- function(
     mutate(region = new_region) %>%
     select(-new_region) %>%
     left_join_error_no_match(share_data, by = c("region", "year"))
-  data_new[[value.column]] = data_new[[value.column]] * data_new[[share.column]]
+  data_new[[value.column]] = round(data_new[[value.column]] * data_new[[share.column]], digits = ndigits)
   data_new <- data_new[names(data)]
   return(data_new)
 }

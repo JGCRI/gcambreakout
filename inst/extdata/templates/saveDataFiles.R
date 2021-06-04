@@ -35,3 +35,14 @@ use_data(template_zchunk_X244.building_APPEND, overwrite=T)
 template_zchunk_Xbatch_building_xml_APPEND <- readr::read_lines(paste0(dataFileFolder,"/zchunk_Xbatch_building_xml_APPEND.R"))
 use_data(template_zchunk_Xbatch_building_xml_APPEND, overwrite=T)
 
+# Industry R Template
+template_zchunk_X234.industry_APPEND <- readr::read_lines(paste0(dataFileFolder,"/zchunk_X234.industry_APPEND.R"))
+use_data(template_zchunk_X234.industry_APPEND, overwrite=T)
+
+# Industry Batch Template
+template_zchunk_Xbatch_industry_xml_APPEND <- readr::read_lines(paste0(dataFileFolder,"/zchunk_Xbatch_industry_xml_APPEND.R"))
+use_data(template_zchunk_Xbatch_industry_xml_APPEND, overwrite=T)
+
+# Industry Batch Template
+template_zchunk_Xbatch_liquids_limits_xml_APPEND <- readr::read_lines(paste0(dataFileFolder,"/zchunk_Xbatch_liquids_limits_xml_APPEND.R"))
+use_data(template_zchunk_Xbatch_liquids_limits_xml_APPEND, overwrite=T)

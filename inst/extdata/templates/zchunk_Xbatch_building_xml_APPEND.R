@@ -1,6 +1,6 @@
 # Copyright 2019 Battelle Memorial Institute; see the LICENSE file.
 
-#' module_energy_Xbatch_building_xml
+#' module_energy_Xbatch_building_xml_APPEND
 #'
 #' Construct XML data structure for \code{building_APPEND.xml}.
 #'
@@ -10,7 +10,7 @@
 #' a vector of output names, or (if \code{command} is "MAKE") all
 #' the generated outputs: \code{building_APPEND.xml}. The corresponding file in the
 #' original data system was \code{batch_building_APPEND.xml} (energy XML).
-module_energy_Xbatch_building_xml <- function(command, ...) {
+module_energy_Xbatch_building_xml_APPEND <- function(command, ...) {
   if(command == driver.DECLARE_INPUTS) {
     return(c("S244.DeleteConsumer_APPENDbld",
              "S244.DeleteSupplysector_APPENDbld",
