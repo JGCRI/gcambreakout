@@ -36,12 +36,20 @@ template_zchunk_Xbatch_building_xml_APPEND <- readr::read_lines(paste0(dataFileF
 use_data(template_zchunk_Xbatch_building_xml_APPEND, overwrite=T)
 
 # Industry R Template
-template_zchunk_X234.industry_APPEND <- readr::read_lines(paste0(dataFileFolder,"/zchunk_X234.industry_APPEND.R"))
-use_data(template_zchunk_X234.industry_APPEND, overwrite=T)
+template_zchunk_X232.industry_APPEND <- readr::read_lines(paste0(dataFileFolder,"/zchunk_X232.industry_APPEND.R"))
+use_data(template_zchunk_X232.industry_APPEND, overwrite=T)
 
 # Industry Batch Template
 template_zchunk_Xbatch_industry_xml_APPEND <- readr::read_lines(paste0(dataFileFolder,"/zchunk_Xbatch_industry_xml_APPEND.R"))
 use_data(template_zchunk_Xbatch_industry_xml_APPEND, overwrite=T)
+
+# Transport R Template
+template_zchunk_X254.transportation_APPEND <- readr::read_lines(paste0(dataFileFolder,"/zchunk_X254.transportation_APPEND.R"))
+use_data(template_zchunk_X254.transportation_APPEND, overwrite=T)
+
+# Transport Batch Template
+template_zchunk_Xbatch_transportation_xml_APPEND <- readr::read_lines(paste0(dataFileFolder,"/zchunk_Xbatch_transportation_xml_APPEND.R"))
+use_data(template_zchunk_Xbatch_transportation_xml_APPEND, overwrite=T)
 
 # Industry Batch Template
 template_zchunk_Xbatch_liquids_limits_xml_APPEND <- readr::read_lines(paste0(dataFileFolder,"/zchunk_Xbatch_liquids_limits_xml_APPEND.R"))

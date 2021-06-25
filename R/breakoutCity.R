@@ -16,11 +16,8 @@ breakoutCity <- function(gcamdataFolder = NULL,
                          popProjection = NULL,
                          pcgdpProjection = NULL) {
 
-  # gcamdataFolder = NULL
-  # region = NULL
-  # city = NULL
-  # popProjection = NULL
-  # pcgdpProjection = NULL
+  # Fold Code: Alt + 0
+  # Unfold Code: Alt + SHIFT + O
 
   #..............
   # Initialize
@@ -163,6 +160,19 @@ breakoutCity <- function(gcamdataFolder = NULL,
         unlink(paste0(gcamdataFolder, "/R/zchunk_X244.building_", city, "_", region, ".R"))
       }
 
+      # Check to make sure transport files don't already exist
+      if(file.exists(paste0(gcamdataFolder, "/R/zchunk_Xbatch_transportation_xml_",  city, "_", region, ".R"))){
+        print(paste0("R file for this city and region already exists: ", paste0(gcamdataFolder, "/R/zchunk_Xbatch_transportation_xml_",  city, "_", region, ".R"),
+                     " and will be overwritten."))
+        unlink(paste0(gcamdataFolder, "/R/zchunk_Xbatch_transportation_xml_",  city, "_", region, ".R"))
+      }
+
+      if(file.exists(paste0(gcamdataFolder, "/R/zchunk_X254.transportation_", city, "_", region, ".R"))){
+        print(paste0("R file for this city and region already exists: ", paste0(gcamdataFolder, "/R/zchunk_X254.transportation_", city, "_", region, ".R"),
+                     " and will be overwritten."))
+        unlink(paste0(gcamdataFolder, "/R/zchunk_X254.transportation_", city, "_", region, ".R"))
+      }
+
       # Check to make sure industry files don't already exist
       if(file.exists(paste0(gcamdataFolder, "/R/zchunk_Xbatch_industry_xml_",  city, "_", region, ".R"))){
         print(paste0("R file for this city and region already exists: ", paste0(gcamdataFolder, "/R/zchunk_Xbatch_industry_xml_",  city, "_", region, ".R"),
@@ -170,10 +180,10 @@ breakoutCity <- function(gcamdataFolder = NULL,
         unlink(paste0(gcamdataFolder, "/R/zchunk_Xbatch_industry_xml_",  city, "_", region, ".R"))
       }
 
-      if(file.exists(paste0(gcamdataFolder, "/R/zchunk_X234.industry_", city, "_", region, ".R"))){
-        print(paste0("R file for this city and region already exists: ", paste0(gcamdataFolder, "/R/zchunk_X234.industry_", city, "_", region, ".R"),
+      if(file.exists(paste0(gcamdataFolder, "/R/zchunk_X232.industry_", city, "_", region, ".R"))){
+        print(paste0("R file for this city and region already exists: ", paste0(gcamdataFolder, "/R/zchunk_X232.industry_", city, "_", region, ".R"),
                      " and will be overwritten."))
-        unlink(paste0(gcamdataFolder, "/R/zchunk_X234.industry_", city, "_", region, ".R"))
+        unlink(paste0(gcamdataFolder, "/R/zchunk_X232.industry_", city, "_", region, ".R"))
       }
 
       # Check to make sure liquid limits files don't already exist
@@ -183,10 +193,11 @@ breakoutCity <- function(gcamdataFolder = NULL,
         unlink(paste0(gcamdataFolder, "/R/zchunk_Xbatch_liquids_limits_xml_",  city, "_", region, ".R"))
       }
 
-
     }
 
 
+    # Add comments to files
+    if(T){
     # Add comments to pop files
     filename = paste0(breakoutFolder, "/", city, "_", region, "_pop.csv")
     con <- file(filename, open = "wt")
@@ -220,9 +231,10 @@ breakoutCity <- function(gcamdataFolder = NULL,
     utils::write.csv(pcgdp, con, row.names = F)
     close(con)
     closeAllConnections()
+    }
 
     # Modify the template R files and replace with new city and corresponding region name
-
+    if(T){
     # Modify Socioeconomic R Files
     zchunk_X201 <- stringr::str_replace_all(gcambreakout::template_zchunk_X201.socioeconomic_APPEND, "APPEND", paste0(city, "_", region))
     zchunk_Xbatch <- stringr::str_replace_all(gcambreakout::template_zchunk_Xbatch_socioeconomics_xml_APPEND, "APPEND", paste0(city, "_", region))
@@ -232,8 +244,12 @@ breakoutCity <- function(gcamdataFolder = NULL,
     zchunk_Xbatch_build <- stringr::str_replace_all(gcambreakout::template_zchunk_Xbatch_building_xml_APPEND, c("APPEND_CITY" = city, "APPEND_REGION" = region, "APPEND"= paste0(city, "_", region)))
 
     # Modify Industry R Files
-    zchunk_X234_ind <- stringr::str_replace_all(gcambreakout::template_zchunk_X234.industry_APPEND, c("APPEND_CITY" = city, "APPEND_REGION" = region, "APPEND"= paste0(city, "_", region)))
+    zchunk_X232_ind <- stringr::str_replace_all(gcambreakout::template_zchunk_X232.industry_APPEND, c("APPEND_CITY" = city, "APPEND_REGION" = region, "APPEND"= paste0(city, "_", region)))
     zchunk_Xbatch_ind <- stringr::str_replace_all(gcambreakout::template_zchunk_Xbatch_industry_xml_APPEND, c("APPEND_CITY" = city, "APPEND_REGION" = region, "APPEND"= paste0(city, "_", region)))
+
+    # Modify Transport R Files
+    zchunk_X254_trn <- stringr::str_replace_all(gcambreakout::template_zchunk_X254.transportation_APPEND, c("APPEND_CITY" = city, "APPEND_REGION" = region, "APPEND"= paste0(city, "_", region)))
+    zchunk_Xbatch_trn <- stringr::str_replace_all(gcambreakout::template_zchunk_Xbatch_transportation_xml_APPEND, c("APPEND_CITY" = city, "APPEND_REGION" = region, "APPEND"= paste0(city, "_", region)))
 
     # Modify Liquid Limits R Files
     zchunk_Xbatch_liquid_limits <- stringr::str_replace_all(gcambreakout::template_zchunk_Xbatch_liquids_limits_xml_APPEND, c("APPEND_CITY" = city, "APPEND_REGION" = region, "APPEND"= paste0(city, "_", region)))
@@ -259,15 +275,23 @@ breakoutCity <- function(gcamdataFolder = NULL,
     print(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_Xbatch_building_xml_",  city, "_", region, ".R"))
 
     # Write out Industry Files
-    readr::write_lines(zchunk_X234_ind, paste0(gcamdataFolder, "/R/zchunk_X234.industry_", city, "_", region, ".R"))
-    print(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_X234.industry_", city, "_", region, ".R"))
+    readr::write_lines(zchunk_X232_ind, paste0(gcamdataFolder, "/R/zchunk_X232.industry_", city, "_", region, ".R"))
+    print(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_X232.industry_", city, "_", region, ".R"))
 
     readr::write_lines(zchunk_Xbatch_ind, paste0(gcamdataFolder, "/R/zchunk_Xbatch_industry_xml_",  city, "_", region, ".R"))
     print(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_Xbatch_industry_xml_",  city, "_", region, ".R"))
 
+    # Write out Transport Files
+    readr::write_lines(zchunk_X254_trn, paste0(gcamdataFolder, "/R/zchunk_X254.transportation_", city, "_", region, ".R"))
+    print(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_X254.transportation_", city, "_", region, ".R"))
+
+    readr::write_lines(zchunk_Xbatch_trn, paste0(gcamdataFolder, "/R/zchunk_Xbatch_transportation_xml_",  city, "_", region, ".R"))
+    print(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_Xbatch_transportation_xml_",  city, "_", region, ".R"))
+
     # Write out Buildings Files
     readr::write_lines(zchunk_Xbatch_liquid_limits, paste0(gcamdataFolder, "/R/zchunk_Xbatch_liquids_limits_xml_",  city, "_", region, ".R"))
     print(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_Xbatch_liquids_limits_xml_",  city, "_", region, ".R"))
+    }
   }
 
 
@@ -275,17 +299,20 @@ breakoutCity <- function(gcamdataFolder = NULL,
   # Close out
   #.............
 
+  if(T){
   print(paste0("City: ", city, " sucessfully broken out from region: ", region, "."))
   print(paste0("Please re-install gcamdata and re-run driver from your folder: ",gcamdataFolder))
   print(paste0("After running driver() please add the following xml to your configuration files:"))
   print(paste0("socioeconomics_", city, "_", region, ".xml"))
   print(paste0("buidling_", city, "_", region, ".xml"))
   print(paste0("industry_", city, "_", region, ".xml"))
+  print(paste0("transportation_", city, "_", region, ".xml"))
   print(paste0("liquid_limits_", city, "_", region, ".xml"))
   print(paste0("Note: If during gcamdatabuild error: 'Error: .../input/gcamdata/man/GCAM_DATA_MAP.Rd:17: Bad /link text'",
                ", delete './input/gcamdata/man/GCAM_DATA_MAP.Rd' and then run devtools::install() in gcamdata.",
                " (Do not rebuild documentation after deleting GCAM_DATA_MAP.Rd."))
   print("breakoutCity complete.")
+  }
 
 
 }
