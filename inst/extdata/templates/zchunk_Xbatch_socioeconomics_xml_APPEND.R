@@ -12,10 +12,10 @@
 #' original data system was \code{batch_socioeconomics_USA.xml} (gcamusa XML).
 module_breakout_Xbatch_socioeconomics_xml_APPEND <- function(command, ...) {
   if(command == driver.DECLARE_INPUTS) {
-    return(c("L201.Pop_APPEND",
-             "L201.BaseGDP_APPEND",
-             "L201.LaborForceFillout_APPEND",
-             "L201.LaborProductivity_APPEND"))
+    return(c("X201.Pop_APPEND",
+             "X201.BaseGDP_APPEND",
+             "X201.LaborForceFillout_APPEND",
+             "X201.LaborProductivity_APPEND"))
   } else if(command == driver.DECLARE_OUTPUTS) {
     return(c(XML = "socioeconomics_APPEND.xml"))
   } else if(command == driver.MAKE) {
@@ -23,23 +23,23 @@ module_breakout_Xbatch_socioeconomics_xml_APPEND <- function(command, ...) {
     all_data <- list(...)[[1]]
 
     # Load required inputs
-    L201.Pop_APPEND <- get_data(all_data, "L201.Pop_APPEND")
-    L201.BaseGDP_APPEND <- get_data(all_data, "L201.BaseGDP_APPEND")
-    L201.LaborForceFillout_APPEND <- get_data(all_data, "L201.LaborForceFillout_APPEND")
-    L201.LaborProductivity_APPEND <- get_data(all_data, "L201.LaborProductivity_APPEND")
+    X201.Pop_APPEND <- get_data(all_data, "X201.Pop_APPEND")
+    X201.BaseGDP_APPEND <- get_data(all_data, "X201.BaseGDP_APPEND")
+    X201.LaborForceFillout_APPEND <- get_data(all_data, "X201.LaborForceFillout_APPEND")
+    X201.LaborProductivity_APPEND <- get_data(all_data, "X201.LaborProductivity_APPEND")
 
     # ===================================================
 
     # Produce outputs
     create_xml("socioeconomics_APPEND.xml") %>%
-      add_xml_data(L201.Pop_APPEND, "Pop") %>%
-      add_xml_data(L201.BaseGDP_APPEND, "BaseGDP") %>%
-      add_xml_data(L201.LaborForceFillout_APPEND, "LaborForceFillout") %>%
-      add_xml_data(L201.LaborProductivity_APPEND, "LaborProductivity") %>%
-      add_precursors("L201.Pop_APPEND",
-                     "L201.BaseGDP_APPEND",
-                     "L201.LaborForceFillout_APPEND",
-                     "L201.LaborProductivity_APPEND") ->
+      add_xml_data(X201.Pop_APPEND, "Pop") %>%
+      add_xml_data(X201.BaseGDP_APPEND, "BaseGDP") %>%
+      add_xml_data(X201.LaborForceFillout_APPEND, "LaborForceFillout") %>%
+      add_xml_data(X201.LaborProductivity_APPEND, "LaborProductivity") %>%
+      add_precursors("X201.Pop_APPEND",
+                     "X201.BaseGDP_APPEND",
+                     "X201.LaborForceFillout_APPEND",
+                     "X201.LaborProductivity_APPEND") ->
       socioeconomics_APPEND.xml
 
     return_data(socioeconomics_APPEND.xml)

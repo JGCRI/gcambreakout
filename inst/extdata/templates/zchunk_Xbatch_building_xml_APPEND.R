@@ -12,38 +12,38 @@
 #' original data system was \code{batch_building_APPEND.xml} (energy XML).
 module_energy_Xbatch_building_xml_APPEND <- function(command, ...) {
   if(command == driver.DECLARE_INPUTS) {
-    return(c("S244.DeleteConsumer_APPENDbld",
-             "S244.DeleteSupplysector_APPENDbld",
-             "S244.SubregionalShares",
-             "S244.PriceExp_IntGains",
-             "S244.Floorspace",
-             "S244.DemandFunction_serv",
-             "S244.DemandFunction_flsp",
-             "S244.Satiation_flsp",
-             "S244.SatiationAdder",
-             "S244.ThermalBaseService",
-             "S244.GenericBaseService",
-             "S244.ThermalServiceSatiation",
-             "S244.GenericServiceSatiation",
-             "S244.Intgains_scalar",
-             "S244.ShellConductance_bld",
-             "S244.Supplysector_bld",
-             "S244.FinalEnergyKeyword_bld",
-             "S244.SubsectorShrwtFllt_bld",
-             "S244.SubsectorInterp_bld",
-             "S244.FuelPrefElast_bld",
-             "S244.StubTech_bld",
-             "S244.StubTechEff_bld",
-             "S244.StubTechCalInput_bld",
-             "S244.SubsectorLogit_bld",
-             "S244.StubTechIntGainOutputRatio",
-             "S244.HDDCDD_constdd_no_GCM",
-             "S244.fgas_all_units_bld_APPEND",
-             "S244.nonghg_max_reduction_bld_APPEND",
-             "S244.nonghg_steepness_bld_APPEND",
-             "S244.hfc_future_bld_APPEND",
-             "S244.pol_emissions_bld_APPEND",
-             "S244.ghg_emissions_bld_APPEND"))
+    return(c("X244.DeleteConsumer_bld_APPEND",
+             "X244.DeleteSupplysector_bld_APPEND",
+             "X244.SubregionalShares_APPEND",
+             "X244.PriceExp_IntGains_APPEND",
+             "X244.Floorspace_APPEND",
+             "X244.DemandFunction_serv_APPEND",
+             "X244.DemandFunction_flsp_APPEND",
+             "X244.Satiation_flsp_APPEND",
+             "X244.SatiationAdder_APPEND",
+             "X244.ThermalBaseService_APPEND",
+             "X244.GenericBaseService_APPEND",
+             "X244.ThermalServiceSatiation_APPEND",
+             "X244.GenericServiceSatiation_APPEND",
+             "X244.Intgains_scalar_APPEND",
+             "X244.ShellConductance_bld_APPEND",
+             "X244.Supplysector_bld_APPEND",
+             "X244.FinalEnergyKeyword_bld_APPEND",
+             "X244.SubsectorShrwtFllt_bld_APPEND",
+             "X244.SubsectorInterp_bld_APPEND",
+             "X244.FuelPrefElast_bld_APPEND",
+             "X244.StubTech_bld_APPEND",
+             "X244.StubTechEff_bld_APPEND",
+             "X244.StubTechCalInput_bld_APPEND",
+             "X244.SubsectorLogit_bld_APPEND",
+             "X244.StubTechIntGainOutputRatio_APPEND",
+             "X244.HDDCDD_constdd_no_GCM_APPEND",
+             "X244.fgas_all_units_bld_APPEND",
+             "X244.nonghg_max_reduction_bld_APPEND",
+             "X244.nonghg_steepness_bld_APPEND",
+             "X244.hfc_future_bld_APPEND",
+             "X244.pol_emissions_bld_APPEND",
+             "X244.ghg_emissions_bld_APPEND"))
   } else if(command == driver.DECLARE_OUTPUTS) {
     return(c(XML = "building_APPEND.xml"))
   } else if(command == driver.MAKE) {
@@ -51,107 +51,107 @@ module_energy_Xbatch_building_xml_APPEND <- function(command, ...) {
     all_data <- list(...)[[1]]
 
     # Load required inputs
-    S244.DeleteConsumer_APPENDbld<- get_data(all_data, "S244.DeleteConsumer_APPENDbld")
-    S244.DeleteSupplysector_APPENDbld<- get_data(all_data, "S244.DeleteSupplysector_APPENDbld")
-    S244.SubregionalShares<- get_data(all_data, "S244.SubregionalShares")
-    S244.PriceExp_IntGains<- get_data(all_data, "S244.PriceExp_IntGains")
-    S244.Floorspace<- get_data(all_data, "S244.Floorspace")
-    S244.DemandFunction_serv<- get_data(all_data, "S244.DemandFunction_serv")
-    S244.DemandFunction_flsp<- get_data(all_data, "S244.DemandFunction_flsp")
-    S244.Satiation_flsp<- get_data(all_data, "S244.Satiation_flsp")
-    S244.SatiationAdder<- get_data(all_data, "S244.SatiationAdder")
-    S244.ThermalBaseService<- get_data(all_data, "S244.ThermalBaseService")
-    S244.GenericBaseService<- get_data(all_data, "S244.GenericBaseService")
-    S244.ThermalServiceSatiation<- get_data(all_data, "S244.ThermalServiceSatiation")
-    S244.GenericServiceSatiation<- get_data(all_data, "S244.GenericServiceSatiation")
-    S244.Intgains_scalar<- get_data(all_data, "S244.Intgains_scalar")
-    S244.ShellConductance_bld<- get_data(all_data, "S244.ShellConductance_bld")
-    S244.Supplysector_bld<- get_data(all_data, "S244.Supplysector_bld")
-    S244.FinalEnergyKeyword_bld<- get_data(all_data, "S244.FinalEnergyKeyword_bld")
-    S244.SubsectorShrwtFllt_bld<- get_data(all_data, "S244.SubsectorShrwtFllt_bld")
-    S244.SubsectorInterp_bld<- get_data(all_data, "S244.SubsectorInterp_bld")
-    S244.FuelPrefElast_bld<- get_data(all_data, "S244.FuelPrefElast_bld")
-    S244.StubTech_bld<- get_data(all_data, "S244.StubTech_bld")
-    S244.StubTechEff_bld<- get_data(all_data, "S244.StubTechEff_bld")
-    S244.StubTechCalInput_bld<- get_data(all_data, "S244.StubTechCalInput_bld")
-    S244.SubsectorLogit_bld<- get_data(all_data, "S244.SubsectorLogit_bld")
-    S244.StubTechIntGainOutputRatio<- get_data(all_data, "S244.StubTechIntGainOutputRatio")
-    S244.HDDCDD_constdd_no_GCM <- get_data(all_data, "S244.HDDCDD_constdd_no_GCM")
-    S244.fgas_all_units_bld_APPEND <- get_data(all_data, "S244.fgas_all_units_bld_APPEND")
-    S244.nonghg_max_reduction_bld_APPEND <- get_data(all_data, "S244.nonghg_max_reduction_bld_APPEND")
-    S244.nonghg_steepness_bld_APPEND <- get_data(all_data, "S244.nonghg_steepness_bld_APPEND")
-    S244.hfc_future_bld_APPEND <- get_data(all_data, "S244.hfc_future_bld_APPEND")
-    S244.pol_emissions_bld_APPEND <- get_data(all_data, "S244.pol_emissions_bld_APPEND")
-    S244.ghg_emissions_bld_APPEND <- get_data(all_data, "S244.ghg_emissions_bld_APPEND")
+    X244.DeleteConsumer_bld_APPEND<- get_data(all_data, "X244.DeleteConsumer_bld_APPEND")
+    X244.DeleteSupplysector_bld_APPEND<- get_data(all_data, "X244.DeleteSupplysector_bld_APPEND")
+    X244.SubregionalShares_APPEND<- get_data(all_data, "X244.SubregionalShares_APPEND")
+    X244.PriceExp_IntGains_APPEND<- get_data(all_data, "X244.PriceExp_IntGains_APPEND")
+    X244.Floorspace_APPEND<- get_data(all_data, "X244.Floorspace_APPEND")
+    X244.DemandFunction_serv_APPEND<- get_data(all_data, "X244.DemandFunction_serv_APPEND")
+    X244.DemandFunction_flsp_APPEND<- get_data(all_data, "X244.DemandFunction_flsp_APPEND")
+    X244.Satiation_flsp_APPEND<- get_data(all_data, "X244.Satiation_flsp_APPEND")
+    X244.SatiationAdder_APPEND<- get_data(all_data, "X244.SatiationAdder_APPEND")
+    X244.ThermalBaseService_APPEND<- get_data(all_data, "X244.ThermalBaseService_APPEND")
+    X244.GenericBaseService_APPEND<- get_data(all_data, "X244.GenericBaseService_APPEND")
+    X244.ThermalServiceSatiation_APPEND<- get_data(all_data, "X244.ThermalServiceSatiation_APPEND")
+    X244.GenericServiceSatiation_APPEND<- get_data(all_data, "X244.GenericServiceSatiation_APPEND")
+    X244.Intgains_scalar_APPEND<- get_data(all_data, "X244.Intgains_scalar_APPEND")
+    X244.ShellConductance_bld_APPEND<- get_data(all_data, "X244.ShellConductance_bld_APPEND")
+    X244.Supplysector_bld_APPEND<- get_data(all_data, "X244.Supplysector_bld_APPEND")
+    X244.FinalEnergyKeyword_bld_APPEND<- get_data(all_data, "X244.FinalEnergyKeyword_bld_APPEND")
+    X244.SubsectorShrwtFllt_bld_APPEND<- get_data(all_data, "X244.SubsectorShrwtFllt_bld_APPEND")
+    X244.SubsectorInterp_bld_APPEND<- get_data(all_data, "X244.SubsectorInterp_bld_APPEND")
+    X244.FuelPrefElast_bld_APPEND<- get_data(all_data, "X244.FuelPrefElast_bld_APPEND")
+    X244.StubTech_bld_APPEND<- get_data(all_data, "X244.StubTech_bld_APPEND")
+    X244.StubTechEff_bld_APPEND<- get_data(all_data, "X244.StubTechEff_bld_APPEND")
+    X244.StubTechCalInput_bld_APPEND<- get_data(all_data, "X244.StubTechCalInput_bld_APPEND")
+    X244.SubsectorLogit_bld_APPEND<- get_data(all_data, "X244.SubsectorLogit_bld_APPEND")
+    X244.StubTechIntGainOutputRatio_APPEND<- get_data(all_data, "X244.StubTechIntGainOutputRatio_APPEND")
+    X244.HDDCDD_constdd_no_GCM_APPEND<- get_data(all_data, "X244.HDDCDD_constdd_no_GCM_APPEND")
+    X244.fgas_all_units_bld_APPEND<- get_data(all_data, "X244.fgas_all_units_bld_APPEND")
+    X244.nonghg_max_reduction_bld_APPEND<- get_data(all_data, "X244.nonghg_max_reduction_bld_APPEND")
+    X244.nonghg_steepness_bld_APPEND<- get_data(all_data, "X244.nonghg_steepness_bld_APPEND")
+    X244.hfc_future_bld_APPEND<- get_data(all_data, "X244.hfc_future_bld_APPEND")
+    X244.pol_emissions_bld_APPEND<- get_data(all_data, "X244.pol_emissions_bld_APPEND")
+    X244.ghg_emissions_bld_APPEND<- get_data(all_data, "X244.ghg_emissions_bld_APPEND")
 
     # ===================================================
 
     # Produce outputs
     create_xml("building_APPEND.xml") %>%
-      add_xml_data(S244.DeleteConsumer_APPENDbld, "DeleteConsumer") %>%
-      add_xml_data(S244.DeleteSupplysector_APPENDbld, "DeleteSupplysector") %>%
-      add_logit_tables_xml(S244.Supplysector_bld, "Supplysector") %>%
-      add_logit_tables_xml(S244.SubsectorLogit_bld, "SubsectorLogit") %>%
-      add_xml_data(S244.SubregionalShares, "SubregionalShares") %>%
-    add_xml_data(S244.PriceExp_IntGains, "PriceExp_IntGains") %>%
-    add_xml_data(S244.Floorspace, "Floorspace") %>%
-    add_xml_data(S244.DemandFunction_serv, "DemandFunction_serv") %>%
-    add_xml_data(S244.DemandFunction_flsp, "DemandFunction_flsp") %>%
-    add_xml_data(S244.Satiation_flsp, "Satiation_flsp") %>%
-    add_xml_data(S244.SatiationAdder, "SatiationAdder") %>%
-    add_xml_data(S244.ThermalBaseService, "ThermalBaseService") %>%
-    add_xml_data(S244.GenericBaseService, "GenericBaseService") %>%
-    add_xml_data(S244.ThermalServiceSatiation, "ThermalServiceSatiation") %>%
-    add_xml_data(S244.GenericServiceSatiation, "GenericServiceSatiation") %>%
-    add_xml_data(S244.Intgains_scalar, "Intgains_scalar") %>%
-    add_xml_data(S244.ShellConductance_bld, "ShellConductance") %>%
-    add_xml_data(S244.FinalEnergyKeyword_bld, "FinalEnergyKeyword") %>%
-    add_xml_data(S244.SubsectorShrwtFllt_bld, "SubsectorShrwtFllt") %>%
-    add_xml_data(S244.SubsectorInterp_bld, "SubsectorInterp") %>%
-    add_xml_data(S244.FuelPrefElast_bld, "FuelPrefElast") %>%
-    add_xml_data(S244.StubTech_bld, "StubTech") %>%
-    add_xml_data(S244.StubTechEff_bld, "StubTechEff") %>%
-    add_xml_data(S244.StubTechCalInput_bld, "StubTechCalInput") %>%
-    add_xml_data(S244.StubTechIntGainOutputRatio, "StubTechIntGainOutputRatio") %>%
-    add_xml_data(S244.HDDCDD_constdd_no_GCM , "HDDCDD") %>%
-      add_xml_data(S244.fgas_all_units_bld_APPEND, "StubTechEmissUnits") %>%
-      add_xml_data(S244.nonghg_max_reduction_bld_APPEND, "GDPCtrlMax") %>%
-      add_xml_data(S244.nonghg_steepness_bld_APPEND, "GDPCtrlSteep") %>%
-      add_xml_data(S244.hfc_future_bld_APPEND, "OutputEmissCoeff") %>%
-      add_xml_data(S244.pol_emissions_bld_APPEND, "InputEmissions") %>%
-      add_xml_data(S244.ghg_emissions_bld_APPEND, "InputEmissions") %>%
-      add_precursors("S244.DeleteConsumer_APPENDbld",
-                     "S244.DeleteSupplysector_APPENDbld",
-                     "S244.SubregionalShares",
-                     "S244.PriceExp_IntGains",
-                     "S244.Floorspace",
-                     "S244.DemandFunction_serv",
-                     "S244.DemandFunction_flsp",
-                     "S244.Satiation_flsp",
-                     "S244.SatiationAdder",
-                     "S244.ThermalBaseService",
-                     "S244.GenericBaseService",
-                     "S244.ThermalServiceSatiation",
-                     "S244.GenericServiceSatiation",
-                     "S244.Intgains_scalar",
-                     "S244.ShellConductance_bld",
-                     "S244.Supplysector_bld",
-                     "S244.FinalEnergyKeyword_bld",
-                     "S244.SubsectorShrwtFllt_bld",
-                     "S244.SubsectorInterp_bld",
-                     "S244.FuelPrefElast_bld",
-                     "S244.StubTech_bld",
-                     "S244.StubTechEff_bld",
-                     "S244.StubTechCalInput_bld",
-                     "S244.SubsectorLogit_bld",
-                     "S244.StubTechIntGainOutputRatio",
-                     "S244.HDDCDD_constdd_no_GCM",
-                     "S244.fgas_all_units_bld_APPEND",
-                     "S244.nonghg_max_reduction_bld_APPEND",
-                     "S244.nonghg_steepness_bld_APPEND",
-                     "S244.hfc_future_bld_APPEND",
-                     "S244.pol_emissions_bld_APPEND",
-                     "S244.ghg_emissions_bld_APPEND") ->
+      add_xml_data(X244.DeleteConsumer_bld_APPEND, "DeleteConsumer") %>%
+      add_xml_data(X244.DeleteSupplysector_bld_APPEND, "DeleteSupplysector") %>%
+      add_logit_tables_xml(X244.Supplysector_bld_APPEND, "Supplysector") %>%
+      add_logit_tables_xml(X244.SubsectorLogit_bld_APPEND, "SubsectorLogit") %>%
+      add_xml_data(X244.SubregionalShares_APPEND, "SubregionalShares") %>%
+    add_xml_data(X244.PriceExp_IntGains_APPEND, "PriceExp_IntGains") %>%
+    add_xml_data(X244.Floorspace_APPEND, "Floorspace") %>%
+    add_xml_data(X244.DemandFunction_serv_APPEND, "DemandFunction_serv") %>%
+    add_xml_data(X244.DemandFunction_flsp_APPEND, "DemandFunction_flsp") %>%
+    add_xml_data(X244.Satiation_flsp_APPEND, "Satiation_flsp") %>%
+    add_xml_data(X244.SatiationAdder_APPEND, "SatiationAdder") %>%
+    add_xml_data(X244.ThermalBaseService_APPEND, "ThermalBaseService") %>%
+    add_xml_data(X244.GenericBaseService_APPEND, "GenericBaseService") %>%
+    add_xml_data(X244.ThermalServiceSatiation_APPEND, "ThermalServiceSatiation") %>%
+    add_xml_data(X244.GenericServiceSatiation_APPEND, "GenericServiceSatiation") %>%
+    add_xml_data(X244.Intgains_scalar_APPEND, "Intgains_scalar") %>%
+    add_xml_data(X244.ShellConductance_bld_APPEND, "ShellConductance") %>%
+    add_xml_data(X244.FinalEnergyKeyword_bld_APPEND, "FinalEnergyKeyword") %>%
+    add_xml_data(X244.SubsectorShrwtFllt_bld_APPEND, "SubsectorShrwtFllt") %>%
+    add_xml_data(X244.SubsectorInterp_bld_APPEND, "SubsectorInterp") %>%
+    add_xml_data(X244.FuelPrefElast_bld_APPEND, "FuelPrefElast") %>%
+    add_xml_data(X244.StubTech_bld_APPEND, "StubTech") %>%
+    add_xml_data(X244.StubTechEff_bld_APPEND, "StubTechEff") %>%
+    add_xml_data(X244.StubTechCalInput_bld_APPEND, "StubTechCalInput") %>%
+    add_xml_data(X244.StubTechIntGainOutputRatio_APPEND, "StubTechIntGainOutputRatio") %>%
+    add_xml_data(X244.HDDCDD_constdd_no_GCM_APPEND, "HDDCDD") %>%
+      add_xml_data(X244.fgas_all_units_bld_APPEND, "StubTechEmissUnits") %>%
+      add_xml_data(X244.nonghg_max_reduction_bld_APPEND, "GDPCtrlMax") %>%
+      add_xml_data(X244.nonghg_steepness_bld_APPEND, "GDPCtrlSteep") %>%
+      add_xml_data(X244.hfc_future_bld_APPEND, "OutputEmissCoeff") %>%
+      add_xml_data(X244.pol_emissions_bld_APPEND, "InputEmissions") %>%
+      add_xml_data(X244.ghg_emissions_bld_APPEND, "InputEmissions") %>%
+      add_precursors("X244.DeleteConsumer_bld_APPEND",
+                     "X244.DeleteSupplysector_bld_APPEND",
+                     "X244.SubregionalShares_APPEND",
+                     "X244.PriceExp_IntGains_APPEND",
+                     "X244.Floorspace_APPEND",
+                     "X244.DemandFunction_serv_APPEND",
+                     "X244.DemandFunction_flsp_APPEND",
+                     "X244.Satiation_flsp_APPEND",
+                     "X244.SatiationAdder_APPEND",
+                     "X244.ThermalBaseService_APPEND",
+                     "X244.GenericBaseService_APPEND",
+                     "X244.ThermalServiceSatiation_APPEND",
+                     "X244.GenericServiceSatiation_APPEND",
+                     "X244.Intgains_scalar_APPEND",
+                     "X244.ShellConductance_bld_APPEND",
+                     "X244.Supplysector_bld_APPEND",
+                     "X244.FinalEnergyKeyword_bld_APPEND",
+                     "X244.SubsectorShrwtFllt_bld_APPEND",
+                     "X244.SubsectorInterp_bld_APPEND",
+                     "X244.FuelPrefElast_bld_APPEND",
+                     "X244.StubTech_bld_APPEND",
+                     "X244.StubTechEff_bld_APPEND",
+                     "X244.StubTechCalInput_bld_APPEND",
+                     "X244.SubsectorLogit_bld_APPEND",
+                     "X244.StubTechIntGainOutputRatio_APPEND",
+                     "X244.HDDCDD_constdd_no_GCM_APPEND",
+                     "X244.fgas_all_units_bld_APPEND",
+                     "X244.nonghg_max_reduction_bld_APPEND",
+                     "X244.nonghg_steepness_bld_APPEND",
+                     "X244.hfc_future_bld_APPEND",
+                     "X244.pol_emissions_bld_APPEND",
+                     "X244.ghg_emissions_bld_APPEND") ->
       building_APPEND.xml
 
     return_data(building_APPEND.xml)
