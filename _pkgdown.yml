@@ -5,9 +5,9 @@ navbar:
   left:
     - icon: fa-home
       href: index.html
-    - text: "How-to"
+    - text: "User Guide"
       icon: fas fa-book
-      href: articles/breakout.html
+      href: articles/userguide.html
     - icon: fa-file-code-o
       text: "Reference"
       href: reference/index.html

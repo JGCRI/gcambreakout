@@ -10,8 +10,8 @@ test_that("restore generates original files", {
   dir.create(gcamdataFolder)
   file.copy(paste(gcamdataFolderOriginal,"/inst",sep=""), gcamdataFolder, recursive=TRUE)
 
-  gcambreakout::breakoutRegion(gcamdataFolder = gcamdataFolder,
-                          regionNew = "Thailand Laos",
+  gcambreakout::breakout_regions(gcamdataFolder = gcamdataFolder,
+                          regionsNew = "Thailand Laos",
                           countriesNew = c("Thailand","Lao Peoples Democratic Republic"))
 
   gcambreakout::restore(gcamdataFolder = paste(getwd(),"/test",sep=""))
