@@ -1,6 +1,6 @@
 <!-- badges: start -->
-[![build](https://github.com/JGCRI/rmap/workflows/build/badge.svg)](https://github.com/JGCRI/rmap/workflows/build/badge.svg)
-[![docs](https://github.com/JGCRI/rmap/actions/workflows/docs.yaml/badge.svg?branch=main)](https://github.com/JGCRI/rmap/actions/workflows/docs.yaml)
+[![build](https://github.com/JGCRI/gcambreakout/workflows/build/badge.svg)](https://github.com/JGCRI/gcambreakout/workflows/build/badge.svg)
+[![docs](https://github.com/JGCRI/gcambreakout/actions/workflows/docs.yaml/badge.svg?branch=main)](https://github.com/JGCRI/gcambreakout/actions/workflows/docs.yaml)
 [![codecov](https://codecov.io/gh/JGCRI/gcambreakout/branch/main/graph/badge.svg?token=G36I8JU3HR)](https://codecov.io/gh/JGCRI/gcambreakout)
 <!-- badges: end -->
 
