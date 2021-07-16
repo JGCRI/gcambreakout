@@ -36,7 +36,7 @@ options(rmarkdown.html_vignette.check_title = FALSE)
 - ./input/gcamdata/inst/extdata/energy/offshore_wind_potential_scaler.csv
 
 
-Once these files have been changed the `gcamdata` system must be re-built and the `driver` function has to be re-run to re-generated all the XML files. `gcambreakout` currently has two different functions:
+Once these files have been changed the `gcamdata` system must be re-built and the `driver` function has to be re-run to re-generated all the XML files. `gcambreakout` has the following functions:
 
 - `breakout_regions()` : Used to breakout countries from the existing 32 regions in GCAM Core. Countries chosen must come from the same parent region.
 - `breakoutCities()`: Used to breakout cities from any existing GCAM region, including new regions that are created using `breakout_regions()`
@@ -116,6 +116,7 @@ breakout_regions(gcamdataFolder = gcamdataFolderx,
 # Breakout New Cities
 <!-------------------------->
 <!-------------------------->
+<p align="center"> <img src="vignetteFigs/divider.png"></p>
 
 Documentation on `breakout_cities()` coming soon...
 
@@ -124,6 +125,7 @@ Documentation on `breakout_cities()` coming soon...
 # Restore Original Files
 <!-------------------------->
 <!-------------------------->
+<p align="center"> <img src="vignetteFigs/divider.png"></p>
 
 Users can also restore back to the original files by running the following code. This will replace the newly created files with the versions appended with '_Original' and delete the appended files. The gcamdata system will have to be rebuilt using 'install & restart' from R Studio once again followed by driver(). 
 
