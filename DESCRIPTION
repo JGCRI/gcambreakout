@@ -19,7 +19,8 @@ Imports:
     utils,
     tibble,
     stringr,
-    readr
+    readr,
+    markdown
 VignetteBuilder: 
     knitr
 Depends: 
