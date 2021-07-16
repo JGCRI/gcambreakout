@@ -1,4 +1,4 @@
-# breakoutCity.R
+# breakout_city.R
 #' Function to breakout region in gcamdata
 #' @param gcamdataFolder Default = NULL. Full path to gcamdata folder.
 #' @param region Default = NULL. Name of The region from which to break out the city.
@@ -10,7 +10,7 @@
 #' @export
 #'
 
-breakoutCity <- function(gcamdataFolder = NULL,
+breakout_city <- function(gcamdataFolder = NULL,
                          region = NULL,
                          city = NULL,
                          popProjection = NULL,
@@ -24,7 +24,7 @@ breakoutCity <- function(gcamdataFolder = NULL,
   #.............
 
   if(T){
-    print("Starting breakoutCity ...")
+    print("Starting breakout_city ...")
 
     # Declare File Names
     file_iso_GCAM_regID = paste(gcamdataFolder,"/inst/extdata/common/iso_GCAM_regID.csv",sep = "")
@@ -257,7 +257,7 @@ breakoutCity <- function(gcamdataFolder = NULL,
     ##### Write modified R files into the R folder
 
     # Write out Breakout helper functions
-    readr::write_lines(template_breakout_helpers,paste0(gcamdataFolder, "/R/breakout_helpers.R"))
+    readr::write_lines(gcambreakout::template_breakout_helpers,paste0(gcamdataFolder, "/R/breakout_helpers.R"))
     print(paste0("Added new file: ", gcamdataFolder, "/R/breakout_helpers.R"))
 
     # Write out Socioeconomics Files
@@ -311,7 +311,7 @@ breakoutCity <- function(gcamdataFolder = NULL,
   print(paste0("Note: If during gcamdatabuild error: 'Error: .../input/gcamdata/man/GCAM_DATA_MAP.Rd:17: Bad /link text'",
                ", delete './input/gcamdata/man/GCAM_DATA_MAP.Rd' and then run devtools::install() in gcamdata.",
                " (Do not rebuild documentation after deleting GCAM_DATA_MAP.Rd."))
-  print("breakoutCity complete.")
+  print("breakout_city complete.")
   }
 
 

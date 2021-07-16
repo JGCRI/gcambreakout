@@ -1,0 +1,134 @@
+---
+title: "User Guide"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Guide}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+resourse_files:
+  - vignettes/vignetteFigs
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+options(rmarkdown.html_vignette.check_title = FALSE)
+```
+
+<!-------------------------->
+<!-------------------------->
+# Overview
+<!-------------------------->
+<!-------------------------->
+<p align="center"> <img src="vignetteFigs/divider.png"></p>
+
+`gcambreakout` works by editing the raw input files that define the regional structure in the `gcamdata` system. `gcamdata` is a folder inside every version of GCAM that contains all the input data and R code that is required to create the XML files that go into GCAM. The following files are edited with new regions added to them:
+
+- ./input/gcamdata/inst/extdata/common/iso_GCAM_regID.csv
+- ./input/gcamdata/inst/extdata/common/GCAM_region_names.csv
+- ./input/gcamdata/inst/extdata/aglu/A_bio_frac_prod_R.csv
+- ./input/gcamdata/inst/extdata/aglu/A_soil_time_scale_R.csv
+- ./input/gcamdata/inst/extdata/emissions/A_regions.csv
+- ./input/gcamdata/inst/extdata/energy/A23.subsector_interp_R.csv
+- ./input/gcamdata/inst/extdata/energy/A_regions.csv
+- ./input/gcamdata/inst/extdata/energy/offshore_wind_potential_scaler.csv
+
+
+Once these files have been changed the `gcamdata` system must be re-built and the `driver` function has to be re-run to re-generated all the XML files. `gcambreakout` currently has two different functions:
+
+- `breakout_regions()` : Used to breakout countries from the existing 32 regions in GCAM Core. Countries chosen must come from the same parent region.
+- `breakoutCities()`: Used to breakout cities from any existing GCAM region, including new regions that are created using `breakout_regions()`
+- `restore()`: Used to restore the original files if desired (OPTIONAL)
+
+<!-------------------------->
+<!-------------------------->
+# Breakout New Regions
+<!-------------------------->
+<!-------------------------->
+<p align="center"> <img src="vignetteFigs/divider.png"></p>
+
+The `breakout_regions()` function can be used to breakout new regions in GCAM. Users can breakout a single new region composed of one or more countries or several new regions each composed of one or more countries. The new region name can be any name the user wants however the countries that make up the new region must be one of the countries listed in: **./input/gcamdata/inst/extdata/common/iso_GCAM_regID.csv** file. The following examples show how to breakout a single and multiple new regions composed of single and multiple countries.
+
+```{r, eval =F}
+library(gcambreakout); library(dplyr)
+
+# Set the path to your ./input/gcamdata folder"
+gcamdataFolderx <- "FULL_PATH_ADDRESS/gcam-core/input/gcamdata" # Example "C:/gcam-core/input/gcamdata" 
+
+# Check the list of countries in ./input/gcamdata/inst/extdata/common/iso_GCAM_regID.csv
+countries_allowed <- read.csv(paste0(gcamdataFolderx,"/inst/extdata/common/iso_GCAM_regID.csv"), comment.char = '#', header=T); countries_allowed$country_name
+current_GCAM_regions <- read.csv(paste0(gcamdataFolderx,"/inst/extdata/common/GCAM_region_names.csv"), comment.char = '#', header=T); current_GCAM_regions
+
+  
+#-----------------------------------------------------------------
+# Breakout a new region for Spain with a single country Spain
+#-----------------------------------------------------------------
+breakout_regions(gcamdataFolder = gcamdataFolderx,
+         regionsNew = c("Spain"),
+         countriesNew = c("Spain"))
+# Users can confirm that a new region has been added by opening the .csv file: ./input/gcamdata/inst/extdata/common/GCAM_region_names.csv
+# restore(gcamdataFolder = gcamdataFolderx)  # (OPTIONAL) Uncomment this line and restore the datasystem to original state
+
+
+#-----------------------------------------------------------------
+# Breakout a new custom region called "Peru_Chile" with both Peru and Chile
+#-----------------------------------------------------------------
+breakout_regions(gcamdataFolder = gcamdataFolderx,
+         regionsNew = c("Peru_Chile"),
+         countriesNew = c("Peru","Chile"))
+# Users can confirm that a new region has been added by opening the .csv file: ./input/gcamdata/inst/extdata/common/GCAM_region_names.csv
+# restore(gcamdataFolder = gcamdataFolderx)  # (OPTIONAL) Uncomment this line and restore the datasystem to original state
+
+
+#-----------------------------------------------------------------
+# Breakout two new regions: One for Peru and One for Chile with each having its own single country within it.
+#-----------------------------------------------------------------
+breakout_regions(gcamdataFolder = gcamdataFolderx,
+         regionsNew = c("Peru","Chile"),
+         countriesNew = c("Peru","Chile"))
+# Users can confirm that a new region has been added by opening the .csv file: ./input/gcamdata/inst/extdata/common/GCAM_region_names.csv
+# restore(gcamdataFolder = gcamdataFolderx)  # (OPTIONAL) Uncomment this line and restore the datasystem to original state
+
+
+#-----------------------------------------------------------------
+# Breakout two new regions: One for a combined "Peru_Chile" with Peru and Chile, and one for "Spain_France" with Spain and France
+#-----------------------------------------------------------------
+
+# NOTE: In this case the countriesNew must be a list!!
+
+breakout_regions(gcamdataFolder = gcamdataFolderx,
+         regionsNew = c("Peru_Chile",
+                        "Spain_France"),
+         countriesNew = list(c("Peru","Chile"),
+                             c("Spain","France")))
+# Users can confirm that a new region has been added by opening the .csv file: ./input/gcamdata/inst/extdata/common/GCAM_region_names.csv
+# restore(gcamdataFolder = gcamdataFolderx)  # (OPTIONAL) Uncomment this line and restore the datasystem to original state
+
+
+```
+
+
+
+<!-------------------------->
+<!-------------------------->
+# Breakout New Cities
+<!-------------------------->
+<!-------------------------->
+
+Documentation on `breakout_cities()` coming soon...
+
+<!-------------------------->
+<!-------------------------->
+# Restore Original Files
+<!-------------------------->
+<!-------------------------->
+
+Users can also restore back to the original files by running the following code. This will replace the newly created files with the versions appended with '_Original' and delete the appended files. The gcamdata system will have to be rebuilt using 'install & restart' from R Studio once again followed by driver(). 
+
+```{r, eval=F}
+library(gcambreakout)
+restore(gcamdataFolder = "PATH_TO_GCAM_FOLDER/input/gcamdata")
+```
+

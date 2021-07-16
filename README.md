@@ -1,6 +1,6 @@
 <!-- badges: start -->
-![pkgdown](https://github.com/JGCRI/gcambreakout/workflows/pkgdown/badge.svg)
-![R-CMD](https://github.com/JGCRI/gcambreakout/workflows/R-CMD/badge.svg)
+[![build](https://github.com/JGCRI/rmap/workflows/build/badge.svg)](https://github.com/JGCRI/rmap/workflows/build/badge.svg)
+[![docs](https://github.com/JGCRI/rmap/actions/workflows/docs.yaml/badge.svg?branch=main)](https://github.com/JGCRI/rmap/actions/workflows/docs.yaml)
 [![codecov](https://codecov.io/gh/JGCRI/gcambreakout/branch/main/graph/badge.svg?token=G36I8JU3HR)](https://codecov.io/gh/JGCRI/gcambreakout)
 <!-- badges: end -->
 
@@ -13,17 +13,24 @@
 
 `gcambreakout` is an R package with functions to breakout new regions in the GCAM datasystem.
 
+
+For more detailed information on using rmap, click the green **User Guide** button below. 
+
+
+<br>
+
+<p align="center">
+<a href="https://jgcri.github.io/gcambreakout/articles/userguide.html" target="_blank"><img src="https://github.com/JGCRI/jgcricolors/blob/main/vignettes/button_user_guide.PNG?raw=true" alt="https://jgcri.github.io/gcambreakout/articles/userguide.html" height="60"/></a>
+</p>
+
 <!-- ------------------------>
 <!-- ------------------------>
-# <a name="KeyLinks"></a>Key Links
+# <a name="Citation"></a>Citation
 <!-- ------------------------>
 <!-- ------------------------>
 
-- Github: https://github.com/JGCRI/gcambreakout
-- Webpage: https://jgcri.github.io/gcambreakout/
-- GCAM Adding a new region: https://github.com/JGCRI/gcamdata/wiki/Modifying-GCAM-via-the-Data-System
-- gcamdata package: https://github.com/JGCRI/gcamdata
-- Proprietary Data needed (Limited access): https://stash.pnnl.gov/scm/jgcri/gcam-proprietary-data.git
+Khan, Z., Kyle, P., Vernon, C., 2021. gcambreakout - An R package to breakout new regions and cities from GCAM. (In progress) Journal of Open Source Software, DOI: XXXX
+
 
 <!-- ------------------------>
 <!-- ------------------------>
@@ -43,28 +50,4 @@ install.packages(“devtools”)
 devtools::install_github(“JGCRI/gcambreakout”)
 ```
 
-<!-- ------------------------>
-<!-- ------------------------>
-# <a name="UserGuide"></a> User Guide
-<!-- ------------------------>
-<!-- ------------------------>
 
-A detailed step-by-step walkthrough and User Guide is provided on the [User Guide](https://jgcri.github.io/gcambreakout/articles/breakout.html) page. 
-
-
-<!-- ------------------------>
-<!-- ------------------------>
-# <a name="Citation"></a>Citation
-<!-- ------------------------>
-<!-- ------------------------>
-
-Citation to be added.
-
-
-<!-- ------------------------>
-<!-- ------------------------>
-# <a name="Publications"></a>Related Publications
-<!-- ------------------------>
-<!-- ------------------------>
-
-[Back to Contents](#Contents)

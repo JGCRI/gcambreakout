@@ -1,6 +1,9 @@
-name: R-CMD
+name: build
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   R-CMD:
@@ -21,6 +24,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: r-lib/actions/setup-r@master
+      
+      - name: Brew and macOS config
+        if: runner.os == 'macOS'
+        run: |
+          brew install pkg-config \
+            imagemagick@6 \
+            gdal
 
       - name: Install dependencies
         run: |
