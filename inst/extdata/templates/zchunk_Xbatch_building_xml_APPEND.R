@@ -12,7 +12,8 @@
 #' original data system was \code{batch_building_APPEND.xml} (energy XML).
 module_energy_Xbatch_building_xml_APPEND <- function(command, ...) {
   if(command == driver.DECLARE_INPUTS) {
-    return(c("X244.DeleteConsumer_bld_APPEND",
+    return(c("X244.DeleteThermalService_bld_APPEND",
+             "X244.DeleteConsumer_bld_APPEND",
              "X244.DeleteSupplysector_bld_APPEND",
              "X244.SubregionalShares_APPEND",
              "X244.PriceExp_IntGains_APPEND",
@@ -83,6 +84,7 @@ module_energy_Xbatch_building_xml_APPEND <- function(command, ...) {
     X244.hfc_future_bld_APPEND<- get_data(all_data, "X244.hfc_future_bld_APPEND")
     X244.pol_emissions_bld_APPEND<- get_data(all_data, "X244.pol_emissions_bld_APPEND")
     X244.ghg_emissions_bld_APPEND<- get_data(all_data, "X244.ghg_emissions_bld_APPEND")
+    X244.DeleteThermalService_bld_APPEND<- get_data(all_data, "X244.DeleteThermalService_bld_APPEND")
 
     # ===================================================
 
@@ -151,8 +153,16 @@ module_energy_Xbatch_building_xml_APPEND <- function(command, ...) {
                      "X244.nonghg_steepness_bld_APPEND",
                      "X244.hfc_future_bld_APPEND",
                      "X244.pol_emissions_bld_APPEND",
-                     "X244.ghg_emissions_bld_APPEND") ->
+                     "X244.ghg_emissions_bld_APPEND",
+                     "X244.DeleteThermalService_bld_APPEND") ->
       building_APPEND.xml
+
+    if(nrow(X244.DeleteThermalService_bld_APPEND) > 0) {
+      building_APPEND.xml %>%
+        add_xml_data(X244.DeleteThermalService_bld_APPEND, "DeleteThermalService") ->
+        building_APPEND.xml
+    }
+
 
     return_data(building_APPEND.xml)
   } else {

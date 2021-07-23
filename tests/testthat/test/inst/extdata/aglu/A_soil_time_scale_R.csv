@@ -1,11 +1,11 @@
-# File: A_soil_time_scale_R.csv
-# Title: A_soil_tim_scale_R
-# Units: NA
-# Description: sets the number of years for soil carbon recovery following LUC
-# Original source: NA
-# Column types: ii 
-# ----------
-"GCAM_region_ID","soilTimeScale"
+# File: A_soil_time_scale_R.csv,
+# Title: A_soil_tim_scale_R,
+# Units: NA,
+# Description: sets the number of years for soil carbon recovery following LUC,
+# Original source: NA,
+# Column types: ii ,
+# ----------,
+GCAM_region_ID,soilTimeScale
 1,50
 2,25
 3,25
@@ -38,4 +38,3 @@
 30,50
 31,50
 32,25
-33,25

@@ -59,14 +59,18 @@ restore(gcamdataFolder = gcamdataFolderx)  # (OPTIONAL) Uncomment this line and 
 #-------------------------------------
 #-------------------------------------
 
-breakoutCity(gcamdataFolder = gcamdataFolderx,
+breakout_city(gcamdataFolder = gcamdataFolderx,
              region = "Thailand",
              city = "Bangkok",
              popProjection = gcambreakout::template_popProjection,
              pcgdpProjection = gcambreakout::template_pcgdpProjection)
 
-breakoutCity(gcamdataFolder = gcamdataFolderx,
-             region = "Spain",
+breakout_regions(gcamdataFolder = gcamdataFolderx,
+                 regionsNew = c("Malaysia"),
+                 countriesNew = c("Malaysia"))
+
+breakout_city(gcamdataFolder = gcamdataFolderx,
+             region = "Malaysia",
              city = "KualaLumpur",
              popProjection = "C:/Z/projects/current/00_SMART/kualalumpur/template_popProjection_kl.csv",
              pcgdpProjection = "C:/Z/projects/current/00_SMART/kualalumpur/template_pcgdpProjection_kl.csv")

@@ -1,11 +1,11 @@
-# File: A_bio_frac_prod_R.csv
-# Title: A_bio_frac_prod_R
-# Description: Base-year fraction of residue biomass produced by region and source
-# Original source: Workbook put together by Kate Calvin
-# Units: NA
-# Column types: innn 
-# ----------
-"GCAM_region_ID","ag","For","Mill"
+# File: A_bio_frac_prod_R.csv,,,
+# Title: A_bio_frac_prod_R,,,
+# Description: Base-year fraction of residue biomass produced by region and source,,,
+# Original source: Workbook put together by Kate Calvin,,,
+# Units: NA,,,
+# Column types: innn ,,,
+# ----------,,,
+GCAM_region_ID,ag,For,Mill
 1,0.261919425,0.6,0.8
 2,0.9,0.9,0.9
 3,0.9,0.9,0.9
@@ -38,4 +38,3 @@
 30,0.209931471,0.590937633,0.8
 31,0.408779196,0.6,0.8
 32,0.408779196,0.6,0.8
-33,0.209931471,0.590937633,0.8
