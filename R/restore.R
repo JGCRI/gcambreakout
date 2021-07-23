@@ -30,14 +30,10 @@ restore <- function(gcamdataFolder = NULL) {
   file_A23.subsector_interp_R = paste(gcamdataFolder,"/inst/extdata/energy/A23.subsector_interp_R.csv",sep = "")
   file_energy_A_regions = paste(gcamdataFolder,"/inst/extdata/energy/A_regions.csv",sep = "")
   file_offshore_wind_potential_scaler = paste(gcamdataFolder,"/inst/extdata/energy/offshore_wind_potential_scaler.csv",sep = "")
-  # Countries Electricity breakout
-  file_IEA_Ctry = paste(gcamdataFolder,"/inst/extdata/energy/mappings/IEA_ctry.csv",sep = "")
-  file_IEA_memo_ctry = paste(gcamdataFolder,"/inst/extdata/energy/mappings/IEA_memo_ctry.csv",sep = "")
 
   file_list <- list(file_iso_GCAM_regID, file_GCAM_region_names, file_A_bio_frac_prod_R,
                     file_A_soil_time_scale_R, file_A_soil_time_scale_R, file_emissions_A_regions,
-                    file_A23.subsector_interp_R, file_energy_A_regions, file_offshore_wind_potential_scaler,
-                    file_IEA_Ctry)
+                    file_A23.subsector_interp_R, file_energy_A_regions, file_offshore_wind_potential_scaler)
 
   file_iso_GCAM_regID_orig = paste(gcamdataFolder,"/inst/extdata/common/iso_GCAM_regID_Original.csv",sep = "")
   file_GCAM_region_names_orig = paste(gcamdataFolder,"/inst/extdata/common/GCAM_region_names_Original.csv",sep = "")
@@ -47,14 +43,14 @@ restore <- function(gcamdataFolder = NULL) {
   file_A23.subsector_interp_R_orig = paste(gcamdataFolder,"/inst/extdata/energy/A23.subsector_interp_R_Original.csv",sep = "")
   file_energy_A_regions_orig = paste(gcamdataFolder,"/inst/extdata/energy/A_regions_Original.csv",sep = "")
   file_offshore_wind_potential_scaler_orig = paste(gcamdataFolder,"/inst/extdata/energy/offshore_wind_potential_scaler_Original.csv",sep = "")
-  # Countries Electricity breakout
-  file_IEA_Ctry_orig = paste(gcamdataFolder,"/inst/extdata/energy/mappings/IEA_ctry_Original.csv",sep = "")
-  file_IEA_memo_ctry_orig = paste(gcamdataFolder,"/inst/extdata/energy/mappings/IEA_memo_ctry_Original.csv",sep = "")
 
   file_list_orig <- list(file_iso_GCAM_regID_orig, file_GCAM_region_names_orig, file_A_bio_frac_prod_R_orig,
                         file_A_soil_time_scale_R_orig, file_A_soil_time_scale_R_orig, file_emissions_A_regions_orig,
-                        file_A23.subsector_interp_R_orig, file_energy_A_regions_orig, file_offshore_wind_potential_scaler_orig,
-                        file_IEA_Ctry_orig)
+                        file_A23.subsector_interp_R_orig, file_energy_A_regions_orig, file_offshore_wind_potential_scaler_orig)
+
+  # Cities
+  file_list_cities <- list.files(paste0(gcamdataFolder,"/R"), full.names = T)
+  file_list_cities <- file_list_cities[grepl("zchunk_X",file_list_cities)]
 
   }
 
@@ -86,7 +82,20 @@ restore <- function(gcamdataFolder = NULL) {
         print(paste("File ", file_list_orig[[i]], " does not exist. Will be skipped in restoration.", sep = ""))
         file_indices_remove<-c(file_indices_remove,i)
       }}
-    file_list_orig<-file_list_orig[-c(file_indices_remove)]
+    if(!is.null(file_indices_remove)){
+    file_list_orig<-file_list_orig[-c(file_indices_remove)]}
+
+
+    # Check that all cities files exist
+    if(length(file_list_cities)>0){
+    for(i in 1:length(file_list_cities)){
+      if (!file.exists(file_list_cities[[i]])) {
+        print(paste("File ", file_list_cities[[i]], " does not exist. Will be skipped in restoration.", sep = ""))
+        file_indices_remove<-c(file_indices_remove,i)
+      }}
+      if(!is.null(file_indices_remove)){
+      file_list_cities<-file_list_cities[-c(file_indices_remove)]}
+    }
 
   print("Input checks complete ...")
   }
@@ -105,19 +114,21 @@ restore <- function(gcamdataFolder = NULL) {
       }
       }}
 
-    # Check that all the input files to be modified exist
+    # Delete Original Files
     if(length(file_list_orig)>0){
     for(i in 1:length(file_list_orig)){
       if( gsub("_Original","",file_list_orig[[i]]) %in% unlist(file_list)){
       file.copy(file_list_orig[[i]], gsub("_Original.csv",".csv",file_list_orig[[i]]))
         unlink(file_list_orig[[i]])
+      }}
+    }
+
+    # Delete City Files
+    if(length(file_list_cities)>0){
+      for(i in 1:length(file_list_cities)){
+          unlink(file_list_cities[[i]])
+        }
       }
-
-      filename <- gsub("IEA_ctry.csv","IEA_memo_ctry.csv", file_IEA_Ctry)
-      if(!file.exists(filename)){unlink(filename)}
-
-    }
-    }
 
     }
 

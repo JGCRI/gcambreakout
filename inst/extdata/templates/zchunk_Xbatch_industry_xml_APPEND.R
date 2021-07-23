@@ -43,13 +43,16 @@ module_energy_Xbatch_industry_xml_APPEND<- function(command, ...) {
              "X232.nonghg_max_reduction_ind_APPEND",
              "X232.nonghg_steepness_ind_APPEND",
              "X232.hfc_future_ind_APPEND",
+             "X232.MAC_higwp_ind_APPEND",
              "X232.nonco2_max_reduction_indproc_APPEND",
              "X232.nonco2_steepness_indproc_APPEND",
              "X232.pol_emissions_ind_APPEND",
              "X232.ghg_emissions_ind_APPEND",
              "X232.StubTechMarket_ind_APPEND",
              "X232.StubTechSecMarket_ind_APPEND",
-             "X232.nonco2_indproc_APPEND"))
+             "X232.nonco2_indproc_APPEND",
+             "X232.hfc_all_indproc_APPEND",
+             "X232.pfc_all_indproc_APPEND"))
   } else if(command == driver.DECLARE_OUTPUTS) {
     return(c(XML = "industry_APPEND.xml"))
   } else if(command == driver.MAKE) {
@@ -88,6 +91,7 @@ module_energy_Xbatch_industry_xml_APPEND<- function(command, ...) {
     X232.nonghg_max_reduction_ind_APPEND<- get_data(all_data, "X232.nonghg_max_reduction_ind_APPEND")
     X232.nonghg_steepness_ind_APPEND<- get_data(all_data, "X232.nonghg_steepness_ind_APPEND")
     X232.hfc_future_ind_APPEND<- get_data(all_data, "X232.hfc_future_ind_APPEND")
+    X232.MAC_higwp_ind_APPEND <- get_data(all_data, "X232.MAC_higwp_ind_APPEND")
     X232.nonco2_max_reduction_indproc_APPEND<- get_data(all_data, "X232.nonco2_max_reduction_indproc_APPEND")
     X232.nonco2_steepness_indproc_APPEND<- get_data(all_data, "X232.nonco2_steepness_indproc_APPEND")
     X232.pol_emissions_ind_APPEND<- get_data(all_data, "X232.pol_emissions_ind_APPEND")
@@ -95,6 +99,8 @@ module_energy_Xbatch_industry_xml_APPEND<- function(command, ...) {
     X232.StubTechMarket_ind_APPEND<- get_data(all_data, "X232.StubTechMarket_ind_APPEND")
     X232.StubTechSecMarket_ind_APPEND<- get_data(all_data, "X232.StubTechSecMarket_ind_APPEND")
     X232.nonco2_indproc_APPEND<- get_data(all_data, "X232.nonco2_indproc_APPEND")
+    X232.hfc_all_indproc_APPEND <- get_data(all_data, "X232.hfc_all_indproc_APPEND")
+    X232.pfc_all_indproc_APPEND <- get_data(all_data, "X232.pfc_all_indproc_APPEND")
 
     # ===================================================
 
@@ -131,6 +137,7 @@ module_energy_Xbatch_industry_xml_APPEND<- function(command, ...) {
       add_xml_data(X232.nonghg_max_reduction_ind_APPEND, "GDPCtrlMax") %>%
       add_xml_data(X232.nonghg_steepness_ind_APPEND, "GDPCtrlSteep") %>%
       add_xml_data(X232.hfc_future_ind_APPEND, "OutputEmissCoeff") %>%
+      add_xml_data(X232.MAC_higwp_ind_APPEND, "MAC") %>%
       add_xml_data(X232.nonco2_max_reduction_indproc_APPEND, "GDPCtrlMax") %>%
       add_xml_data(X232.nonco2_steepness_indproc_APPEND, "GDPCtrlSteep") %>%
       add_xml_data(X232.pol_emissions_ind_APPEND, "InputEmissions") %>%
@@ -138,6 +145,8 @@ module_energy_Xbatch_industry_xml_APPEND<- function(command, ...) {
       add_xml_data(X232.StubTechMarket_ind_APPEND, "StubTechMarket") %>%
       add_xml_data(X232.StubTechSecMarket_ind_APPEND, "StubTechSecMarket") %>%
       add_xml_data(X232.nonco2_indproc_APPEND, "StbTechOutputEmissions") %>%
+      add_xml_data(X232.hfc_all_indproc_APPEND, "StbTechOutputEmissions") %>%
+      add_xml_data(X232.pfc_all_indproc_APPEND, "StbTechOutputEmissions") %>%
       add_precursors("X232.DeleteFinalDemand_ind_APPEND",
                      "X232.DeleteSupplysector_ind_APPEND",
                      "X232.Supplysector_ind_APPEND",
@@ -169,13 +178,16 @@ module_energy_Xbatch_industry_xml_APPEND<- function(command, ...) {
                      "X232.nonghg_max_reduction_ind_APPEND",
                      "X232.nonghg_steepness_ind_APPEND",
                      "X232.hfc_future_ind_APPEND",
+                     "X232.MAC_higwp_ind_APPEND",
                      "X232.nonco2_max_reduction_indproc_APPEND",
                      "X232.nonco2_steepness_indproc_APPEND",
                      "X232.pol_emissions_ind_APPEND",
                      "X232.ghg_emissions_ind_APPEND",
                      "X232.StubTechMarket_ind_APPEND",
                      "X232.StubTechSecMarket_ind_APPEND",
-                     "X232.nonco2_indproc_APPEND") ->
+                     "X232.nonco2_indproc_APPEND",
+                     "X232.hfc_all_indproc_APPEND",
+                     "X232.pfc_all_indproc_APPEND") ->
       industry_APPEND.xml
 
     return_data(industry_APPEND.xml)
