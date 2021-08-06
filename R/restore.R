@@ -30,10 +30,12 @@ restore <- function(gcamdataFolder = NULL) {
   file_A23.subsector_interp_R = paste(gcamdataFolder,"/inst/extdata/energy/A23.subsector_interp_R.csv",sep = "")
   file_energy_A_regions = paste(gcamdataFolder,"/inst/extdata/energy/A_regions.csv",sep = "")
   file_offshore_wind_potential_scaler = paste(gcamdataFolder,"/inst/extdata/energy/offshore_wind_potential_scaler.csv",sep = "")
+  file_EPA_country_map = paste(gcamdataFolder,"/inst/extdata/emissions/EPA_country_map.csv",sep = "")
 
   file_list <- list(file_iso_GCAM_regID, file_GCAM_region_names, file_A_bio_frac_prod_R,
                     file_A_soil_time_scale_R, file_A_soil_time_scale_R, file_emissions_A_regions,
-                    file_A23.subsector_interp_R, file_energy_A_regions, file_offshore_wind_potential_scaler)
+                    file_A23.subsector_interp_R, file_energy_A_regions, file_offshore_wind_potential_scaler,
+                    file_EPA_country_map)
 
   file_iso_GCAM_regID_orig = paste(gcamdataFolder,"/inst/extdata/common/iso_GCAM_regID_Original.csv",sep = "")
   file_GCAM_region_names_orig = paste(gcamdataFolder,"/inst/extdata/common/GCAM_region_names_Original.csv",sep = "")
@@ -43,10 +45,13 @@ restore <- function(gcamdataFolder = NULL) {
   file_A23.subsector_interp_R_orig = paste(gcamdataFolder,"/inst/extdata/energy/A23.subsector_interp_R_Original.csv",sep = "")
   file_energy_A_regions_orig = paste(gcamdataFolder,"/inst/extdata/energy/A_regions_Original.csv",sep = "")
   file_offshore_wind_potential_scaler_orig = paste(gcamdataFolder,"/inst/extdata/energy/offshore_wind_potential_scaler_Original.csv",sep = "")
+  file_EPA_country_map_orig = paste(gcamdataFolder,"/inst/extdata/emissions/EPA_country_map_Original.csv",sep = "")
+
 
   file_list_orig <- list(file_iso_GCAM_regID_orig, file_GCAM_region_names_orig, file_A_bio_frac_prod_R_orig,
                         file_A_soil_time_scale_R_orig, file_A_soil_time_scale_R_orig, file_emissions_A_regions_orig,
-                        file_A23.subsector_interp_R_orig, file_energy_A_regions_orig, file_offshore_wind_potential_scaler_orig)
+                        file_A23.subsector_interp_R_orig, file_energy_A_regions_orig, file_offshore_wind_potential_scaler_orig,
+                        file_EPA_country_map_orig)
 
   # Cities
   file_list_cities <- list.files(paste0(gcamdataFolder,"/R"), full.names = T)
