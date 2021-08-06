@@ -43,10 +43,12 @@ breakout_regions <- function(gcamdataFolder = NULL,
   file_A23.subsector_interp_R = paste(gcamdataFolder,"/inst/extdata/energy/A23.subsector_interp_R.csv",sep = "")
   file_energy_A_regions = paste(gcamdataFolder,"/inst/extdata/energy/A_regions.csv",sep = "")
   file_offshore_wind_potential_scaler = paste(gcamdataFolder,"/inst/extdata/energy/offshore_wind_potential_scaler.csv",sep = "")
+  file_EPA_country_map = paste(gcamdataFolder,"/inst/extdata/emissions/EPA_country_map.csv",sep = "")
 
   file_list <- list(file_iso_GCAM_regID, file_GCAM_region_names, file_A_bio_frac_prod_R,
                     file_A_soil_time_scale_R, file_A_soil_time_scale_R, file_emissions_A_regions,
-                    file_A23.subsector_interp_R, file_energy_A_regions, file_offshore_wind_potential_scaler)
+                    file_A23.subsector_interp_R, file_energy_A_regions, file_offshore_wind_potential_scaler,
+                    file_EPA_country_map)
 
   }
 
@@ -69,7 +71,8 @@ breakout_regions <- function(gcamdataFolder = NULL,
   # Check that all the input files to be modified exist
  for(i in 1:length(file_list)){
   if (!file.exists(file_list[[i]])) {
-    stop(paste("File ", file_list[[i]], " does not exist.", sep = ""))
+    print(paste("File ", file_list[[i]], " does not exist. Breakout may not work correctly.", sep = ""))
+    print(paste0("This could also be a file not available in the current version of GCAM being used."))
   }}
 
   # Check that regionsNew and countriesNew have the correct length
@@ -147,64 +150,85 @@ breakout_regions <- function(gcamdataFolder = NULL,
 
   iso_GCAM_regID = utils::read.csv(file_iso_GCAM_regID, sep = ",",comment.char="#") %>% tibble::as_tibble(); iso_GCAM_regID
 
+  if(file.exists(file_iso_GCAM_regID)){
   iso_GCAM_regID_comments <- ((utils::read.csv(file_iso_GCAM_regID, header = F))[,1])%>%
     as.data.frame();
     names(iso_GCAM_regID_comments)<-"Col1"
   iso_GCAM_regID_comments <- iso_GCAM_regID_comments %>%
     dplyr::filter(grepl("#",Col1)); iso_GCAM_regID_comments
+  }
 
-
+  if(file.exists(file_GCAM_region_names)){
   GCAM_region_names = utils::read.csv(file_GCAM_region_names, sep = ",",comment.char="#") %>% tibble::as_tibble(); GCAM_region_names
-
   GCAM_region_names_comments <- ((utils::read.csv(file_GCAM_region_names, header = F))[,1])%>%
     as.data.frame();
   names(GCAM_region_names_comments)<-"Col1"
   GCAM_region_names_comments <- GCAM_region_names_comments %>%
     dplyr::filter(grepl("#",Col1)); GCAM_region_names_comments
+  }
 
-
+  if(file.exists(file_A_bio_frac_prod_R)){
   A_bio_frac_prod_R = utils::read.csv(file_A_bio_frac_prod_R, sep = ",",comment.char="#") %>% tibble::as_tibble(); A_bio_frac_prod_R
-
   A_bio_frac_prod_R_comments <- ((utils::read.csv(file_A_bio_frac_prod_R, header = F))[,1])%>%
     as.data.frame();
   names(A_bio_frac_prod_R_comments)<-"Col1"
   A_bio_frac_prod_R_comments <- A_bio_frac_prod_R_comments %>%
     dplyr::filter(grepl("#",Col1)); A_bio_frac_prod_R_comments
+  }
 
+  if(file.exists(file_A_soil_time_scale_R)){
   A_soil_time_scale_R = utils::read.csv(file_A_soil_time_scale_R, sep = ",",comment.char="#") %>% tibble::as_tibble(); A_soil_time_scale_R
   A_soil_time_scale_R_comments <- ((utils::read.csv(file_A_soil_time_scale_R, header = F))[,1])%>%
     as.data.frame();
   names(A_soil_time_scale_R_comments)<-"Col1"
   A_soil_time_scale_R_comments <- A_soil_time_scale_R_comments %>%
     dplyr::filter(grepl("#",Col1)); A_soil_time_scale_R_comments
+  }
 
+  if(file.exists(file_emissions_A_regions)){
   emissions_A_regions = utils::read.csv(file_emissions_A_regions, sep = ",",comment.char="#") %>% tibble::as_tibble(); emissions_A_regions
   emissions_A_regions_comments <- ((utils::read.csv(file_emissions_A_regions, header = F))[,1])%>%
     as.data.frame();
   names(emissions_A_regions_comments)<-"Col1"
   emissions_A_regions_comments <- emissions_A_regions_comments %>%
     dplyr::filter(grepl("#",Col1)); emissions_A_regions_comments
+  }
 
+  if(file.exists(file_A23.subsector_interp_R)){
   A23.subsector_interp_R = utils::read.csv(file_A23.subsector_interp_R, sep = ",",comment.char="#") %>% tibble::as_tibble(); A23.subsector_interp_R
   A23.subsector_interp_R_comments <- ((utils::read.csv(file_A23.subsector_interp_R, header = F))[,1])%>%
     as.data.frame();
   names(A23.subsector_interp_R_comments)<-"Col1"
   A23.subsector_interp_R_comments <- A23.subsector_interp_R_comments %>%
     dplyr::filter(grepl("#",Col1)); A23.subsector_interp_R_comments
+  }
 
+  if(file.exists(file_energy_A_regions)){
   energy_A_regions = utils::read.csv(file_energy_A_regions, sep = ",",comment.char="#") %>% tibble::as_tibble(); energy_A_regions
   energy_A_regions_comments <- ((utils::read.csv(file_energy_A_regions, header = F))[,1])%>%
     as.data.frame();
   names(energy_A_regions_comments)<-"Col1"
   energy_A_regions_comments <- energy_A_regions_comments %>%
     dplyr::filter(grepl("#",Col1)); energy_A_regions_comments
+  }
 
+  if(file.exists(file_offshore_wind_potential_scaler)){
   offshore_wind_potential_scaler = utils::read.csv(file_offshore_wind_potential_scaler, sep = ",",comment.char="#") %>% tibble::as_tibble(); offshore_wind_potential_scaler
   offshore_wind_potential_scaler_comments <-  ((utils::read.csv(file_offshore_wind_potential_scaler, header = F))[,1])%>%
     as.data.frame();
   names(offshore_wind_potential_scaler_comments)<-"Col1"
   offshore_wind_potential_scaler_comments <- offshore_wind_potential_scaler_comments %>%
     dplyr::filter(grepl("#",Col1)); offshore_wind_potential_scaler_comments
+  }
+
+  if(file.exists(file_EPA_country_map)){
+  EPA_country_map = utils::read.csv(file_EPA_country_map, sep = ",",comment.char="#") %>% tibble::as_tibble(); EPA_country_map
+  EPA_country_map_comments <- ((utils::read.csv(file_EPA_country_map, header = F))[,1])%>%
+    as.data.frame();
+  names(EPA_country_map_comments)<-"Col1"
+  EPA_country_map_comments <- EPA_country_map_comments %>%
+    dplyr::filter(grepl("#",Col1)); EPA_country_map_comments
+  }
 
   print("All files read.")
   }
@@ -266,7 +290,7 @@ breakout_regions <- function(gcamdataFolder = NULL,
       # Modify extdata/common/iso_GCAM_regID.csv
       # .................
 
-      if (T) {
+      if(file.exists(file_iso_GCAM_regID)){
 
         new_region_ID <- as.integer(max(iso_GCAM_regID$GCAM_region_ID) + 1)
         new_region_ID <- as.integer(new_region_ID)
@@ -307,7 +331,7 @@ breakout_regions <- function(gcamdataFolder = NULL,
       # Modify extdata/common/GCAM_region_names.csv
       # .................
 
-      if (T) {
+      if(file.exists(file_GCAM_region_names)){
 
         filename <- file_GCAM_region_names
 
@@ -337,7 +361,7 @@ breakout_regions <- function(gcamdataFolder = NULL,
       # Modify extdata/aglu/A_bio_frac_prod_R.csv
       # .................
 
-      if (T) {
+      if(file.exists(file_A_bio_frac_prod_R)){
 
         filename <-file_A_bio_frac_prod_R
 
@@ -370,7 +394,7 @@ breakout_regions <- function(gcamdataFolder = NULL,
       # Modify extdata/aglu/A_soil_time_scale_R.csv
       # .................
 
-      if (T) {
+      if(file.exists(file_A_soil_time_scale_R)){
 
         filename <- file_A_soil_time_scale_R
         # Assign the value from the parent region to the new country
@@ -402,7 +426,7 @@ breakout_regions <- function(gcamdataFolder = NULL,
       # Modify extdata/emissions/A_regions.csv
       # .................
 
-      if (T) {
+      if(file.exists(file_emissions_A_regions)){
 
         filename <- file_emissions_A_regions
         # Assign the value from the parent region to the new country
@@ -436,7 +460,7 @@ breakout_regions <- function(gcamdataFolder = NULL,
       # Modify extdata/energy/A23.subsector_interp_R.csv
       # .................
 
-      if (T) {
+      if(file.exists(file_A23.subsector_interp_R)){
 
         filename <- file_A23.subsector_interp_R
         # Assign the value from the parent region to the new country
@@ -468,7 +492,7 @@ breakout_regions <- function(gcamdataFolder = NULL,
       # Modify extdata/energy/A_regions.csv
       # .................
 
-      if (T) {
+      if(file.exists(file_energy_A_regions)){
 
         filename <- file_energy_A_regions
         # Assign the value from the parent region to the new country
@@ -502,7 +526,7 @@ breakout_regions <- function(gcamdataFolder = NULL,
       # Modify extdata/energy/offshore_wind_potential_scaler.csv
       # .................
 
-      if (T) {
+      if(file.exists(file_offshore_wind_potential_scaler)){
 
         filename <- file_offshore_wind_potential_scaler
         # Assign the value from the parent region to the new country
@@ -529,6 +553,46 @@ breakout_regions <- function(gcamdataFolder = NULL,
                     " with GCAM_region_ID: ", unique(parent_region_ID),
                     " to ", filename, sep=""))
       }
+
+
+      #..................
+      # Modify extdata/emissions/EPA_country_map.csv
+      # .................
+
+      if(file.exists(file_EPA_country_map)){
+
+        EPA_country_map_new <- EPA_country_map %>%
+          dplyr::mutate(GCAM_region_ID = as.integer(GCAM_region_ID))
+
+        for ( i in 1:length(countriesNew_i)){
+          EPA_country_map_new <- EPA_country_map_new %>%
+            dplyr::mutate(GCAM_region_ID =
+                            dplyr::case_when(
+                              tolower(countriesNew_i[i]) == tolower(EPA_country) ~ new_region_ID,
+                              TRUE ~ GCAM_region_ID
+                            ))
+        }
+        EPA_country_map_new
+
+        filename <-file_EPA_country_map
+
+        file.copy(filename, gsub(".csv","_Original.csv",filename))
+        unlink(filename)
+
+        con <- file(filename, open = "wt")
+        for (i in 1:nrow(EPA_country_map_comments)) {
+          writeLines(paste(EPA_country_map_comments[i, ]), con)
+        }
+        utils::write.csv(EPA_country_map_new, con, row.names = F)
+        close(con)
+        closeAllConnections()
+
+        print(paste("Added region: '", regionsNew_i,
+                    "' and GCAM_region_ID: ", new_region_ID,
+                    " for selected countries ", paste(countriesNew_i,collapse = ", "),
+                    " to ", filename, sep=""))
+    }
+
 
   }
 
