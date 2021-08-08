@@ -184,7 +184,9 @@ module_aglu_LB123.LC_R_MgdPastFor_Yh_GLU <- function(command, ...) {
       left_join_error_no_match(L110.For_ALL_bm3_R_Y, by = c("GCAM_region_ID", "GCAM_commodity", "year")) %>%
       # Calculate logging production as the regional total times the GLU-wise forest biomass production fractions
       mutate(value = Prod_bm3 * frac) %>%
-      select(GCAM_region_ID, GCAM_commodity, GLU, year, value) ->
+      select(GCAM_region_ID, GCAM_commodity, GLU, year, value) %>%
+      # Note: (zk 6 Aug 2021) Modifying to avoid NaN for zero forest areas
+      mutate(value = if_else(is.nan(value)|is.na(value),0,value))->
       L123.For_Prod_bm3_R_Y_GLU
 
     # Calculate land cover of "managed" forest as the wood production divided by yield (net primary productivity)
