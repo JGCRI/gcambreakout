@@ -20,6 +20,11 @@
       mutate(value = if_else(is.nan(value)|is.na(value),0,value))->
 
 
+# zchunk_LA120.offshore_wind.R
+- Same as zchunk_L2231.wind_update.R
+- To avoid mid-point price errors when country only has one price point.
+
+
 #------------------------------------------------------------------------------------
 # SEAsia, malaysia, vietnam, thailand
 #------------------------------------------------------------------------------------

@@ -13,7 +13,7 @@
 #' original data system was \code{L2231.wind_update.R} (energy level2).
 #' @details Updates region-specific onshore wind supply curves using improved global wind resource estimate from Eurek et al. (2016).
 #' @importFrom assertthat assert_that
-#' @importFrom dplyr filter mutate select group_by summarise distinct arrange bind_rows rename
+#' @importFrom dplyr filter mutate select group_by summarise distinct arrange bind_rows rename count
 #' @importFrom tidyr gather
 #' @importFrom stats optimize
 #' @author MB GI AJS March 2019
@@ -159,6 +159,21 @@ module_energy_L2231.wind_update <- function(command, ...) {
       mutate(mid.price = round(((P2 - P1) * maxSubResource + (2 * Q2 * P1) - (2 * Q1 * P2)) / (2 * (Q2 - Q1)),
                                energy.DIGITS_MAX_SUB_RESOURCE)) %>%
       select(region, mid.price) -> L2231.mid.price
+
+    # Add mid.price for regions with only one price point
+    (L2231.onshore_wind_curve %>%
+      count(region) %>%
+        filter(n==1))$region %>%
+      unique()-> L2231.onshore_wind_curve_single_regions
+
+    # Set mid.price to available price
+    L2231.onshore_wind_curve %>%
+      filter(region %in% L2231.onshore_wind_curve_single_regions) %>%
+      select(region, mid.price = price)-> L2231.mid.price_singleprice
+
+    # Combine with L2231.mid.price
+    L2231.mid.price %>%
+      bind_rows(L2231.mid.price_singleprice) -> L2231.mid.price
 
     L2231.onshore_wind_curve %>%
       left_join_error_no_match(L2231.mid.price, by = c("region")) -> L2231.onshore_wind_curve

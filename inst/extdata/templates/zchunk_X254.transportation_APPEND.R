@@ -1,6 +1,6 @@
 # Copyright 2019 Battelle Memorial Institute; see the LICENSE file.
 
-#' module_energy_X254.transportation
+#' module_energy_X254.transportation_APPEND
 #'
 #' Creates level2 data for the building sector.
 #'
@@ -93,33 +93,33 @@ module_energy_X254.transportation_APPEND <- function(command, ...) {
     all_data <- list(...)[[1]]
 
     # Load required inputs
-    X201.Pop_APPEND <- get_data(all_data, "X201.Pop_APPEND")
-    X201.GDP_APPEND <- get_data(all_data, "X201.GDP_APPEND")
-    L254.Supplysector_trn <- get_data(all_data, "L254.Supplysector_trn")
-    L254.FinalEnergyKeyword_trn <- get_data(all_data, "L254.FinalEnergyKeyword_trn")
-    L254.tranSubsectorLogit <- get_data(all_data, "L254.tranSubsectorLogit")
-    L254.tranSubsectorShrwt <- get_data(all_data, "L254.tranSubsectorShrwt")
-    L254.tranSubsectorShrwtFllt <- get_data(all_data, "L254.tranSubsectorShrwtFllt")
-    L254.tranSubsectorInterp <- get_data(all_data, "L254.tranSubsectorInterp")
-    L254.tranSubsectorSpeed <- get_data(all_data, "L254.tranSubsectorSpeed")
-    L254.tranSubsectorSpeed_passthru <- get_data(all_data, "L254.tranSubsectorSpeed_passthru")
-    L254.tranSubsectorSpeed_noVOTT <- get_data(all_data, "L254.tranSubsectorSpeed_noVOTT")
-    L254.tranSubsectorSpeed_nonmotor <- get_data(all_data, "L254.tranSubsectorSpeed_nonmotor")
-    L254.tranSubsectorVOTT <- get_data(all_data, "L254.tranSubsectorVOTT")
-    L254.tranSubsectorFuelPref <- get_data(all_data, "L254.tranSubsectorFuelPref")
-    L254.StubTranTech <- get_data(all_data, "L254.StubTranTech")
-    L254.StubTech_passthru <- get_data(all_data, "L254.StubTech_passthru")
-    L254.StubTech_nonmotor <- get_data(all_data, "L254.StubTech_nonmotor")
-    L254.StubTranTechCalInput <- get_data(all_data, "L254.StubTranTechCalInput")
-    L254.StubTranTechLoadFactor <- get_data(all_data, "L254.StubTranTechLoadFactor")
-    L254.StubTranTechCost <- get_data(all_data, "L254.StubTranTechCost")
-    L254.StubTranTechCoef <- get_data(all_data, "L254.StubTranTechCoef")
-    L254.StubTechCalInput_passthru <- get_data(all_data, "L254.StubTechCalInput_passthru")
-    L254.StubTechProd_nonmotor <- get_data(all_data, "L254.StubTechProd_nonmotor")
-    L254.PerCapitaBased_trn <- get_data(all_data, "L254.PerCapitaBased_trn")
-    L254.PriceElasticity_trn <- get_data(all_data, "L254.PriceElasticity_trn")
-    L254.IncomeElasticity_trn <- get_data(all_data, "L254.IncomeElasticity_trn")
-    L254.BaseService_trn <- get_data(all_data, "L254.BaseService_trn")
+    X201.Pop_APPEND <- get_data(all_data, "X201.Pop_APPEND", strip_attributes = TRUE)
+    X201.GDP_APPEND <- get_data(all_data, "X201.GDP_APPEND", strip_attributes = TRUE)
+    L254.Supplysector_trn <- get_data(all_data, "L254.Supplysector_trn", strip_attributes = TRUE)
+    L254.FinalEnergyKeyword_trn <- get_data(all_data, "L254.FinalEnergyKeyword_trn", strip_attributes = TRUE)
+    L254.tranSubsectorLogit <- get_data(all_data, "L254.tranSubsectorLogit", strip_attributes = TRUE)
+    L254.tranSubsectorShrwt <- get_data(all_data, "L254.tranSubsectorShrwt", strip_attributes = TRUE)
+    L254.tranSubsectorShrwtFllt <- get_data(all_data, "L254.tranSubsectorShrwtFllt", strip_attributes = TRUE)
+    L254.tranSubsectorInterp <- get_data(all_data, "L254.tranSubsectorInterp", strip_attributes = TRUE)
+    L254.tranSubsectorSpeed <- get_data(all_data, "L254.tranSubsectorSpeed", strip_attributes = TRUE)
+    L254.tranSubsectorSpeed_passthru <- get_data(all_data, "L254.tranSubsectorSpeed_passthru", strip_attributes = TRUE)
+    L254.tranSubsectorSpeed_noVOTT <- get_data(all_data, "L254.tranSubsectorSpeed_noVOTT", strip_attributes = TRUE)
+    L254.tranSubsectorSpeed_nonmotor <- get_data(all_data, "L254.tranSubsectorSpeed_nonmotor", strip_attributes = TRUE)
+    L254.tranSubsectorVOTT <- get_data(all_data, "L254.tranSubsectorVOTT", strip_attributes = TRUE)
+    L254.tranSubsectorFuelPref <- get_data(all_data, "L254.tranSubsectorFuelPref", strip_attributes = TRUE)
+    L254.StubTranTech <- get_data(all_data, "L254.StubTranTech", strip_attributes = TRUE)
+    L254.StubTech_passthru <- get_data(all_data, "L254.StubTech_passthru", strip_attributes = TRUE)
+    L254.StubTech_nonmotor <- get_data(all_data, "L254.StubTech_nonmotor", strip_attributes = TRUE)
+    L254.StubTranTechCalInput <- get_data(all_data, "L254.StubTranTechCalInput", strip_attributes = TRUE)
+    L254.StubTranTechLoadFactor <- get_data(all_data, "L254.StubTranTechLoadFactor", strip_attributes = TRUE)
+    L254.StubTranTechCost <- get_data(all_data, "L254.StubTranTechCost", strip_attributes = TRUE)
+    L254.StubTranTechCoef <- get_data(all_data, "L254.StubTranTechCoef", strip_attributes = TRUE)
+    L254.StubTechCalInput_passthru <- get_data(all_data, "L254.StubTechCalInput_passthru", strip_attributes = TRUE)
+    L254.StubTechProd_nonmotor <- get_data(all_data, "L254.StubTechProd_nonmotor", strip_attributes = TRUE)
+    L254.PerCapitaBased_trn <- get_data(all_data, "L254.PerCapitaBased_trn", strip_attributes = TRUE)
+    L254.PriceElasticity_trn <- get_data(all_data, "L254.PriceElasticity_trn", strip_attributes = TRUE)
+    L254.IncomeElasticity_trn <- get_data(all_data, "L254.IncomeElasticity_trn", strip_attributes = TRUE)
+    L254.BaseService_trn <- get_data(all_data, "L254.BaseService_trn", strip_attributes = TRUE)
 
     L241.fgas_all_units <- get_data(all_data, "L241.fgas_all_units", strip_attributes = TRUE)
     L201.nonghg_max_reduction <- get_data(all_data, "L201.nonghg_max_reduction", strip_attributes = TRUE)
