@@ -1,7 +1,9 @@
 <!-- badges: start -->
 [![build](https://github.com/JGCRI/gcambreakout/workflows/build/badge.svg)](https://github.com/JGCRI/gcambreakout/workflows/build/badge.svg)
-[![docs](https://github.com/JGCRI/gcambreakout/actions/workflows/docs.yaml/badge.svg?branch=main)](https://github.com/JGCRI/gcambreakout/actions/workflows/docs.yaml)
+[![test_coverage](https://github.com/JGCRI/gcambreakout/actions/workflows/test_coverage.yml/badge.svg?branch=main)](https://github.com/JGCRI/gcambreakout/actions/workflows/test_coverage.yml)
 [![codecov](https://codecov.io/gh/JGCRI/gcambreakout/branch/main/graph/badge.svg?token=G36I8JU3HR)](https://codecov.io/gh/JGCRI/gcambreakout)
+[![docs](https://github.com/JGCRI/gcambreakout/actions/workflows/docs.yaml/badge.svg?branch=main)](https://github.com/JGCRI/gcambreakout/actions/workflows/docs.yaml)
+[![Github All Releases](https://img.shields.io/github/downloads/JGCRI/gcambreakout/total.svg)]()
 <!-- badges: end -->
 
 
@@ -12,10 +14,6 @@
 <!-- ------------------------>
 
 `gcambreakout` is an R package with functions to breakout new regions in the GCAM datasystem.
-
-
-For more detailed information on using rmap, click the green **User Guide** button below. 
-
 
 <br>
 
