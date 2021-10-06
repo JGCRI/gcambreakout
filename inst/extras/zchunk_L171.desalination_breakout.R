@@ -193,6 +193,62 @@ module_water_L171.desalination <- function(command, ...) {
       mutate(share = energy_EJ / energy_EJ_total) %>%
       select(GCAM_region_ID, fuel, technology, year, share)
 
+    # SRSdS, 25Aug21: Handling special cases of failures when trying to break countries below as individual
+    # GCAM regions. Need to take care of some NAs that appear in some historical years.
+    # Yemen
+    iso_GCAM_regID %>%
+      filter(iso == 'yem') -> TMP
+    check_Reg_ID <- TMP$GCAM_region_ID[1]
+    if (check_Reg_ID != 21){
+      L171.desal_fuel_shares[is.na(L171.desal_fuel_shares)] = 0
+    }
+
+    # Gabon
+    iso_GCAM_regID %>%
+      filter(iso == 'gab') -> TMP
+    check_Reg_ID <- TMP$GCAM_region_ID[1]
+    if (check_Reg_ID != 5){
+      L171.desal_fuel_shares[is.na(L171.desal_fuel_shares)] = 1
+    }
+
+    # Bahrein
+    iso_GCAM_regID %>%
+      filter(iso == 'bhr') -> TMP
+    check_Reg_ID <- TMP$GCAM_region_ID[1]
+    if (check_Reg_ID != 21){
+      # find the indexes in column share with NAs
+      idx_NA <- which(is.na(L171.desal_fuel_shares$share))
+      # Replace NAs by values consistent with the prior year
+      L171.desal_fuel_shares$share[idx_NA[1]] <- L171.desal_fuel_shares$share[idx_NA[1]-1]
+      L171.desal_fuel_shares$share[idx_NA[2]] <- L171.desal_fuel_shares$share[idx_NA[2]-1]
+    }
+
+    # Lebanon
+    iso_GCAM_regID %>%
+      filter(iso == 'lbn') -> TMP
+    check_Reg_ID <- TMP$GCAM_region_ID[1]
+    if (check_Reg_ID != 21){
+      # find the indexes in column share with NAs
+      idx_NA <- which(is.na(L171.desal_fuel_shares$share))
+      # Replace NAs by values consistent with the prior year
+      L171.desal_fuel_shares$share[idx_NA[1]] <- L171.desal_fuel_shares$share[idx_NA[1]-1]
+      L171.desal_fuel_shares$share[idx_NA[2]] <- L171.desal_fuel_shares$share[idx_NA[1]-1]
+      L171.desal_fuel_shares$share[idx_NA[3]] <- L171.desal_fuel_shares$share[idx_NA[1]-1]
+      L171.desal_fuel_shares$share[idx_NA[4]] <- L171.desal_fuel_shares$share[idx_NA[1]-1]
+      L171.desal_fuel_shares$share[idx_NA[5]] <- L171.desal_fuel_shares$share[idx_NA[5]-1]
+      L171.desal_fuel_shares$share[idx_NA[6]] <- L171.desal_fuel_shares$share[idx_NA[5]-1]
+      L171.desal_fuel_shares$share[idx_NA[7]] <- L171.desal_fuel_shares$share[idx_NA[5]-1]
+      L171.desal_fuel_shares$share[idx_NA[8]] <- L171.desal_fuel_shares$share[idx_NA[5]-1]
+    }
+
+    # Oman
+    iso_GCAM_regID %>%
+      filter(iso == 'omn') -> TMP
+    check_Reg_ID <- TMP$GCAM_region_ID[1]
+    if (check_Reg_ID != 21){
+      L171.desal_fuel_shares[is.na(L171.desal_fuel_shares)] = 1
+    }
+
     # Check to see if this generated any missing values. If so, there will be problems downstream, when we try to deduct
     # energy from sectors/fuels that have no energy consumption
     if(any(is.na(L171.desal_fuel_shares$share))){

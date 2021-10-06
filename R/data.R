@@ -2,8 +2,39 @@
 # Internal Data
 #-----------------
 
+#-------------------
+# Mapping files
+#-------------------
+
+#' Mapping of modules in gcamdata system which give errors for certain countries.
+#'
+#' @source created by ZK
+#' @format R dataframe
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::mapping_modules
+#' }
+"mapping_modules"
+
+#---------------------------------------
+# Replace gcamdatasystem module templates
+#---------------------------------------
+
+#' Template for template_zchunk_L203.water_td_breakout
+#'
+#' @source created by ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_L203.water_td_breakout
+#' }
+"template_zchunk_L203.water_td_breakout"
+
+
 #-----------------
-# Template Files
+# City breakout Templates
 #-----------------
 
 #' Template for breakout-helpers.R

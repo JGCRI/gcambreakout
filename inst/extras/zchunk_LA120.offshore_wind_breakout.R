@@ -180,7 +180,6 @@ module_energy_LA120.offshore_wind <- function(command, ...) {
                                energy.DIGITS_MAX_SUB_RESOURCE)) %>%
       select(GCAM_region_ID, mid.price) -> L120.mid.price
 
-
     #### SRSdS, 11Aug21: Handling special cases
     # Add mid.price for regions with only one price point
     (L120.offshore_wind_curve %>%
@@ -193,25 +192,43 @@ module_energy_LA120.offshore_wind <- function(command, ...) {
       filter(GCAM_region_ID %in% L120.offshore_wind_curve_single_regions) %>%
       select(GCAM_region_ID, mid.price = price)-> L120.mid.price_singleprice
 
-    ## United Arab Emirates
+    # Combine with L120.mid.price
+    L120.mid.price %>%
+      bind_rows(L120.mid.price_singleprice) -> L120.mid.price
+
+    # United Arab Emirates
     any(GCAM_region_names$region == 'United Arab Emirates') -> check
     if(check == TRUE) {
       # Get GCAM_region_ID for the United Arab Emirates
       GCAM_region_names %>%
         filter(region == 'United Arab Emirates') -> tmp
       UAE_id <- tmp$GCAM_region_ID[1]
-
       #Set mid.price to the min price
       L120.offshore_wind_curve %>%
         select(GCAM_region_ID, mid.price = price) %>%
         filter(GCAM_region_ID == UAE_id) %>%
         filter(mid.price == min(mid.price))-> L120.mid.price_singleprice
+      # Combine with L120.mid.price
+      L120.mid.price %>%
+        bind_rows(L120.mid.price_singleprice) -> L120.mid.price
     }
-    ##
 
-    # Combine with L120.mid.price
-    L120.mid.price %>%
-      bind_rows(L120.mid.price_singleprice) -> L120.mid.price
+    # Kuwait
+    any(GCAM_region_names$region == 'Kuwait') -> check
+    if(check == TRUE) {
+      # Get GCAM_region_ID for Kuwait
+      GCAM_region_names %>%
+        filter(region == 'Kuwait') -> tmp
+      KWT_id <- tmp$GCAM_region_ID[1]
+      #Set mid.price to the min price
+      L120.offshore_wind_curve %>%
+        select(GCAM_region_ID, mid.price = price) %>%
+        filter(GCAM_region_ID == KWT_id) %>%
+        filter(mid.price == min(mid.price))-> L120.mid.price_singleprice
+      # Combine with L120.mid.price
+      L120.mid.price %>%
+        bind_rows(L120.mid.price_singleprice) -> L120.mid.price
+    }
     ####
 
     L120.offshore_wind_curve %>%

@@ -603,6 +603,61 @@ breakout_regions <- function(gcamdataFolder = NULL,
 
   } # Close loop for each regionsNew and each countriesNew
 
+
+  #..................
+  # Replace gcamdata modules for certain countries
+  # Note: this may cause issues as the gcamdata package evolves.
+  # To avoid these issues gcambreakout will need to be linked to versions of gcamdata
+  # .................
+
+  # Check which modules need to be replaced based on the mappings_module list and countriesNew chosen.
+  modules_to_replace <- (gcambreakout::mapping_modules %>%
+                           dplyr::filter(countryNew %in% unlist(countriesNew)))$module
+
+  countries_needing_module_replacement <- gcambreakout::mapping_modules %>%
+    dplyr::filter(countryNew %in% unlist(countriesNew))%>%
+    dplyr::select(-error)
+
+  if(nrow(countries_needing_module_replacement)>0){
+
+  print("The following modules corresponding to the new countries chosen require replacements:")
+  print(countries_needing_module_replacement)
+
+
+  for(module_i in modules_to_replace){
+
+    print(paste0("Replacing module: ", module_i,"..."))
+
+    module_i_filename <- paste0(gcamdataFolder,"/R/",modules_to_replace)
+
+    # Check if the modules exist in the gcamdata system
+    if(file.exists(module_i_filename)){
+
+      # Make a copy of the original module and put it in a folder called originals.
+      if(!dir.exists(paste0(gcamdataFolder,"/R/originals"))){
+        dir.create(paste0(gcamdataFolder,"/R/originals"))
+      }
+
+      file.copy(module_i_filename, gsub("R/","R/originals/",module_i_filename))
+      unlink(module_i_filename)
+
+      # Replace the original module with the modified modules
+      replacement_module <- get(paste0("template_",gsub(".R","",module_i),"_breakout"))
+      readr::write_lines(replacement_module,module_i_filename)
+      print(paste0("Replaced: ",module_i," with modified version."))
+      print(paste0("Original version of module is in: ", gsub("R/","R/originals/",module_i_filename)))
+
+
+    } else {
+      warning(paste0("Module: ", module_i, "is indicated as requiring replacement but does not exist in the version of gcamdata being used."))
+    }
+
+    } # Close module loop
+
+  print("Replacement of all modules complete.")
+
+  } # Close if(nrow(countries_needing_module_replacement)>0)
+
   #..............................
   #..............................
 
