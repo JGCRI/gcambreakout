@@ -565,10 +565,14 @@ breakout_regions <- function(gcamdataFolder = NULL,
           dplyr::mutate(GCAM_region_ID = as.integer(GCAM_region_ID))
 
         for ( i in 1:length(countriesNew_i)){
+
+          isoOriginal_i = (iso_GCAM_regID %>%
+            dplyr::filter(country_name == countriesNew_i[i]))$iso
+
           EPA_country_map_new <- EPA_country_map_new %>%
             dplyr::mutate(GCAM_region_ID =
                             dplyr::case_when(
-                              tolower(countriesNew_i[i]) == tolower(EPA_country) ~ new_region_ID,
+                              tolower(isoOriginal_i) == tolower(iso) ~ new_region_ID,
                               TRUE ~ GCAM_region_ID
                             ))
         }
