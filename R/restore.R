@@ -133,7 +133,20 @@ restore <- function(gcamdataFolder = NULL) {
       for(i in 1:length(file_list_cities)){
           unlink(file_list_cities[[i]])
         }
-      }
+    }
+
+    # Replacing original module files
+    modules_folder <- paste0(gcamdataFolder,"/R/originals")
+    if(dir.exists(modules_folder)){
+
+      module_files_to_restore <- list.files(modules_folder, full.names = T)
+
+      file.copy(module_files_to_restore, gsub("/R/originals/","/R/",module_files_to_restore),overwrite = T)
+      unlink(modules_folder, recursive = T)
+
+      print(paste0("Restored module files:"))
+      print(paste0(module_files_to_restore))
+    }
 
     }
 

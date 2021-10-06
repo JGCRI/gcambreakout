@@ -292,6 +292,23 @@ module_energy_L2231.wind_update <- function(command, ...) {
       summarise(cost = sum(cost)) %>%
       ungroup() -> L2231.onshore_wind_cost_per_kW
 
+    ### SRSdS, 02Sep21: Handling Bahrain case. When trying to break Bahrain as an individual region, Bahrain is not listed in
+    ### L2231.StubTechCapFactor_onshore_wind. Use assumptions for the Middle East region for Bahrain.
+    # Check if Bahrain is among the broken regions
+    iso_GCAM_regID %>%
+      filter(iso == 'bhr') -> Bahrain_tbl
+    # Get Bahrain region_ID
+    Bahrain_region_ID <- Bahrain_tbl$GCAM_region_ID[1]
+    # Check for NA
+    Bahrain_region_ID[is.na(Bahrain_region_ID)] <- 0
+
+    if ((Bahrain_region_ID != 21) & (Bahrain_region_ID != 0)){
+      L2231.StubTechCapFactor_onshore_wind %>%
+        filter(region == 'Middle East') -> Middle_East_tbl
+      Middle_East_tbl["region"][Middle_East_tbl["region"] == 'Middle East'] <- 'Bahrain'
+      L2231.StubTechCapFactor_onshore_wind <- rbind(L2231.StubTechCapFactor_onshore_wind, Middle_East_tbl)
+    }
+
     # Now to convert 2010 $/kW cost to 1975 $/GJ cost
     L2231.onshore_wind_cost_per_kW %>%
       left_join_error_no_match(L2231.StubTechCapFactor_onshore_wind %>%

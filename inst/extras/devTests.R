@@ -2,7 +2,7 @@
 # install_github("JGCRI/gcambreakout")
 library(gcambreakout)
 
-gcamdataFolderx <- "C:/Z/models/GCAMVersions/gcam-core_stash/input/gcamdata"
+#gcamdataFolderx <- "C:/Z/models/GCAMVersions/gcam-core_stash/input/gcamdata"
 gcamdataFolderx <- "C:/Z/models/GCAMVersions/gcam-v5.4-Windows-Release-Package/input/gcamdata"
 
 countries_allowed <- read.csv(paste0(gcamdataFolderx,"/inst/extdata/common/iso_GCAM_regID.csv"), comment.char = '#', header=T); countries_allowed$country_name
@@ -12,8 +12,8 @@ current_GCAM_regions <- read.csv(paste0(gcamdataFolderx,"/inst/extdata/common/GC
 # Breakout a new region for Spain with a single country Spain
 #-----------------------------------------------------------------
 breakout_regions(gcamdataFolder = gcamdataFolderx,
-                regionsNew = c("Saudi Arabia"),
-                countriesNew = c("Saudi Arabia"))
+                regionsNew = c("Iran"),
+                countriesNew = c("Iran, Islamic Republic of"))
 # Users can confirm that a new region has been added by opening the .csv file: ./input/gcamdata/inst/extdata/common/GCAM_region_names.csv
 restore(gcamdataFolder = gcamdataFolderx)  # (OPTIONAL) Uncomment this line and restore the datasystem to original state
 
