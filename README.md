@@ -2,7 +2,7 @@
 [![build](https://github.com/JGCRI/gcambreakout/workflows/build/badge.svg)](https://github.com/JGCRI/gcambreakout/workflows/build/badge.svg)
 [![test_coverage](https://github.com/JGCRI/gcambreakout/actions/workflows/test_coverage.yml/badge.svg?branch=main)](https://github.com/JGCRI/gcambreakout/actions/workflows/test_coverage.yml)
 [![codecov](https://codecov.io/gh/JGCRI/gcambreakout/branch/main/graph/badge.svg?token=G36I8JU3HR)](https://codecov.io/gh/JGCRI/gcambreakout)
-[![docs](https://github.com/JGCRI/gcambreakout/actions/workflows/docs.yaml/badge.svg?branch=main)](https://github.com/JGCRI/gcambreakout/actions/workflows/docs.yaml)
+[![docs](https://github.com/JGCRI/gcambreakout/actions/workflows/pkgdown.yaml/badge.svg?branch=main)](https://github.com/JGCRI/gcambreakout/actions/workflows/pkgdown.yaml)
 [![Github All Releases](https://img.shields.io/github/downloads/JGCRI/gcambreakout/total.svg)]()
 <!-- badges: end -->
 
