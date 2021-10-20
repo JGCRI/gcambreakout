@@ -628,7 +628,7 @@ breakout_regions <- function(gcamdataFolder = NULL,
 
     print(paste0("Replacing module: ", module_i,"..."))
 
-    module_i_filename <- paste0(gcamdataFolder,"/R/",modules_to_replace)
+    module_i_filename <- paste0(gcamdataFolder,"/R/",gsub("_breakout","",module_i))
 
     # Check if the modules exist in the gcamdata system
     if(file.exists(module_i_filename)){
@@ -642,7 +642,7 @@ breakout_regions <- function(gcamdataFolder = NULL,
       unlink(module_i_filename)
 
       # Replace the original module with the modified modules
-      replacement_module <- get(paste0("template_",gsub(".R","",module_i),"_breakout"))
+      replacement_module <- get(paste0("template_",gsub(".R","",module_i)))
       readr::write_lines(replacement_module,module_i_filename)
       print(paste0("Replaced: ",module_i," with modified version."))
       print(paste0("Original version of module is in: ", gsub("R/","R/originals/",module_i_filename)))
