@@ -9,7 +9,7 @@ countries_allowed <- read.csv(paste0(gcamdataFolderx,"/inst/extdata/common/iso_G
 current_GCAM_regions <- read.csv(paste0(gcamdataFolderx,"/inst/extdata/common/GCAM_region_names.csv"), comment.char = '#', header=T); current_GCAM_regions
 
 #-----------------------------------------------------------------
-# Breakout a new region for Spain with a single country Spain
+# Breakout a new region for a new region with a single country Spain
 #-----------------------------------------------------------------
 breakout_regions(gcamdataFolder = gcamdataFolderx,
                 regionsNew = c("Iran"),

@@ -33,6 +33,18 @@
 "template_zchunk_L203.water_td_breakout"
 
 
+#' Template for template_zchunk_L133.water_demand_livestock_breakout
+#'
+#' @source created by ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_L133.water_demand_livestock_breakout
+#' }
+"template_zchunk_L133.water_demand_livestock_breakout"
+
+
 #-----------------
 # City breakout Templates
 #-----------------
