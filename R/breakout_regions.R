@@ -642,7 +642,7 @@ breakout_regions <- function(gcamdataFolder = NULL,
       unlink(module_i_filename)
 
       # Replace the original module with the modified modules
-      replacement_module <- get(paste0("template_",gsub(".R","",module_i)))
+      replacement_module <- get(paste0("template_",gsub("\\.R$","",module_i)))
       readr::write_lines(replacement_module,module_i_filename)
       print(paste0("Replaced: ",module_i," with modified version."))
       print(paste0("Original version of module is in: ", gsub("R/","R/originals/",module_i_filename)))
