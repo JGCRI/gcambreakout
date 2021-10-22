@@ -13,7 +13,8 @@ dataFileFolder <- paste0(getwd(),"/inst/extras")
 mapping_modules <- tibble::tribble(
 ~"module", ~"countryNew", ~"error",
 "zchunk_L203.water_td_breakout.R", "Iran, Islamic Republic of", "Error in left_join_error_no_match(., data_aggregated, by = c('region', : left_join_no_match: NA values in new data columns",
-"zchunk_L133.water_demand_livestock_breakout.R", "Iran, Islamic Republic of","NaN values in L133.water_demand_livestock_R_B_W_km3 for Pork coefficient"
+"zchunk_L133.water_demand_livestock_breakout.R", "Iran, Islamic Republic of","NaN values in L133.water_demand_livestock_R_B_W_km3 for Pork coefficient",
+"zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout.R", "Angola","Error in left_join_error_no_match(., L123.LC_bm2_R_Past_Y_GLU, by = c('GCAM_region_ID',  : left_join_no_match: NA values in new data columns"
 ) %>%
   dplyr::arrange(module)
 
@@ -30,6 +31,15 @@ use_data(template_zchunk_L203.water_td_breakout,version=3, overwrite=T)
 # template_zchunk_L203.water_td_breakout
 template_zchunk_L133.water_demand_livestock_breakout <- readr::read_lines(paste0(dataFileFolder,"/zchunk_L133.water_demand_livestock_breakout.R"))
 use_data(template_zchunk_L133.water_demand_livestock_breakout,version=3, overwrite=T)
+
+# template_zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout
+template_zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout <- readr::read_lines(paste0(dataFileFolder,"/zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout.R"))
+use_data(template_zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout,version=3, overwrite=T)
+
+# template_zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout
+template_zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout <- readr::read_lines(paste0(dataFileFolder,"/zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout.R"))
+use_data(template_zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout,version=3, overwrite=T)
+
 
 #-------------------
 # City breakout Templates

@@ -44,6 +44,30 @@
 #' }
 "template_zchunk_L133.water_demand_livestock_breakout"
 
+#' Template for template_zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout
+#'
+#' @source created by ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout
+#' }
+"template_zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout"
+
+#' Template for template_zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout
+#'
+#' @source created by ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout
+#' }
+"template_zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout"
+
+
+
 
 #-----------------
 # City breakout Templates
