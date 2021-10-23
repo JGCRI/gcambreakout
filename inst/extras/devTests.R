@@ -12,8 +12,8 @@ current_GCAM_regions <- read.csv(paste0(gcamdataFolderx,"/inst/extdata/common/GC
 # Breakout a new region for a new region with a single country Spain
 #-----------------------------------------------------------------
 breakout_regions(gcamdataFolder = gcamdataFolderx,
-                regionsNew = c("Angola"),
-                countriesNew = c("Angola"))
+                regionsNew = c("Australia"),
+                countriesNew = c("Australia"))
 # Users can confirm that a new region has been added by opening the .csv file: ./input/gcamdata/inst/extdata/common/GCAM_region_names.csv
 restore(gcamdataFolder = gcamdataFolderx)  # (OPTIONAL) Uncomment this line and restore the datasystem to original state
 
