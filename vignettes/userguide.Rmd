@@ -24,7 +24,7 @@ options(rmarkdown.html_vignette.check_title = FALSE)
 <!-------------------------->
 Before running gcambreakout you will need:
 
-* A running version of GCAM
+* A running version of GCAM version 5.4
 * IEA_EnergyBalances_2019.csv file placed in the ./input/inst/extdata/energy
 * CEDS data placed in input/gcamdata/inst/extdata/emissions/CEDS
 * NOTE: The CEDS data and IEA_EnergyBalances_2019.csv is proprietary data and only accesible to internal JGCRI staff at https://stash.pnnl.gov/scm/jgcri/gcam-proprietary-data.
@@ -52,8 +52,10 @@ Before running gcambreakout you will need:
 Once these files have been changed the `gcamdata` system must be re-built and the `driver` function has to be re-run to re-generated all the XML files. `gcambreakout` has the following functions:
 
 - `breakout_regions()` : Used to breakout countries from the existing 32 regions in GCAM Core. Countries chosen must come from the same parent region.
-- `breakoutCities()`: Used to breakout cities from any existing GCAM region, including new regions that are created using `breakout_regions()`
+- `breakout_city()`: Used to breakout cities from any existing GCAM region, including new regions that are created using `breakout_regions()`
 - `restore()`: Used to restore the original files if desired (OPTIONAL)
+
+**Note: Broken out regions will not have electricity trade with other regions.**
 
 <!-------------------------->
 <!-------------------------->
