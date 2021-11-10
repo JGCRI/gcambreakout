@@ -1,0 +1,108 @@
+---
+title: "Debug Regions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Guide}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+resourse_files:
+  - vignettes/vignetteFigs
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+options(rmarkdown.html_vignette.check_title = FALSE)
+```
+
+<!-------------------------->
+<!-------------------------->
+# Debugging new regions
+<!-------------------------->
+<!-------------------------->
+
+When a new regions is broken out using `gcambreakout` several errors can arise as a result of missing or modified data for the new region broken out or the remaining region left behind. These errors can occur at four different points in the workflow which include:
+
+1. `gcambreakout`: The error may occur when running gcam breakout itself. Related to availability of raw data.
+2. `gcamdata`: The error may occur when regenerating package data. Related to processing the modified raw data.
+3. `xmls` The output XMLs may have several NA or NAN values. These won't show up as errors but can be identified after examinging the XMLs.
+4. `GCAM errors`: And finally all XMLs may be produced cleanly but GCAM may give calibration or other errors.
+
+
+<!-------------------------->
+<!-------------------------->
+# Summary Tables
+<!-------------------------->
+<!-------------------------->
+<p align="center"> <img src="vignetteFigs/divider.png"></p>
+
+
+## gcambreakout errors
+```{r, results = 'show', eval=TRUE, echo=FALSE, warning=FALSE, error = FALSE, message = FALSE}
+library(pander)
+mytable = data.frame(
+    gcambreakout_errors = c('* Error in left_join_error_no_match(., L123.LC_bm2_R_Past_Y_GLU, 
+                            by = c("GCAM_region_ID",: left_join_no_match: NA values in new data columns'),
+    gcambreakout_solutions = c("* zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout.R\
+                              \n* zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout.R"),
+    gcambreakout_commits = c("* [705338a09a59725c11d52bc956b1592f5cfbb298](https://github.com/JGCRI/gcambreakout/commit/705338a09a59725c11d52bc956b1592f5cfbb298)\
+                             \n* [cd53649da041d55c28e548b60560247546bdc57b](https://github.com/JGCRI/gcambreakout/commit/cd53649da041d55c28e548b60560247546bdc57b)"),
+    gcambreakout_regions = c("* Angola\
+                             \n* Australia"))
+
+pander::pander(mytable, keep.line.breaks = TRUE, style = 'grid', justify = 'left', split.tables=Inf)
+```
+
+## gcamdata system errors
+
+## XML errors
+
+## GCAM errors
+
+
+
+<!-------------------------->
+<!-------------------------->
+# Angola
+<!-------------------------->
+<!-------------------------->
+<p align="center"> <img src="vignetteFigs/divider.png"></p>
+
+Discus country in general. Regional issues, sectoral resources, size in region etc.
+
+## gcambreakout
+No errors.
+
+## gcamdata
+
+**Error 1:**
+```r
+Error in left_join_error_no_match(., L123.LC_bm2_R_Past_Y_GLU, by = c("GCAM_region_ID",  : 
+  left_join_no_match: NA values in new data columns
+```
+  
+**Solution 1:**
+
+1. zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout.R
+
+* commit: [705338a09a59725c11d52bc956b1592f5cfbb298](https://github.com/JGCRI/gcambreakout/commit/705338a09a59725c11d52bc956b1592f5cfbb298)
+* Details on fix:
+
+2. zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout.R"	
+* commit: [cd53649da041d55c28e548b60560247546bdc57b](https://github.com/JGCRI/gcambreakout/commit/cd53649da041d55c28e548b60560247546bdc57b)  
+* Details on fix: 
+
+## XML
+
+## GCAM
+
+
+<!-------------------------->
+<!-------------------------->
+# Ghana
+<!-------------------------->
+<!-------------------------->
+<p align="center"> <img src="vignetteFigs/divider.png"></p>
+
