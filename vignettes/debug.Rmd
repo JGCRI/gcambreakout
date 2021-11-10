@@ -2,7 +2,7 @@
 title: "Debug Regions"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Guide}
+  %\VignetteIndexEntry{debug}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 resourse_files:
