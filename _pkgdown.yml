@@ -9,7 +9,7 @@ navbar:
       icon: fas fa-book
       href: articles/userguide.html
     - text: "Debug Regions"
-      icon: fas fa-debug
+      icon: fas fa-bug
       href: articles/debug.html
     - icon: fa-file-code-o
       text: "Reference"
