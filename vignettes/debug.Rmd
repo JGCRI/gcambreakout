@@ -23,7 +23,7 @@ options(rmarkdown.html_vignette.check_title = FALSE)
 <!-------------------------->
 <!-------------------------->
 
-When a new regions is broken out using `gcambreakout` several errors can arise as a result of missing or modified data for the new region broken out or the remaining region left behind. These errors can occur at four different points in the workflow which include:
+When a new region is broken out using `gcambreakout` several errors can arise as a result of missing or modified data for the new region broken out or the remaining region left behind. These errors can occur at four different points in the workflow which include:
 
 1. `gcambreakout`: The error may occur when running gcam breakout itself. Related to availability of raw data.
 2. `gcamdata`: The error may occur when regenerating package data. Related to processing the modified raw data.
@@ -96,7 +96,16 @@ Error in left_join_error_no_match(., L123.LC_bm2_R_Past_Y_GLU, by = c("GCAM_regi
 
 ## XML
 
+**Error 1:**
+File ‘all_fgas_emissions.xml’ - the supplysector “comm cooling” was not correctly built due to a lack of data in the IEA_EnergyBalances_2019.csv file. Specifically, the IEA_EnergyBalances_2019.csv shows zero electricity consumption in the commercial sector (‘COMMPUB’ flow in the IEA_EnergyBalances_2019.csv) of Angola in all historical years.
+
+**Solution 1:**
+
+File ‘zchunk_LA100.IEA_downscale_ctry.R’ (located at input/gcamdata/R) was modified to make sure a non-zero amount of electricity consumption exists in the commercial sector of Angola in the historical years (see section ‘UP FRONT ADJUSTMENTS (UFA)’, specifically section ‘UFA5’ in this R code, which shows the assumptions made for Angola). However, users can modify these assumptions based on specific data available for Angola.
+
 ## GCAM
+
+No errors (tested using the GCAM reference scenario and after correcting all errors above). 
 
 
 <!-------------------------->
@@ -105,4 +114,28 @@ Error in left_join_error_no_match(., L123.LC_bm2_R_Past_Y_GLU, by = c("GCAM_regi
 <!-------------------------->
 <!-------------------------->
 <p align="center"> <img src="vignetteFigs/divider.png"></p>
+
+Discus country in general. Regional issues, sectoral resources, size in region etc.
+
+## gcambreakout
+No errors.
+
+## gcamdata
+
+**Error 1:**
+```r
+Error in left_join_error_no_match(., L123.LC_bm2_R_Past_Y_GLU, by = c("GCAM_region_ID",  : 
+  left_join_no_match: NA values in new data columns
+```
+  
+**Solution 1:**
+
+## XML
+
+No errors.
+
+## GCAM
+
+No errors (tested using the GCAM reference scenario and after correcting all errors above).
+
 
