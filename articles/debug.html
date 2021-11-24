@@ -109,7 +109,7 @@
 <a href="#debugging-new-regions" class="anchor"></a>Debugging new regions</h1>
 <!-------------------------->
 <!-------------------------->
-<p>When a new regions is broken out using <code>gcambreakout</code> several errors can arise as a result of missing or modified data for the new region broken out or the remaining region left behind. These errors can occur at four different points in the workflow which include:</p>
+<p>When a new region is broken out using <code>gcambreakout</code> several errors can arise as a result of missing or modified data for the new region broken out or the remaining region left behind. These errors can occur at four different points in the workflow which include:</p>
 <ol style="list-style-type: decimal">
 <li>
 <code>gcambreakout</code>: The error may occur when running gcam breakout itself. Related to availability of raw data.</li>
@@ -220,10 +220,14 @@
 <div id="xml" class="section level2">
 <h2 class="hasAnchor">
 <a href="#xml" class="anchor"></a>XML</h2>
+<p><strong>Error 1:</strong> File ‘all_fgas_emissions.xml’ - the supplysector “comm cooling” was not correctly built due to a lack of data in the IEA_EnergyBalances_2019.csv file. Specifically, the IEA_EnergyBalances_2019.csv shows zero electricity consumption in the commercial sector (‘COMMPUB’ flow in the IEA_EnergyBalances_2019.csv) of Angola in all historical years.</p>
+<p><strong>Solution 1:</strong></p>
+<p>File ‘zchunk_LA100.IEA_downscale_ctry.R’ (located at input/gcamdata/R) was modified to make sure a non-zero amount of electricity consumption exists in the commercial sector of Angola in the historical years (see section ‘UP FRONT ADJUSTMENTS (UFA)’, specifically section ‘UFA5’ in this R code, which shows the assumptions made for Angola). However, users can modify these assumptions based on specific data available for Angola.</p>
 </div>
 <div id="gcam" class="section level2">
 <h2 class="hasAnchor">
 <a href="#gcam" class="anchor"></a>GCAM</h2>
+<p>No errors (tested using the GCAM reference scenario and after correcting all errors above).</p>
 <!-------------------------->
 <!-------------------------->
 </div>
@@ -235,6 +239,30 @@
 <!-------------------------->
 <p align="center">
 <img src="vignetteFigs/divider.png"></p>
+<p>Discus country in general. Regional issues, sectoral resources, size in region etc.</p>
+<div id="gcambreakout-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#gcambreakout-1" class="anchor"></a>gcambreakout</h2>
+<p>No errors.</p>
+</div>
+<div id="gcamdata-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#gcamdata-1" class="anchor"></a>gcamdata</h2>
+<p><strong>Error 1:</strong></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>Error <span class="cf">in</span> <span class="kw">left_join_error_no_match</span>(., L123.LC_bm2_R_Past_Y_GLU, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">"GCAM_region_ID"</span>,  <span class="op">:</span><span class="st"> </span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="st">  </span>left_join_no_match<span class="op">:</span><span class="st"> </span><span class="ot">NA</span> values <span class="cf">in</span> new data columns</span></code></pre></div>
+<p><strong>Solution 1:</strong></p>
+</div>
+<div id="xml-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#xml-1" class="anchor"></a>XML</h2>
+<p>No errors.</p>
+</div>
+<div id="gcam-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#gcam-1" class="anchor"></a>GCAM</h2>
+<p>No errors (tested using the GCAM reference scenario and after correcting all errors above).</p>
+</div>
 </div>
   </div>
 
