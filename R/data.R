@@ -67,6 +67,38 @@
 "template_zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout"
 
 
+#' Template for template_zchunk_LA100.IEA_downscale_ctry_breakout
+#'
+#' @source created by ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_LA100.IEA_downscale_ctry_breakout
+#' }
+"template_zchunk_LA100.IEA_downscale_ctry_breakout"
+
+#' Template for template_zchunk_L2231.wind_update_breakout
+#'
+#' @source created by ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_L2231.wind_update_breakout
+#' }
+"template_zchunk_L2231.wind_update_breakout"
+
+#' Template for template_zchunk_L171.desalination_breakout
+#'
+#' @source created by ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_L171.desalination_breakout
+#' }
+"template_zchunk_L171.desalination_breakout"
 
 
 #-----------------
