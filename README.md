@@ -27,7 +27,7 @@
 <!-- ------------------------>
 <!-- ------------------------>
 
-Khan, Z., Kyle, P., Vernon, C., 2021. gcambreakout - An R package to breakout new regions and cities from GCAM. (In progress) Journal of Open Source Software, DOI: XXXX
+Khan, Z., Santos da Silva, S.R., Kyle, P., Vernon, C., 2021. gcambreakout - An R package to breakout new regions and cities from GCAM. (In progress) Journal of Open Source Software, DOI: XXXX
 
 
 <!-- ------------------------>
