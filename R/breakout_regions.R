@@ -616,16 +616,6 @@ breakout_regions <- function(gcamdataFolder = NULL,
   modules_to_replace <- unique((gcambreakout::mapping_modules %>%
                            dplyr::filter(gcam_version %in% gcam_version))$module)
 
-  countries_needing_module_replacement <- gcambreakout::mapping_modules %>%
-    dplyr::filter(countryNew %in% unlist(countriesNew))%>%
-    dplyr::select(-error)
-
-  if(nrow(countries_needing_module_replacement)>0){
-
-  print("The following modules corresponding to the new countries chosen require replacements:")
-  print(countries_needing_module_replacement)
-
-
   for(module_i in modules_to_replace){
 
     print(paste0("Replacing module: ", module_i,"..."))
@@ -658,7 +648,7 @@ breakout_regions <- function(gcamdataFolder = NULL,
 
   print("Replacement of all modules complete.")
 
-  } # Close if(nrow(countries_needing_module_replacement)>0)
+
 
   #..............................
   #..............................

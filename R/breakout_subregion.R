@@ -24,6 +24,9 @@ breakout_subregion <- function(gcamdataFolder = NULL,
   #.............
 
   if(T){
+
+    NULL -> population -> year
+
     print("Starting breakout_subregion ...")
 
     # Declare File Names
