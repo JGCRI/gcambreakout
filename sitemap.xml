@@ -61,10 +61,16 @@
     <loc>/reference/template_zchunk_L203.water_td_breakout.html</loc>
   </url>
   <url>
+    <loc>/reference/template_zchunk_L223.electricity_breakout.html</loc>
+  </url>
+  <url>
     <loc>/reference/template_zchunk_L2231.wind_update_breakout.html</loc>
   </url>
   <url>
     <loc>/reference/template_zchunk_LA100.IEA_downscale_ctry_breakout.html</loc>
+  </url>
+  <url>
+    <loc>/reference/template_zchunk_LA120.offshore_wind_breakout.html</loc>
   </url>
   <url>
     <loc>/reference/template_zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout.html</loc>
