@@ -21,6 +21,28 @@
 # Replace gcamdatasystem module templates
 #---------------------------------------
 
+#' Template for template_zchunk_L223.electricity_breakout
+#'
+#' @source created by ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_L223.electricity_breakout
+#' }
+"template_zchunk_L223.electricity_breakout"
+
+#' Template for template_zchunk_LA120.offshore_wind_breakout
+#'
+#' @source created by ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_LA120.offshore_wind_breakout
+#' }
+"template_zchunk_LA120.offshore_wind_breakout"
+
 #' Template for template_zchunk_L203.water_td_breakout
 #'
 #' @source created by ZK

@@ -15,7 +15,7 @@
 #' @details Takes in data on country-level offshore wind energy potential and global offshore wind
 #' capital cost assumptions and generates tables containing region-level offshore wind data.
 #' @importFrom assertthat assert_that
-#' @importFrom dplyr filter mutate select group_by summarise distinct arrange bind_rows rename
+#' @importFrom dplyr filter mutate select group_by summarise distinct arrange bind_rows rename count
 #' @importFrom tidyr gather
 #' @importFrom stats optimize
 #' @author MB GI AJS March 2019
@@ -63,6 +63,17 @@ module_energy_LA120.offshore_wind <- function(command, ...) {
 
     # -----------------------------------------------------------------------------
     # Perform computations
+
+    #### SRSdS, 11Aug21: Remove Jordan since this country is not listed in energy/NREL_offshore_energy.
+    iso_GCAM_regID_all    <- iso_GCAM_regID
+    GCAM_region_names_all <- GCAM_region_names
+
+    iso_GCAM_regID %>%
+      filter(country_name != 'Jordan') -> iso_GCAM_regID
+
+    GCAM_region_names %>%
+      filter(region != 'Jordan') -> GCAM_region_names
+    ####
 
     # Map NREL data on resource potential by country to GCAM 32 regions, convert PWh to EJ,
     # aggregate by GCAM region/ wind class/ depth class
@@ -169,6 +180,57 @@ module_energy_LA120.offshore_wind <- function(command, ...) {
                                energy.DIGITS_MAX_SUB_RESOURCE)) %>%
       select(GCAM_region_ID, mid.price) -> L120.mid.price
 
+    #### SRSdS, 11Aug21: Handling special cases
+    # Add mid.price for regions with only one price point
+    (L120.offshore_wind_curve %>%
+        count(GCAM_region_ID) %>%
+        filter(n==1))$GCAM_region_ID %>%
+      unique()-> L120.offshore_wind_curve_single_regions
+
+    # Set mid.price to available price
+    L120.offshore_wind_curve %>%
+      filter(GCAM_region_ID %in% L120.offshore_wind_curve_single_regions) %>%
+      select(GCAM_region_ID, mid.price = price)-> L120.mid.price_singleprice
+
+    # Combine with L120.mid.price
+    L120.mid.price %>%
+      bind_rows(L120.mid.price_singleprice) -> L120.mid.price
+
+    # United Arab Emirates
+    any(GCAM_region_names$region == 'United Arab Emirates') -> check
+    if(check == TRUE) {
+      # Get GCAM_region_ID for the United Arab Emirates
+      GCAM_region_names %>%
+        filter(region == 'United Arab Emirates') -> tmp
+      UAE_id <- tmp$GCAM_region_ID[1]
+      #Set mid.price to the min price
+      L120.offshore_wind_curve %>%
+        select(GCAM_region_ID, mid.price = price) %>%
+        filter(GCAM_region_ID == UAE_id) %>%
+        filter(mid.price == min(mid.price))-> L120.mid.price_singleprice
+      # Combine with L120.mid.price
+      L120.mid.price %>%
+        bind_rows(L120.mid.price_singleprice) -> L120.mid.price
+    }
+
+    # Kuwait
+    any(GCAM_region_names$region == 'Kuwait') -> check
+    if(check == TRUE) {
+      # Get GCAM_region_ID for Kuwait
+      GCAM_region_names %>%
+        filter(region == 'Kuwait') -> tmp
+      KWT_id <- tmp$GCAM_region_ID[1]
+      #Set mid.price to the min price
+      L120.offshore_wind_curve %>%
+        select(GCAM_region_ID, mid.price = price) %>%
+        filter(GCAM_region_ID == KWT_id) %>%
+        filter(mid.price == min(mid.price))-> L120.mid.price_singleprice
+      # Combine with L120.mid.price
+      L120.mid.price %>%
+        bind_rows(L120.mid.price_singleprice) -> L120.mid.price
+    }
+    ####
+
     L120.offshore_wind_curve %>%
       left_join_error_no_match(L120.mid.price, by = c("GCAM_region_ID")) -> L120.offshore_wind_curve
 
@@ -262,25 +324,6 @@ module_energy_LA120.offshore_wind <- function(command, ...) {
       ungroup() %>%
       unique() -> L120.offshore_wind_CF
 
-    #..................................
-    #### Zarrar Khan Edit: 7 Jan 2022 (zarrar.khan@pnnl.gov)
-    # Adding in missing countries and regions as 0 to L120.offshore_wind_CF
-    # Mostly these regions have no off_shore wind
-    L120.offshore_wind_CF_missing_gcam_regions <-
-      unique(GCAM_region_names$region)[!unique(GCAM_region_names$region) %in%
-                                         unique(L120.offshore_wind_CF$region)]
-
-    missing_regions_df <- data.frame(CF = 0) %>%
-      merge(data.frame(region=L120.offshore_wind_CF_missing_gcam_regions))
-
-    L120.offshore_wind_CF %>%
-      bind_rows(missing_regions_df) %>%
-      replace_na(list(CF = 0)) %>%
-      unique()->
-      L120.offshore_wind_CF
-    #......................................
-
-
     # Grid connection costs are read in as fixed non-energy cost adders (in $/GJ). This is calculated using three things:
     # 1. the offshore wind $/kW-km cost based on distance cut-offs.
     # 2. Average distance from shore of existing and upcoming project for each bin used by NREL to assess wind potential - which are  basically midpoints, and
@@ -303,24 +346,6 @@ module_energy_LA120.offshore_wind <- function(command, ...) {
       group_by(region) %>%
       mutate(share = total / sum(total)) %>%
       ungroup() -> L120.offshore_wind_potential_share
-
-    #..................................
-    #### Zarrar Khan Edit: 7 Jan 2022 (zarrar.khan@pnnl.gov)
-    # Adding in missing countries and regions as 0 to L120.offshore_wind_potential_share
-    # Mostly these regions have no off_shore wind
-    L120.offshore_wind_potential_share_missing_gcam_regions <-
-      unique(GCAM_region_names$region)[!unique(GCAM_region_names$region) %in%
-                                              unique(L120.offshore_wind_potential_share$region)]
-
-    missing_regions_df <- data.frame(distance_to_shore = c("far","intermediate","near")) %>%
-      merge(data.frame(region=L120.offshore_wind_potential_share_missing_gcam_regions))
-
-    L120.offshore_wind_potential_share %>%
-      bind_rows(missing_regions_df) %>%
-      replace_na(list(total = 0, share = 0)) %>%
-      unique()->
-      L120.offshore_wind_potential_share
-    #......................................
 
     # Then, generate bins for each cost point using representative distances from the shore
     NREL_wind_energy_distance_range %>%
@@ -347,15 +372,6 @@ module_energy_LA120.offshore_wind <- function(command, ...) {
       mutate(fcr = L120.offshore_wind_fcr,
              grid.cost = fcr * cost / (CONV_YEAR_HOURS * CF* CONV_KWH_GJ) * gdp_deflator(1975, 2013)) -> L120.grid.cost
 
-    #..................................
-    #### Zarrar Khan Edit: 7 Jan 2022 (zarrar.khan@pnnl.gov)
-    # AMake sure no NaNs introduced because of the additional regions with no offshore wind added
-
-    L120.grid.cost %>%
-      tidyr::replace_na(list(grid.cost=0)) -> L120.grid.cost
-    #....................................
-
-
     # Set grid connection cost for all regions
     GCAM_region_names %>%
       select(region) %>%
@@ -366,6 +382,55 @@ module_energy_LA120.offshore_wind <- function(command, ...) {
     L120.offshore_wind_curve %>%
       distinct(GCAM_region_ID, CFmax) %>%
       filter(!is.na(CFmax)) -> L120.RegCapFactor_offshore_wind
+
+    #### SRSdS, 11Aug21: Handling the case of Jordan. Jordan had been removed above for not being listed in energy/NREL_offshore_energy.
+    # Below, we are inserting some "dummy" data for Jordan. This is done to avoid problems in other chunks (e.g., module_energy_L223.electricity).
+    # This "dummy" data was on purpose chosen to have a very low capacity factor and a very high grid cost assumptions in order to avoid
+    # wind offshore production in Jordan, which has a very small amount of coastline.
+    any(GCAM_region_names_all$region == 'Jordan') -> check
+    if(check == TRUE){
+      idx <- GCAM_region_names_all[GCAM_region_names_all$region == 'Jordan',]
+      idx <- idx$GCAM_region_ID[1]
+
+      L120.RsrcCurves_EJ_R_offshore_wind %>%
+        filter(GCAM_region_ID == 10) -> filtered_table
+
+      filtered_table %>%
+        mutate(GCAM_region_ID = replace(GCAM_region_ID, GCAM_region_ID == 10, idx)) -> filtered_table
+
+      L120.RsrcCurves_EJ_R_offshore_wind <- rbind(L120.RsrcCurves_EJ_R_offshore_wind, filtered_table)
+      L120.RsrcCurves_EJ_R_offshore_wind <- L120.RsrcCurves_EJ_R_offshore_wind[order(L120.RsrcCurves_EJ_R_offshore_wind$GCAM_region_ID),]
+
+      idx2 <- L120.RegCapFactor_offshore_wind$GCAM_region_ID
+
+      L120.RegCapFactor_offshore_wind %>%
+        filter(GCAM_region_ID == 10) -> filtered_table
+
+      filtered_table %>%
+        mutate(GCAM_region_ID = replace(GCAM_region_ID, GCAM_region_ID == 10, idx)) %>%
+        mutate(CFmax = replace(CFmax, CFmax == filtered_table$CFmax[1], 0.00025)) -> filtered_table
+
+      L120.RegCapFactor_offshore_wind <- rbind(L120.RegCapFactor_offshore_wind, filtered_table)
+      L120.RegCapFactor_offshore_wind <- L120.RegCapFactor_offshore_wind[order(L120.RegCapFactor_offshore_wind$GCAM_region_ID),]
+
+      L120.GridCost_offshore_wind %>%
+        mutate(index = idx2) -> L120.GridCost_offshore_wind
+
+      L120.GridCost_offshore_wind %>%
+        filter(region == 'Middle East') -> filtered_table
+
+      filtered_table %>%
+        mutate(region = replace(region, region == 'Middle East', 'Jordan')) %>%
+        mutate(index = replace(index, index == 21, idx)) %>%
+        mutate(grid.cost = replace(grid.cost, grid.cost ==  filtered_table$grid.cost[1], 100))-> filtered_table
+
+      combined_tables <- rbind(L120.GridCost_offshore_wind, filtered_table)
+      L120.GridCost_offshore_wind <- combined_tables[order(combined_tables$index),]
+      L120.GridCost_offshore_wind %>%
+        select(-index) -> L120.GridCost_offshore_wind
+
+    }
+    ####
 
     # -----------------------------------------------------------------------------
     # Produce outputs

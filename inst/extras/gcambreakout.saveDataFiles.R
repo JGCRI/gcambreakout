@@ -24,7 +24,11 @@ mapping_modules <- tibble::tribble(
 "zchunk_L171.desalination_breakout.R", "Gabon","Error in left_join_error_no_match(., L123.LC_bm2_R_Past_Y_GLU, by = c('GCAM_region_ID',  : left_join_no_match: NA values in new data columns",
 "zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout.R", "Gabon","Error in left_join_error_no_match(., L123.LC_bm2_R_Past_Y_GLU, by = c('GCAM_region_ID',  : left_join_no_match: NA values in new data columns",
 "zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout.R", "Gabon","Error in left_join_error_no_match(., L123.LC_bm2_R_Past_Y_GLU, by = c('GCAM_region_ID',  : left_join_no_match: NA values in new data columns",
-"zchunk_L2231.wind_update_breakout.R", "Gabon","Error in module_water_L171.desalination('MAKE', list(`common/iso_GCAM_regID` = list( : No energy from which to deduct desalination-related energy in region"
+"zchunk_L2231.wind_update_breakout.R", "Gabon","Error in module_water_L171.desalination('MAKE', list(`common/iso_GCAM_regID` = list( : No energy from which to deduct desalination-related energy in region",
+"zchunk_LA120.offshore_wind_breakout.R", "Ukraine","Error in left_join_error_no_match(., L120.grid.cost %>% select(region, : left_join_no_match: NA values in new data columns",
+"zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout.R", "Ukraine","Error in left_join_error_no_match(., L123.LC_bm2_R_Past_Y_GLU, by = c('GCAM_region_ID',  : left_join_no_match: NA values in new data columns",
+"zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout.R", "Ukraine","Error in left_join_error_no_match(., L123.LC_bm2_R_Past_Y_GLU, by = c('GCAM_region_ID',  : left_join_no_match: NA values in new data columns",
+"zchunk_L223.electricity_breakout.R", "Ukraine"," Error in left_join_error_no_match(., L120.RegCapFactor_offshore_wind,  : left_join_no_match: NA values in new data columns"
 ) %>%
   dplyr::arrange(module)
 
@@ -33,6 +37,14 @@ usethis::use_data(mapping_modules, version=3, overwrite=T)
 #-------------------
 # Replace gcamdatasystem module templates
 #-------------------
+
+# template_zchunk_L223.electricity_breakout
+template_zchunk_L223.electricity_breakout <- readr::read_lines(paste0(dataFileFolder,"/zchunk_L223.electricity_breakout.R"))
+use_data(template_zchunk_L223.electricity_breakout,version=3, overwrite=T)
+
+# template_zchunk_L203.water_td_breakout
+template_zchunk_LA120.offshore_wind_breakout <- readr::read_lines(paste0(dataFileFolder,"/zchunk_LA120.offshore_wind_breakout.R"))
+use_data(template_zchunk_LA120.offshore_wind_breakout,version=3, overwrite=T)
 
 # template_zchunk_L203.water_td_breakout
 template_zchunk_L203.water_td_breakout <- readr::read_lines(paste0(dataFileFolder,"/zchunk_L203.water_td_breakout.R"))
