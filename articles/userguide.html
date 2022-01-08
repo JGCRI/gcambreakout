@@ -143,7 +143,7 @@
 <li>
 <code><a href="../reference/breakout_regions.html">breakout_regions()</a></code> : Used to breakout countries from the existing 32 regions in GCAM Core. Countries chosen must come from the same parent region.</li>
 <li>
-<code><a href="../reference/breakout_city.html">breakout_city()</a></code>: Used to breakout cities from any existing GCAM region, including new regions that are created using <code><a href="../reference/breakout_regions.html">breakout_regions()</a></code>
+<code>breakout_city()</code>: Used to breakout cities from any existing GCAM region, including new regions that are created using <code><a href="../reference/breakout_regions.html">breakout_regions()</a></code>
 </li>
 <li>
 <code><a href="../reference/restore.html">restore()</a></code>: Used to restore the original files if desired (OPTIONAL)</li>
@@ -218,13 +218,27 @@
 <!-------------------------->
 </div>
 <div class="section level1">
-<h1 id="breakout-new-cities">Breakout New Cities<a class="anchor" aria-label="anchor" href="#breakout-new-cities"></a>
+<h1 id="breakout-new-subregions">Breakout New Subregions<a class="anchor" aria-label="anchor" href="#breakout-new-subregions"></a>
 </h1>
 <!-------------------------->
 <!-------------------------->
 <p align="center">
 <img src="vignetteFigs/divider.png"></p>
-<p>Documentation on <code>breakout_cities()</code> coming soon…</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="co"># Details and more explanation coming soon!</span>
+
+<span class="fu"><a href="../reference/breakout_subregion.html">breakout_subregion</a></span><span class="op">(</span>gcamdataFolder <span class="op">=</span> <span class="va">gcamdataFolderx</span>,
+                   region <span class="op">=</span> <span class="st">"Thailand"</span>,
+                   subregion <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Bangkok"</span>,
+                                 <span class="st">"Nonthaburi"</span>,
+                                 <span class="st">"Samut Prakan"</span><span class="op">)</span>,
+                   pop_projection <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">city_files_folder</span>,<span class="st">"/pop_projection_thailand_bangkok.csv"</span><span class="op">)</span>,
+                                      <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">city_files_folder</span>,<span class="st">"/pop_projection_thailand_nonthaburi.csv"</span><span class="op">)</span>,
+                                      <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">city_files_folder</span>,<span class="st">"/pop_projection_thailand_samutprakan.csv"</span><span class="op">)</span><span class="op">)</span>,
+                   pcgdp_projection <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">city_files_folder</span>,<span class="st">"/pcgdp_projection_thailand_bangkok.csv"</span><span class="op">)</span>,
+                                        <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">city_files_folder</span>,<span class="st">"/pcgdp_projection_thailand_nonthaburi.csv"</span><span class="op">)</span>,
+                                        <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">city_files_folder</span>,<span class="st">"/pcgdp_projection_thailand_samutprakan.csv"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <!-------------------------->
 <!-------------------------->
 </div>
@@ -236,7 +250,7 @@
 <p align="center">
 <img src="vignetteFigs/divider.png"></p>
 <p>Users can also restore back to the original files by running the following code. This will replace the newly created files with the versions appended with ’_Original’ and delete the appended files. The gcamdata system will have to be rebuilt using ‘install &amp; restart’ from R Studio once again followed by driver().</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/JGCRI/gcambreakout" class="external-link">gcambreakout</a></span><span class="op">)</span>
 <span class="fu"><a href="../reference/restore.html">restore</a></span><span class="op">(</span>gcamdataFolder <span class="op">=</span> <span class="st">"PATH_TO_GCAM_FOLDER/input/gcamdata"</span><span class="op">)</span></code></pre></div>
 </div>

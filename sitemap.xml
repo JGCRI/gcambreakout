@@ -25,10 +25,10 @@
     <loc>/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/breakout_city.html</loc>
+    <loc>/reference/breakout_regions.html</loc>
   </url>
   <url>
-    <loc>/reference/breakout_regions.html</loc>
+    <loc>/reference/breakout_subregion.html</loc>
   </url>
   <url>
     <loc>/reference/gcambreakout.html</loc>
@@ -46,10 +46,10 @@
     <loc>/reference/template_breakout_helpers.html</loc>
   </url>
   <url>
-    <loc>/reference/template_pcgdpProjection.html</loc>
+    <loc>/reference/template_pcgdp_projection.html</loc>
   </url>
   <url>
-    <loc>/reference/template_popProjection.html</loc>
+    <loc>/reference/template_pop_projection.html</loc>
   </url>
   <url>
     <loc>/reference/template_zchunk_L133.water_demand_livestock_breakout.html</loc>
