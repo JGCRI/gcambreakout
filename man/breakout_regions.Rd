@@ -4,7 +4,12 @@
 \alias{breakout_regions}
 \title{Function to breakout region in gcamdata}
 \usage{
-breakout_regions(gcamdataFolder = NULL, regionsNew = NULL, countriesNew = NULL)
+breakout_regions(
+  gcamdataFolder = NULL,
+  regionsNew = NULL,
+  countriesNew = NULL,
+  gcam_version = "5.4"
+)
 }
 \arguments{
 \item{gcamdataFolder}{Default = NULL. Full path to gcamdata folder.}
@@ -17,6 +22,8 @@ A vector if only one region or a list with countries for each regionsNew.
 (e.g. c("New Region Country 1, "New Region Country 2) corresponding to a single regionsNew = "New Region" OR
  countriesNew = list(c("New Region 1 Country 1", "New Region 1 Country 2"), c("New Region 2 Country 1", "New Region 2 Country 2"))
  corresponding to regionsNew = c("New Region 1", "New Region 2")))}
+
+\item{gcam_version}{Default = 5.4. Which version of GCAM are the changes being applied to. Default may work on multiple}
 }
 \description{
 Function to breakout region in gcamdata

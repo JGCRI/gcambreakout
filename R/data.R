@@ -244,9 +244,9 @@
 #' @examples
 #' \dontrun{
 #'  library(gcambreakout);
-#'  gcambreakout::template_pcgdpProjection
+#'  gcambreakout::template_pcgdp_projection
 #' }
-"template_pcgdpProjection"
+"template_pcgdp_projection"
 
 #' Template for popProjection
 #'
@@ -255,7 +255,7 @@
 #' @examples
 #' \dontrun{
 #'  library(gcambreakout);
-#'  gcambreakout::template_popProjection
+#'  gcambreakout::template_pop_projection
 #' }
-"template_popProjection"
+"template_pop_projection"
 

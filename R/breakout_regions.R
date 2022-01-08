@@ -8,6 +8,7 @@
 #' (e.g. c("New Region Country 1, "New Region Country 2) corresponding to a single regionsNew = "New Region" OR
 #'  countriesNew = list(c("New Region 1 Country 1", "New Region 1 Country 2"), c("New Region 2 Country 1", "New Region 2 Country 2"))
 #'  corresponding to regionsNew = c("New Region 1", "New Region 2")))
+#' @param gcam_version Default = 5.4. Which version of GCAM are the changes being applied to. Default may work on multiple
 #' @importFrom magrittr %>%
 #' @importFrom data.table :=
 #' @export
@@ -15,7 +16,8 @@
 
 breakout_regions <- function(gcamdataFolder = NULL,
                      regionsNew = NULL,
-                     countriesNew = NULL) {
+                     countriesNew = NULL,
+                     gcam_version = "5.4") {
 
   # gcamdataFolder = NULL
   # regionsNew = NULL
@@ -611,8 +613,8 @@ breakout_regions <- function(gcamdataFolder = NULL,
   # .................
 
   # Check which modules need to be replaced based on the mappings_module list and countriesNew chosen.
-  modules_to_replace <- (gcambreakout::mapping_modules %>%
-                           dplyr::filter(countryNew %in% unlist(countriesNew)))$module
+  modules_to_replace <- unique((gcambreakout::mapping_modules %>%
+                           dplyr::filter(gcam_version %in% gcam_version))$module)
 
   countries_needing_module_replacement <- gcambreakout::mapping_modules %>%
     dplyr::filter(countryNew %in% unlist(countriesNew))%>%

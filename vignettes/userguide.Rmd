@@ -128,12 +128,29 @@ breakout_regions(gcamdataFolder = gcamdataFolderx,
 
 <!-------------------------->
 <!-------------------------->
-# Breakout New Cities
+# Breakout New Subregions
 <!-------------------------->
 <!-------------------------->
 <p align="center"> <img src="vignetteFigs/divider.png"></p>
 
-Documentation on `breakout_cities()` coming soon...
+```{r, eval =F}
+
+# Details and more explanation coming soon!
+
+breakout_subregion(gcamdataFolder = gcamdataFolderx,
+                   region = "Thailand",
+                   subregion = c("Bangkok",
+                                 "Nonthaburi",
+                                 "Samut Prakan"),
+                   pop_projection = c(paste0(city_files_folder,"/pop_projection_thailand_bangkok.csv"),
+                                      paste0(city_files_folder,"/pop_projection_thailand_nonthaburi.csv"),
+                                      paste0(city_files_folder,"/pop_projection_thailand_samutprakan.csv")),
+                   pcgdp_projection = c(paste0(city_files_folder,"/pcgdp_projection_thailand_bangkok.csv"),
+                                        paste0(city_files_folder,"/pcgdp_projection_thailand_nonthaburi.csv"),
+                                        paste0(city_files_folder,"/pcgdp_projection_thailand_samutprakan.csv")))
+
+
+```
 
 <!-------------------------->
 <!-------------------------->

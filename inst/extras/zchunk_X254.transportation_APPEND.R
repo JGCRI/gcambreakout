@@ -143,7 +143,7 @@ module_energy_X254.transportation_APPEND <- function(command, ...) {
     L201.nonghg_steepness <- filter(L201.nonghg_steepness, supplysector %in% Transport_sectors)
     L241.hfc_future <- filter(L241.hfc_future, supplysector %in% Transport_sectors)
 
-    # These tables should be split into 2 lists: one for tables with generic info that gets written to APPEND_CITY
+    # These tables should be split into 2 lists: one for tables with generic info that gets written to APPEND_SUBREGION
     # and rest-of-APPEND_REGION equivalently, and another that will apply shares to the data (e.g., energy consumption,
     # floorspace, etc) to parse the APPEND_REGION total to the 2 disaggregated regions
 
@@ -187,7 +187,7 @@ module_energy_X254.transportation_APPEND <- function(command, ...) {
     X254.list_nochange_data_APPEND <- lapply(X254.list_nochange_data_APPEND,
                                       FUN = write_to_breakout_regions,
                                       composite_region = "APPEND_REGION",
-                                      disag_regions = c("APPEND_CITY","Rest of APPEND_REGION"))
+                                      disag_regions = c("APPEND_SUBREGION","Rest of APPEND_REGION"))
 
     X254.pop_gdp_share_APPEND <- X201.Pop_APPEND %>%
       left_join_error_no_match(X201.GDP_APPEND, by = c("region", "year")) %>%
@@ -201,21 +201,21 @@ module_energy_X254.transportation_APPEND <- function(command, ...) {
       filter(sce == "CORE") %>%
       downscale_to_breakout_regions(data = .,
                                   composite_region = "APPEND_REGION",
-                                  disag_regions = c("APPEND_CITY","Rest of APPEND_REGION"),
+                                  disag_regions = c("APPEND_SUBREGION","Rest of APPEND_REGION"),
                                   share_data = X254.pop_gdp_share_APPEND, value.column = "calibrated.value", share.column = "popshare")
 
     X254.StubTechCalInput_passthru_trn_APPEND <- L254.StubTechCalInput_passthru %>%
       filter(sce == "CORE") %>%
       downscale_to_breakout_regions(data = .,
                                     composite_region = "APPEND_REGION",
-                                    disag_regions = c("APPEND_CITY","Rest of APPEND_REGION"),
+                                    disag_regions = c("APPEND_SUBREGION","Rest of APPEND_REGION"),
                                     share_data = X254.pop_gdp_share_APPEND, value.column = "calibrated.value", share.column = "popshare")
 
     X254.StubTechProd_nonmotor <- L254.StubTechProd_nonmotor %>%
       filter(sce == "CORE") %>%
       downscale_to_breakout_regions(data = .,
                                     composite_region = "APPEND_REGION",
-                                    disag_regions = c("APPEND_CITY","Rest of APPEND_REGION"),
+                                    disag_regions = c("APPEND_SUBREGION","Rest of APPEND_REGION"),
                                     share_data = X254.pop_gdp_share_APPEND, value.column = "calOutputValue", share.column = "popshare",
                                     ndigits = energy.DIGITS_MPKM)
 
@@ -223,7 +223,7 @@ module_energy_X254.transportation_APPEND <- function(command, ...) {
       filter(sce == "CORE") %>%
       downscale_to_breakout_regions(data = .,
                                     composite_region = "APPEND_REGION",
-                                    disag_regions = c("APPEND_CITY","Rest of APPEND_REGION"),
+                                    disag_regions = c("APPEND_SUBREGION","Rest of APPEND_REGION"),
                                     share_data = X254.pop_gdp_share_APPEND, value.column = "base.service", share.column = "popshare",
                                     ndigits = energy.DIGITS_MPKM)
 
@@ -231,14 +231,14 @@ module_energy_X254.transportation_APPEND <- function(command, ...) {
       filter(supplysector %in% Transport_sectors) %>%
       downscale_to_breakout_regions(data = .,
                                     composite_region = "APPEND_REGION",
-                                    disag_regions = c("APPEND_CITY","Rest of APPEND_REGION"),
+                                    disag_regions = c("APPEND_SUBREGION","Rest of APPEND_REGION"),
                                     share_data = X254.pop_gdp_share_APPEND, value.column = "input.emissions", share.column = "gdpshare")
 
     X254.ghg_emissions_trn_APPEND <- L201.en_ghg_emissions %>%
       filter(supplysector %in% Transport_sectors) %>%
       downscale_to_breakout_regions(data = .,
                                     composite_region = "APPEND_REGION",
-                                    disag_regions = c("APPEND_CITY","Rest of APPEND_REGION"),
+                                    disag_regions = c("APPEND_SUBREGION","Rest of APPEND_REGION"),
                                     share_data = X254.pop_gdp_share_APPEND, value.column = "input.emissions", share.column = "gdpshare")
 
 

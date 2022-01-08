@@ -25,7 +25,7 @@ module_Xbatch_liquids_limits_xml_APPEND <- function(command, ...) {
     PortfolioStd_APPEND <- L270.CreditMkt %>%
       write_to_breakout_regions(data = .,
                                 composite_region = "APPEND_REGION",
-                                disag_regions = c("APPEND_CITY","Rest of APPEND_REGION"))
+                                disag_regions = c("APPEND_SUBREGION","Rest of APPEND_REGION"))
 
     # ===================================================
 

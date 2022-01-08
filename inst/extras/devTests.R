@@ -76,6 +76,13 @@ breakout_city(gcamdataFolder = gcamdataFolderx,
              popProjection = "C:/Z/projects/current/00_SMART/kualalumpur/template_popProjection_kl.csv",
              pcgdpProjection = "C:/Z/projects/current/00_SMART/kualalumpur/template_pcgdpProjection_kl.csv")
 
+
+breakout_city(gcamdataFolder = gcamdataFolderx,
+              region = "Thailand",
+              city = "Bangkok",
+              popProjection = "C:\Z\metarepos\seasia\breakouttemplate_popProjection_thailand_bangkok.csv",
+              pcgdpProjection = "C:/Z/metarepos/seasia/data files/city_breakouts/template_pcgdpProjection_thailand_bangkok.csv")
+
 # gcamdataFolder = gcamdataFolderx
 # region = "Thailand"
 # city = "Bangkok"
