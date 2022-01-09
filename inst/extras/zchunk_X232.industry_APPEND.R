@@ -596,7 +596,7 @@ module_energy_X232.industry_APPEND <- function(command, ...) {
       add_title("Units of f-gas emissions from industry in APPEND") %>%
       add_units("Specified in table") %>%
       add_comments("Copied") %>%
-      add_precursors("L241.fgas_all_units") ->
+      add_precursors("common/GCAM_region_names","L241.fgas_all_units") ->
       X232.fgas_all_units_ind_APPEND
 
     X232.list_nochange_data_APPEND[["L201.nonghg_max_reduction"]] %>%
@@ -617,7 +617,7 @@ module_energy_X232.industry_APPEND <- function(command, ...) {
       add_title("emissions coefficients of f-gases from industry in APPEND") %>%
       add_units("g f-gas per GJ of building energy service") %>%
       add_comments("Copied") %>%
-      add_precursors("L241.hfc_future") ->
+      add_precursors("common/GCAM_region_names","L241.hfc_future") ->
       X232.hfc_future_ind_APPEND
 
     X232.list_nochange_data_APPEND[["L252.MAC_higwp"]] %>%
@@ -680,14 +680,14 @@ module_energy_X232.industry_APPEND <- function(command, ...) {
       add_title("industrial process emissions of HFCs") %>%
       add_units("Gg/yr") %>%
       add_comments("downscaled from parent region") %>%
-      add_precursors("L241.hfc_all") ->
+      add_precursors("common/GCAM_region_names","L241.hfc_all") ->
       X232.hfc_all_indproc_APPEND
 
     X232.pfc_all_indproc_APPEND %>%
       add_title("industrial process emissions of PFCs") %>%
       add_units("Gg/yr") %>%
       add_comments("downscaled from parent region") %>%
-      add_precursors("L241.pfc_all") ->
+      add_precursors("common/GCAM_region_names","L241.pfc_all") ->
       X232.pfc_all_indproc_APPEND
 
 
