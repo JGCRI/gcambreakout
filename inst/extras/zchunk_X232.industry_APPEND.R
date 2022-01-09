@@ -185,6 +185,84 @@ module_energy_X232.industry_APPEND <- function(command, ...) {
     L232.nonco2_max_reduction <- filter(L232.nonco2_max_reduction, supplysector %in% Industry_sectors)
     L232.nonco2_steepness <- filter(L232.nonco2_steepness, supplysector %in% Industry_sectors)
 
+    #..................................
+    # Adding in missing countries and regions
+
+    #L241.hfc_all
+    L241.hfc_all_missing_gcam_regions <-
+      unique(GCAM_region_names$region)[!unique(GCAM_region_names$region) %in%
+                                         unique(L241.hfc_all$region)]
+
+    if(length(L241.hfc_all_missing_gcam_regions)>0){
+      missing_regions_df <- L241.hfc_all %>%
+        dplyr::select(-region) %>%
+        dplyr::mutate(input.emissions=0) %>%
+        unique() %>%
+        merge(data.frame(region=L241.hfc_all_missing_gcam_regions))
+
+      L241.hfc_all %>%
+        bind_rows(missing_regions_df) %>%
+        replace_na(list(input.emissions = 0)) %>%
+        unique()->
+        L241.hfc_all
+    }
+
+    # L241.pfc_all
+    L241.pfc_all_missing_gcam_regions <-
+      unique(GCAM_region_names$region)[!unique(GCAM_region_names$region) %in%
+                                         unique(L241.pfc_all$region)]
+
+    if(length(L241.pfc_all_missing_gcam_regions)>0){
+      missing_regions_df <- L241.pfc_all %>%
+        dplyr::select(-region) %>%
+        dplyr::mutate(input.emissions=0) %>%
+        unique() %>%
+        merge(data.frame(region=L241.pfc_all_missing_gcam_regions))
+
+      L241.pfc_all %>%
+        bind_rows(missing_regions_df) %>%
+        replace_na(list(input.emissions = 0)) %>%
+        unique()->
+        L241.pfc_all
+    }
+
+    # L241.hfc_future
+    L241.hfc_future_missing_gcam_regions <-
+      unique(GCAM_region_names$region)[!unique(GCAM_region_names$region) %in%
+                                         unique(L241.hfc_future$region)]
+
+    if(length(L241.hfc_future_missing_gcam_regions)>0){
+      missing_regions_df <- L241.hfc_future %>%
+        dplyr::select(-region) %>%
+        dplyr::mutate(emiss.coeff=0) %>%
+        unique() %>%
+        merge(data.frame(region=L241.hfc_future_missing_gcam_regions))
+
+      L241.hfc_future %>%
+        bind_rows(missing_regions_df) %>%
+        replace_na(list(emiss.coeff = 0)) %>%
+        unique()->
+        L241.hfc_future}
+
+    # L241.fgas_all_units
+    L241.fgas_all_units_missing_gcam_regions <-
+      unique(GCAM_region_names$region)[!unique(GCAM_region_names$region) %in%
+                                         unique(L241.fgas_all_units$region)]
+
+    if(length(L241.fgas_all_units_missing_gcam_regions)>0){
+      missing_regions_df <- L241.fgas_all_units %>%
+        dplyr::select(-region) %>%
+        unique() %>%
+        merge(data.frame(region=L241.fgas_all_units_missing_gcam_regions))
+
+
+      L241.fgas_all_units %>%
+        bind_rows(missing_regions_df) %>%
+        unique()->
+        L241.fgas_all_units
+    }
+    #......................................
+
     X232.list_nochange_data_APPEND <- list(
       L232.Supplysector_ind = L232.Supplysector_ind,
       L232.FinalEnergyKeyword_ind = L232.FinalEnergyKeyword_ind,
@@ -286,14 +364,12 @@ module_energy_X232.industry_APPEND <- function(command, ...) {
                                     share_data = X232.pop_gdp_share_APPEND, value.column = "input.emissions", share.column = "gdpshare")
 
     X232.hfc_all_indproc_APPEND <- L241.hfc_all %>%
-      filter(supplysector %in% Industry_sectors) %>%
       downscale_to_breakout_regions(data = .,
                                     composite_region = "APPEND_REGION",
                                     disag_regions = c("APPEND_SUBREGION","Rest of APPEND_REGION"),
                                     share_data = X232.pop_gdp_share_APPEND, value.column = "input.emissions", share.column = "gdpshare")
 
     X232.pfc_all_indproc_APPEND <- L241.pfc_all %>%
-      filter(supplysector %in% Industry_sectors) %>%
       downscale_to_breakout_regions(data = .,
                                     composite_region = "APPEND_REGION",
                                     disag_regions = c("APPEND_SUBREGION","Rest of APPEND_REGION"),
