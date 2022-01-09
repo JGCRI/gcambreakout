@@ -21,6 +21,17 @@
 # Replace gcamdatasystem module templates
 #---------------------------------------
 
+#' Template for template_zchunk_LA121.liquids_breakout
+#'
+#' @source created by ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_LA121.liquids_breakout
+#' }
+"template_zchunk_LA121.liquids_breakout"
+
 #' Template for template_zchunk_L223.electricity_breakout
 #'
 #' @source created by ZK

@@ -17,7 +17,8 @@
 
 module_energy_X232.industry_APPEND <- function(command, ...) {
   if(command == driver.DECLARE_INPUTS) {
-    return(c("X201.Pop_APPEND",
+    return(c(FILE = "common/GCAM_region_names",
+             "X201.Pop_APPEND",
              "X201.GDP_APPEND",
              "L232.Supplysector_ind",
              "L232.SubsectorLogit_ind",
@@ -108,6 +109,7 @@ module_energy_X232.industry_APPEND <- function(command, ...) {
     all_data <- list(...)[[1]]
 
     # Load required inputs
+    GCAM_region_names <- get_data(all_data, "common/GCAM_region_names")
     X201.Pop_APPEND <- get_data(all_data, "X201.Pop_APPEND")
     X201.GDP_APPEND <- get_data(all_data, "X201.GDP_APPEND")
     L232.Supplysector_ind <- get_data(all_data, "L232.Supplysector_ind", strip_attributes = TRUE)
