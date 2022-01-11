@@ -164,7 +164,7 @@ module_energy_X232.industry_APPEND <- function(command, ...) {
     X232.DeleteSupplysector_ind_APPEND <- tibble(region = "APPEND_REGION",
                                              supplysector = Industry_sectors)
 
-    # These tables should be split into 2 lists: one for tables with generic info that gets written to APPEND_SUBREGION
+    # These tables should be split into 2 lists: one for tables with generic info that gets written to Subregions
     # and rest-of-APPEND_REGION equivalently, and another that will apply shares to the data (e.g., energy consumption,
     # floorspace, etc) to parse the APPEND_REGION total to the 2 disaggregated regions
 
@@ -296,10 +296,13 @@ module_energy_X232.industry_APPEND <- function(command, ...) {
       L232.nonco2_steepness = L232.nonco2_steepness
       )
 
+    subregions <- unique(X201.Pop_APPEND$region)
+    subregions <- subregions[!subregions %in% c("APPEND_REGION")]
+
     X232.list_nochange_data_APPEND <- lapply(X232.list_nochange_data_APPEND,
                                       FUN = write_to_breakout_regions,
                                       composite_region = "APPEND_REGION",
-                                      disag_regions = c("APPEND_SUBREGION","Rest of APPEND_REGION"))
+                                      disag_regions = c(subregions))
 
     # Re-set the market names appropriately. Fuel commodity market names will pull from APPEND_REGION (the parent region),
     # whereas inputs that are other sectors in the industrial sector (industrial energy use, industrial feedstocks)
@@ -307,7 +310,7 @@ module_energy_X232.industry_APPEND <- function(command, ...) {
     X232.list_nochange_data_APPEND[["L232.StubTechCoef_industry"]]$market.name <-
       X232.list_nochange_data_APPEND[["L232.StubTechCoef_industry"]]$region
 
-    # Industrial process emissions, unlike the fuels, are in local (APPEND_SUBREGION, Rest of APPEND_REGION) markets
+    # Industrial process emissions, unlike the fuels, are in local (Subregions, Rest of APPEND_REGION) markets
     X232.list_nochange_data_APPEND[["L231.IndCoef"]] <- X232.list_nochange_data_APPEND[["L231.IndCoef"]] %>%
       rename(stub.technology = technology) %>%
       mutate(market.name = region)
@@ -315,6 +318,7 @@ module_energy_X232.industry_APPEND <- function(command, ...) {
     X232.pop_gdp_share_APPEND <- X201.Pop_APPEND %>%
       left_join_error_no_match(X201.GDP_APPEND, by = c("region", "year")) %>%
       group_by(year) %>%
+      dplyr::filter(region!="APPEND_REGION") %>%
       mutate(popshare = totalPop / sum(totalPop),
              gdpshare = GDP / sum(GDP)) %>%
       ungroup() %>%
@@ -323,58 +327,58 @@ module_energy_X232.industry_APPEND <- function(command, ...) {
     X232.StubTechCalInput_indenergy_APPEND <- L232.StubTechCalInput_indenergy %>%
       downscale_to_breakout_regions(data = .,
                                     composite_region = "APPEND_REGION",
-                                    disag_regions = c("APPEND_SUBREGION","Rest of APPEND_REGION"),
+                                    disag_regions = c(subregions),
                                     share_data = X232.pop_gdp_share_APPEND, value.column = "calibrated.value", share.column = "gdpshare")
 
     X232.StubTechCalInput_indfeed_APPEND <- L232.StubTechCalInput_indfeed %>%
       downscale_to_breakout_regions(data = .,
                                     composite_region = "APPEND_REGION",
-                                    disag_regions = c("APPEND_SUBREGION","Rest of APPEND_REGION"),
+                                    disag_regions = c(subregions),
                                     share_data = X232.pop_gdp_share_APPEND, value.column = "calibrated.value", share.column = "gdpshare")
 
     X232.StubTechProd_industry_APPEND <- L232.StubTechProd_industry %>%
       downscale_to_breakout_regions(data = .,
                                     composite_region = "APPEND_REGION",
-                                    disag_regions = c("APPEND_SUBREGION","Rest of APPEND_REGION"),
+                                    disag_regions = c(subregions),
                                     share_data = X232.pop_gdp_share_APPEND, value.column = "calOutputValue", share.column = "gdpshare")
 
     X232.BaseService_ind_APPEND <- L232.BaseService_ind %>%
       downscale_to_breakout_regions(data = .,
                                     composite_region = "APPEND_REGION",
-                                    disag_regions = c("APPEND_SUBREGION","Rest of APPEND_REGION"),
+                                    disag_regions = c(subregions),
                                     share_data = X232.pop_gdp_share_APPEND, value.column = "base.service", share.column = "gdpshare")
 
     X232.pol_emissions_ind_APPEND <- L201.en_pol_emissions %>%
       filter(supplysector %in% Industry_sectors) %>%
       downscale_to_breakout_regions(data = .,
                                     composite_region = "APPEND_REGION",
-                                    disag_regions = c("APPEND_SUBREGION","Rest of APPEND_REGION"),
+                                    disag_regions = c(subregions),
                                     share_data = X232.pop_gdp_share_APPEND, value.column = "input.emissions", share.column = "gdpshare")
 
     X232.ghg_emissions_ind_APPEND <- L201.en_ghg_emissions %>%
       filter(supplysector %in% Industry_sectors) %>%
       downscale_to_breakout_regions(data = .,
                                     composite_region = "APPEND_REGION",
-                                    disag_regions = c("APPEND_SUBREGION","Rest of APPEND_REGION"),
+                                    disag_regions = c(subregions),
                                     share_data = X232.pop_gdp_share_APPEND, value.column = "input.emissions", share.column = "gdpshare")
 
     X232.nonco2_indproc_APPEND <- L232.nonco2_prc %>%
       filter(supplysector %in% Industry_sectors) %>%
       downscale_to_breakout_regions(data = .,
                                     composite_region = "APPEND_REGION",
-                                    disag_regions = c("APPEND_SUBREGION","Rest of APPEND_REGION"),
+                                    disag_regions = c(subregions),
                                     share_data = X232.pop_gdp_share_APPEND, value.column = "input.emissions", share.column = "gdpshare")
 
     X232.hfc_all_indproc_APPEND <- L241.hfc_all %>%
       downscale_to_breakout_regions(data = .,
                                     composite_region = "APPEND_REGION",
-                                    disag_regions = c("APPEND_SUBREGION","Rest of APPEND_REGION"),
+                                    disag_regions = c(subregions),
                                     share_data = X232.pop_gdp_share_APPEND, value.column = "input.emissions", share.column = "gdpshare")
 
     X232.pfc_all_indproc_APPEND <- L241.pfc_all %>%
       downscale_to_breakout_regions(data = .,
                                     composite_region = "APPEND_REGION",
-                                    disag_regions = c("APPEND_SUBREGION","Rest of APPEND_REGION"),
+                                    disag_regions = c(subregions),
                                     share_data = X232.pop_gdp_share_APPEND, value.column = "input.emissions", share.column = "gdpshare")
 
     # Finally, re-set the market name of the fuel commodities from the default (region where the technology lives) to the
@@ -385,7 +389,7 @@ module_energy_X232.industry_APPEND <- function(command, ...) {
              stub.technology = technology) %>%
       # remove district heat from the available technologies as this is not represented in this region
       filter(subsector != "district heat") %>%
-      repeat_add_columns(tibble(region = c("APPEND_SUBREGION", "Rest of APPEND_REGION"))) %>%
+      repeat_add_columns(tibble(region = c(subregions))) %>%
       mutate(market.name = "APPEND_REGION") %>%
       select(LEVEL2_DATA_NAMES[["StubTechMarket"]])
 
@@ -393,7 +397,7 @@ module_energy_X232.industry_APPEND <- function(command, ...) {
       rename(supplysector = sector.name,
              subsector = subsector.name,
              stub.technology = technology) %>%
-      repeat_add_columns(tibble(region = c("APPEND_SUBREGION", "Rest of APPEND_REGION"))) %>%
+      repeat_add_columns(tibble(region = c(subregions))) %>%
       mutate(market.name = "APPEND_REGION") %>%
       select(LEVEL2_DATA_NAMES[["StubTechSecMarket"]])
 

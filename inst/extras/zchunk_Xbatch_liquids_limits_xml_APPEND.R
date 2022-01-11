@@ -12,7 +12,8 @@
 #' original data system was \code{batch_socioeconomics_USA.xml} (gcamusa XML).
 module_Xbatch_liquids_limits_xml_APPEND <- function(command, ...) {
   if(command == driver.DECLARE_INPUTS) {
-    return(c("L270.CreditMkt"))
+    return(c("X201.Pop_APPEND",
+             "L270.CreditMkt"))
   } else if(command == driver.DECLARE_OUTPUTS) {
     return(c(XML = "liquids_limits_APPEND.xml"))
   } else if(command == driver.MAKE) {
@@ -20,19 +21,23 @@ module_Xbatch_liquids_limits_xml_APPEND <- function(command, ...) {
     all_data <- list(...)[[1]]
 
     # Load required inputs
+    X201.Pop_APPEND <- get_data(all_data, "X201.Pop_APPEND")
     L270.CreditMkt <- get_data(all_data, "L270.CreditMkt")
+
+    subregions <- unique(X201.Pop_APPEND$region)
+    subregions <- subregions[!subregions %in% c("APPEND_REGION")]
 
     PortfolioStd_APPEND <- L270.CreditMkt %>%
       write_to_breakout_regions(data = .,
                                 composite_region = "APPEND_REGION",
-                                disag_regions = c("APPEND_SUBREGION","Rest of APPEND_REGION"))
+                                disag_regions = c(subregions))
 
     # ===================================================
 
     # Produce outputs
     create_xml("liquids_limits_APPEND.xml") %>%
       add_xml_data(PortfolioStd_APPEND, "PortfolioStd") %>%
-      add_precursors("L270.CreditMkt") ->
+      add_precursors("X201.Pop_APPEND","L270.CreditMkt") ->
       liquids_limits_APPEND.xml
 
     return_data(liquids_limits_APPEND.xml)

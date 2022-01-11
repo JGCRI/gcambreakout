@@ -133,21 +133,28 @@ breakout_regions(gcamdataFolder = gcamdataFolderx,
 <!-------------------------->
 <p align="center"> <img src="vignetteFigs/divider.png"></p>
 
-```{r, eval =F}
+To breakout subregions (e.g.provinces, states, cities) users simply need to provide the following:
 
-# Details and more explanation coming soon!
+* region: The parent region from which the subregions are being broken out
+* pop_projection: An R data table or a path to a .csv file which has columns `region`, `year`, `population`. The `population` should be in `millions`.
+* pcgdp_projection: An R data table or a path to a .csv file which has columns `region`, `year`, `pcgdp`. The `pcgdp` should be in `thous 2005 USD per capita`
+
+Subregions in the pop_projection and pcgdp_projection files should have data for each subregion desired. These can be any arbitray names and `breakout_subregions()` will breakout the subregions from the parent region. Currently the sectors which are broken out for subregions include:
+
+* socioeconomics
+* industry
+* transport
+* buildings
+* liquid_limits
+
+Example `pop_projection` and `pcgdp_projection` tables are provided as `gcambreakout::template_pcgdp_projection` and `gcambreakout::template_pop_projection`.
+
+```{r, eval =F}
 
 breakout_subregion(gcamdataFolder = gcamdataFolderx,
                    region = "Thailand",
-                   subregion = c("Bangkok",
-                                 "Nonthaburi",
-                                 "Samut Prakan"),
-                   pop_projection = c(paste0(city_files_folder,"/pop_projection_thailand_bangkok.csv"),
-                                      paste0(city_files_folder,"/pop_projection_thailand_nonthaburi.csv"),
-                                      paste0(city_files_folder,"/pop_projection_thailand_samutprakan.csv")),
-                   pcgdp_projection = c(paste0(city_files_folder,"/pcgdp_projection_thailand_bangkok.csv"),
-                                        paste0(city_files_folder,"/pcgdp_projection_thailand_nonthaburi.csv"),
-                                        paste0(city_files_folder,"/pcgdp_projection_thailand_samutprakan.csv")))
+                   pop_projection = gcambreakout::pop_projection),
+                   pcgdp_projection = gcambreakout::pcgdp_projection)
 
 
 ```
