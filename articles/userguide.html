@@ -224,21 +224,27 @@
 <!-------------------------->
 <p align="center">
 <img src="vignetteFigs/divider.png"></p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="co"># Details and more explanation coming soon!</span>
-
-<span class="fu"><a href="../reference/breakout_subregion.html">breakout_subregion</a></span><span class="op">(</span>gcamdataFolder <span class="op">=</span> <span class="va">gcamdataFolderx</span>,
-                   region <span class="op">=</span> <span class="st">"Thailand"</span>,
-                   subregion <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Bangkok"</span>,
-                                 <span class="st">"Nonthaburi"</span>,
-                                 <span class="st">"Samut Prakan"</span><span class="op">)</span>,
-                   pop_projection <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">city_files_folder</span>,<span class="st">"/pop_projection_thailand_bangkok.csv"</span><span class="op">)</span>,
-                                      <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">city_files_folder</span>,<span class="st">"/pop_projection_thailand_nonthaburi.csv"</span><span class="op">)</span>,
-                                      <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">city_files_folder</span>,<span class="st">"/pop_projection_thailand_samutprakan.csv"</span><span class="op">)</span><span class="op">)</span>,
-                   pcgdp_projection <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">city_files_folder</span>,<span class="st">"/pcgdp_projection_thailand_bangkok.csv"</span><span class="op">)</span>,
-                                        <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">city_files_folder</span>,<span class="st">"/pcgdp_projection_thailand_nonthaburi.csv"</span><span class="op">)</span>,
-                                        <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">city_files_folder</span>,<span class="st">"/pcgdp_projection_thailand_samutprakan.csv"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>To breakout subregions (e.g.provinces, states, cities) users simply need to provide the following:</p>
+<ul>
+<li>region: The parent region from which the subregions are being broken out</li>
+<li>pop_projection: An R data table or a path to a .csv file which has columns <code>region</code>, <code>year</code>, <code>population</code>. The <code>population</code> should be in <code>millions</code>.</li>
+<li>pcgdp_projection: An R data table or a path to a .csv file which has columns <code>region</code>, <code>year</code>, <code>pcgdp</code>. The <code>pcgdp</code> should be in <code>thous 2005 USD per capita</code>
+</li>
+</ul>
+<p>Subregions in the pop_projection and pcgdp_projection files should have data for each subregion desired. These can be any arbitray names and <code><a href="../reference/breakout_subregions.html">breakout_subregions()</a></code> will breakout the subregions from the parent region. Currently the sectors which are broken out for subregions include:</p>
+<ul>
+<li>socioeconomics</li>
+<li>industry</li>
+<li>transport</li>
+<li>buildings</li>
+<li>liquid_limits</li>
+</ul>
+<p>Example <code>pop_projection</code> and <code>pcgdp_projection</code> tables are provided as <code><a href="../reference/template_pcgdp_projection.html">gcambreakout::template_pcgdp_projection</a></code> and <code><a href="../reference/template_pop_projection.html">gcambreakout::template_pop_projection</a></code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">breakout_subregion</span>(<span class="dt">gcamdataFolder =</span> gcamdataFolderx,</span>
+<span id="cb2-3"><a href="#cb2-3"></a>                   <span class="dt">region =</span> <span class="st">"Thailand"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4"></a>                   <span class="dt">pop_projection =</span> gcambreakout<span class="op">::</span>pop_projection),</span>
+<span id="cb2-5"><a href="#cb2-5"></a>                   pcgdp_projection =<span class="st"> </span>gcambreakout<span class="op">::</span>pcgdp_projection<span class="er">)</span></span></code></pre></div>
 <!-------------------------->
 <!-------------------------->
 </div>
