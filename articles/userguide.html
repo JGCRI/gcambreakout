@@ -231,13 +231,13 @@
 <li>pcgdp_projection: An R data table or a path to a .csv file which has columns <code>region</code>, <code>year</code>, <code>pcgdp</code>. The <code>pcgdp</code> should be in <code>thous 2005 USD per capita</code>
 </li>
 </ul>
-<p>Subregions in the pop_projection and pcgdp_projection files should have data for each subregion desired. These can be any arbitray names and <code><a href="../reference/breakout_subregions.html">breakout_subregions()</a></code> will breakout the subregions from the parent region. Currently the sectors which are broken out for subregions include:</p>
+<p>Subregions in the pop_projection and pcgdp_projection files should have data for each subregion desired. These can be any arbitray names and <code><a href="../reference/breakout_subregions.html">breakout_subregions()</a></code> will breakout the subregions from the parent region. Currently the sectors which are broken out for subregions include the following and will result in new xmls that can be added into the configuration files for GCAM:</p>
 <ul>
-<li>socioeconomics</li>
-<li>industry</li>
-<li>transport</li>
-<li>buildings</li>
-<li>liquid_limits</li>
+<li>socioeconomics: socioeconomics_Subregions_PARENT_REGION.xml</li>
+<li>transport: transportation_Subregions_PARENT_REGION.xml</li>
+<li>industry: industry_Subregions_PARENT_REGION.xml</li>
+<li>buildings: building_Subregions_PARENT_REGION.xml</li>
+<li>liquid_limits: liquids_limits_Subregions_PARENT_REGION.xml</li>
 </ul>
 <p>Example <code>pop_projection</code> and <code>pcgdp_projection</code> tables are provided as <code><a href="../reference/template_pcgdp_projection.html">gcambreakout::template_pcgdp_projection</a></code> and <code><a href="../reference/template_pop_projection.html">gcambreakout::template_pop_projection</a></code>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a></span>
