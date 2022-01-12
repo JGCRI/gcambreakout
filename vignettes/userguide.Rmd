@@ -133,29 +133,33 @@ breakout_regions(gcamdataFolder = gcamdataFolderx,
 <!-------------------------->
 <p align="center"> <img src="vignetteFigs/divider.png"></p>
 
-To breakout subregions (e.g.provinces, states, cities) users simply need to provide the following:
+To breakout subregions (e.g.provinces, states, cities) users need to provide the following:
 
 * region: The parent region from which the subregions are being broken out
-* pop_projection: An R data table or a path to a .csv file which has columns `region`, `year`, `population`. The `population` should be in `millions`.
+* pop_projection: An R data table or a path to a .csv file which has columns `region`, `year`, `population`. The `population` should be in `millions`. 
 * pcgdp_projection: An R data table or a path to a .csv file which has columns `region`, `year`, `pcgdp`. The `pcgdp` should be in `thous 2005 USD per capita`
 
-Subregions in the pop_projection and pcgdp_projection files should have data for each subregion desired. These can be any arbitray names and `breakout_subregions()` will breakout the subregions from the parent region. Currently the sectors which are broken out for subregions include the following and will result in new xmls that can be added into the configuration files for GCAM:
-
-* socioeconomics: socioeconomics_Subregions_PARENT_REGION.xml
-* transport: transportation_Subregions_PARENT_REGION.xml
-* industry: industry_Subregions_PARENT_REGION.xml
-* buildings: building_Subregions_PARENT_REGION.xml
-* liquid_limits: liquids_limits_Subregions_PARENT_REGION.xml
-
-Example `pop_projection` and `pcgdp_projection` tables are provided as `gcambreakout::template_pcgdp_projection` and `gcambreakout::template_pop_projection`.
+The `region` column in the tables above should include each new subregion as well as a region named "**Rest of PARENT_REGION_NAME**". Example tables are provided as `gcambreakout::template_pcgdp_projection` and `gcambreakout::template_pop_projection` for breaking out Bangkok from the larger Thailand region.
 
 ```{r, eval =F}
 
+# This will only work if after Thailand has been broken out as a separate region
 breakout_subregion(gcamdataFolder = gcamdataFolderx,
                    region = "Thailand",
-                   pop_projection = gcambreakout::pop_projection),
-                   pcgdp_projection = gcambreakout::pcgdp_projection)
+                   pop_projection = gcambreakout::template_pop_projection),
+                   pcgdp_projection = gcambreakout::template_pcgdp_projection)
 
+```
+
+```{r, eval =T}
+
+# Example format of gcambreakout::template_pop_projection
+# Population should be in "millions"
+gcambreakout::template_pop_projection
+
+# Example format of gcambreakout::template_pcgdp_projection
+# pcgdp should be in "thous 2005 USD/per capita"
+gcambreakout::template_pcgdp_projection
 
 ```
 
