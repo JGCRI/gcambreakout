@@ -139,13 +139,13 @@ To breakout subregions (e.g.provinces, states, cities) users simply need to prov
 * pop_projection: An R data table or a path to a .csv file which has columns `region`, `year`, `population`. The `population` should be in `millions`.
 * pcgdp_projection: An R data table or a path to a .csv file which has columns `region`, `year`, `pcgdp`. The `pcgdp` should be in `thous 2005 USD per capita`
 
-Subregions in the pop_projection and pcgdp_projection files should have data for each subregion desired. These can be any arbitray names and `breakout_subregions()` will breakout the subregions from the parent region. Currently the sectors which are broken out for subregions include:
+Subregions in the pop_projection and pcgdp_projection files should have data for each subregion desired. These can be any arbitray names and `breakout_subregions()` will breakout the subregions from the parent region. Currently the sectors which are broken out for subregions include the following and will result in new xmls that can be added into the configuration files for GCAM:
 
-* socioeconomics
-* industry
-* transport
-* buildings
-* liquid_limits
+* socioeconomics: socioeconomics_Subregions_PARENT_REGION.xml
+* transport: transportation_Subregions_PARENT_REGION.xml
+* industry: industry_Subregions_PARENT_REGION.xml
+* buildings: building_Subregions_PARENT_REGION.xml
+* liquid_limits: liquids_limits_Subregions_PARENT_REGION.xml
 
 Example `pop_projection` and `pcgdp_projection` tables are provided as `gcambreakout::template_pcgdp_projection` and `gcambreakout::template_pop_projection`.
 

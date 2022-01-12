@@ -21,106 +21,106 @@
 # Replace gcamdatasystem module templates
 #---------------------------------------
 
-#' Template for template_zchunk_L223.electricity_breakout
+#' Template for template_zchunk_L223.electricity_breakout_gcamv54
 #'
 #' @source created by ZK
 #' @format R script
 #' @examples
 #' \dontrun{
 #'  library(gcambreakout);
-#'  gcambreakout::template_zchunk_L223.electricity_breakout
+#'  gcambreakout::template_zchunk_L223.electricity_breakout_gcamv54
 #' }
-"template_zchunk_L223.electricity_breakout"
+"template_zchunk_L223.electricity_breakout_gcamv54"
 
-#' Template for template_zchunk_LA120.offshore_wind_breakout
+#' Template for template_zchunk_LA120.offshore_wind_breakout_gcamv54
 #'
 #' @source created by ZK
 #' @format R script
 #' @examples
 #' \dontrun{
 #'  library(gcambreakout);
-#'  gcambreakout::template_zchunk_LA120.offshore_wind_breakout
+#'  gcambreakout::template_zchunk_LA120.offshore_wind_breakout_gcamv54
 #' }
-"template_zchunk_LA120.offshore_wind_breakout"
+"template_zchunk_LA120.offshore_wind_breakout_gcamv54"
 
-#' Template for template_zchunk_L203.water_td_breakout
+#' Template for template_zchunk_L203.water_td_breakout_gcamv54
 #'
 #' @source created by ZK
 #' @format R script
 #' @examples
 #' \dontrun{
 #'  library(gcambreakout);
-#'  gcambreakout::template_zchunk_L203.water_td_breakout
+#'  gcambreakout::template_zchunk_L203.water_td_breakout_gcamv54
 #' }
-"template_zchunk_L203.water_td_breakout"
+"template_zchunk_L203.water_td_breakout_gcamv54"
 
 
-#' Template for template_zchunk_L133.water_demand_livestock_breakout
+#' Template for template_zchunk_L133.water_demand_livestock_breakout_gcamv54
 #'
 #' @source created by ZK
 #' @format R script
 #' @examples
 #' \dontrun{
 #'  library(gcambreakout);
-#'  gcambreakout::template_zchunk_L133.water_demand_livestock_breakout
+#'  gcambreakout::template_zchunk_L133.water_demand_livestock_breakout_gcamv54
 #' }
-"template_zchunk_L133.water_demand_livestock_breakout"
+"template_zchunk_L133.water_demand_livestock_breakout_gcamv54"
 
-#' Template for template_zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout
+#' Template for template_zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout_gcamv54
 #'
 #' @source created by ZK
 #' @format R script
 #' @examples
 #' \dontrun{
 #'  library(gcambreakout);
-#'  gcambreakout::template_zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout
+#'  gcambreakout::template_zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout_gcamv54
 #' }
-"template_zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout"
+"template_zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout_gcamv54"
 
-#' Template for template_zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout
+#' Template for template_zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout_gcamv54
 #'
 #' @source created by ZK
 #' @format R script
 #' @examples
 #' \dontrun{
 #'  library(gcambreakout);
-#'  gcambreakout::template_zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout
+#'  gcambreakout::template_zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout_gcamv54
 #' }
-"template_zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout"
+"template_zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout_gcamv54"
 
 
-#' Template for template_zchunk_LA100.IEA_downscale_ctry_breakout
+#' Template for template_zchunk_LA100.IEA_downscale_ctry_breakout_gcamv54
 #'
 #' @source created by ZK
 #' @format R script
 #' @examples
 #' \dontrun{
 #'  library(gcambreakout);
-#'  gcambreakout::template_zchunk_LA100.IEA_downscale_ctry_breakout
+#'  gcambreakout::template_zchunk_LA100.IEA_downscale_ctry_breakout_gcamv54
 #' }
-"template_zchunk_LA100.IEA_downscale_ctry_breakout"
+"template_zchunk_LA100.IEA_downscale_ctry_breakout_gcamv54"
 
-#' Template for template_zchunk_L2231.wind_update_breakout
+#' Template for template_zchunk_L2231.wind_update_breakout_gcamv54
 #'
 #' @source created by ZK
 #' @format R script
 #' @examples
 #' \dontrun{
 #'  library(gcambreakout);
-#'  gcambreakout::template_zchunk_L2231.wind_update_breakout
+#'  gcambreakout::template_zchunk_L2231.wind_update_breakout_gcamv54
 #' }
-"template_zchunk_L2231.wind_update_breakout"
+"template_zchunk_L2231.wind_update_breakout_gcamv54"
 
-#' Template for template_zchunk_L171.desalination_breakout
+#' Template for template_zchunk_L171.desalination_breakout_gcamv54
 #'
 #' @source created by ZK
 #' @format R script
 #' @examples
 #' \dontrun{
 #'  library(gcambreakout);
-#'  gcambreakout::template_zchunk_L171.desalination_breakout
+#'  gcambreakout::template_zchunk_L171.desalination_breakout_gcamv54
 #' }
-"template_zchunk_L171.desalination_breakout"
+"template_zchunk_L171.desalination_breakout_gcamv54"
 
 
 #-----------------

@@ -620,7 +620,7 @@ breakout_regions <- function(gcamdataFolder = NULL,
 
     print(paste0("Replacing module: ", module_i,"..."))
 
-    module_i_filename <- paste0(gcamdataFolder,"/R/",gsub("_breakout","",module_i))
+    module_i_filename <- paste0(gcamdataFolder,"/R/",gsub("_breakout.*",".R",module_i))
 
     # Check if the modules exist in the gcamdata system
     if(file.exists(module_i_filename)){
@@ -656,4 +656,5 @@ breakout_regions <- function(gcamdataFolder = NULL,
   closeAllConnections()
   print("Finished running breakout.")
   print(paste("Please re-build gcamdata and re-run driver() from your folder: ",gcamdataFolder,sep=""))
+  print(paste0("Please ensure correct version of GCAM is selected for your breakout. Current version: ", gcam_version))
 }

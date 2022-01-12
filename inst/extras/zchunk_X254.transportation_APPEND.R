@@ -195,6 +195,7 @@ module_energy_X254.transportation_APPEND <- function(command, ...) {
     X254.pop_gdp_share_APPEND <- X201.Pop_APPEND %>%
       left_join_error_no_match(X201.GDP_APPEND, by = c("region", "year")) %>%
       group_by(year) %>%
+      dplyr::filter(region!="APPEND_REGION") %>%
       mutate(popshare = totalPop / sum(totalPop),
              gdpshare = GDP / sum(GDP)) %>%
       ungroup() %>%
