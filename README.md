@@ -1,5 +1,5 @@
 <!-- badges: start -->
-[![build](https://github.com/JGCRI/gcambreakout/workflows/build/badge.svg)](https://github.com/JGCRI/gcambreakout/workflows/build/badge.svg)
+[![build](https://github.com/JGCRI/gcambreakout/actions/workflows/build.yml/badge.svg)](https://github.com/JGCRI/gcambreakout/actions/workflows/build.yml)
 [![test_coverage](https://github.com/JGCRI/gcambreakout/actions/workflows/test_coverage.yml/badge.svg?branch=main)](https://github.com/JGCRI/gcambreakout/actions/workflows/test_coverage.yml)
 [![codecov](https://codecov.io/gh/JGCRI/gcambreakout/branch/main/graph/badge.svg?token=G36I8JU3HR)](https://codecov.io/gh/JGCRI/gcambreakout)
 [![docs](https://github.com/JGCRI/gcambreakout/actions/workflows/pkgdown.yaml/badge.svg?branch=main)](https://github.com/JGCRI/gcambreakout/actions/workflows/pkgdown.yaml)
