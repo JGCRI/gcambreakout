@@ -78,6 +78,27 @@ module_energy_LA120.offshore_wind <- function(command, ...) {
       ungroup() %>%
       filter(resource.potential.EJ != 0) -> L120.offshore_wind_potential_EJ
 
+    #............................
+    # Edit for gcambreakout
+    # When remaining broken out region countries do not have offshore wind assign zeroes
+    #...........................
+
+    unique_regions <- L120.offshore_wind_potential_EJ$GCAM_region_ID %>% unique()
+    missing_regions <- (iso_GCAM_regID$GCAM_region_ID%>%unique())[
+      !(iso_GCAM_regID$GCAM_region_ID%>%unique()) %in% unique_regions]
+
+    missing_regions_df <- L120.offshore_wind_potential_EJ %>%
+      dplyr::select(wind_class,depth_class) %>%
+      unique() %>%
+      merge(data.frame(GCAM_region_ID=missing_regions))
+
+    L120.offshore_wind_potential_EJ %>%
+      dplyr::bind_rows(missing_regions_df) %>%
+      tidyr::replace_na(list(resource.potential.EJ=0))->
+      L120.offshore_wind_potential_EJ
+
+    #............................................
+
     L120.offshore_wind_capital <- A20.offshore_wind_depth_cap_cost
 
     L113.globaltech_capital_ATB %>%
@@ -168,6 +189,20 @@ module_energy_LA120.offshore_wind <- function(command, ...) {
       mutate(mid.price = round(((P2 - P1) * maxSubResource + 2 * Q2 * P1 - 2 * Q1 * P2) / (2 * (Q2 - Q1)),
                                energy.DIGITS_MAX_SUB_RESOURCE)) %>%
       select(GCAM_region_ID, mid.price) -> L120.mid.price
+
+    #.................
+    # Edit for gcambreakout
+    # Add 0 fr missing region midpoint
+    #..................
+
+    missing_regions_mid_price_df <- data.frame(GCAM_region_ID = missing_regions) %>%
+      dplyr::mutate(mid.price = 0)
+
+    L120.mid.price <- L120.mid.price %>%
+      dplyr::bind_rows(missing_regions_mid_price_df)
+
+    #.....................
+
 
     L120.offshore_wind_curve %>%
       left_join_error_no_match(L120.mid.price, by = c("GCAM_region_ID")) -> L120.offshore_wind_curve
@@ -263,7 +298,7 @@ module_energy_LA120.offshore_wind <- function(command, ...) {
       unique() -> L120.offshore_wind_CF
 
     #..................................
-    #### Zarrar Khan Edit: 7 Jan 2022 (zarrar.khan@pnnl.gov)
+    # For gcambreakout
     # Adding in missing countries and regions as 0 to L120.offshore_wind_CF
     # Mostly these regions have no off_shore wind
     L120.offshore_wind_CF_missing_gcam_regions <-
@@ -305,7 +340,7 @@ module_energy_LA120.offshore_wind <- function(command, ...) {
       ungroup() -> L120.offshore_wind_potential_share
 
     #..................................
-    #### Zarrar Khan Edit: 7 Jan 2022 (zarrar.khan@pnnl.gov)
+    # For gcambreakout
     # Adding in missing countries and regions as 0 to L120.offshore_wind_potential_share
     # Mostly these regions have no off_shore wind
     L120.offshore_wind_potential_share_missing_gcam_regions <-
@@ -348,8 +383,8 @@ module_energy_LA120.offshore_wind <- function(command, ...) {
              grid.cost = fcr * cost / (CONV_YEAR_HOURS * CF* CONV_KWH_GJ) * gdp_deflator(1975, 2013)) -> L120.grid.cost
 
     #..................................
-    #### Zarrar Khan Edit: 7 Jan 2022 (zarrar.khan@pnnl.gov)
-    # AMake sure no NaNs introduced because of the additional regions with no offshore wind added
+    # For gcam breakout
+    # Make sure no NaNs introduced because of the additional regions with no offshore wind added
 
     L120.grid.cost %>%
       tidyr::replace_na(list(grid.cost=0)) -> L120.grid.cost
