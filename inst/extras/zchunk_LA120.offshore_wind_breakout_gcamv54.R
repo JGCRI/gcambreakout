@@ -196,7 +196,7 @@ module_energy_LA120.offshore_wind <- function(command, ...) {
     #..................
 
     missing_regions_mid_price_df <- data.frame(GCAM_region_ID = missing_regions) %>%
-      dplyr::mutate(mid.price = 0)
+      dplyr::mutate(mid.price = 0.1)
 
     L120.mid.price <- L120.mid.price %>%
       dplyr::bind_rows(missing_regions_mid_price_df)

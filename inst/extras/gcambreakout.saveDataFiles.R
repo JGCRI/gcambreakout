@@ -35,7 +35,7 @@ usethis::use_data(mapping_modules, version=3, overwrite=T)
 template_zchunk_L223.electricity_breakout_gcamv54 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_L223.electricity_breakout_gcamv54.R"))
 use_data(template_zchunk_L223.electricity_breakout_gcamv54,version=3, overwrite=T)
 
-# template_zchunk_L203.water_td_breakout_gcamv54
+# template_zchunk_LA120.offshore_wind_breakout_gcamv54
 template_zchunk_LA120.offshore_wind_breakout_gcamv54 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_LA120.offshore_wind_breakout_gcamv54.R"))
 use_data(template_zchunk_LA120.offshore_wind_breakout_gcamv54,version=3, overwrite=T)
 
