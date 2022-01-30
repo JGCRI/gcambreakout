@@ -106,9 +106,9 @@
     
 <!-------------------------->
 <!-------------------------->
-<div class="section level1">
-<h1 id="debugging-new-regions">Debugging new regions<a class="anchor" aria-label="anchor" href="#debugging-new-regions"></a>
-</h1>
+<div class="section level2">
+<h2 id="debugging-new-regions">Debugging new regions<a class="anchor" aria-label="anchor" href="#debugging-new-regions"></a>
+</h2>
 <!-------------------------->
 <!-------------------------->
 <p>When a new region is broken out using <code>gcambreakout</code> several errors can arise as a result of missing or modified data for the new region broken out or the remaining region left behind. These errors can occur at four different points in the workflow which include:</p>
@@ -124,16 +124,16 @@
 </ol>
 <!--------------------------><!-------------------------->
 </div>
-<div class="section level1">
-<h1 id="summary-tables">Summary Tables<a class="anchor" aria-label="anchor" href="#summary-tables"></a>
-</h1>
+<div class="section level2">
+<h2 id="summary-tables">Summary Tables<a class="anchor" aria-label="anchor" href="#summary-tables"></a>
+</h2>
 <!-------------------------->
 <!-------------------------->
 <p align="center">
 <img src="vignetteFigs/divider.png"></p>
-<div class="section level2">
-<h2 id="gcambreakout-errors">gcambreakout errors<a class="anchor" aria-label="anchor" href="#gcambreakout-errors"></a>
-</h2>
+<div class="section level3">
+<h3 id="gcambreakout-errors">gcambreakout errors<a class="anchor" aria-label="anchor" href="#gcambreakout-errors"></a>
+</h3>
 <table style="width:100%;" class="table">
 <colgroup>
 <col width="13%">
@@ -166,37 +166,37 @@
 </tr></tbody>
 </table>
 </div>
-<div class="section level2">
-<h2 id="gcamdata-system-errors">gcamdata system errors<a class="anchor" aria-label="anchor" href="#gcamdata-system-errors"></a>
-</h2>
+<div class="section level3">
+<h3 id="gcamdata-system-errors">gcamdata system errors<a class="anchor" aria-label="anchor" href="#gcamdata-system-errors"></a>
+</h3>
 </div>
-<div class="section level2">
-<h2 id="xml-errors">XML errors<a class="anchor" aria-label="anchor" href="#xml-errors"></a>
-</h2>
+<div class="section level3">
+<h3 id="xml-errors">XML errors<a class="anchor" aria-label="anchor" href="#xml-errors"></a>
+</h3>
 </div>
-<div class="section level2">
-<h2 id="gcam-errors">GCAM errors<a class="anchor" aria-label="anchor" href="#gcam-errors"></a>
-</h2>
+<div class="section level3">
+<h3 id="gcam-errors">GCAM errors<a class="anchor" aria-label="anchor" href="#gcam-errors"></a>
+</h3>
 <!-------------------------->
 <!-------------------------->
 </div>
 </div>
-<div class="section level1">
-<h1 id="angola">Angola<a class="anchor" aria-label="anchor" href="#angola"></a>
-</h1>
+<div class="section level2">
+<h2 id="angola">Angola<a class="anchor" aria-label="anchor" href="#angola"></a>
+</h2>
 <!-------------------------->
 <!-------------------------->
 <p align="center">
 <img src="vignetteFigs/divider.png"></p>
 <p>Discus country in general. Regional issues, sectoral resources, size in region etc.</p>
-<div class="section level2">
-<h2 id="gcambreakout">gcambreakout<a class="anchor" aria-label="anchor" href="#gcambreakout"></a>
-</h2>
+<div class="section level3">
+<h3 id="gcambreakout">gcambreakout<a class="anchor" aria-label="anchor" href="#gcambreakout"></a>
+</h3>
 <p>No errors.</p>
 </div>
-<div class="section level2">
-<h2 id="gcamdata">gcamdata<a class="anchor" aria-label="anchor" href="#gcamdata"></a>
-</h2>
+<div class="section level3">
+<h3 id="gcamdata">gcamdata<a class="anchor" aria-label="anchor" href="#gcamdata"></a>
+</h3>
 <p><strong>Error 1:</strong></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>Error <span class="cf">in</span> <span class="kw">left_join_error_no_match</span>(., L123.LC_bm2_R_Past_Y_GLU, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">"GCAM_region_ID"</span>,  <span class="op">:</span><span class="st"> </span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="st">  </span>left_join_no_match<span class="op">:</span><span class="st"> </span><span class="ot">NA</span> values <span class="cf">in</span> new data columns</span></code></pre></div>
@@ -219,50 +219,50 @@
 <li>Details on fix:</li>
 </ul>
 </div>
-<div class="section level2">
-<h2 id="xml">XML<a class="anchor" aria-label="anchor" href="#xml"></a>
-</h2>
+<div class="section level3">
+<h3 id="xml">XML<a class="anchor" aria-label="anchor" href="#xml"></a>
+</h3>
 <p><strong>Error 1:</strong> File ‘all_fgas_emissions.xml’ - the supplysector “comm cooling” was not correctly built due to a lack of data in the IEA_EnergyBalances_2019.csv file. Specifically, the IEA_EnergyBalances_2019.csv shows zero electricity consumption in the commercial sector (‘COMMPUB’ flow in the IEA_EnergyBalances_2019.csv) of Angola in all historical years.</p>
 <p><strong>Solution 1:</strong></p>
 <p>File ‘zchunk_LA100.IEA_downscale_ctry.R’ (located at input/gcamdata/R) was modified to make sure a non-zero amount of electricity consumption exists in the commercial sector of Angola in the historical years (see section ‘UP FRONT ADJUSTMENTS (UFA)’, specifically section ‘UFA5’ in this R code, which shows the assumptions made for Angola). However, users can modify these assumptions based on specific data available for Angola.</p>
 </div>
-<div class="section level2">
-<h2 id="gcam">GCAM<a class="anchor" aria-label="anchor" href="#gcam"></a>
-</h2>
+<div class="section level3">
+<h3 id="gcam">GCAM<a class="anchor" aria-label="anchor" href="#gcam"></a>
+</h3>
 <p>No errors (tested using the GCAM reference scenario and after correcting all errors above).</p>
 <!-------------------------->
 <!-------------------------->
 </div>
 </div>
-<div class="section level1">
-<h1 id="ghana">Ghana<a class="anchor" aria-label="anchor" href="#ghana"></a>
-</h1>
+<div class="section level2">
+<h2 id="ghana">Ghana<a class="anchor" aria-label="anchor" href="#ghana"></a>
+</h2>
 <!-------------------------->
 <!-------------------------->
 <p align="center">
 <img src="vignetteFigs/divider.png"></p>
 <p>Discus country in general. Regional issues, sectoral resources, size in region etc.</p>
-<div class="section level2">
-<h2 id="gcambreakout-1">gcambreakout<a class="anchor" aria-label="anchor" href="#gcambreakout-1"></a>
-</h2>
+<div class="section level3">
+<h3 id="gcambreakout-1">gcambreakout<a class="anchor" aria-label="anchor" href="#gcambreakout-1"></a>
+</h3>
 <p>No errors.</p>
 </div>
-<div class="section level2">
-<h2 id="gcamdata-1">gcamdata<a class="anchor" aria-label="anchor" href="#gcamdata-1"></a>
-</h2>
+<div class="section level3">
+<h3 id="gcamdata-1">gcamdata<a class="anchor" aria-label="anchor" href="#gcamdata-1"></a>
+</h3>
 <p><strong>Error 1:</strong></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>Error <span class="cf">in</span> <span class="kw">left_join_error_no_match</span>(., L123.LC_bm2_R_Past_Y_GLU, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">"GCAM_region_ID"</span>,  <span class="op">:</span><span class="st"> </span></span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="st">  </span>left_join_no_match<span class="op">:</span><span class="st"> </span><span class="ot">NA</span> values <span class="cf">in</span> new data columns</span></code></pre></div>
 <p><strong>Solution 1:</strong></p>
 </div>
-<div class="section level2">
-<h2 id="xml-1">XML<a class="anchor" aria-label="anchor" href="#xml-1"></a>
-</h2>
+<div class="section level3">
+<h3 id="xml-1">XML<a class="anchor" aria-label="anchor" href="#xml-1"></a>
+</h3>
 <p>No errors.</p>
 </div>
-<div class="section level2">
-<h2 id="gcam-1">GCAM<a class="anchor" aria-label="anchor" href="#gcam-1"></a>
-</h2>
+<div class="section level3">
+<h3 id="gcam-1">GCAM<a class="anchor" aria-label="anchor" href="#gcam-1"></a>
+</h3>
 <p>No errors (tested using the GCAM reference scenario and after correcting all errors above).</p>
 </div>
 </div>
@@ -285,7 +285,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
