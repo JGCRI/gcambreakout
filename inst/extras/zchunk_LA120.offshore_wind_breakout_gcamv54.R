@@ -92,10 +92,11 @@ module_energy_LA120.offshore_wind <- function(command, ...) {
       unique() %>%
       merge(data.frame(GCAM_region_ID=missing_regions))
 
+    if(nrow(missing_regions_df)>0){
     L120.offshore_wind_potential_EJ %>%
       dplyr::bind_rows(missing_regions_df) %>%
       tidyr::replace_na(list(resource.potential.EJ=0))->
-      L120.offshore_wind_potential_EJ
+      L120.offshore_wind_potential_EJ}
 
     #............................................
 
@@ -198,8 +199,9 @@ module_energy_LA120.offshore_wind <- function(command, ...) {
     missing_regions_mid_price_df <- data.frame(GCAM_region_ID = missing_regions) %>%
       dplyr::mutate(mid.price = 0.1)
 
+    if(nrow(missing_regions_mid_price_df)>0){
     L120.mid.price <- L120.mid.price %>%
-      dplyr::bind_rows(missing_regions_mid_price_df)
+      dplyr::bind_rows(missing_regions_mid_price_df)}
 
     #.....................
 
@@ -308,11 +310,12 @@ module_energy_LA120.offshore_wind <- function(command, ...) {
     missing_regions_df <- data.frame(CF = 0) %>%
       merge(data.frame(region=L120.offshore_wind_CF_missing_gcam_regions))
 
+    if(nrow(missing_regions_df)>0){
     L120.offshore_wind_CF %>%
       bind_rows(missing_regions_df) %>%
       replace_na(list(CF = 0)) %>%
       unique()->
-      L120.offshore_wind_CF
+      L120.offshore_wind_CF}
     #......................................
 
 
@@ -350,11 +353,12 @@ module_energy_LA120.offshore_wind <- function(command, ...) {
     missing_regions_df <- data.frame(distance_to_shore = c("far","intermediate","near")) %>%
       merge(data.frame(region=L120.offshore_wind_potential_share_missing_gcam_regions))
 
+    if(nrow(missing_regions_df)>0){
     L120.offshore_wind_potential_share %>%
       bind_rows(missing_regions_df) %>%
       replace_na(list(total = 0, share = 0)) %>%
       unique()->
-      L120.offshore_wind_potential_share
+      L120.offshore_wind_potential_share}
     #......................................
 
     # Then, generate bins for each cost point using representative distances from the shore
