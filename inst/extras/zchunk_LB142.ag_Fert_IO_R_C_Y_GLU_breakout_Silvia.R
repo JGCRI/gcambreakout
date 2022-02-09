@@ -48,6 +48,7 @@ module_aglu_LB142.ag_Fert_IO_R_C_Y_GLU <- function(command, ...) {
     L101.ag_Prod_Mt_R_C_Y_GLU <- get_data(all_data, "L101.ag_Prod_Mt_R_C_Y_GLU")
     L141.ag_Fert_Cons_MtN_ctry_crop <- get_data(all_data, "L141.ag_Fert_Cons_MtN_ctry_crop")
 
+    #write.csv(L100.FAO_Fert_Cons_tN, file='L100.FAO_Fert_Cons_tN_Mauritania_original.csv')
     ### SRSdS, 21Jan22: Handling the case of Chad and Mauritania when these countries are broken out.
     brokenout_regions <- c("mrt", "tcd")
     Orig_GCAM_ID      <- c(5, 5)
@@ -77,6 +78,7 @@ module_aglu_LB142.ag_Fert_IO_R_C_Y_GLU <- function(command, ...) {
         rbind(L100.FAO_Fert_Cons_tN_tmp, tmp_tbl) -> L100.FAO_Fert_Cons_tN
       }
     }
+    #write.csv(L100.FAO_Fert_Cons_tN, file='L100.FAO_Fert_Cons_tN_Mauritania_after_modification.csv')
     ###
 
     # Compile N fertilizer production and consumption by country, and adjust country production so that production and consumption balance globally
@@ -213,46 +215,7 @@ module_aglu_LB142.ag_Fert_IO_R_C_Y_GLU <- function(command, ...) {
 
     # For those region/commodity/GLU that are not completely missing for all years, no missing for any year
     if(any(L142.Fert_IO_check$value == 0)) {
-
-      ### SRSdS, 23Aug21, Handling the case of Kuwait
-      # Find region(s)/year(s) with missing Fertilizer input-output coefficients
-      L142.Fert_IO_check %>%
-        filter(value == 0) -> check1
-      reg <- unique(check1$GCAM_region_ID)
-
-      if (length(reg) == 1){  # This is the case of Kuwait
-        # Find the first year in the historical period with complete data for region "reg"
-        yr_tmp <- unique(check1$year)
-        idx_yr <- length(yr_tmp)
-        yr <- yr_tmp[idx_yr] + 1
-
-        # Use the information above to subset the first year with complete data for region "reg".
-        # We will need to use information for the first year with complete data to fill data gaps in previous historical years.
-        name <- 'tbl_filtered_'
-        for (index in 1:idx_yr){
-          L142.Fert_IO_check %>%
-            filter(value != 0) %>%
-            filter(GCAM_region_ID == reg & year == yr) -> check2
-
-          name_tbl <- paste(name, toString(index), sep = "")
-          check2["year"][check2["year"] == yr] <- yr_tmp[index]
-          assign(name_tbl, check2)
-        }
-        tbl_filtered <- rbind(tbl_filtered_1, tbl_filtered_2, tbl_filtered_3, tbl_filtered_4)
-
-        # Insert tbl_filtered into L142.Fert_IO_check
-        L142.Fert_IO_check %>%
-          filter(GCAM_region_ID < reg) -> L142.Fert_IO_check_part1
-        L142.Fert_IO_check %>%
-          filter(GCAM_region_ID == reg & year >= yr) -> L142.Fert_IO_check_part2
-        L142.Fert_IO_check %>%
-          filter(GCAM_region_ID > reg) -> L142.Fert_IO_check_part3
-        rbind(L142.Fert_IO_check_part1, tbl_filtered, L142.Fert_IO_check_part2) -> L142.Fert_IO_check
-        ###
-      } else {
-
       stop("Fertilizer input-output coefficients need to be specified in all historical years")
-      }
     }
 
     # Produce outputs

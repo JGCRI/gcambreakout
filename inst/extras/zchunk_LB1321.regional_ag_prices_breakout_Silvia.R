@@ -11,7 +11,7 @@
 #' @details This chunk calculates average prices over calibration years by GCAM commodity and region. Averages across
 #'   years are unweighted; averages over FAO item are weighted by production.
 #' @importFrom assertthat assert_that
-#' @importFrom dplyr across bind_rows filter if_else inner_join left_join mutate rename select
+#' @importFrom dplyr bind_rows filter if_else inner_join left_join mutate rename select
 #' @importFrom tidyr  complete drop_na gather nesting spread replace_na
 #' @importFrom tibble tibble
 #' @author GPK/RC/STW February 2019
@@ -232,32 +232,6 @@ module_aglu_LB1321.regional_ag_prices <- function(command, ...) {
     # crop (production_wt_prPmult), divided by the sum of production.
     # production_wt_prPmult = ratio between observed regional price and global average price of the given commodity
 
-    ### SRSdS, 23Aug21. Handling the case of Qatar (this will also work for any other country with this exact same issue).
-    # Locate idx for the row in which NA data is
-    idx <- which(is.na(L1321.prP_R_C_Y_75USDkg), arr.ind=TRUE)
-    idx_row <- idx[1]
-
-    # Use idx_row to locate region, commodity and year in which NA data is
-    reg <- L1321.prP_R_C_Y_75USDkg$GCAM_region_ID[idx_row]
-    ag_com <- L1321.prP_R_C_Y_75USDkg$GCAM_commodity[idx_row]
-    yr <- L1321.prP_R_C_Y_75USDkg$year[idx_row]
-
-    # In L1321.prP_R_C_Y_75USDkg, locate where NA data is and replace such data gap by the data mean of
-    # the previous and following years.
-    L1321.prP_R_C_Y_75USDkg %>%
-      filter((GCAM_region_ID == reg) & (GCAM_commodity == ag_com)) %>%
-      filter((year == yr-1) | (year == yr+1)) -> tbl_filtered
-    tbl_filtered %>%
-      summarise(across(where(is.numeric), ~ mean(.x))) -> tbl_filtered_mean
-
-    revenue    <- tbl_filtered_mean$revenue
-    production <- tbl_filtered_mean$production
-    value      <- tbl_filtered_mean$value
-    L1321.prP_R_C_Y_75USDkg$revenue[idx_row]    <- revenue
-    L1321.prP_R_C_Y_75USDkg$production[idx_row] <- production
-    L1321.prP_R_C_Y_75USDkg$value[idx_row]      <- value
-    ###
-
     L1321.prPmult_R <- L1321.prP_R_C_Y_75USDkg %>%
       rename(prP = value) %>%
       left_join_error_no_match( L1321.prP_C_75USDkg, by = "GCAM_commodity") %>%
@@ -396,14 +370,14 @@ module_aglu_LB1321.regional_ag_prices <- function(command, ...) {
       # Sort by GCAM_region_ID
       L1321.an_prP_R_C_75USDkg_new[order(L1321.an_prP_R_C_75USDkg_new$GCAM_region_ID),] -> L1321.an_prP_R_C_75USDkg
     }
-
+    
     # SRSdS, 09Jan2022 - Mauritania has similar issues to Gabon. Mauritania is listed in "aglu/FAO/FAO_ag_an_ProducerPrice", however
     # the amount of data is very limited. The solution for Mauritania is similar to the solution applied to Gabon.
     # Get GCAM_Region_ID of Mauritania to test if the region has been broken out
     iso_GCAM_regID %>%
       filter(iso == 'mrt') -> mrt_tbl
-    mrt_Region_ID <- mrt_tbl$GCAM_region_ID[1]
-
+    mrt_Region_ID <- mrt_tbl$GCAM_region_ID[1]    
+    
     # Lines below are only processed if Mauritania has been broken out as an individual region
     if (mrt_Region_ID != 5){
       # Get assumptions from the parental region, Africa_Western
@@ -411,16 +385,16 @@ module_aglu_LB1321.regional_ag_prices <- function(command, ...) {
         filter(GCAM_region_ID == 5) -> afw_tbl
       afw_tbl["GCAM_region_ID"][afw_tbl["GCAM_region_ID"] == 5] <- mrt_Region_ID
       mrt_tbl_ag <- afw_tbl
-
+      
       L1321.an_prP_R_C_75USDkg %>%
         filter(GCAM_region_ID == 5) -> afw_tbl
       afw_tbl["GCAM_region_ID"][afw_tbl["GCAM_region_ID"] == 5] <- mrt_Region_ID
       mrt_tbl_an <- afw_tbl
-
+      
       # Join new tables to the original tables
       rbind(L1321.ag_prP_R_C_75USDkg, mrt_tbl_ag) -> L1321.ag_prP_R_C_75USDkg
       rbind(L1321.an_prP_R_C_75USDkg, mrt_tbl_an) -> L1321.an_prP_R_C_75USDkg_new
-
+      
       # Sort by GCAM_region_ID
       L1321.an_prP_R_C_75USDkg_new[order(L1321.an_prP_R_C_75USDkg_new$GCAM_region_ID),] -> L1321.an_prP_R_C_75USDkg
     }

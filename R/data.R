@@ -21,6 +21,61 @@
 # Replace gcamdatasystem module templates
 #---------------------------------------
 
+#' Template for template_zchunk_LB142.ag_Fert_IO_R_C_Y_GLU_breakout_gcamv54
+#'
+#' @source created by ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_LB142.ag_Fert_IO_R_C_Y_GLU_breakout_gcamv54
+#' }
+"template_zchunk_LB142.ag_Fert_IO_R_C_Y_GLU_breakout_gcamv54"
+
+#' Template for template_zchunk_LA1012.en_bal_EFW_breakout_gcamv54
+#'
+#' @source created by ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_LA1012.en_bal_EFW_breakout_gcamv54
+#' }
+"template_zchunk_LA1012.en_bal_EFW_breakout_gcamv54"
+
+#' Template for template_zchunk_LB1321.regional_ag_prices_breakout_gcamv54
+#'
+#' @source created by ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_LB1321.regional_ag_prices_breakout_gcamv54
+#' }
+"template_zchunk_LB1321.regional_ag_prices_breakout_gcamv54"
+
+#' Template for template_zchunk_LA1321.cement_breakout_gcamv54
+#'
+#' @source created by ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_LA1321.cement_breakout_gcamv54
+#' }
+"template_zchunk_LA1321.cement_breakout_gcamv54"
+
+#' Template for template_zchunk_LA100.0_LDS_preprocessing_breakout_gcamv54
+#'
+#' @source created by ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_LA100.0_LDS_preprocessing_breakout_gcamv54
+#' }
+"template_zchunk_LA100.0_LDS_preprocessing_breakout_gcamv54"
+
 #' Template for template_zchunk_L223.electricity_breakout_gcamv54
 #'
 #' @source created by ZK

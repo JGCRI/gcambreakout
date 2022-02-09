@@ -83,6 +83,9 @@ module_energy_LA1012.en_bal_EFW <- function(command, ...) {
                                                    by = c("GCAM_region_ID", "sector", "fuel", "year")) %>%
       rename(initial_energy_EJ = value)
 
+    #print('1 - !!!!')
+    #write.csv(L1012.en_bal_EJ_R_Si_Fi_Yh_desal, file = 'L1012.en_bal_EJ_R_Si_Fi_Yh_desal_Mauritania_original.csv')
+
     ### SRSdS: 06Feb22: Broken out countries in Middle East (Lebanon, Kuwait and Israel) and Africa (Mauritania and Chad) have unreasonably high
     # estimates of deduction_EJ. According to GPK, this is likely due to any or all of the following: an error in the original estimate of the
     # electricity consumption, an error in the estimated amount of desalinated water produced, and/or an incorrect assignment of the desalination
@@ -97,6 +100,7 @@ module_energy_LA1012.en_bal_EFW <- function(command, ...) {
 
     # The lines below are executed only if Mauritania has been broken out.
     if (mrt_Region_ID != AfW_Region_ID){
+      #print('mrt broken out')
       # Get only data for Mauritania and for 2015
       L1012.en_bal_EJ_R_Si_Fi_Yh_desal %>%
         mutate(fraction = deduction_EJ / initial_energy_EJ) %>%
@@ -107,10 +111,15 @@ module_energy_LA1012.en_bal_EFW <- function(command, ...) {
       stopifnot(with(subset(L1012.en_bal_EJ_R_Si_Fi_Yh_desal_check_fraction, initial_energy_EJ > 0),
                      deduction_EJ / initial_energy_EJ) < efw.MAX_COMMIND_ENERGY_DESAL)
 
+      #print('2 - !!!!')
+      #write.csv(L1012.en_bal_EJ_R_Si_Fi_Yh_desal_check_fraction, file = 'L1012.en_bal_EJ_R_Si_Fi_Yh_desal_Mauritania_4.csv')
+
       # Remove Mauritania from L1012.en_bal_EJ_R_Si_Fi_Yh_desal to proceed with the error check for the other regions
       L1012.en_bal_EJ_R_Si_Fi_Yh_desal %>%
         filter(GCAM_region_ID != mrt_Region_ID) -> L1012.en_bal_EJ_R_Si_Fi_Yh_desal
-      }
+
+      #write.csv(L1012.en_bal_EJ_R_Si_Fi_Yh_desal, file = 'L1012.en_bal_EJ_R_Si_Fi_Yh_desal_Mauritania_after_modification.csv')
+    }
 
     # Lebanon, Kuwait and Israel: In the absence of better data, the high estimates of deduction_EJ are reduced below to avoid
     # unreasonably high deduction_EJ / initial_energy_EJ fractions.
@@ -142,6 +151,8 @@ module_energy_LA1012.en_bal_EFW <- function(command, ...) {
     # Stop if the desal-related deduction exceeds an exogenous fraction of available energy
     stopifnot(with(subset(L1012.en_bal_EJ_R_Si_Fi_Yh_desal, initial_energy_EJ > 0),
                    deduction_EJ / initial_energy_EJ) < efw.MAX_COMMIND_ENERGY_DESAL)
+
+    print('3 - !!!!')
 
     # Replace the corresponding values in the energy balance tables
     # left_join returns missing values for all unaffected sectors
