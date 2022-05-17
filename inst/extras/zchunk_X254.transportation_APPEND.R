@@ -236,14 +236,14 @@ module_energy_X254.transportation_APPEND <- function(command, ...) {
       downscale_to_breakout_regions(data = .,
                                     composite_region = "APPEND_REGION",
                                     disag_regions = c(subregions),
-                                    share_data = X254.pop_gdp_share_APPEND, value.column = "input.emissions", share.column = "gdpshare")
+                                    share_data = X254.pop_gdp_share_APPEND, value.column = "input.emissions", share.column = "popshare")
 
     X254.ghg_emissions_trn_APPEND <- L201.en_ghg_emissions %>%
       filter(supplysector %in% Transport_sectors) %>%
       downscale_to_breakout_regions(data = .,
                                     composite_region = "APPEND_REGION",
                                     disag_regions = c(subregions),
-                                    share_data = X254.pop_gdp_share_APPEND, value.column = "input.emissions", share.column = "gdpshare")
+                                    share_data = X254.pop_gdp_share_APPEND, value.column = "input.emissions", share.column = "popshare")
 
 
     # ===================================================
