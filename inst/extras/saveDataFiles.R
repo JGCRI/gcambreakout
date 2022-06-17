@@ -35,6 +35,14 @@ usethis::use_data(mapping_modules, version=3, overwrite=T)
 # Replace gcamdatasystem module templates
 #-------------------
 
+#............................................
+# GCAM v 6.0
+#............................................
+
+#.............................................
+# GCAM v 5.4
+#............................................
+
 # template_zchunk_LB142.ag_Fert_IO_R_C_Y_GLU_breakout_gcamv54
 template_zchunk_LB142.ag_Fert_IO_R_C_Y_GLU_breakout_gcamv54 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_LB142.ag_Fert_IO_R_C_Y_GLU_breakout_gcamv54.R"))
 use_data(template_zchunk_LB142.ag_Fert_IO_R_C_Y_GLU_breakout_gcamv54,version=3, overwrite=T)
