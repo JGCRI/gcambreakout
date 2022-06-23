@@ -17,16 +17,31 @@ mapping_modules <- tibble::tribble(
 "zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout_gcamv54.R", "5.4", "Error in left_join_error_no_match(., L123.LC_bm2_R_Past_Y_GLU, by = c('GCAM_region_ID',  : left_join_no_match: NA values in new data columns",
 "zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout_gcamv54.R", "5.4","Error in left_join_error_no_match(., L123.LC_bm2_R_Past_Y_GLU, by = c('GCAM_region_ID',  : left_join_no_match: NA values in new data columns",
 "zchunk_LA100.IEA_downscale_ctry_breakout_gcamv54.R", "5.4","Zero entries in electricity consumption of the commercial sector ('COMMPUB' product in the IEA Energy Balances)",
-"zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout_gcamv54.R", "5.4","Error in left_join_error_no_match(., L123.LC_bm2_R_Past_Y_GLU, by = c('GCAM_region_ID',  : left_join_no_match: NA values in new data columns",
-"zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout_gcamv54.R", "5.4","Error in left_join_error_no_match(., L123.LC_bm2_R_Past_Y_GLU, by = c('GCAM_region_ID',  : left_join_no_match: NA values in new data columns",
 "zchunk_L171.desalination_breakout_gcamv54.R", "5.4","Error in left_join_error_no_match(., L123.LC_bm2_R_Past_Y_GLU, by = c('GCAM_region_ID',  : left_join_no_match: NA values in new data columns",
+"zchunk_L223.electricity_breakout_gcamv54.R", "5.4", "Error FILL IN HERE",
 "zchunk_L2231.wind_update_breakout_gcamv54.R", "5.4","Error in module_water_L171.desalination('MAKE', list(`common/iso_GCAM_regID` = list( : No energy from which to deduct desalination-related energy in region",
 "zchunk_LA120.offshore_wind_breakout_gcamv54.R", "5.4","Error in left_join_error_no_match(., L120.grid.cost %>% select(region, : left_join_no_match: NA values in new data columns",
 "zchunk_LB142.ag_Fert_IO_R_C_Y_GLU_breakout_gcamv54.R", "5.4",'Error in module_aglu_LB142.ag_Fert_IO_R_C_Y_GLU("MAKE", list(`common/iso_GCAM_regID` = list( : Fertilizer input-output coefficients need to be specified in all historical years',
 "zchunk_LA1012.en_bal_EFW_breakout_gcamv54.R", "5.4",'Error in left_join_error_no_match(., L120.mid.price, by = c("GCAM_region_ID")) : left_join_no_match: NA values in new data columns',
 "zchunk_LB1321.regional_ag_prices_breakout_gcamv54.R", "5.4","NAs in xml en_supply.xml",
 "zchunk_LA1321.cement_breakout_gcamv54.R", "5.4","NAs in xml cement.xml",
-"zchunk_LA100.0_LDS_preprocessing_breakout_gcamv54.R", "5.4","calibration issues related to lack of forest data") %>%
+"zchunk_LA100.0_LDS_preprocessing_breakout_gcamv54.R", "5.4","calibration issues related to lack of forest data",
+
+"zchunk_L203.water_td_breakout_gcamv60.R", "6.0" ,"Error in left_join_error_no_match(., data_aggregated, by = c('region', : left_join_no_match: NA values in new data columns",
+"zchunk_L133.water_demand_livestock_breakout_gcamv60.R", "6.0", "NaN values in L133.water_demand_livestock_R_B_W_km3 for Pork coefficient",
+"zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout_gcamv60.R", "6.0", "Error in left_join_error_no_match(., L123.LC_bm2_R_Past_Y_GLU, by = c('GCAM_region_ID',  : left_join_no_match: NA values in new data columns",
+"zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout_gcamv60.R", "6.0","Error in left_join_error_no_match(., L123.LC_bm2_R_Past_Y_GLU, by = c('GCAM_region_ID',  : left_join_no_match: NA values in new data columns",
+"zchunk_LA100.IEA_downscale_ctry_breakout_gcamv60.R", "6.0","Zero entries in electricity consumption of the commercial sector ('COMMPUB' product in the IEA Energy Balances)",
+"zchunk_L171.desalination_breakout_gcamv60.R", "6.0","Error in left_join_error_no_match(., L123.LC_bm2_R_Past_Y_GLU, by = c('GCAM_region_ID',  : left_join_no_match: NA values in new data columns",
+"zchunk_L223.electricity_breakout_gcamv54.R", "5.4", "Error FILL IN HERE",
+"zchunk_L2231.wind_update_breakout_gcamv60.R", "6.0","Error in module_water_L171.desalination('MAKE', list(`common/iso_GCAM_regID` = list( : No energy from which to deduct desalination-related energy in region",
+"zchunk_LA120.offshore_wind_breakout_gcamv60.R", "6.0","Error in left_join_error_no_match(., L120.grid.cost %>% select(region, : left_join_no_match: NA values in new data columns",
+"zchunk_LB142.ag_Fert_IO_R_C_Y_GLU_breakout_gcamv60.R", "6.0",'Error in module_aglu_LB142.ag_Fert_IO_R_C_Y_GLU("MAKE", list(`common/iso_GCAM_regID` = list( : Fertilizer input-output coefficients need to be specified in all historical years',
+"zchunk_LA1012.en_bal_EFW_breakout_gcamv60.R", "6.0",'Error in left_join_error_no_match(., L120.mid.price, by = c("GCAM_region_ID")) : left_join_no_match: NA values in new data columns',
+"zchunk_LB1321.regional_ag_prices_breakout_gcamv60.R", "6.0","NAs in xml en_supply.xml",
+"zchunk_LA1321.cement_breakout_gcamv60.R", "6.0","NAs in xml cement.xml",
+"zchunk_LA100.0_LDS_preprocessing_breakout_gcamv60.R", "6.0","calibration issues related to lack of forest data",
+"zchunk_LA111.rsrc_fos_Prod_breakout_gcamv60.R", "6.0", "modification for Uruguay (regions with no historical rsrc production)")%>%
   dplyr::arrange(module)
 
 usethis::use_data(mapping_modules, version=3, overwrite=T)
@@ -38,6 +53,68 @@ usethis::use_data(mapping_modules, version=3, overwrite=T)
 #............................................
 # GCAM v 6.0
 #............................................
+
+
+# template_zchunk_LB142.ag_Fert_IO_R_C_Y_GLU_breakout_gcamv60
+template_zchunk_LB142.ag_Fert_IO_R_C_Y_GLU_breakout_gcamv60 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_LB142.ag_Fert_IO_R_C_Y_GLU_breakout_gcamv60.R"))
+use_data(template_zchunk_LB142.ag_Fert_IO_R_C_Y_GLU_breakout_gcamv60,version=3, overwrite=T)
+
+# template_zchunk_LA1012.en_bal_EFW_breakout_gcamv60
+template_zchunk_LA1012.en_bal_EFW_breakout_gcamv60 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_LA1012.en_bal_EFW_breakout_gcamv60.R"))
+use_data(template_zchunk_LA1012.en_bal_EFW_breakout_gcamv60,version=3, overwrite=T)
+
+# template_zchunk_LB1321.regional_ag_prices_breakout_gcamv60
+template_zchunk_LB1321.regional_ag_prices_breakout_gcamv60 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_LB1321.regional_ag_prices_breakout_gcamv60.R"))
+use_data(template_zchunk_LB1321.regional_ag_prices_breakout_gcamv60,version=3, overwrite=T)
+
+# template_zchunk_LA1321.cement_breakout_gcamv60
+template_zchunk_LA1321.cement_breakout_gcamv60 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_LA1321.cement_breakout_gcamv60.R"))
+use_data(template_zchunk_LA1321.cement_breakout_gcamv60,version=3, overwrite=T)
+
+# template_zchunk_LA100.0_LDS_preprocessing_breakout_gcamv60
+template_zchunk_LA100.0_LDS_preprocessing_breakout_gcamv60 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_LA100.0_LDS_preprocessing_breakout_gcamv60.R"))
+use_data(template_zchunk_LA100.0_LDS_preprocessing_breakout_gcamv60,version=3, overwrite=T)
+
+# template_zchunk_L223.electricity_breakout_gcamv60
+template_zchunk_L223.electricity_breakout_gcamv60 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_L223.electricity_breakout_gcamv60.R"))
+use_data(template_zchunk_L223.electricity_breakout_gcamv60,version=3, overwrite=T)
+
+# template_zchunk_LA120.offshore_wind_breakout_gcamv60
+template_zchunk_LA120.offshore_wind_breakout_gcamv60 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_LA120.offshore_wind_breakout_gcamv60.R"))
+use_data(template_zchunk_LA120.offshore_wind_breakout_gcamv60,version=3, overwrite=T)
+
+# template_zchunk_L203.water_td_breakout_gcamv60
+template_zchunk_L203.water_td_breakout_gcamv60 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_L203.water_td_breakout_gcamv60.R"))
+use_data(template_zchunk_L203.water_td_breakout_gcamv60,version=3, overwrite=T)
+
+# template_zchunk_L133.water_demand_livestock_breakout_gcamv60
+template_zchunk_L133.water_demand_livestock_breakout_gcamv60 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_L133.water_demand_livestock_breakout_gcamv60.R"))
+use_data(template_zchunk_L133.water_demand_livestock_breakout_gcamv60,version=3, overwrite=T)
+
+# template_zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout_gcamv60
+template_zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout_gcamv60 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout_gcamv60.R"))
+use_data(template_zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout_gcamv60,version=3, overwrite=T)
+
+# template_zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout_gcamv60
+template_zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout_gcamv60 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout_gcamv60.R"))
+use_data(template_zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout_gcamv60,version=3, overwrite=T)
+
+# template_zchunk_LA100.IEA_downscale_ctry_breakout_gcamv60
+template_zchunk_LA100.IEA_downscale_ctry_breakout_gcamv60 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_LA100.IEA_downscale_ctry_breakout_gcamv60.R"))
+use_data(template_zchunk_LA100.IEA_downscale_ctry_breakout_gcamv60,version=3, overwrite=T)
+
+# template_zchunk_L2231.wind_update_breakout_gcamv60
+template_zchunk_L2231.wind_update_breakout_gcamv60 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_L2231.wind_update_breakout_gcamv60.R"))
+use_data(template_zchunk_L2231.wind_update_breakout_gcamv60,version=3, overwrite=T)
+
+# template_zchunk_L171.desalination_breakout_gcamv60
+template_zchunk_L171.desalination_breakout_gcamv60 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_L171.desalination_breakout_gcamv60.R"))
+use_data(template_zchunk_L171.desalination_breakout_gcamv60,version=3, overwrite=T)
+
+# template_zchunk_LA111.rsrc_fos_Prod_gcambreakout_gcamv60
+template_zchunk_LA111.rsrc_fos_Prod_breakout_gcamv60 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_LA111.rsrc_fos_Prod_breakout_gcamv60.R"))
+use_data(template_zchunk_LA111.rsrc_fos_Prod_breakout_gcamv60,version=3, overwrite=T)
+
 
 #.............................................
 # GCAM v 5.4
@@ -75,7 +152,7 @@ use_data(template_zchunk_LA120.offshore_wind_breakout_gcamv54,version=3, overwri
 template_zchunk_L203.water_td_breakout_gcamv54 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_L203.water_td_breakout_gcamv54.R"))
 use_data(template_zchunk_L203.water_td_breakout_gcamv54,version=3, overwrite=T)
 
-# template_zchunk_L203.water_td_breakout_gcamv54
+# template_zchunk_L133.water_demand_livestock_breakout_gcamv54
 template_zchunk_L133.water_demand_livestock_breakout_gcamv54 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_L133.water_demand_livestock_breakout_gcamv54.R"))
 use_data(template_zchunk_L133.water_demand_livestock_breakout_gcamv54,version=3, overwrite=T)
 
