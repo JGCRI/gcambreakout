@@ -21,6 +21,10 @@
 # Replace gcamdatasystem module templates
 #---------------------------------------
 
+#-----------------
+# GCAM 5.4
+#-----------------
+
 #' Template for template_zchunk_LB142.ag_Fert_IO_R_C_Y_GLU_breakout_gcamv54
 #'
 #' @source created by ZK
@@ -176,6 +180,177 @@
 #'  gcambreakout::template_zchunk_L171.desalination_breakout_gcamv54
 #' }
 "template_zchunk_L171.desalination_breakout_gcamv54"
+
+#-----------------
+# GCAM 6.0
+#-----------------
+
+#' Template for template_zchunk_LB142.ag_Fert_IO_R_C_Y_GLU_breakout_gcamv60
+#'
+#' @source created by BY
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_LB142.ag_Fert_IO_R_C_Y_GLU_breakout_gcamv60
+#' }
+"template_zchunk_LB142.ag_Fert_IO_R_C_Y_GLU_breakout_gcamv60"
+
+#' Template for template_zchunk_LA1012.en_bal_EFW_breakout_gcamv60
+#'
+#' @source created by BY
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_LA1012.en_bal_EFW_breakout_gcamv60
+#' }
+"template_zchunk_LA1012.en_bal_EFW_breakout_gcamv60"
+
+#' Template for template_zchunk_LB1321.regional_ag_prices_breakout_gcamv60
+#'
+#' @source created by BY
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_LB1321.regional_ag_prices_breakout_gcamv60
+#' }
+"template_zchunk_LB1321.regional_ag_prices_breakout_gcamv60"
+
+#' Template for template_zchunk_LA1321.cement_breakout_gcamv60
+#'
+#' @source created by BY
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_LA1321.cement_breakout_gcamv60
+#' }
+"template_zchunk_LA1321.cement_breakout_gcamv60"
+
+#' Template for template_zchunk_LA100.0_LDS_preprocessing_breakout_gcamv60
+#'
+#' @source created by BY
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_LA100.0_LDS_preprocessing_breakout_gcamv60
+#' }
+"template_zchunk_LA100.0_LDS_preprocessing_breakout_gcamv60"
+
+#' Template for template_zchunk_L223.electricity_breakout_gcamv60
+#'
+#' @source created by BY
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_L223.electricity_breakout_gcamv60
+#' }
+"template_zchunk_L223.electricity_breakout_gcamv60"
+
+#' Template for template_zchunk_LA120.offshore_wind_breakout_gcamv60
+#'
+#' @source created by BY
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_LA120.offshore_wind_breakout_gcamv60
+#' }
+"template_zchunk_LA120.offshore_wind_breakout_gcamv60"
+
+#' Template for template_zchunk_L203.water_td_breakout_gcamv60
+#'
+#' @source created by BY
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_L203.water_td_breakout_gcamv60
+#' }
+"template_zchunk_L203.water_td_breakout_gcamv60"
+
+
+#' Template for template_zchunk_L133.water_demand_livestock_breakout_gcamv60
+#'
+#' @source created by BY
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_L133.water_demand_livestock_breakout_gcamv60
+#' }
+"template_zchunk_L133.water_demand_livestock_breakout_gcamv60"
+
+#' Template for template_zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout_gcamv60
+#'
+#' @source created by BY
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout_gcamv60
+#' }
+"template_zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout_gcamv60"
+
+#' Template for template_zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout_gcamv60
+#'
+#' @source created by BY
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout_gcamv60
+#' }
+"template_zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout_gcamv60"
+
+
+#' Template for template_zchunk_LA100.IEA_downscale_ctry_breakout_gcamv60
+#'
+#' @source created by BY
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_LA100.IEA_downscale_ctry_breakout_gcamv60
+#' }
+"template_zchunk_LA100.IEA_downscale_ctry_breakout_gcamv60"
+
+#' Template for template_zchunk_L2231.wind_update_breakout_gcamv60
+#'
+#' @source created by BY
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_L2231.wind_update_breakout_gcamv60
+#' }
+"template_zchunk_L2231.wind_update_breakout_gcamv60"
+
+#' Template for template_zchunk_L171.desalination_breakout_gcamv60
+#'
+#' @source created by BY
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_L171.desalination_breakout_gcamv60
+#' }
+"template_zchunk_L171.desalination_breakout_gcamv60"
+
+#' Template for template_zchunk_LA111.rsrc_fos_Prod_breakout_gcamv60
+#'
+#' @source created by BY
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_LA111.rsrc_fos_Prod_breakout_gcamv60
+#' }
+"template_zchunk_LA111.rsrc_fos_Prod_breakout_gcamv60"
 
 
 #-----------------
