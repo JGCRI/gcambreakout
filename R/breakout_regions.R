@@ -37,6 +37,7 @@ breakout_regions <- function(gcamdataFolder = NULL,
   closeAllConnections()
 
   # Declare File Names
+  # Files need to be updated, regardless of version
   file_iso_GCAM_regID = paste(gcamdataFolder,"/inst/extdata/common/iso_GCAM_regID.csv",sep = "")
   file_GCAM_region_names = paste(gcamdataFolder,"/inst/extdata/common/GCAM_region_names.csv",sep = "")
   file_A_bio_frac_prod_R = paste(gcamdataFolder,"/inst/extdata/aglu/A_bio_frac_prod_R.csv",sep = "")
@@ -47,10 +48,20 @@ breakout_regions <- function(gcamdataFolder = NULL,
   file_offshore_wind_potential_scaler = paste(gcamdataFolder,"/inst/extdata/energy/offshore_wind_potential_scaler.csv",sep = "")
   file_EPA_country_map = paste(gcamdataFolder,"/inst/extdata/emissions/EPA_country_map.csv",sep = "")
 
+
   file_list <- list(file_iso_GCAM_regID, file_GCAM_region_names, file_A_bio_frac_prod_R,
                     file_A_soil_time_scale_R, file_A_soil_time_scale_R, file_emissions_A_regions,
                     file_A23.subsector_interp_R, file_energy_A_regions, file_offshore_wind_potential_scaler,
                     file_EPA_country_map)
+
+  if(gcam_version = '6.0'){
+    # Files need to be updated in GCAM 6.0
+    file_A323.inc_elas_parameter = paste(gcamdataFolder,"/inst/extdata/socioeconomics/A323.inc_elas_parameter.csv",sep = "")
+    file_A326.inc_elas_parameter = paste(gcamdataFolder,"/inst/extdata/socioeconomics/A326.inc_elas_parameter.csv",sep = "")
+
+    GCAM6_file_list <- list(file_A323.inc_elas_parameter, file_A326.inc_elas_parameter)
+    file_list <- append(file_list, GCAM6_file_list)
+  }
 
   }
 
@@ -230,6 +241,24 @@ breakout_regions <- function(gcamdataFolder = NULL,
   names(EPA_country_map_comments)<-"Col1"
   EPA_country_map_comments <- EPA_country_map_comments %>%
     dplyr::filter(grepl("#",Col1)); EPA_country_map_comments
+  }
+
+  if(file.exists(file_A323.inc_elas_parameter)){
+    A323.inc_elas_parameter = utils::read.csv(file_A323.inc_elas_parameter, sep = ",",comment.char="#") %>% tibble::as_tibble(); A323.inc_elas_parameter
+    A323.inc_elas_parameter_comments <- ((utils::read.csv(file_A323.inc_elas_parameter, header = F))[,1])%>%
+      as.data.frame();
+    names(A323.inc_elas_parameter_comments)<-"Col1"
+    A323.inc_elas_parameter_comments <- A323.inc_elas_parameter_comments %>%
+      dplyr::filter(grepl("#",Col1)); A323.inc_elas_parameter_comments
+  }
+
+  if(file.exists(file_A326.inc_elas_parameter)){
+    A326.inc_elas_parameter = utils::read.csv(file_A326.inc_elas_parameter, sep = ",",comment.char="#") %>% tibble::as_tibble(); A326.inc_elas_parameter
+    A326.inc_elas_parameter_comments <- ((utils::read.csv(file_A326.inc_elas_parameter, header = F))[,1])%>%
+      as.data.frame();
+    names(A326.inc_elas_parameter_comments)<-"Col1"
+    A326.inc_elas_parameter_comments <- A326.inc_elas_parameter %>%
+      dplyr::filter(grepl("#",Col1)); A326.inc_elas_parameter_comments
   }
 
   print("All files read.")
@@ -597,8 +626,71 @@ breakout_regions <- function(gcamdataFolder = NULL,
                     "' and GCAM_region_ID: ", new_region_ID,
                     " for selected countries ", paste(countriesNew_i,collapse = ", "),
                     " to ", filename, sep=""))
+      }
+
+    #..................
+    # Modify extdata/socioeconomics/A323.inc_elas_parameter.csv
+    # .................
+
+    if(file.exists(file_A323.inc_elas_parameter)){
+
+      filename <- file_A323.inc_elas_parameter
+      # Assign the value from the parent region to the new country
+      A323.inc_elas_parameter_new <- A323.inc_elas_parameter %>%
+        dplyr::bind_rows(A323.inc_elas_parameter %>%
+                           dplyr::filter(region == unique(parent_region)) %>%
+                           dplyr::mutate(region = regionsNew_i));
+      #A323.inc_elas_parameter_new %>% as.data.frame()
+
+      file.copy(filename, gsub(".csv","_Original.csv",filename))
+      unlink(filename)
+
+      con <- file(filename, open = "wt")
+      for (i in 1:nrow(A323.inc_elas_parameter_comments)) {
+        writeLines(paste(A323.inc_elas_parameter_comments[i, ]), con)
+      }
+      utils::write.csv(A323.inc_elas_parameter_new, con, row.names = F)
+      close(con)
+      closeAllConnections()
+
+      print(paste("Added data for new region: ", regionsNew_i,
+                  " with GCAM_region_ID: ", new_region_ID,
+                  " based on data from parent region: ", unique(parent_region),
+                  " with GCAM_region_ID: ", unique(parent_region_ID),
+                  " to ", filename, sep=""))
     }
 
+    #..................
+    # Modify extdata/socioeconomics/A326.inc_elas_parameter.csv
+    # .................
+
+    if(file.exists(file_A326.inc_elas_parameter)){
+
+      filename <- file_A326.inc_elas_parameter
+      # Assign the value from the parent region to the new country
+      A326.inc_elas_parameter_new <- A326.inc_elas_parameter %>%
+        dplyr::bind_rows(A326.inc_elas_parameter %>%
+                           dplyr::filter(region == unique(parent_region)) %>%
+                           dplyr::mutate(region = regionsNew_i));
+      #A326.inc_elas_parameter_new %>% as.data.frame()
+
+      file.copy(filename, gsub(".csv","_Original.csv",filename))
+      unlink(filename)
+
+      con <- file(filename, open = "wt")
+      for (i in 1:nrow(A326.inc_elas_parameter_comments)) {
+        writeLines(paste(A326.inc_elas_parameter_comments[i, ]), con)
+      }
+      utils::write.csv(A326.inc_elas_parameter_new, con, row.names = F)
+      close(con)
+      closeAllConnections()
+
+      print(paste("Added data for new region: ", regionsNew_i,
+                  " with GCAM_region_ID: ", new_region_ID,
+                  " based on data from parent region: ", unique(parent_region),
+                  " with GCAM_region_ID: ", unique(parent_region_ID),
+                  " to ", filename, sep=""))
+    }
 
   }
 
