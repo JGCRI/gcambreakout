@@ -54,7 +54,7 @@ breakout_regions <- function(gcamdataFolder = NULL,
                     file_A23.subsector_interp_R, file_energy_A_regions, file_offshore_wind_potential_scaler,
                     file_EPA_country_map)
 
-  if(gcam_version = '6.0'){
+  if(gcam_version == '6.0'){
     # Files need to be updated in GCAM 6.0
     file_A323.inc_elas_parameter = paste(gcamdataFolder,"/inst/extdata/socioeconomics/A323.inc_elas_parameter.csv",sep = "")
     file_A326.inc_elas_parameter = paste(gcamdataFolder,"/inst/extdata/socioeconomics/A326.inc_elas_parameter.csv",sep = "")
