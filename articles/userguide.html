@@ -161,59 +161,59 @@
 <img src="vignetteFigs/divider.png"></p>
 <p>The <code><a href="../reference/breakout_regions.html">breakout_regions()</a></code> function can be used to breakout new regions in GCAM. Users can breakout a single new region composed of one or more countries or several new regions each composed of one or more countries. The new region name can be any name the user wants however the countries that make up the new region must be one of the countries listed in: <strong>./input/gcamdata/inst/extdata/common/iso_GCAM_regID.csv</strong> file. The following examples show how to breakout a single and multiple new regions composed of single and multiple countries.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/JGCRI/gcambreakout" class="external-link">gcambreakout</a></span><span class="op">)</span>; <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
-
-<span class="co"># Set the path to your ./input/gcamdata folder"</span>
-<span class="va">gcamdataFolderx</span> <span class="op">&lt;-</span> <span class="st">"FULL_PATH_ADDRESS/gcam-core/input/gcamdata"</span> <span class="co"># Example "C:/gcam-core/input/gcamdata" </span>
-
-<span class="co"># Check the list of countries in ./input/gcamdata/inst/extdata/common/iso_GCAM_regID.csv</span>
-<span class="va">countries_allowed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">gcamdataFolderx</span>,<span class="st">"/inst/extdata/common/iso_GCAM_regID.csv"</span><span class="op">)</span>, comment.char <span class="op">=</span> <span class="st">'#'</span>, header<span class="op">=</span><span class="cn">T</span><span class="op">)</span>; <span class="va">countries_allowed</span><span class="op">$</span><span class="va">country_name</span>
-<span class="va">current_GCAM_regions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">gcamdataFolderx</span>,<span class="st">"/inst/extdata/common/GCAM_region_names.csv"</span><span class="op">)</span>, comment.char <span class="op">=</span> <span class="st">'#'</span>, header<span class="op">=</span><span class="cn">T</span><span class="op">)</span>; <span class="va">current_GCAM_regions</span>
-
-  
-<span class="co">#-----------------------------------------------------------------</span>
-<span class="co"># Breakout a new region for Spain with a single country Spain</span>
-<span class="co">#-----------------------------------------------------------------</span>
-<span class="fu"><a href="../reference/breakout_regions.html">breakout_regions</a></span><span class="op">(</span>gcamdataFolder <span class="op">=</span> <span class="va">gcamdataFolderx</span>,
-         regionsNew <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Spain"</span><span class="op">)</span>,
-         countriesNew <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Spain"</span><span class="op">)</span><span class="op">)</span>
-<span class="co"># Users can confirm that a new region has been added by opening the .csv file: ./input/gcamdata/inst/extdata/common/GCAM_region_names.csv</span>
-<span class="co"># restore(gcamdataFolder = gcamdataFolderx)  # (OPTIONAL) Uncomment this line and restore the datasystem to original state</span>
-
-
-<span class="co">#-----------------------------------------------------------------</span>
-<span class="co"># Breakout a new custom region called "Peru_Chile" with both Peru and Chile</span>
-<span class="co">#-----------------------------------------------------------------</span>
-<span class="fu"><a href="../reference/breakout_regions.html">breakout_regions</a></span><span class="op">(</span>gcamdataFolder <span class="op">=</span> <span class="va">gcamdataFolderx</span>,
-         regionsNew <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Peru_Chile"</span><span class="op">)</span>,
-         countriesNew <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Peru"</span>,<span class="st">"Chile"</span><span class="op">)</span><span class="op">)</span>
-<span class="co"># Users can confirm that a new region has been added by opening the .csv file: ./input/gcamdata/inst/extdata/common/GCAM_region_names.csv</span>
-<span class="co"># restore(gcamdataFolder = gcamdataFolderx)  # (OPTIONAL) Uncomment this line and restore the datasystem to original state</span>
-
-
-<span class="co">#-----------------------------------------------------------------</span>
-<span class="co"># Breakout two new regions: One for Peru and One for Chile with each having its own single country within it.</span>
-<span class="co">#-----------------------------------------------------------------</span>
-<span class="fu"><a href="../reference/breakout_regions.html">breakout_regions</a></span><span class="op">(</span>gcamdataFolder <span class="op">=</span> <span class="va">gcamdataFolderx</span>,
-         regionsNew <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Peru"</span>,<span class="st">"Chile"</span><span class="op">)</span>,
-         countriesNew <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Peru"</span>,<span class="st">"Chile"</span><span class="op">)</span><span class="op">)</span>
-<span class="co"># Users can confirm that a new region has been added by opening the .csv file: ./input/gcamdata/inst/extdata/common/GCAM_region_names.csv</span>
-<span class="co"># restore(gcamdataFolder = gcamdataFolderx)  # (OPTIONAL) Uncomment this line and restore the datasystem to original state</span>
-
-
-<span class="co">#-----------------------------------------------------------------</span>
-<span class="co"># Breakout two new regions: One for a combined "Peru_Chile" with Peru and Chile, and one for "Spain_France" with Spain and France</span>
-<span class="co">#-----------------------------------------------------------------</span>
-
-<span class="co"># NOTE: In this case the countriesNew must be a list!!</span>
-
-<span class="fu"><a href="../reference/breakout_regions.html">breakout_regions</a></span><span class="op">(</span>gcamdataFolder <span class="op">=</span> <span class="va">gcamdataFolderx</span>,
-         regionsNew <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Peru_Chile"</span>,
-                        <span class="st">"Spain_France"</span><span class="op">)</span>,
-         countriesNew <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Peru"</span>,<span class="st">"Chile"</span><span class="op">)</span>,
-                             <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Spain"</span>,<span class="st">"France"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="co"># Users can confirm that a new region has been added by opening the .csv file: ./input/gcamdata/inst/extdata/common/GCAM_region_names.csv</span>
-<span class="co"># restore(gcamdataFolder = gcamdataFolderx)  # (OPTIONAL) Uncomment this line and restore the datasystem to original state</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/JGCRI/gcambreakout" class="external-link">gcambreakout</a></span><span class="op">)</span>; <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Set the path to your ./input/gcamdata folder"</span></span>
+<span><span class="va">gcamdataFolderx</span> <span class="op">&lt;-</span> <span class="st">"FULL_PATH_ADDRESS/gcam-core/input/gcamdata"</span> <span class="co"># Example "C:/gcam-core/input/gcamdata" </span></span>
+<span></span>
+<span><span class="co"># Check the list of countries in ./input/gcamdata/inst/extdata/common/iso_GCAM_regID.csv</span></span>
+<span><span class="va">countries_allowed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">gcamdataFolderx</span>,<span class="st">"/inst/extdata/common/iso_GCAM_regID.csv"</span><span class="op">)</span>, comment.char <span class="op">=</span> <span class="st">'#'</span>, header<span class="op">=</span><span class="cn">T</span><span class="op">)</span>; <span class="va">countries_allowed</span><span class="op">$</span><span class="va">country_name</span></span>
+<span><span class="va">current_GCAM_regions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">gcamdataFolderx</span>,<span class="st">"/inst/extdata/common/GCAM_region_names.csv"</span><span class="op">)</span>, comment.char <span class="op">=</span> <span class="st">'#'</span>, header<span class="op">=</span><span class="cn">T</span><span class="op">)</span>; <span class="va">current_GCAM_regions</span></span>
+<span></span>
+<span>  </span>
+<span><span class="co">#-----------------------------------------------------------------</span></span>
+<span><span class="co"># Breakout a new region for Spain with a single country Spain</span></span>
+<span><span class="co">#-----------------------------------------------------------------</span></span>
+<span><span class="fu"><a href="../reference/breakout_regions.html">breakout_regions</a></span><span class="op">(</span>gcamdataFolder <span class="op">=</span> <span class="va">gcamdataFolderx</span>,</span>
+<span>         regionsNew <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Spain"</span><span class="op">)</span>,</span>
+<span>         countriesNew <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Spain"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># Users can confirm that a new region has been added by opening the .csv file: ./input/gcamdata/inst/extdata/common/GCAM_region_names.csv</span></span>
+<span><span class="co"># restore(gcamdataFolder = gcamdataFolderx)  # (OPTIONAL) Uncomment this line and restore the datasystem to original state</span></span>
+<span></span>
+<span></span>
+<span><span class="co">#-----------------------------------------------------------------</span></span>
+<span><span class="co"># Breakout a new custom region called "Peru_Chile" with both Peru and Chile</span></span>
+<span><span class="co">#-----------------------------------------------------------------</span></span>
+<span><span class="fu"><a href="../reference/breakout_regions.html">breakout_regions</a></span><span class="op">(</span>gcamdataFolder <span class="op">=</span> <span class="va">gcamdataFolderx</span>,</span>
+<span>         regionsNew <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Peru_Chile"</span><span class="op">)</span>,</span>
+<span>         countriesNew <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Peru"</span>,<span class="st">"Chile"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># Users can confirm that a new region has been added by opening the .csv file: ./input/gcamdata/inst/extdata/common/GCAM_region_names.csv</span></span>
+<span><span class="co"># restore(gcamdataFolder = gcamdataFolderx)  # (OPTIONAL) Uncomment this line and restore the datasystem to original state</span></span>
+<span></span>
+<span></span>
+<span><span class="co">#-----------------------------------------------------------------</span></span>
+<span><span class="co"># Breakout two new regions: One for Peru and One for Chile with each having its own single country within it.</span></span>
+<span><span class="co">#-----------------------------------------------------------------</span></span>
+<span><span class="fu"><a href="../reference/breakout_regions.html">breakout_regions</a></span><span class="op">(</span>gcamdataFolder <span class="op">=</span> <span class="va">gcamdataFolderx</span>,</span>
+<span>         regionsNew <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Peru"</span>,<span class="st">"Chile"</span><span class="op">)</span>,</span>
+<span>         countriesNew <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Peru"</span>,<span class="st">"Chile"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># Users can confirm that a new region has been added by opening the .csv file: ./input/gcamdata/inst/extdata/common/GCAM_region_names.csv</span></span>
+<span><span class="co"># restore(gcamdataFolder = gcamdataFolderx)  # (OPTIONAL) Uncomment this line and restore the datasystem to original state</span></span>
+<span></span>
+<span></span>
+<span><span class="co">#-----------------------------------------------------------------</span></span>
+<span><span class="co"># Breakout two new regions: One for a combined "Peru_Chile" with Peru and Chile, and one for "Spain_France" with Spain and France</span></span>
+<span><span class="co">#-----------------------------------------------------------------</span></span>
+<span></span>
+<span><span class="co"># NOTE: In this case the countriesNew must be a list!!</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/breakout_regions.html">breakout_regions</a></span><span class="op">(</span>gcamdataFolder <span class="op">=</span> <span class="va">gcamdataFolderx</span>,</span>
+<span>         regionsNew <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Peru_Chile"</span>,</span>
+<span>                        <span class="st">"Spain_France"</span><span class="op">)</span>,</span>
+<span>         countriesNew <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Peru"</span>,<span class="st">"Chile"</span><span class="op">)</span>,</span>
+<span>                             <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Spain"</span>,<span class="st">"France"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># Users can confirm that a new region has been added by opening the .csv file: ./input/gcamdata/inst/extdata/common/GCAM_region_names.csv</span></span>
+<span><span class="co"># restore(gcamdataFolder = gcamdataFolderx)  # (OPTIONAL) Uncomment this line and restore the datasystem to original state</span></span></code></pre></div>
 <!-------------------------->
 <!-------------------------->
 </div>
@@ -239,194 +239,194 @@
 <span id="cb2-5"><a href="#cb2-5"></a>                   <span class="dt">pop_projection =</span> gcambreakout<span class="op">::</span>template_pop_projection),</span>
 <span id="cb2-6"><a href="#cb2-6"></a>                   pcgdp_projection =<span class="st"> </span>gcambreakout<span class="op">::</span>template_pcgdp_projection<span class="er">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="co"># Example format of gcambreakout::template_pop_projection</span>
-<span class="co"># Population should be in "millions"</span>
-<span class="fu">gcambreakout</span><span class="fu">::</span><span class="va"><a href="../reference/template_pop_projection.html">template_pop_projection</a></span>
-<span class="co">#&gt;               region year population</span>
-<span class="co">#&gt; 1            Bangkok 1971   3.345901</span>
-<span class="co">#&gt; 2            Bangkok 1972   3.414184</span>
-<span class="co">#&gt; 3            Bangkok 1973   3.483862</span>
-<span class="co">#&gt; 4            Bangkok 1974   3.554961</span>
-<span class="co">#&gt; 5            Bangkok 1975   3.627511</span>
-<span class="co">#&gt; 6            Bangkok 1976   3.701542</span>
-<span class="co">#&gt; 7            Bangkok 1977   3.777084</span>
-<span class="co">#&gt; 8            Bangkok 1978   3.854167</span>
-<span class="co">#&gt; 9            Bangkok 1979   3.932823</span>
-<span class="co">#&gt; 10           Bangkok 1980   4.013085</span>
-<span class="co">#&gt; 11           Bangkok 1981   4.094985</span>
-<span class="co">#&gt; 12           Bangkok 1982   4.178556</span>
-<span class="co">#&gt; 13           Bangkok 1983   4.263832</span>
-<span class="co">#&gt; 14           Bangkok 1984   4.350849</span>
-<span class="co">#&gt; 15           Bangkok 1985   4.439642</span>
-<span class="co">#&gt; 16           Bangkok 1986   4.530247</span>
-<span class="co">#&gt; 17           Bangkok 1987   4.622701</span>
-<span class="co">#&gt; 18           Bangkok 1988   4.717042</span>
-<span class="co">#&gt; 19           Bangkok 1989   4.813308</span>
-<span class="co">#&gt; 20           Bangkok 1990   4.911539</span>
-<span class="co">#&gt; 21           Bangkok 1991   5.011775</span>
-<span class="co">#&gt; 22           Bangkok 1992   5.114056</span>
-<span class="co">#&gt; 23           Bangkok 1993   5.218424</span>
-<span class="co">#&gt; 24           Bangkok 1994   5.324923</span>
-<span class="co">#&gt; 25           Bangkok 1995   5.433595</span>
-<span class="co">#&gt; 26           Bangkok 1996   5.544484</span>
-<span class="co">#&gt; 27           Bangkok 1997   5.657637</span>
-<span class="co">#&gt; 28           Bangkok 1998   5.773099</span>
-<span class="co">#&gt; 29           Bangkok 1999   5.890917</span>
-<span class="co">#&gt; 30           Bangkok 2000   6.011140</span>
-<span class="co">#&gt; 31           Bangkok 2001   6.133816</span>
-<span class="co">#&gt; 32           Bangkok 2002   6.258996</span>
-<span class="co">#&gt; 33           Bangkok 2003   6.386731</span>
-<span class="co">#&gt; 34           Bangkok 2004   6.517072</span>
-<span class="co">#&gt; 35           Bangkok 2005   6.650074</span>
-<span class="co">#&gt; 36           Bangkok 2006   6.785790</span>
-<span class="co">#&gt; 37           Bangkok 2007   6.924275</span>
-<span class="co">#&gt; 38           Bangkok 2008   7.065587</span>
-<span class="co">#&gt; 39           Bangkok 2009   7.209783</span>
-<span class="co">#&gt; 40           Bangkok 2010   7.356921</span>
-<span class="co">#&gt; 41           Bangkok 2011   7.507062</span>
-<span class="co">#&gt; 42           Bangkok 2012   7.660268</span>
-<span class="co">#&gt; 43           Bangkok 2013   7.816600</span>
-<span class="co">#&gt; 44           Bangkok 2014   7.976122</span>
-<span class="co">#&gt; 45           Bangkok 2015   8.138900</span>
-<span class="co">#&gt; 46           Bangkok 2020   8.305000</span>
-<span class="co">#&gt; 47           Bangkok 2025   9.058789</span>
-<span class="co">#&gt; 48           Bangkok 2030   9.779270</span>
-<span class="co">#&gt; 49           Bangkok 2035  10.404681</span>
-<span class="co">#&gt; 50           Bangkok 2040  10.958289</span>
-<span class="co">#&gt; 51           Bangkok 2045  11.385714</span>
-<span class="co">#&gt; 52           Bangkok 2050  11.745760</span>
-<span class="co">#&gt; 53           Bangkok 2055  11.999071</span>
-<span class="co">#&gt; 54           Bangkok 2060  12.208129</span>
-<span class="co">#&gt; 55           Bangkok 2065  12.307004</span>
-<span class="co">#&gt; 56           Bangkok 2070  12.355202</span>
-<span class="co">#&gt; 57           Bangkok 2075  12.310853</span>
-<span class="co">#&gt; 58           Bangkok 2080  12.231142</span>
-<span class="co">#&gt; 59           Bangkok 2085  12.083059</span>
-<span class="co">#&gt; 60           Bangkok 2090  11.911445</span>
-<span class="co">#&gt; 61           Bangkok 2095  11.691495</span>
-<span class="co">#&gt; 62           Bangkok 2100  11.457612</span>
-<span class="co">#&gt; 63  Rest of Thailand 1971  26.002037</span>
-<span class="co">#&gt; 64  Rest of Thailand 1972  26.532691</span>
-<span class="co">#&gt; 65  Rest of Thailand 1973  27.074174</span>
-<span class="co">#&gt; 66  Rest of Thailand 1974  27.626708</span>
-<span class="co">#&gt; 67  Rest of Thailand 1975  28.190519</span>
-<span class="co">#&gt; 68  Rest of Thailand 1976  28.765836</span>
-<span class="co">#&gt; 69  Rest of Thailand 1977  29.352893</span>
-<span class="co">#&gt; 70  Rest of Thailand 1978  29.951932</span>
-<span class="co">#&gt; 71  Rest of Thailand 1979  30.563196</span>
-<span class="co">#&gt; 72  Rest of Thailand 1980  31.186935</span>
-<span class="co">#&gt; 73  Rest of Thailand 1981  31.823403</span>
-<span class="co">#&gt; 74  Rest of Thailand 1982  32.472860</span>
-<span class="co">#&gt; 75  Rest of Thailand 1983  33.135571</span>
-<span class="co">#&gt; 76  Rest of Thailand 1984  33.811808</span>
-<span class="co">#&gt; 77  Rest of Thailand 1985  34.501844</span>
-<span class="co">#&gt; 78  Rest of Thailand 1986  35.205964</span>
-<span class="co">#&gt; 79  Rest of Thailand 1987  35.924453</span>
-<span class="co">#&gt; 80  Rest of Thailand 1988  36.657605</span>
-<span class="co">#&gt; 81  Rest of Thailand 1989  37.405719</span>
-<span class="co">#&gt; 82  Rest of Thailand 1990  38.169101</span>
-<span class="co">#&gt; 83  Rest of Thailand 1991  38.948062</span>
-<span class="co">#&gt; 84  Rest of Thailand 1992  39.742921</span>
-<span class="co">#&gt; 85  Rest of Thailand 1993  40.554001</span>
-<span class="co">#&gt; 86  Rest of Thailand 1994  41.381634</span>
-<span class="co">#&gt; 87  Rest of Thailand 1995  42.226157</span>
-<span class="co">#&gt; 88  Rest of Thailand 1996  43.087915</span>
-<span class="co">#&gt; 89  Rest of Thailand 1997  43.967260</span>
-<span class="co">#&gt; 90  Rest of Thailand 1998  44.864551</span>
-<span class="co">#&gt; 91  Rest of Thailand 1999  45.780154</span>
-<span class="co">#&gt; 92  Rest of Thailand 2000  46.714443</span>
-<span class="co">#&gt; 93  Rest of Thailand 2001  47.667799</span>
-<span class="co">#&gt; 94  Rest of Thailand 2002  48.640611</span>
-<span class="co">#&gt; 95  Rest of Thailand 2003  49.633277</span>
-<span class="co">#&gt; 96  Rest of Thailand 2004  50.646201</span>
-<span class="co">#&gt; 97  Rest of Thailand 2005  51.679797</span>
-<span class="co">#&gt; 98  Rest of Thailand 2006  52.734487</span>
-<span class="co">#&gt; 99  Rest of Thailand 2007  53.810701</span>
-<span class="co">#&gt; 100 Rest of Thailand 2008  54.908878</span>
-<span class="co">#&gt; 101 Rest of Thailand 2009  56.029468</span>
-<span class="co">#&gt; 102 Rest of Thailand 2010  57.172926</span>
-<span class="co">#&gt; 103 Rest of Thailand 2011  58.339720</span>
-<span class="co">#&gt; 104 Rest of Thailand 2012  59.530327</span>
-<span class="co">#&gt; 105 Rest of Thailand 2013  60.745232</span>
-<span class="co">#&gt; 106 Rest of Thailand 2014  61.984930</span>
-<span class="co">#&gt; 107 Rest of Thailand 2015  63.249929</span>
-<span class="co">#&gt; 108 Rest of Thailand 2020  64.540744</span>
-<span class="co">#&gt; 109 Rest of Thailand 2025  65.081912</span>
-<span class="co">#&gt; 110 Rest of Thailand 2030  65.238450</span>
-<span class="co">#&gt; 111 Rest of Thailand 2035  64.979528</span>
-<span class="co">#&gt; 112 Rest of Thailand 2040  64.260994</span>
-<span class="co">#&gt; 113 Rest of Thailand 2045  63.182155</span>
-<span class="co">#&gt; 114 Rest of Thailand 2050  61.805912</span>
-<span class="co">#&gt; 115 Rest of Thailand 2055  60.290566</span>
-<span class="co">#&gt; 116 Rest of Thailand 2060  58.654786</span>
-<span class="co">#&gt; 117 Rest of Thailand 2065  56.885557</span>
-<span class="co">#&gt; 118 Rest of Thailand 2070  54.992523</span>
-<span class="co">#&gt; 119 Rest of Thailand 2075  53.039047</span>
-<span class="co">#&gt; 120 Rest of Thailand 2080  51.039906</span>
-<span class="co">#&gt; 121 Rest of Thailand 2085  49.050840</span>
-<span class="co">#&gt; 122 Rest of Thailand 2090  47.060557</span>
-<span class="co">#&gt; 123 Rest of Thailand 2095  45.119707</span>
-<span class="co">#&gt; 124 Rest of Thailand 2100  43.204887</span>
-
-<span class="co"># Example format of gcambreakout::template_pcgdp_projection</span>
-<span class="co"># pcgdp should be in "thous 2005 USD/per capita"</span>
-<span class="fu">gcambreakout</span><span class="fu">::</span><span class="va"><a href="../reference/template_pcgdp_projection.html">template_pcgdp_projection</a></span>
-<span class="co">#&gt;              region year      pcgdp</span>
-<span class="co">#&gt; 1           Bangkok 1971   3.736694</span>
-<span class="co">#&gt; 2           Bangkok 1975   4.151882</span>
-<span class="co">#&gt; 3           Bangkok 1980   4.613202</span>
-<span class="co">#&gt; 4           Bangkok 1985   5.125780</span>
-<span class="co">#&gt; 5           Bangkok 1990   5.695311</span>
-<span class="co">#&gt; 6           Bangkok 1995   6.328124</span>
-<span class="co">#&gt; 7           Bangkok 2000   7.031248</span>
-<span class="co">#&gt; 8           Bangkok 2005   9.016968</span>
-<span class="co">#&gt; 9           Bangkok 2010  10.742040</span>
-<span class="co">#&gt; 10          Bangkok 2015  12.819406</span>
-<span class="co">#&gt; 11          Bangkok 2020  16.030139</span>
-<span class="co">#&gt; 12          Bangkok 2025  19.912423</span>
-<span class="co">#&gt; 13          Bangkok 2030  24.240425</span>
-<span class="co">#&gt; 14          Bangkok 2035  28.890297</span>
-<span class="co">#&gt; 15          Bangkok 2040  33.983472</span>
-<span class="co">#&gt; 16          Bangkok 2045  39.525512</span>
-<span class="co">#&gt; 17          Bangkok 2050  45.482692</span>
-<span class="co">#&gt; 18          Bangkok 2055  51.866997</span>
-<span class="co">#&gt; 19          Bangkok 2060  58.635618</span>
-<span class="co">#&gt; 20          Bangkok 2065  65.770917</span>
-<span class="co">#&gt; 21          Bangkok 2070  73.237524</span>
-<span class="co">#&gt; 22          Bangkok 2075  81.109397</span>
-<span class="co">#&gt; 23          Bangkok 2080  89.302655</span>
-<span class="co">#&gt; 24          Bangkok 2085  97.658508</span>
-<span class="co">#&gt; 25          Bangkok 2090 106.212522</span>
-<span class="co">#&gt; 26          Bangkok 2095 114.925911</span>
-<span class="co">#&gt; 27          Bangkok 2100 123.863319</span>
-<span class="co">#&gt; 28 Rest of Thailand 1971   2.531686</span>
-<span class="co">#&gt; 29 Rest of Thailand 1975   2.812985</span>
-<span class="co">#&gt; 30 Rest of Thailand 1980   3.125539</span>
-<span class="co">#&gt; 31 Rest of Thailand 1985   3.472821</span>
-<span class="co">#&gt; 32 Rest of Thailand 1990   3.858690</span>
-<span class="co">#&gt; 33 Rest of Thailand 1995   4.287433</span>
-<span class="co">#&gt; 34 Rest of Thailand 2000   4.763815</span>
-<span class="co">#&gt; 35 Rest of Thailand 2005   6.109181</span>
-<span class="co">#&gt; 36 Rest of Thailand 2010   7.277952</span>
-<span class="co">#&gt; 37 Rest of Thailand 2015   8.685410</span>
-<span class="co">#&gt; 38 Rest of Thailand 2020  10.860747</span>
-<span class="co">#&gt; 39 Rest of Thailand 2025  13.431267</span>
-<span class="co">#&gt; 40 Rest of Thailand 2030  16.276403</span>
-<span class="co">#&gt; 41 Rest of Thailand 2035  19.314217</span>
-<span class="co">#&gt; 42 Rest of Thailand 2040  22.618158</span>
-<span class="co">#&gt; 43 Rest of Thailand 2045  26.197458</span>
-<span class="co">#&gt; 44 Rest of Thailand 2050  30.018022</span>
-<span class="co">#&gt; 45 Rest of Thailand 2055  34.098539</span>
-<span class="co">#&gt; 46 Rest of Thailand 2060  38.395688</span>
-<span class="co">#&gt; 47 Rest of Thailand 2065  42.913706</span>
-<span class="co">#&gt; 48 Rest of Thailand 2070  47.611283</span>
-<span class="co">#&gt; 49 Rest of Thailand 2075  52.556358</span>
-<span class="co">#&gt; 50 Rest of Thailand 2080  57.673216</span>
-<span class="co">#&gt; 51 Rest of Thailand 2085  62.882664</span>
-<span class="co">#&gt; 52 Rest of Thailand 2090  68.185135</span>
-<span class="co">#&gt; 53 Rest of Thailand 2095  73.581423</span>
-<span class="co">#&gt; 54 Rest of Thailand 2100  79.088764</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Example format of gcambreakout::template_pop_projection</span></span>
+<span><span class="co"># Population should be in "millions"</span></span>
+<span><span class="fu">gcambreakout</span><span class="fu">::</span><span class="va"><a href="../reference/template_pop_projection.html">template_pop_projection</a></span></span>
+<span><span class="co">#&gt;               region year population</span></span>
+<span><span class="co">#&gt; 1            Bangkok 1971   3.345901</span></span>
+<span><span class="co">#&gt; 2            Bangkok 1972   3.414184</span></span>
+<span><span class="co">#&gt; 3            Bangkok 1973   3.483862</span></span>
+<span><span class="co">#&gt; 4            Bangkok 1974   3.554961</span></span>
+<span><span class="co">#&gt; 5            Bangkok 1975   3.627511</span></span>
+<span><span class="co">#&gt; 6            Bangkok 1976   3.701542</span></span>
+<span><span class="co">#&gt; 7            Bangkok 1977   3.777084</span></span>
+<span><span class="co">#&gt; 8            Bangkok 1978   3.854167</span></span>
+<span><span class="co">#&gt; 9            Bangkok 1979   3.932823</span></span>
+<span><span class="co">#&gt; 10           Bangkok 1980   4.013085</span></span>
+<span><span class="co">#&gt; 11           Bangkok 1981   4.094985</span></span>
+<span><span class="co">#&gt; 12           Bangkok 1982   4.178556</span></span>
+<span><span class="co">#&gt; 13           Bangkok 1983   4.263832</span></span>
+<span><span class="co">#&gt; 14           Bangkok 1984   4.350849</span></span>
+<span><span class="co">#&gt; 15           Bangkok 1985   4.439642</span></span>
+<span><span class="co">#&gt; 16           Bangkok 1986   4.530247</span></span>
+<span><span class="co">#&gt; 17           Bangkok 1987   4.622701</span></span>
+<span><span class="co">#&gt; 18           Bangkok 1988   4.717042</span></span>
+<span><span class="co">#&gt; 19           Bangkok 1989   4.813308</span></span>
+<span><span class="co">#&gt; 20           Bangkok 1990   4.911539</span></span>
+<span><span class="co">#&gt; 21           Bangkok 1991   5.011775</span></span>
+<span><span class="co">#&gt; 22           Bangkok 1992   5.114056</span></span>
+<span><span class="co">#&gt; 23           Bangkok 1993   5.218424</span></span>
+<span><span class="co">#&gt; 24           Bangkok 1994   5.324923</span></span>
+<span><span class="co">#&gt; 25           Bangkok 1995   5.433595</span></span>
+<span><span class="co">#&gt; 26           Bangkok 1996   5.544484</span></span>
+<span><span class="co">#&gt; 27           Bangkok 1997   5.657637</span></span>
+<span><span class="co">#&gt; 28           Bangkok 1998   5.773099</span></span>
+<span><span class="co">#&gt; 29           Bangkok 1999   5.890917</span></span>
+<span><span class="co">#&gt; 30           Bangkok 2000   6.011140</span></span>
+<span><span class="co">#&gt; 31           Bangkok 2001   6.133816</span></span>
+<span><span class="co">#&gt; 32           Bangkok 2002   6.258996</span></span>
+<span><span class="co">#&gt; 33           Bangkok 2003   6.386731</span></span>
+<span><span class="co">#&gt; 34           Bangkok 2004   6.517072</span></span>
+<span><span class="co">#&gt; 35           Bangkok 2005   6.650074</span></span>
+<span><span class="co">#&gt; 36           Bangkok 2006   6.785790</span></span>
+<span><span class="co">#&gt; 37           Bangkok 2007   6.924275</span></span>
+<span><span class="co">#&gt; 38           Bangkok 2008   7.065587</span></span>
+<span><span class="co">#&gt; 39           Bangkok 2009   7.209783</span></span>
+<span><span class="co">#&gt; 40           Bangkok 2010   7.356921</span></span>
+<span><span class="co">#&gt; 41           Bangkok 2011   7.507062</span></span>
+<span><span class="co">#&gt; 42           Bangkok 2012   7.660268</span></span>
+<span><span class="co">#&gt; 43           Bangkok 2013   7.816600</span></span>
+<span><span class="co">#&gt; 44           Bangkok 2014   7.976122</span></span>
+<span><span class="co">#&gt; 45           Bangkok 2015   8.138900</span></span>
+<span><span class="co">#&gt; 46           Bangkok 2020   8.305000</span></span>
+<span><span class="co">#&gt; 47           Bangkok 2025   9.058789</span></span>
+<span><span class="co">#&gt; 48           Bangkok 2030   9.779270</span></span>
+<span><span class="co">#&gt; 49           Bangkok 2035  10.404681</span></span>
+<span><span class="co">#&gt; 50           Bangkok 2040  10.958289</span></span>
+<span><span class="co">#&gt; 51           Bangkok 2045  11.385714</span></span>
+<span><span class="co">#&gt; 52           Bangkok 2050  11.745760</span></span>
+<span><span class="co">#&gt; 53           Bangkok 2055  11.999071</span></span>
+<span><span class="co">#&gt; 54           Bangkok 2060  12.208129</span></span>
+<span><span class="co">#&gt; 55           Bangkok 2065  12.307004</span></span>
+<span><span class="co">#&gt; 56           Bangkok 2070  12.355202</span></span>
+<span><span class="co">#&gt; 57           Bangkok 2075  12.310853</span></span>
+<span><span class="co">#&gt; 58           Bangkok 2080  12.231142</span></span>
+<span><span class="co">#&gt; 59           Bangkok 2085  12.083059</span></span>
+<span><span class="co">#&gt; 60           Bangkok 2090  11.911445</span></span>
+<span><span class="co">#&gt; 61           Bangkok 2095  11.691495</span></span>
+<span><span class="co">#&gt; 62           Bangkok 2100  11.457612</span></span>
+<span><span class="co">#&gt; 63  Rest of Thailand 1971  26.002037</span></span>
+<span><span class="co">#&gt; 64  Rest of Thailand 1972  26.532691</span></span>
+<span><span class="co">#&gt; 65  Rest of Thailand 1973  27.074174</span></span>
+<span><span class="co">#&gt; 66  Rest of Thailand 1974  27.626708</span></span>
+<span><span class="co">#&gt; 67  Rest of Thailand 1975  28.190519</span></span>
+<span><span class="co">#&gt; 68  Rest of Thailand 1976  28.765836</span></span>
+<span><span class="co">#&gt; 69  Rest of Thailand 1977  29.352893</span></span>
+<span><span class="co">#&gt; 70  Rest of Thailand 1978  29.951932</span></span>
+<span><span class="co">#&gt; 71  Rest of Thailand 1979  30.563196</span></span>
+<span><span class="co">#&gt; 72  Rest of Thailand 1980  31.186935</span></span>
+<span><span class="co">#&gt; 73  Rest of Thailand 1981  31.823403</span></span>
+<span><span class="co">#&gt; 74  Rest of Thailand 1982  32.472860</span></span>
+<span><span class="co">#&gt; 75  Rest of Thailand 1983  33.135571</span></span>
+<span><span class="co">#&gt; 76  Rest of Thailand 1984  33.811808</span></span>
+<span><span class="co">#&gt; 77  Rest of Thailand 1985  34.501844</span></span>
+<span><span class="co">#&gt; 78  Rest of Thailand 1986  35.205964</span></span>
+<span><span class="co">#&gt; 79  Rest of Thailand 1987  35.924453</span></span>
+<span><span class="co">#&gt; 80  Rest of Thailand 1988  36.657605</span></span>
+<span><span class="co">#&gt; 81  Rest of Thailand 1989  37.405719</span></span>
+<span><span class="co">#&gt; 82  Rest of Thailand 1990  38.169101</span></span>
+<span><span class="co">#&gt; 83  Rest of Thailand 1991  38.948062</span></span>
+<span><span class="co">#&gt; 84  Rest of Thailand 1992  39.742921</span></span>
+<span><span class="co">#&gt; 85  Rest of Thailand 1993  40.554001</span></span>
+<span><span class="co">#&gt; 86  Rest of Thailand 1994  41.381634</span></span>
+<span><span class="co">#&gt; 87  Rest of Thailand 1995  42.226157</span></span>
+<span><span class="co">#&gt; 88  Rest of Thailand 1996  43.087915</span></span>
+<span><span class="co">#&gt; 89  Rest of Thailand 1997  43.967260</span></span>
+<span><span class="co">#&gt; 90  Rest of Thailand 1998  44.864551</span></span>
+<span><span class="co">#&gt; 91  Rest of Thailand 1999  45.780154</span></span>
+<span><span class="co">#&gt; 92  Rest of Thailand 2000  46.714443</span></span>
+<span><span class="co">#&gt; 93  Rest of Thailand 2001  47.667799</span></span>
+<span><span class="co">#&gt; 94  Rest of Thailand 2002  48.640611</span></span>
+<span><span class="co">#&gt; 95  Rest of Thailand 2003  49.633277</span></span>
+<span><span class="co">#&gt; 96  Rest of Thailand 2004  50.646201</span></span>
+<span><span class="co">#&gt; 97  Rest of Thailand 2005  51.679797</span></span>
+<span><span class="co">#&gt; 98  Rest of Thailand 2006  52.734487</span></span>
+<span><span class="co">#&gt; 99  Rest of Thailand 2007  53.810701</span></span>
+<span><span class="co">#&gt; 100 Rest of Thailand 2008  54.908878</span></span>
+<span><span class="co">#&gt; 101 Rest of Thailand 2009  56.029468</span></span>
+<span><span class="co">#&gt; 102 Rest of Thailand 2010  57.172926</span></span>
+<span><span class="co">#&gt; 103 Rest of Thailand 2011  58.339720</span></span>
+<span><span class="co">#&gt; 104 Rest of Thailand 2012  59.530327</span></span>
+<span><span class="co">#&gt; 105 Rest of Thailand 2013  60.745232</span></span>
+<span><span class="co">#&gt; 106 Rest of Thailand 2014  61.984930</span></span>
+<span><span class="co">#&gt; 107 Rest of Thailand 2015  63.249929</span></span>
+<span><span class="co">#&gt; 108 Rest of Thailand 2020  64.540744</span></span>
+<span><span class="co">#&gt; 109 Rest of Thailand 2025  65.081912</span></span>
+<span><span class="co">#&gt; 110 Rest of Thailand 2030  65.238450</span></span>
+<span><span class="co">#&gt; 111 Rest of Thailand 2035  64.979528</span></span>
+<span><span class="co">#&gt; 112 Rest of Thailand 2040  64.260994</span></span>
+<span><span class="co">#&gt; 113 Rest of Thailand 2045  63.182155</span></span>
+<span><span class="co">#&gt; 114 Rest of Thailand 2050  61.805912</span></span>
+<span><span class="co">#&gt; 115 Rest of Thailand 2055  60.290566</span></span>
+<span><span class="co">#&gt; 116 Rest of Thailand 2060  58.654786</span></span>
+<span><span class="co">#&gt; 117 Rest of Thailand 2065  56.885557</span></span>
+<span><span class="co">#&gt; 118 Rest of Thailand 2070  54.992523</span></span>
+<span><span class="co">#&gt; 119 Rest of Thailand 2075  53.039047</span></span>
+<span><span class="co">#&gt; 120 Rest of Thailand 2080  51.039906</span></span>
+<span><span class="co">#&gt; 121 Rest of Thailand 2085  49.050840</span></span>
+<span><span class="co">#&gt; 122 Rest of Thailand 2090  47.060557</span></span>
+<span><span class="co">#&gt; 123 Rest of Thailand 2095  45.119707</span></span>
+<span><span class="co">#&gt; 124 Rest of Thailand 2100  43.204887</span></span>
+<span></span>
+<span><span class="co"># Example format of gcambreakout::template_pcgdp_projection</span></span>
+<span><span class="co"># pcgdp should be in "thous 2005 USD/per capita"</span></span>
+<span><span class="fu">gcambreakout</span><span class="fu">::</span><span class="va"><a href="../reference/template_pcgdp_projection.html">template_pcgdp_projection</a></span></span>
+<span><span class="co">#&gt;              region year      pcgdp</span></span>
+<span><span class="co">#&gt; 1           Bangkok 1971   3.736694</span></span>
+<span><span class="co">#&gt; 2           Bangkok 1975   4.151882</span></span>
+<span><span class="co">#&gt; 3           Bangkok 1980   4.613202</span></span>
+<span><span class="co">#&gt; 4           Bangkok 1985   5.125780</span></span>
+<span><span class="co">#&gt; 5           Bangkok 1990   5.695311</span></span>
+<span><span class="co">#&gt; 6           Bangkok 1995   6.328124</span></span>
+<span><span class="co">#&gt; 7           Bangkok 2000   7.031248</span></span>
+<span><span class="co">#&gt; 8           Bangkok 2005   9.016968</span></span>
+<span><span class="co">#&gt; 9           Bangkok 2010  10.742040</span></span>
+<span><span class="co">#&gt; 10          Bangkok 2015  12.819406</span></span>
+<span><span class="co">#&gt; 11          Bangkok 2020  16.030139</span></span>
+<span><span class="co">#&gt; 12          Bangkok 2025  19.912423</span></span>
+<span><span class="co">#&gt; 13          Bangkok 2030  24.240425</span></span>
+<span><span class="co">#&gt; 14          Bangkok 2035  28.890297</span></span>
+<span><span class="co">#&gt; 15          Bangkok 2040  33.983472</span></span>
+<span><span class="co">#&gt; 16          Bangkok 2045  39.525512</span></span>
+<span><span class="co">#&gt; 17          Bangkok 2050  45.482692</span></span>
+<span><span class="co">#&gt; 18          Bangkok 2055  51.866997</span></span>
+<span><span class="co">#&gt; 19          Bangkok 2060  58.635618</span></span>
+<span><span class="co">#&gt; 20          Bangkok 2065  65.770917</span></span>
+<span><span class="co">#&gt; 21          Bangkok 2070  73.237524</span></span>
+<span><span class="co">#&gt; 22          Bangkok 2075  81.109397</span></span>
+<span><span class="co">#&gt; 23          Bangkok 2080  89.302655</span></span>
+<span><span class="co">#&gt; 24          Bangkok 2085  97.658508</span></span>
+<span><span class="co">#&gt; 25          Bangkok 2090 106.212522</span></span>
+<span><span class="co">#&gt; 26          Bangkok 2095 114.925911</span></span>
+<span><span class="co">#&gt; 27          Bangkok 2100 123.863319</span></span>
+<span><span class="co">#&gt; 28 Rest of Thailand 1971   2.531686</span></span>
+<span><span class="co">#&gt; 29 Rest of Thailand 1975   2.812985</span></span>
+<span><span class="co">#&gt; 30 Rest of Thailand 1980   3.125539</span></span>
+<span><span class="co">#&gt; 31 Rest of Thailand 1985   3.472821</span></span>
+<span><span class="co">#&gt; 32 Rest of Thailand 1990   3.858690</span></span>
+<span><span class="co">#&gt; 33 Rest of Thailand 1995   4.287433</span></span>
+<span><span class="co">#&gt; 34 Rest of Thailand 2000   4.763815</span></span>
+<span><span class="co">#&gt; 35 Rest of Thailand 2005   6.109181</span></span>
+<span><span class="co">#&gt; 36 Rest of Thailand 2010   7.277952</span></span>
+<span><span class="co">#&gt; 37 Rest of Thailand 2015   8.685410</span></span>
+<span><span class="co">#&gt; 38 Rest of Thailand 2020  10.860747</span></span>
+<span><span class="co">#&gt; 39 Rest of Thailand 2025  13.431267</span></span>
+<span><span class="co">#&gt; 40 Rest of Thailand 2030  16.276403</span></span>
+<span><span class="co">#&gt; 41 Rest of Thailand 2035  19.314217</span></span>
+<span><span class="co">#&gt; 42 Rest of Thailand 2040  22.618158</span></span>
+<span><span class="co">#&gt; 43 Rest of Thailand 2045  26.197458</span></span>
+<span><span class="co">#&gt; 44 Rest of Thailand 2050  30.018022</span></span>
+<span><span class="co">#&gt; 45 Rest of Thailand 2055  34.098539</span></span>
+<span><span class="co">#&gt; 46 Rest of Thailand 2060  38.395688</span></span>
+<span><span class="co">#&gt; 47 Rest of Thailand 2065  42.913706</span></span>
+<span><span class="co">#&gt; 48 Rest of Thailand 2070  47.611283</span></span>
+<span><span class="co">#&gt; 49 Rest of Thailand 2075  52.556358</span></span>
+<span><span class="co">#&gt; 50 Rest of Thailand 2080  57.673216</span></span>
+<span><span class="co">#&gt; 51 Rest of Thailand 2085  62.882664</span></span>
+<span><span class="co">#&gt; 52 Rest of Thailand 2090  68.185135</span></span>
+<span><span class="co">#&gt; 53 Rest of Thailand 2095  73.581423</span></span>
+<span><span class="co">#&gt; 54 Rest of Thailand 2100  79.088764</span></span></code></pre></div>
 <!-------------------------->
 <!-------------------------->
 </div>
@@ -439,8 +439,8 @@
 <img src="vignetteFigs/divider.png"></p>
 <p>Users can also restore back to the original files by running the following code. This will replace the newly created files with the versions appended with ’_Original’ and delete the appended files. The gcamdata system will have to be rebuilt using ‘install &amp; restart’ from R Studio once again followed by driver().</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/JGCRI/gcambreakout" class="external-link">gcambreakout</a></span><span class="op">)</span>
-<span class="fu"><a href="../reference/restore.html">restore</a></span><span class="op">(</span>gcamdataFolder <span class="op">=</span> <span class="st">"PATH_TO_GCAM_FOLDER/input/gcamdata"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/JGCRI/gcambreakout" class="external-link">gcambreakout</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/restore.html">restore</a></span><span class="op">(</span>gcamdataFolder <span class="op">=</span> <span class="st">"PATH_TO_GCAM_FOLDER/input/gcamdata"</span><span class="op">)</span></span></code></pre></div>
 </div>
   </div>
 
@@ -461,7 +461,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>
