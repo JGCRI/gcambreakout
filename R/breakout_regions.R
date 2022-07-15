@@ -22,21 +22,26 @@ breakout_regions <- function(gcamdataFolder = NULL,
   # gcamdataFolder = NULL
   # regionsNew = NULL
   # countriesNew = NULL
+  # gcam_version = "5.4"
 
   #..................
   # Initialize variables
   # .................
 
   if(T){
-  print("Starting breakout ...")
+  rlang::inform("Starting breakout ...")
+  rlang::inform(paste0("Running gcambreakout for GCAM version: ", gcam_version))
+  rlang::inform(paste0("Version of GCAM can be set using the argument `gcam_version`."))
 
-  NULL -> Col1-> country_name -> GCAM_region_ID -> region ->iso->IEA_memo_ctry
+  NULL -> Col1-> country_name -> GCAM_region_ID -> region ->iso->IEA_memo_ctry ->
+    file_A326.inc_elas_parameter -> file_A323.inc_elas_parameter
   parent_region_ID <- c()
   parent_region <- c()
   IEA_memo_ctry_df <- data.frame()
   closeAllConnections()
 
   # Declare File Names
+  # Files need to be updated, regardless of version
   file_iso_GCAM_regID = paste(gcamdataFolder,"/inst/extdata/common/iso_GCAM_regID.csv",sep = "")
   file_GCAM_region_names = paste(gcamdataFolder,"/inst/extdata/common/GCAM_region_names.csv",sep = "")
   file_A_bio_frac_prod_R = paste(gcamdataFolder,"/inst/extdata/aglu/A_bio_frac_prod_R.csv",sep = "")
@@ -47,10 +52,20 @@ breakout_regions <- function(gcamdataFolder = NULL,
   file_offshore_wind_potential_scaler = paste(gcamdataFolder,"/inst/extdata/energy/offshore_wind_potential_scaler.csv",sep = "")
   file_EPA_country_map = paste(gcamdataFolder,"/inst/extdata/emissions/EPA_country_map.csv",sep = "")
 
+
   file_list <- list(file_iso_GCAM_regID, file_GCAM_region_names, file_A_bio_frac_prod_R,
                     file_A_soil_time_scale_R, file_A_soil_time_scale_R, file_emissions_A_regions,
                     file_A23.subsector_interp_R, file_energy_A_regions, file_offshore_wind_potential_scaler,
                     file_EPA_country_map)
+
+  if(gcam_version == '6.0'){
+    # Files need to be updated in GCAM 6.0
+    file_A323.inc_elas_parameter = paste(gcamdataFolder,"/inst/extdata/socioeconomics/A323.inc_elas_parameter.csv",sep = "")
+    file_A326.inc_elas_parameter = paste(gcamdataFolder,"/inst/extdata/socioeconomics/A326.inc_elas_parameter.csv",sep = "")
+
+    GCAM6_file_list <- list(file_A323.inc_elas_parameter, file_A326.inc_elas_parameter)
+    file_list <- append(file_list, GCAM6_file_list)
+  }
 
   }
 
@@ -59,7 +74,7 @@ breakout_regions <- function(gcamdataFolder = NULL,
   # .................
 
   if(T){
-  print("Checking inputs ...")
+  rlang::inform("Checking inputs ...")
 
   # gcamdatafolder
   if (is.null(gcamdataFolder)) {
@@ -73,19 +88,19 @@ breakout_regions <- function(gcamdataFolder = NULL,
   # Check that all the input files to be modified exist
  for(i in 1:length(file_list)){
   if (!file.exists(file_list[[i]])) {
-    print(paste("File ", file_list[[i]], " does not exist. Breakout may not work correctly.", sep = ""))
-    print(paste0("This could also be a file not available in the current version of GCAM being used."))
+    rlang::inform(paste("File ", file_list[[i]], " does not exist. Breakout may not work correctly.", sep = ""))
+    rlang::inform(paste0("This could also be a file not available in the current version of GCAM being used."))
   }}
 
   # Check that regionsNew and countriesNew have the correct length
   if(!is.null(regionsNew) & !is.null(countriesNew)){
     if(length(regionsNew) > 1){
       if(length(regionsNew) != length(countriesNew)){
-        print("regionsNew and countriesNew must have the same length.")
-        print("For example for a single regionsNew:")
-        print("regionsNew = 'New Region' & countriesNew = c('New Region Country 1', New Region country 2')")
-        print("For multiple regions with different countries:")
-        print("regionsNew = c('New Region 1', 'New Region 2') &
+        rlang::inform("regionsNew and countriesNew must have the same length.")
+        rlang::inform("For example for a single regionsNew:")
+        rlang::inform("regionsNew = 'New Region' & countriesNew = c('New Region Country 1', New Region country 2')")
+        rlang::inform("For multiple regions with different countries:")
+        rlang::inform("regionsNew = c('New Region 1', 'New Region 2') &
               countriesNew = list(c('New Region 1 Country 1', 'New Region 1 Country 2'), c('New Region 2 Country 1', 'New Region 2 Country 2'))")
         stop("regionsNew and countriesNew must have the same length.")
       }
@@ -97,28 +112,28 @@ breakout_regions <- function(gcamdataFolder = NULL,
   }
 
     # Check that regionsNew are not duplicated
-    if(class(regionsNew)=="list"){
+    if(is.list(regionsNew)){
       regionsNew_duplicate_check <- unlist(regionsNew)
     } else {
       regionsNew_duplicate_check <- regionsNew
     }
     if(any(duplicated(regionsNew_duplicate_check))){
-      print(paste0("regionsNew provided: ", paste(regionsNew,collapse=", "), "has duplicate entries."))
+      rlang::inform(paste0("regionsNew provided: ", paste(regionsNew,collapse=", "), "has duplicate entries."))
       stop("regionsNew must all be unique.")
     }
 
     # Check that countries are not duplicated
-      if(class(countriesNew)=="list"){
+      if(is.list(countriesNew)){
         countriesNew_duplicate_check <- unlist(countriesNew)
       } else {
         countriesNew_duplicate_check <- countriesNew
       }
       if(any(duplicated(countriesNew_duplicate_check))){
-        print(paste0("countriesNew provided: ", paste(countriesNew,collapse=", "), "has duplicate entries."))
+        rlang::inform(paste0("countriesNew provided: ", paste(countriesNew,collapse=", "), "has duplicate entries."))
         stop("countriesNew must all be unique.")
       }
 
-  print("Input checks complete ...")
+  rlang::inform("Input checks complete ...")
   }
 
 
@@ -133,14 +148,14 @@ breakout_regions <- function(gcamdataFolder = NULL,
     countriesNew_i = countriesNew[loop_regions_countries]
 
     # Convert countriesNew_i to vector if list
-    if(class(countriesNew_i) == "list"){
+    if(is.list(countriesNew_i)){
       countriesNew_i <- unlist(countriesNew_i)
     }
 
-    print("----------------------------------------------------")
-    print(paste0("Starting to modify files for new region: ", regionsNew_i,
+    rlang::inform("----------------------------------------------------")
+    rlang::inform(paste0("Starting to modify files for new region: ", regionsNew_i,
                  " with new countries: ", paste(countriesNew_i, collapse=", ")))
-    print("----------------------------------------------------")
+    rlang::inform("----------------------------------------------------")
 
 
   #..................
@@ -148,7 +163,7 @@ breakout_regions <- function(gcamdataFolder = NULL,
   # .................
 
   if(T){
-  print("Reading in files to modify ...")
+  rlang::inform("Reading in files to modify ...")
 
   iso_GCAM_regID = utils::read.csv(file_iso_GCAM_regID, sep = ",",comment.char="#") %>% tibble::as_tibble(); iso_GCAM_regID
 
@@ -232,7 +247,29 @@ breakout_regions <- function(gcamdataFolder = NULL,
     dplyr::filter(grepl("#",Col1)); EPA_country_map_comments
   }
 
-  print("All files read.")
+  if(!is.null(file_A323.inc_elas_parameter)){
+    if(file.exists(file_A323.inc_elas_parameter)){
+      A323.inc_elas_parameter = utils::read.csv(file_A323.inc_elas_parameter, sep = ",",comment.char="#") %>% tibble::as_tibble(); A323.inc_elas_parameter
+      A323.inc_elas_parameter_comments <- ((utils::read.csv(file_A323.inc_elas_parameter, header = F))[,1])%>%
+        as.data.frame();
+      names(A323.inc_elas_parameter_comments)<-"Col1"
+      A323.inc_elas_parameter_comments <- A323.inc_elas_parameter_comments %>%
+        dplyr::filter(grepl("#",Col1)); A323.inc_elas_parameter_comments
+    }
+  }
+
+  if(!is.null(file_A326.inc_elas_parameter)){
+    if(file.exists(file_A326.inc_elas_parameter)){
+      A326.inc_elas_parameter = utils::read.csv(file_A326.inc_elas_parameter, sep = ",",comment.char="#") %>% tibble::as_tibble(); A326.inc_elas_parameter
+      A326.inc_elas_parameter_comments <- ((utils::read.csv(file_A326.inc_elas_parameter, header = F))[,1])%>%
+        as.data.frame();
+      names(A326.inc_elas_parameter_comments)<-"Col1"
+      A326.inc_elas_parameter_comments <- A326.inc_elas_parameter_comments %>%
+        dplyr::filter(grepl("#",Col1)); A326.inc_elas_parameter_comments
+    }
+  }
+
+  rlang::inform("All files read.")
   }
 
   #..................
@@ -281,7 +318,7 @@ breakout_regions <- function(gcamdataFolder = NULL,
 
           if(length(regionsNew_i)==0){stop("regionsNew_i not assigned correctly.")}
           if(length(unique(parent_region_ID))!=1){
-            print(paste("Unique parent_region_ID: ", paste(unique(parent_region_ID),collapse=", "),sep=""))
+            rlang::inform(paste("Unique parent_region_ID: ", paste(unique(parent_region_ID),collapse=", "),sep=""))
             stop("For now all new countries being broken out must come from same parent region.")
           }
 
@@ -323,7 +360,7 @@ breakout_regions <- function(gcamdataFolder = NULL,
         close(con)
         closeAllConnections()
 
-        print(paste("Added region: '", regionsNew_i,
+        rlang::inform(paste("Added region: '", regionsNew_i,
                     "' and GCAM_region_ID: ", new_region_ID,
                     " for selected countries ", paste(countriesNew_i,collapse = ", "),
                     " to ", filename, sep=""))
@@ -354,7 +391,7 @@ breakout_regions <- function(gcamdataFolder = NULL,
         close(con)
         closeAllConnections()
 
-        print(paste("Added region: ", regionsNew_i,
+        rlang::inform(paste("Added region: ", regionsNew_i,
                     " and GCAM_region_ID: ", new_region_ID,
                     " to ", filename, sep=""))
       }
@@ -385,7 +422,7 @@ breakout_regions <- function(gcamdataFolder = NULL,
         close(con)
         closeAllConnections()
 
-        print(paste("Added data for new region: ", regionsNew_i,
+        rlang::inform(paste("Added data for new region: ", regionsNew_i,
                     " with GCAM_region_ID: ", new_region_ID,
                     " based on data from parent region: ", unique(parent_region),
                     " with GCAM_region_ID: ", unique(parent_region_ID),
@@ -417,7 +454,7 @@ breakout_regions <- function(gcamdataFolder = NULL,
         close(con)
         closeAllConnections()
 
-        print(paste("Added data for new region: ", regionsNew_i,
+        rlang::inform(paste("Added data for new region: ", regionsNew_i,
                     " with GCAM_region_ID: ", new_region_ID,
                     " based on data from parent region: ", unique(parent_region),
                     " with GCAM_region_ID: ", unique(parent_region_ID),
@@ -450,7 +487,7 @@ breakout_regions <- function(gcamdataFolder = NULL,
         close(con)
         closeAllConnections()
 
-        print(paste("Added data for new region: ", regionsNew_i,
+        rlang::inform(paste("Added data for new region: ", regionsNew_i,
                     " with GCAM_region_ID: ", new_region_ID,
                     " based on data from parent region: ", unique(parent_region),
                     " with GCAM_region_ID: ", unique(parent_region_ID),
@@ -483,7 +520,7 @@ breakout_regions <- function(gcamdataFolder = NULL,
         close(con)
         closeAllConnections()
 
-        print(paste("Added data for new region: ", regionsNew_i,
+        rlang::inform(paste("Added data for new region: ", regionsNew_i,
                     " with GCAM_region_ID: ", new_region_ID,
                     " based on data from parent region: ", unique(parent_region),
                     " with GCAM_region_ID: ", unique(parent_region_ID),
@@ -516,7 +553,7 @@ breakout_regions <- function(gcamdataFolder = NULL,
         close(con)
         closeAllConnections()
 
-        print(paste("Added data for new region: ", regionsNew_i,
+        rlang::inform(paste("Added data for new region: ", regionsNew_i,
                     " with GCAM_region_ID: ", new_region_ID,
                     " based on data from parent region: ", unique(parent_region),
                     " with GCAM_region_ID: ", unique(parent_region_ID),
@@ -549,7 +586,7 @@ breakout_regions <- function(gcamdataFolder = NULL,
         close(con)
         closeAllConnections()
 
-        print(paste("Added data for new region: ", regionsNew_i,
+        rlang::inform(paste("Added data for new region: ", regionsNew_i,
                     " with GCAM_region_ID: ", new_region_ID,
                     " based on data from parent region: ", unique(parent_region),
                     " with GCAM_region_ID: ", unique(parent_region_ID),
@@ -593,18 +630,86 @@ breakout_regions <- function(gcamdataFolder = NULL,
         close(con)
         closeAllConnections()
 
-        print(paste("Added region: '", regionsNew_i,
+        rlang::inform(paste("Added region: '", regionsNew_i,
                     "' and GCAM_region_ID: ", new_region_ID,
                     " for selected countries ", paste(countriesNew_i,collapse = ", "),
                     " to ", filename, sep=""))
+      }
+
+    #..................
+    # Modify extdata/socioeconomics/A323.inc_elas_parameter.csv
+    # .................
+
+    if(!is.null(file_A323.inc_elas_parameter)){
+      if(file.exists(file_A323.inc_elas_parameter)){
+
+        filename <- file_A323.inc_elas_parameter
+        # Assign the value from the parent region to the new country
+        A323.inc_elas_parameter_new <- A323.inc_elas_parameter %>%
+          dplyr::bind_rows(A323.inc_elas_parameter %>%
+                             dplyr::filter(region == unique(parent_region)) %>%
+                             dplyr::mutate(region = regionsNew_i)) %>%
+          unique();
+        #A323.inc_elas_parameter_new %>% as.data.frame()
+
+        file.copy(filename, gsub(".csv","_Original.csv",filename))
+        unlink(filename)
+
+        con <- file(filename, open = "wt")
+        for (i in 1:nrow(A323.inc_elas_parameter_comments)) {
+          writeLines(paste(A323.inc_elas_parameter_comments[i, ]), con)
+        }
+        utils::write.csv(A323.inc_elas_parameter_new, con, row.names = F)
+        close(con)
+        closeAllConnections()
+
+        rlang::inform(paste("Added data for new region: ", regionsNew_i,
+                    " with GCAM_region_ID: ", new_region_ID,
+                    " based on data from parent region: ", unique(parent_region),
+                    " with GCAM_region_ID: ", unique(parent_region_ID),
+                    " to ", filename, sep=""))
+      }
     }
 
+    #..................
+    # Modify extdata/socioeconomics/A326.inc_elas_parameter.csv
+    # .................
+
+    if(!is.null(file_A326.inc_elas_parameter)){
+      if(file.exists(file_A326.inc_elas_parameter)){
+
+        filename <- file_A326.inc_elas_parameter
+        # Assign the value from the parent region to the new country
+        A326.inc_elas_parameter_new <- A326.inc_elas_parameter %>%
+          dplyr::bind_rows(A326.inc_elas_parameter %>%
+                             dplyr::filter(region == unique(parent_region)) %>%
+                             dplyr::mutate(region = regionsNew_i)) %>%
+          unique();
+        #A326.inc_elas_parameter_new %>% as.data.frame()
+
+        file.copy(filename, gsub(".csv","_Original.csv",filename))
+        unlink(filename)
+
+        con <- file(filename, open = "wt")
+        for (i in 1:nrow(A326.inc_elas_parameter_comments)) {
+          writeLines(paste(A326.inc_elas_parameter_comments[i, ]), con)
+        }
+        utils::write.csv(A326.inc_elas_parameter_new, con, row.names = F)
+        close(con)
+        closeAllConnections()
+
+        rlang::inform(paste("Added data for new region: ", regionsNew_i,
+                    " with GCAM_region_ID: ", new_region_ID,
+                    " based on data from parent region: ", unique(parent_region),
+                    " with GCAM_region_ID: ", unique(parent_region_ID),
+                    " to ", filename, sep=""))
+      }
+    }
 
   }
 
 
   } # Close loop for each regionsNew and each countriesNew
-
 
   #..................
   # Replace gcamdata modules for certain countries
@@ -614,11 +719,11 @@ breakout_regions <- function(gcamdataFolder = NULL,
 
   # Check which modules need to be replaced based on the mappings_module list and countriesNew chosen.
   modules_to_replace <- unique((gcambreakout::mapping_modules %>%
-                           dplyr::filter(gcam_version %in% gcam_version))$module)
+                           dplyr::filter(gcam_version %in% !!gcam_version))$module)
 
   for(module_i in modules_to_replace){
 
-    print(paste0("Replacing module: ", module_i,"..."))
+    rlang::inform(paste0("Replacing module: ", module_i,"..."))
 
     module_i_filename <- paste0(gcamdataFolder,"/R/",gsub("_breakout.*",".R",module_i))
 
@@ -636,8 +741,8 @@ breakout_regions <- function(gcamdataFolder = NULL,
       # Replace the original module with the modified modules
       replacement_module <- get(paste0("template_",gsub("\\.R$","",module_i)))
       readr::write_lines(replacement_module,module_i_filename)
-      print(paste0("Replaced: ",module_i," with modified version."))
-      print(paste0("Original version of module is in: ", gsub("R/","R/originals/",module_i_filename)))
+      rlang::inform(paste0("Replaced: ",module_i," with modified version."))
+      rlang::inform(paste0("Original version of module is in: ", gsub("R/","R/originals/",module_i_filename)))
 
 
     } else {
@@ -646,7 +751,7 @@ breakout_regions <- function(gcamdataFolder = NULL,
 
     } # Close module loop
 
-  print("Replacement of all modules complete.")
+  rlang::inform("Replacement of all modules complete.")
 
 
 
@@ -654,7 +759,9 @@ breakout_regions <- function(gcamdataFolder = NULL,
   #..............................
 
   closeAllConnections()
-  print("Finished running breakout.")
-  print(paste("Please re-build gcamdata and re-run driver() from your folder: ",gcamdataFolder,sep=""))
-  print(paste0("Please ensure correct version of GCAM is selected for your breakout. Current version: ", gcam_version))
+  rlang::inform(paste0("gcambreakout was run for GCAM version: ", gcam_version))
+  rlang::inform(paste0("Version of GCAM can be set using the argument `gcam_version`."))
+  rlang::inform("Finished running breakout.")
+  rlang::inform(paste("Please re-build gcamdata and re-run driver() from your folder: ",gcamdataFolder,sep=""))
+  rlang::inform(paste0("Please ensure correct version of GCAM is selected for your breakout. Current version: ", gcam_version))
 }

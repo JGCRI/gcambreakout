@@ -307,7 +307,9 @@ module_aglu_LB120.LC_GIS_R_LTgis_Yh_GLU <- function(command, ...) {
                          ForScaler = if_else((Forest - MgdFor) < 0 & Forest > 0,  MgdFor/Forest ,1)) %>%
                   select(GCAM_region_ID, GLU, year, nonForScaler, ForScaler),
                 by = c("GCAM_region_ID", "GLU", "year") ) %>%
-      mutate(value = if_else(Land_Type %in% c("Grassland", "Shrubland" , "Pasture"),
+      mutate(ForScaler= if_else(is.na(ForScaler),1,ForScaler),
+             nonForScaler= if_else(is.na(nonForScaler),1,nonForScaler),
+             value = if_else(Land_Type %in% c("Grassland", "Shrubland" , "Pasture"),
                              value * nonForScaler,
                              if_else(Land_Type == "Forest", value * ForScaler, value) )) %>%
       select(-nonForScaler, -ForScaler) ->
