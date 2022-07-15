@@ -25,7 +25,7 @@ breakout_subregions <- function(gcamdataFolder = NULL,
 
     NULL -> population -> year
 
-    print("Starting breakout_subregions ...")
+    rlang::inform("Starting breakout_subregions ...")
 
     # Declare File Names
     file_iso_GCAM_regID = paste(gcamdataFolder,"/inst/extdata/common/iso_GCAM_regID.csv",sep = "")
@@ -70,18 +70,18 @@ breakout_subregions <- function(gcamdataFolder = NULL,
 
     # Check projection files
     if(is.null(pop_projection)){
-      print("Please provide full path to the 'pop_projection' file as a .csv or enter an R Data Table.")
-      print("This file must contain population projections for the subregions as well as for the Rest of 'Region'.")
-      print("It should have the following format as provided in the example gcambreakout::template_pop_projection for region = Thailand and subregions = Bangkok")
-      print(gcambreakout::template_pop_projection)
+      rlang::inform("Please provide full path to the 'pop_projection' file as a .csv or enter an R Data Table.")
+      rlang::inform("This file must contain population projections for the subregions as well as for the Rest of 'Region'.")
+      rlang::inform("It should have the following format as provided in the example gcambreakout::template_pop_projection for region = Thailand and subregions = Bangkok")
+      rlang::inform(gcambreakout::template_pop_projection)
       stop("Please provide full path to the 'pop_projection' file as a .csv or enter an R Data Table.")
     }
 
     if(is.null(pcgdp_projection)){
-      print("Please provide the 'pcgdp_projection' file as a .csv or enter an R Data Table.")
-      print("This file must contain per capita GDP projections for the subregions as well as for the Rest of 'Region'.")
-      print("It should have the following format as provided in the example gcambreakout::template_pcgdp_projection for region = THailand and subregions = Bangkok")
-      print(gcambreakout::template_pcgdp_projection)
+      rlang::inform("Please provide the 'pcgdp_projection' file as a .csv or enter an R Data Table.")
+      rlang::inform("This file must contain per capita GDP projections for the subregions as well as for the Rest of 'Region'.")
+      rlang::inform("It should have the following format as provided in the example gcambreakout::template_pcgdp_projection for region = THailand and subregions = Bangkok")
+      rlang::inform(gcambreakout::template_pcgdp_projection)
       stop("Please provide the 'pcgdp_projection' file as a .csv or enter an R Data Table.")
     }
 
@@ -117,9 +117,9 @@ breakout_subregions <- function(gcamdataFolder = NULL,
     if(!any(subregions_pop %in% subregions_pcgdp)){stop("subregions in pop_projection and pcgdp_projection file must be the same.")}
     subregions <- subregions_pop
 
-    print(paste0("Starting breakout for subregions: ", paste0(subregions,collapse=", ")))
+    rlang::inform(paste0("Starting breakout for subregions: ", paste0(subregions,collapse=", ")))
 
-    print("Input checks completed...")
+    rlang::inform("Input checks completed...")
   }
 
   #..............
@@ -135,25 +135,25 @@ breakout_subregions <- function(gcamdataFolder = NULL,
     # Check to make sure the subregions and region socio economic files don't already exist
     if(T){
       if(file.exists(paste0(breakoutFolder, "/Subregions_", region, "_pop.csv"))){
-        print(paste0("File : ", breakoutFolder, "/Subregions_", region, "_pop.csv",
+        rlang::inform(paste0("File : ", breakoutFolder, "/Subregions_", region, "_pop.csv",
                      " already exists and will be overwritten."))
         unlink(paste0(breakoutFolder, "/Subregions_", region, "_pop.csv"))
       }
 
       if(file.exists(paste0(breakoutFolder, "/Subregions_", region, "_pcgdp.csv"))){
-        print(paste0("File: ", breakoutFolder, "/Subregions_", region, "_pcgdp.csv",
+        rlang::inform(paste0("File: ", breakoutFolder, "/Subregions_", region, "_pcgdp.csv",
                      " alread exists and will be overwritten."))
         unlink(paste0(breakoutFolder, "/Subregions_", region, "_pcgdp.csv"))
       }
 
       if(file.exists(paste0(gcamdataFolder, "/R/zchunk_Xbatch_socioeconomics_xml_Subregions_", region, ".R"))){
-        print(paste0("R file: ", paste0(gcamdataFolder, "/R/zchunk_Xbatch_socioeconomics_xml_Subregions_", region, ".R"),
+        rlang::inform(paste0("R file: ", paste0(gcamdataFolder, "/R/zchunk_Xbatch_socioeconomics_xml_Subregions_", region, ".R"),
                      " already exists and will be overwritten."))
         unlink(paste0(gcamdataFolder, "/R/zchunk_Xbatch_socioeconomics_xml_Subregions_", region, ".R"))
       }
 
       if(file.exists(paste0(gcamdataFolder, "/R/zchunk_X201.socioeconomic_Subregions_", region, ".R"))){
-        print(paste0("R file: ", paste0(gcamdataFolder, "/R/zchunk_X201.socioeconomic_Subregions_", region, ".R"),
+        rlang::inform(paste0("R file: ", paste0(gcamdataFolder, "/R/zchunk_X201.socioeconomic_Subregions_", region, ".R"),
                      " already exists and will be overwritten."))
         unlink(paste0(gcamdataFolder, "/R/zchunk_X201.socioeconomic_Subregions_", region, ".R"))
       }
@@ -161,46 +161,46 @@ breakout_subregions <- function(gcamdataFolder = NULL,
       # Check to make sure buildings files don't already exist
 
       if(file.exists(paste0(gcamdataFolder, "/R/zchunk_Xbatch_building_xml_Subregions_", region, ".R"))){
-        print(paste0("R file: ", paste0(gcamdataFolder, "/R/zchunk_Xbatch_building_xml_Subregions_", region, ".R"),
+        rlang::inform(paste0("R file: ", paste0(gcamdataFolder, "/R/zchunk_Xbatch_building_xml_Subregions_", region, ".R"),
                      " already exists and will be overwritten."))
         unlink(paste0(gcamdataFolder, "/R/zchunk_Xbatch_building_xml_Subregions_", region, ".R"))
       }
 
       if(file.exists(paste0(gcamdataFolder, "/R/zchunk_X244.building_Subregions_", region, ".R"))){
-        print(paste0("R file: ", paste0(gcamdataFolder, "/R/zchunk_X244.building_Subregions_", region, ".R"),
+        rlang::inform(paste0("R file: ", paste0(gcamdataFolder, "/R/zchunk_X244.building_Subregions_", region, ".R"),
                      " already exists and will be overwritten."))
         unlink(paste0(gcamdataFolder, "/R/zchunk_X244.building_Subregions_", region, ".R"))
       }
 
       # Check to make sure transport files don't already exist
       if(file.exists(paste0(gcamdataFolder, "/R/zchunk_Xbatch_transportation_xml_Subregions_", region, ".R"))){
-        print(paste0("R file: ", paste0(gcamdataFolder, "/R/zchunk_Xbatch_transportation_xml_Subregions_", region, ".R"),
+        rlang::inform(paste0("R file: ", paste0(gcamdataFolder, "/R/zchunk_Xbatch_transportation_xml_Subregions_", region, ".R"),
                      " already exists and will be overwritten."))
         unlink(paste0(gcamdataFolder, "/R/zchunk_Xbatch_transportation_xml_Subregions_", region, ".R"))
       }
 
       if(file.exists(paste0(gcamdataFolder, "/R/zchunk_X254.transportation_Subregions_", region, ".R"))){
-        print(paste0("R file: ", paste0(gcamdataFolder, "/R/zchunk_X254.transportation_Subregions_", region, ".R"),
+        rlang::inform(paste0("R file: ", paste0(gcamdataFolder, "/R/zchunk_X254.transportation_Subregions_", region, ".R"),
                      " already exists and will be overwritten."))
         unlink(paste0(gcamdataFolder, "/R/zchunk_X254.transportation_Subregions_", region, ".R"))
       }
 
       # Check to make sure industry files don't already exist
       if(file.exists(paste0(gcamdataFolder, "/R/zchunk_Xbatch_industry_xml_Subregions_", region, ".R"))){
-        print(paste0("R file: ", paste0(gcamdataFolder, "/R/zchunk_Xbatch_industry_xml_Subregions_", region, ".R"),
+        rlang::inform(paste0("R file: ", paste0(gcamdataFolder, "/R/zchunk_Xbatch_industry_xml_Subregions_", region, ".R"),
                      " already exists and will be overwritten."))
         unlink(paste0(gcamdataFolder, "/R/zchunk_Xbatch_industry_xml_Subregions_", region, ".R"))
       }
 
       if(file.exists(paste0(gcamdataFolder, "/R/zchunk_X232.industry_Subregions_", region, ".R"))){
-        print(paste0("R file: ", paste0(gcamdataFolder, "/R/zchunk_X232.industry_Subregions_", region, ".R"),
+        rlang::inform(paste0("R file: ", paste0(gcamdataFolder, "/R/zchunk_X232.industry_Subregions_", region, ".R"),
                      " already exists and will be overwritten."))
         unlink(paste0(gcamdataFolder, "/R/zchunk_X232.industry_Subregions_", region, ".R"))
       }
 
       # Check to make sure liquid limits files don't already exist
       if(file.exists(paste0(gcamdataFolder, "/R/zchunk_Xbatch_liquids_limits_xml_Subregions_", region, ".R"))){
-        print(paste0("R file: ", paste0(gcamdataFolder, "/R/zchunk_Xbatch_liquids_limits_xml_Subregions_", region, ".R"),
+        rlang::inform(paste0("R file: ", paste0(gcamdataFolder, "/R/zchunk_Xbatch_liquids_limits_xml_Subregions_", region, ".R"),
                      " already exists and will be overwritten."))
         unlink(paste0(gcamdataFolder, "/R/zchunk_Xbatch_liquids_limits_xml_Subregions_", region, ".R"))
       }
@@ -270,39 +270,39 @@ breakout_subregions <- function(gcamdataFolder = NULL,
 
     # Write out Breakout helper functions
     readr::write_lines(gcambreakout::template_breakout_helpers,paste0(gcamdataFolder, "/R/breakout_helpers.R"))
-    print(paste0("Added new file: ", gcamdataFolder, "/R/breakout_helpers.R"))
+    rlang::inform(paste0("Added new file: ", gcamdataFolder, "/R/breakout_helpers.R"))
 
     # Write out Socioeconomics Files
     readr::write_lines(zchunk_X201,paste0(gcamdataFolder, "/R/zchunk_X201.socioeconomic_Subregions_", region, ".R"))
-    print(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_X201.socioeconomic_Subregions_", region, ".R"))
+    rlang::inform(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_X201.socioeconomic_Subregions_", region, ".R"))
 
     readr::write_lines(zchunk_Xbatch,paste0(gcamdataFolder, "/R/zchunk_Xbatch_socioeconomics_xml_Subregions_", region, ".R"))
-    print(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_Xbatch_socioeconomics_xml_Subregions_", region, ".R"))
+    rlang::inform(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_Xbatch_socioeconomics_xml_Subregions_", region, ".R"))
 
     # Write out Buildings Files
     readr::write_lines(zchunk_X244_build, paste0(gcamdataFolder, "/R/zchunk_X244.building_Subregions_", region, ".R"))
-    print(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_X244.building_Subregions_", region, ".R"))
+    rlang::inform(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_X244.building_Subregions_", region, ".R"))
 
     readr::write_lines(zchunk_Xbatch_build, paste0(gcamdataFolder, "/R/zchunk_Xbatch_building_xml_Subregions_", region, ".R"))
-    print(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_Xbatch_building_xml_Subregions_", region, ".R"))
+    rlang::inform(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_Xbatch_building_xml_Subregions_", region, ".R"))
 
     # Write out Industry Files
     readr::write_lines(zchunk_X232_ind, paste0(gcamdataFolder, "/R/zchunk_X232.industry_Subregions_", region, ".R"))
-    print(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_X232.industry_Subregions_", region, ".R"))
+    rlang::inform(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_X232.industry_Subregions_", region, ".R"))
 
     readr::write_lines(zchunk_Xbatch_ind, paste0(gcamdataFolder, "/R/zchunk_Xbatch_industry_xml_Subregions_", region, ".R"))
-    print(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_Xbatch_industry_xml_Subregions_", region, ".R"))
+    rlang::inform(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_Xbatch_industry_xml_Subregions_", region, ".R"))
 
     # Write out Transport Files
     readr::write_lines(zchunk_X254_trn, paste0(gcamdataFolder, "/R/zchunk_X254.transportation_Subregions_", region, ".R"))
-    print(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_X254.transportation_Subregions_", region, ".R"))
+    rlang::inform(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_X254.transportation_Subregions_", region, ".R"))
 
     readr::write_lines(zchunk_Xbatch_trn, paste0(gcamdataFolder, "/R/zchunk_Xbatch_transportation_xml_Subregions_", region, ".R"))
-    print(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_Xbatch_transportation_xml_Subregions_", region, ".R"))
+    rlang::inform(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_Xbatch_transportation_xml_Subregions_", region, ".R"))
 
     # Write out Buildings Files
     readr::write_lines(zchunk_Xbatch_liquid_limits, paste0(gcamdataFolder, "/R/zchunk_Xbatch_liquids_limits_xml_Subregions_", region, ".R"))
-    print(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_Xbatch_liquids_limits_xml_Subregions_", region, ".R"))
+    rlang::inform(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_Xbatch_liquids_limits_xml_Subregions_", region, ".R"))
     }
   }
 
@@ -312,18 +312,18 @@ breakout_subregions <- function(gcamdataFolder = NULL,
   #.............
 
   if(T){
-  print(paste0("Subregions ", paste0(subregions, collapse=", ")," sucessfully broken out from region: ", region, "."))
-  print(paste0("Please re-install gcamdata and re-run driver from your folder: ",gcamdataFolder))
-  print(paste0("After running driver() please add the following xml to your configuration files:"))
-  print(paste0("socioeconomics_Subregions_", region, ".xml"))
-  print(paste0("buidling_Subregions_", region, ".xml"))
-  print(paste0("industry_Subregions_", region, ".xml"))
-  print(paste0("transportation_Subregions_", region, ".xml"))
-  print(paste0("liquid_limits_Subregions_", region, ".xml"))
-  print(paste0("Note: If during gcamdatabuild error: 'Error: .../input/gcamdata/man/GCAM_DATA_MAP.Rd:17: Bad /link text'",
+  rlang::inform(paste0("Subregions ", paste0(subregions, collapse=", ")," sucessfully broken out from region: ", region, "."))
+  rlang::inform(paste0("Please re-install gcamdata and re-run driver from your folder: ",gcamdataFolder))
+  rlang::inform(paste0("After running driver() please add the following xml to your configuration files:"))
+  rlang::inform(paste0("socioeconomics_Subregions_", region, ".xml"))
+  rlang::inform(paste0("buidling_Subregions_", region, ".xml"))
+  rlang::inform(paste0("industry_Subregions_", region, ".xml"))
+  rlang::inform(paste0("transportation_Subregions_", region, ".xml"))
+  rlang::inform(paste0("liquid_limits_Subregions_", region, ".xml"))
+  rlang::inform(paste0("Note: If during gcamdatabuild error: 'Error: .../input/gcamdata/man/GCAM_DATA_MAP.Rd:17: Bad /link text'",
                ", delete './input/gcamdata/man/GCAM_DATA_MAP.Rd' and then run devtools::install() in gcamdata.",
                " (Do not rebuild documentation after deleting GCAM_DATA_MAP.Rd."))
-  print("breakout_subregion complete.")
+  rlang::inform("breakout_subregion complete.")
   }
 
 
