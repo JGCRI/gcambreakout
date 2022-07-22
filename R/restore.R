@@ -31,6 +31,9 @@ restore <- function(gcamdataFolder = NULL) {
   file_energy_A_regions = paste(gcamdataFolder,"/inst/extdata/energy/A_regions.csv",sep = "")
   file_offshore_wind_potential_scaler = paste(gcamdataFolder,"/inst/extdata/energy/offshore_wind_potential_scaler.csv",sep = "")
   file_EPA_country_map = paste(gcamdataFolder,"/inst/extdata/emissions/EPA_country_map.csv",sep = "")
+  file_A323.inc_elas_parameter = paste(gcamdataFolder,"/inst/extdata/socioeconomics/A323.inc_elas_parameter.csv",sep = "")
+  file_A326.inc_elas_parameter = paste(gcamdataFolder,"/inst/extdata/socioeconomics/A326.inc_elas_parameter.csv",sep = "")
+
 
   file_list <- list(file_iso_GCAM_regID, file_GCAM_region_names, file_A_bio_frac_prod_R,
                     file_A_soil_time_scale_R, file_A_soil_time_scale_R, file_emissions_A_regions,
@@ -46,7 +49,8 @@ restore <- function(gcamdataFolder = NULL) {
   file_energy_A_regions_orig = paste(gcamdataFolder,"/inst/extdata/energy/A_regions_Original.csv",sep = "")
   file_offshore_wind_potential_scaler_orig = paste(gcamdataFolder,"/inst/extdata/energy/offshore_wind_potential_scaler_Original.csv",sep = "")
   file_EPA_country_map_orig = paste(gcamdataFolder,"/inst/extdata/emissions/EPA_country_map_Original.csv",sep = "")
-
+  file_A323.inc_elas_parameter_orig = paste(gcamdataFolder,"/inst/extdata/socioeconomics/A323.inc_elas_parameter_Original.csv",sep = "")
+  file_A326.inc_elas_parameter_orig = paste(gcamdataFolder,"/inst/extdata/socioeconomics/A326.inc_elas_parameter_Original.csv",sep = "")
 
   file_list_orig <- list(file_iso_GCAM_regID_orig, file_GCAM_region_names_orig, file_A_bio_frac_prod_R_orig,
                         file_A_soil_time_scale_R_orig, file_A_soil_time_scale_R_orig, file_emissions_A_regions_orig,

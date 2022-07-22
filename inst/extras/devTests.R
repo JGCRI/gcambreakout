@@ -3,6 +3,7 @@
 library(gcambreakout); library(dplyr)
 
 gcamdataFolderx <- "C:/gcam/gcam-core_stash/input/gcamdata"
+city_files_folder <- "C:/gcam/gcam-core_stash/input/gcamdata/inst/extdata/breakout"
 gcam_version_i="6.0"
 #gcamdataFolderx <- "C:/gcam/gcam-v5.4-Windows-Release-Package/input/gcamdata"
 
@@ -11,21 +12,56 @@ current_GCAM_regions <- read.csv(paste0(gcamdataFolderx,"/inst/extdata/common/GC
 
 
 #-----------------------------------------------------------------
-# Breakout a new region for a new region with a single country Spain
+# Breakout a new region for a new region with a single country
 #-----------------------------------------------------------------
+restore(gcamdataFolder = gcamdataFolderx)  # (OPTIONAL) Uncomment this line and restore the datasystem to original state
+
 breakout_regions(gcamdataFolder = gcamdataFolderx,
                  regionsNew = c("Thailand"),
                  countriesNew = c("Thailand"),
                  gcam_version=gcam_version_i)
 # Users can confirm that a new region has been added by opening the .csv file: ./input/gcamdata/inst/extdata/common/GCAM_region_names.csv
-restore(gcamdataFolder = gcamdataFolderx)  # (OPTIONAL) Uncomment this line and restore the datasystem to original state
 
-
-
+breakout_regions(gcamdataFolder = gcamdataFolderx,
+                 regionsNew = c("Malaysia"),
+                 countriesNew = c("Malaysia"),
+                 gcam_version=gcam_version_i)
 
 
 #-----------------------------------------------------------------
-# Breakout a new region for a new region with a single country Spain
+# Breakout a new region for a new region with a single country
+#-----------------------------------------------------------------
+breakout_regions(gcamdataFolder = gcamdataFolderx,
+                 regionsNew = c("Chile"),
+                 countriesNew = c("Chile"),
+                 gcam_version=gcam_version_i)
+# Users can confirm that a new region has been added by opening the .csv file: ./input/gcamdata/inst/extdata/common/GCAM_region_names.csv
+restore(gcamdataFolder = gcamdataFolderx)  # (OPTIONAL) Uncomment this line and restore the datasystem to original state
+
+#-----------------------------------------------------------------
+# Breakout a new region for a new region with a single country
+#-----------------------------------------------------------------
+breakout_regions(gcamdataFolder = gcamdataFolderx,
+                 regionsNew = c("Nigeria"),
+                 countriesNew = c("Nigeria"),
+                 gcam_version=gcam_version_i)
+# Users can confirm that a new region has been added by opening the .csv file: ./input/gcamdata/inst/extdata/common/GCAM_region_names.csv
+restore(gcamdataFolder = gcamdataFolderx)  # (OPTIONAL) Uncomment this line and restore the datasystem to original state
+
+
+#-----------------------------------------------------------------
+# Breakout a new region for a new region with a single country
+#-----------------------------------------------------------------
+breakout_regions(gcamdataFolder = gcamdataFolderx,
+                 regionsNew = c("Nigeria"),
+                 countriesNew = c("Nigeria"),
+                 gcam_version=gcam_version_i)
+# Users can confirm that a new region has been added by opening the .csv file: ./input/gcamdata/inst/extdata/common/GCAM_region_names.csv
+restore(gcamdataFolder = gcamdataFolderx)  # (OPTIONAL) Uncomment this line and restore the datasystem to original state
+
+
+#-----------------------------------------------------------------
+# Breakout a new region for a new region with a single country
 #-----------------------------------------------------------------
 breakout_regions(gcamdataFolder = gcamdataFolderx,
                  regionsNew = c("Uruguay"),
@@ -81,39 +117,21 @@ breakout_regions(gcamdataFolder = gcamdataFolderx,
 restore(gcamdataFolder = gcamdataFolderx)  # (OPTIONAL) Uncomment this line and restore the datasystem to original state
 
 
-
-#-------------------------------------
 #--------------------------------------
-# CITIES
+# SubRegions
 #-------------------------------------
-#-------------------------------------
 
-breakout_city(gcamdataFolder = gcamdataFolderx,
-             region = "Thailand",
-             city = "Bangkok",
-             popProjection = gcambreakout::template_popProjection,
-             pcgdpProjection = gcambreakout::template_pcgdpProjection)
+breakout_subregions(gcamdataFolder = gcamdataFolderx,
+                   region = "Thailand",
+                   pop_projection = c(paste0(city_files_folder,"/Subregions_Thailand_pop.csv")),
+                   pcgdp_projection = c(paste0(city_files_folder,"/Subregions_Thailand_pcgdp.csv")))
 
-breakout_regions(gcamdataFolder = gcamdataFolderx,
-                 regionsNew = c("Malaysia"),
-                 countriesNew = c("Malaysia"))
-
-breakout_city(gcamdataFolder = gcamdataFolderx,
-             region = "Malaysia",
-             city = "KualaLumpur",
-             popProjection = "C:/Z/projects/current/00_SMART/kualalumpur/template_popProjection_kl.csv",
-             pcgdpProjection = "C:/Z/projects/current/00_SMART/kualalumpur/template_pcgdpProjection_kl.csv")
+breakout_subregions(gcamdataFolder = gcamdataFolderx,
+                   region = "Malaysia",
+                   pop_projection = c(paste0(city_files_folder,"/Subregions_Malaysia_pop.csv")),
+                   pcgdp_projection = c(paste0(city_files_folder,"/Subregions_Malaysia_pcgdp.csv")))
 
 
-breakout_city(gcamdataFolder = gcamdataFolderx,
-              region = "Thailand",
-              city = "Bangkok",
-              popProjection = "C:\Z\metarepos\seasia\breakouttemplate_popProjection_thailand_bangkok.csv",
-              pcgdpProjection = "C:/Z/metarepos/seasia/data files/city_breakouts/template_pcgdpProjection_thailand_bangkok.csv")
+#restore(gcamdataFolder = gcamdataFolderx)
 
-# gcamdataFolder = gcamdataFolderx
-# region = "Thailand"
-# city = "Bangkok"
-
-restore(gcamdataFolder = gcamdataFolderx)
 

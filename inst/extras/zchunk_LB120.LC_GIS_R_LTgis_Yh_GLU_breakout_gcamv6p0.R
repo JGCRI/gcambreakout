@@ -21,6 +21,7 @@
 module_aglu_LB120.LC_GIS_R_LTgis_Yh_GLU <- function(command, ...) {
   if(command == driver.DECLARE_INPUTS) {
     return(c(FILE = "common/iso_GCAM_regID",
+             FILE = "water/basin_to_country_mapping",
              FILE = "aglu/LDS/LDS_land_types",
              FILE = "aglu/SAGE_LT",
              FILE = "aglu/Various_CarbonData_LTsage",
@@ -307,12 +308,19 @@ module_aglu_LB120.LC_GIS_R_LTgis_Yh_GLU <- function(command, ...) {
                          ForScaler = if_else((Forest - MgdFor) < 0 & Forest > 0,  MgdFor/Forest ,1)) %>%
                   select(GCAM_region_ID, GLU, year, nonForScaler, ForScaler),
                 by = c("GCAM_region_ID", "GLU", "year") ) %>%
+      #........................
+      # gcambreakout 17 July 2022
+      # Temporary fix until circular dependency on
+      # L123.LC_bm2_R_MgdFor_Yh_GLU_beforeadjust is fixed.
+      #........................
       mutate(ForScaler= if_else(is.na(ForScaler),1,ForScaler),
              nonForScaler= if_else(is.na(nonForScaler),1,nonForScaler),
              value = if_else(Land_Type %in% c("Grassland", "Shrubland" , "Pasture"),
                              value * nonForScaler,
                              if_else(Land_Type == "Forest", value * ForScaler, value) )) %>%
-      select(-nonForScaler, -ForScaler) ->
+      select(-nonForScaler, -ForScaler) %>%
+      dplyr::filter(value >= 0 ) ->
+      #....................... gcambreakout close edits
       L120.LC_bm2_R_LT_Yh_GLU
 
     # Subset the land types that are not further modified
@@ -344,6 +352,72 @@ module_aglu_LB120.LC_GIS_R_LTgis_Yh_GLU <- function(command, ...) {
       ungroup ->
       L120.LC_bm2_ctry_LTpast_GLU
 
+    #........................
+    # gcambreakout 17 July 2022
+    # Temporary fix until circular dependency on
+    # L123.LC_bm2_R_MgdFor_Yh_GLU_beforeadjust is fixed.
+    #........................
+
+    # Valid GLU Region combos
+    glu_gcam <- get_data(all_data, "water/basin_to_country_mapping") %>%
+      dplyr::select(iso=ISO, GLU=GLU_code) %>%
+      dplyr::mutate(iso = tolower(iso)) %>%
+      dplyr::left_join(iso_GCAM_regID, by=c("iso")) %>%
+      dplyr::select(GLU, GCAM_region_ID) %>%
+      dplyr::filter(GCAM_region_ID > 32) %>%
+      unique(); glu_gcam
+
+    remove_glu <- glu_gcam$GLU %>% unique(); remove_glu
+
+    L120.LC_bm2_R_LT_Yh_GLU <-
+      L120.LC_bm2_R_LT_Yh_GLU %>%
+      dplyr::mutate(remove = dplyr::if_else(((GLU %in% remove_glu) & (GCAM_region_ID <33)),1,0)) %>%
+      dplyr::filter(remove==0) %>%
+      dplyr::select(-remove)
+
+    L120.LC_bm2_R_UrbanLand_Yh_GLU <-
+      L120.LC_bm2_R_UrbanLand_Yh_GLU %>%
+      dplyr::mutate(remove = dplyr::if_else(((GLU %in% remove_glu) & (GCAM_region_ID <33)),1,0)) %>%
+      dplyr::filter(remove==0) %>%
+      dplyr::select(-remove)
+
+    L120.LC_bm2_R_Tundra_Yh_GLU <-
+      L120.LC_bm2_R_Tundra_Yh_GLU %>%
+      dplyr::mutate(remove = dplyr::if_else(((GLU %in% remove_glu) & (GCAM_region_ID <33)),1,0)) %>%
+      dplyr::filter(remove==0) %>%
+      dplyr::select(-remove)
+
+    L120.LC_bm2_R_RckIceDsrt_Yh_GLU <-
+      L120.LC_bm2_R_RckIceDsrt_Yh_GLU %>%
+      dplyr::mutate(remove = dplyr::if_else(((GLU %in% remove_glu) & (GCAM_region_ID <33)),1,0)) %>%
+      dplyr::filter(remove==0) %>%
+      dplyr::select(-remove)
+
+    L120.LC_bm2_ctry_LTsage_GLU <-
+      L120.LC_bm2_ctry_LTsage_GLU %>%
+      dplyr::mutate(remove = dplyr::if_else(((GLU %in% remove_glu) & (GCAM_region_ID <33)),1,0)) %>%
+      dplyr::filter(remove==0) %>%
+      dplyr::select(-remove)
+
+    L120.LC_bm2_ctry_LTpast_GLU <-
+      L120.LC_bm2_ctry_LTpast_GLU %>%
+      dplyr::mutate(remove = dplyr::if_else(((GLU %in% remove_glu) & (GCAM_region_ID <33)),1,0)) %>%
+      dplyr::filter(remove==0) %>%
+      dplyr::select(-remove)
+
+    L120.LC_prot_land_frac_GLU  <-
+      L120.LC_prot_land_frac_GLU  %>%
+      dplyr::mutate(remove = dplyr::if_else(((GLU %in% remove_glu) & (GCAM_region_ID <33)),1,0)) %>%
+      dplyr::filter(remove==0) %>%
+      dplyr::select(-remove)
+
+    L120.LC_soil_veg_carbon_GLU <-
+      L120.LC_soil_veg_carbon_GLU %>%
+      dplyr::mutate(remove = dplyr::if_else(((GLU %in% remove_glu) & (GCAM_region_ID <33)),1,0)) %>%
+      dplyr::filter(remove==0) %>%
+      dplyr::select(-remove)
+
+    #............................gcambreakout close edits
 
     # Produce outputs
     L120.LC_bm2_R_LT_Yh_GLU %>%
@@ -352,7 +426,8 @@ module_aglu_LB120.LC_GIS_R_LTgis_Yh_GLU <- function(command, ...) {
       add_comments("Land types from SAGE, HYDE, WDPA merged and reconciled; missing zeroes backfilled; interpolated to AGLU land cover years") %>%
       add_legacy_name("L120.LC_bm2_R_LT_Yh_GLU") %>%
       add_precursors("common/iso_GCAM_regID", "aglu/LDS/LDS_land_types", "aglu/SAGE_LT", "L100.Land_type_area_ha",
-                     "aglu/LDS/L123.LC_bm2_R_MgdFor_Yh_GLU_beforeadjust") ->
+                     "aglu/LDS/L123.LC_bm2_R_MgdFor_Yh_GLU_beforeadjust",
+                     "water/basin_to_country_mapping") ->
       L120.LC_bm2_R_LT_Yh_GLU
 
     L120.LC_bm2_R_UrbanLand_Yh_GLU %>%
@@ -360,7 +435,8 @@ module_aglu_LB120.LC_GIS_R_LTgis_Yh_GLU <- function(command, ...) {
       add_units("bm2") %>%
       add_comments("Land types from SAGE, HYDE, WDPA merged and reconciled; missing zeroes backfilled; interpolated to AGLU land cover years") %>%
       add_legacy_name("L120.LC_bm2_R_UrbanLand_Yh_GLU") %>%
-      add_precursors("common/iso_GCAM_regID", "aglu/LDS/LDS_land_types", "aglu/SAGE_LT", "L100.Land_type_area_ha") ->
+      add_precursors("common/iso_GCAM_regID", "aglu/LDS/LDS_land_types", "aglu/SAGE_LT", "L100.Land_type_area_ha",
+                     "water/basin_to_country_mapping") ->
       L120.LC_bm2_R_UrbanLand_Yh_GLU
 
     L120.LC_bm2_R_Tundra_Yh_GLU %>%
@@ -368,7 +444,8 @@ module_aglu_LB120.LC_GIS_R_LTgis_Yh_GLU <- function(command, ...) {
       add_units("bm2") %>%
       add_comments("Land types from SAGE, HYDE, WDPA merged and reconciled; missing zeroes backfilled; interpolated to AGLU land cover years") %>%
       add_legacy_name("L120.LC_bm2_R_Tundra_Yh_GLU") %>%
-      add_precursors("common/iso_GCAM_regID", "aglu/LDS/LDS_land_types", "aglu/SAGE_LT", "L100.Land_type_area_ha") ->
+      add_precursors("common/iso_GCAM_regID", "aglu/LDS/LDS_land_types", "aglu/SAGE_LT", "L100.Land_type_area_ha",
+                     "water/basin_to_country_mapping") ->
       L120.LC_bm2_R_Tundra_Yh_GLU
 
     L120.LC_bm2_R_RckIceDsrt_Yh_GLU %>%
@@ -376,7 +453,8 @@ module_aglu_LB120.LC_GIS_R_LTgis_Yh_GLU <- function(command, ...) {
       add_units("bm2") %>%
       add_comments("Land types from SAGE, HYDE, WDPA merged and reconciled; missing zeroes backfilled; interpolated to AGLU land cover years") %>%
       add_legacy_name("L120.LC_bm2_R_RckIceDsrt_Yh_GLU") %>%
-      add_precursors("common/iso_GCAM_regID", "aglu/LDS/LDS_land_types", "aglu/SAGE_LT", "L100.Land_type_area_ha") ->
+      add_precursors("common/iso_GCAM_regID", "aglu/LDS/LDS_land_types", "aglu/SAGE_LT", "L100.Land_type_area_ha",
+                     "water/basin_to_country_mapping") ->
       L120.LC_bm2_R_RckIceDsrt_Yh_GLU
 
     L120.LC_bm2_ctry_LTsage_GLU %>%
@@ -385,7 +463,8 @@ module_aglu_LB120.LC_GIS_R_LTgis_Yh_GLU <- function(command, ...) {
       add_comments("Land types from SAGE, HYDE, WDPA merged and reconciled; missing zeroes backfilled; interpolated to AGLU land cover years") %>%
       add_comments("Mean computed for HYDE 'Unmanaged' over available historical years") %>%
       add_legacy_name("L120.LC_bm2_ctry_LTsage_GLU") %>%
-      add_precursors("common/iso_GCAM_regID", "aglu/LDS/LDS_land_types", "aglu/SAGE_LT", "L100.Land_type_area_ha") ->
+      add_precursors("common/iso_GCAM_regID", "aglu/LDS/LDS_land_types", "aglu/SAGE_LT", "L100.Land_type_area_ha",
+                     "water/basin_to_country_mapping") ->
       L120.LC_bm2_ctry_LTsage_GLU
 
     L120.LC_bm2_ctry_LTpast_GLU %>%
@@ -394,7 +473,8 @@ module_aglu_LB120.LC_GIS_R_LTgis_Yh_GLU <- function(command, ...) {
       add_comments("Land types from SAGE, HYDE, WDPA merged and reconciled; missing zeroes backfilled; interpolated to AGLU land cover years") %>%
       add_comments("Mean computed for HYDE 'Pasture' over available historical years") %>%
       add_legacy_name("L120.LC_bm2_ctry_LTpast_GLU") %>%
-      add_precursors("common/iso_GCAM_regID", "aglu/LDS/LDS_land_types", "aglu/SAGE_LT", "L100.Land_type_area_ha") ->
+      add_precursors("common/iso_GCAM_regID", "aglu/LDS/LDS_land_types", "aglu/SAGE_LT", "L100.Land_type_area_ha",
+                     "water/basin_to_country_mapping") ->
       L120.LC_bm2_ctry_LTpast_GLU
 
     L120.LC_prot_land_frac_GLU %>%
@@ -402,7 +482,8 @@ module_aglu_LB120.LC_GIS_R_LTgis_Yh_GLU <- function(command, ...) {
       add_units("fraction") %>%
       add_comments("Land types from SAGE, HYDE, WDPA merged and reconciled; missing zeroes backfilled; interpolated to AGLU land cover years") %>%
       add_legacy_name("L120.LC_prot_land_frac_GLU") %>%
-      add_precursors("common/iso_GCAM_regID", "aglu/LDS/LDS_land_types", "aglu/SAGE_LT", "L100.Land_type_area_ha") ->
+      add_precursors("common/iso_GCAM_regID", "aglu/LDS/LDS_land_types", "aglu/SAGE_LT", "L100.Land_type_area_ha",
+                     "water/basin_to_country_mapping") ->
       L120.LC_prot_land_frac_GLU
 
     L120.LC_soil_veg_carbon_GLU %>%
@@ -410,7 +491,8 @@ module_aglu_LB120.LC_GIS_R_LTgis_Yh_GLU <- function(command, ...) {
       add_units("kg/m2") %>%
       add_comments("Land types from SAGE, HYDE, WDPA merged and reconciled; missing zeroes backfilled; interpolated to AGLU land cover years. Soil carbon is at a depth of 0-30 cms and vegetation carbon is a combination of above and below ground biomass.") %>%
       add_legacy_name("L120.LC_soil_veg_carbon_GLU") %>%
-      add_precursors("common/iso_GCAM_regID", "aglu/LDS/LDS_land_types", "aglu/SAGE_LT", "L100.Land_type_area_ha","L100.Ref_veg_carbon_Mg_per_ha","aglu/Various_CarbonData_LTsage")->L120.LC_soil_veg_carbon_GLU
+      add_precursors("common/iso_GCAM_regID",
+                     "water/basin_to_country_mapping", "aglu/LDS/LDS_land_types", "aglu/SAGE_LT", "L100.Land_type_area_ha","L100.Ref_veg_carbon_Mg_per_ha","aglu/Various_CarbonData_LTsage")->L120.LC_soil_veg_carbon_GLU
 
     return_data(L120.LC_bm2_R_LT_Yh_GLU, L120.LC_bm2_R_UrbanLand_Yh_GLU, L120.LC_bm2_R_Tundra_Yh_GLU, L120.LC_bm2_R_RckIceDsrt_Yh_GLU, L120.LC_bm2_ctry_LTsage_GLU, L120.LC_bm2_ctry_LTpast_GLU, L120.LC_prot_land_frac_GLU, L120.LC_soil_veg_carbon_GLU)
   } else {
