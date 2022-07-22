@@ -3,6 +3,8 @@ Title: gcambreakout
 Version: 0.1.0
 Authors@R: c(person("Zarrar", "Khan", email = "zarrar.khan@pnnl.gov", role = c("aut", "cre"),
 		   comment = c(ORCID ="0000-0002-8147-8553")),
+		   person("Brinda", "Yarlagadda", role = c("aut"), comment = c(ORCID="0000-0003-2944-3449")),
+		   person("Kanishka", "Narayan", role = c("aut"), comment = c(ORCID="0000-0001-8483-6216")),
 		   person("Silvia", "Regina Santos da Silva", role = c("aut"), comment = c(ORCID="0000-0002-6493-1475")),
 		   person("Page", "Kyle", role = c("aut"), comment = c(ORCID="0000-0002-1257-8358")),
 		   person("Chris", "Vernon", role = c("aut"), comment = c(ORCID="0000-0002-3406-6214")))
