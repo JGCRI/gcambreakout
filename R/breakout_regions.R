@@ -725,24 +725,34 @@ breakout_regions <- function(gcamdataFolder = NULL,
 
     rlang::inform(paste0("Replacing module: ", module_i,"..."))
 
-    module_i_filename <- paste0(gcamdataFolder,"/R/",gsub("_breakout.*",".R",module_i))
+    module_folder_i <- (gcambreakout::mapping_modules %>%
+      dplyr::filter(module==module_i) %>%
+        unique())$folder
+
+    module_extension_i <- (gcambreakout::mapping_modules %>%
+                          dplyr::filter(module==module_i) %>%
+                          unique())$extension
+
+    module_i_filename <- paste0(gcamdataFolder,"/",module_folder_i,"/",gsub("_breakout.*",module_extension_i,module_i))
 
     # Check if the modules exist in the gcamdata system
     if(file.exists(module_i_filename)){
 
       # Make a copy of the original module and put it in a folder called originals.
-      if(!dir.exists(paste0(gcamdataFolder,"/R/originals"))){
-        dir.create(paste0(gcamdataFolder,"/R/originals"))
+      if(!dir.exists(paste0(gcamdataFolder,"/",module_folder_i,"/originals"))){
+        dir.create(paste0(gcamdataFolder,"/",module_folder_i,"/originals"))
       }
 
-      file.copy(module_i_filename, gsub("R/","R/originals/",module_i_filename))
+      file.copy(module_i_filename, gsub(paste0(module_folder_i,"/"),paste0(module_folder_i,"/originals/"),module_i_filename))
       unlink(module_i_filename)
 
       # Replace the original module with the modified modules
-      replacement_module <- get(paste0("template_",gsub("\\.R$","",module_i)))
+      replacement_module <- get(paste0("template_",gsub(paste0("\\",module_extension_i,"$"),"",module_i)))
       readr::write_lines(replacement_module,module_i_filename)
       rlang::inform(paste0("Replaced: ",module_i," with modified version."))
-      rlang::inform(paste0("Original version of module is in: ", gsub("R/","R/originals/",module_i_filename)))
+      rlang::inform(paste0("Original version of module is in: ", gsub(paste0(module_folder_i,"/"),
+                                                                      paste0(module_folder_i,"/originals/"),
+                                                                      module_i_filename)))
 
 
     } else {
