@@ -6,29 +6,17 @@
 \title{Template for template_zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout_gcamv6p0}
 \format{
 R script
-
-R script
 }
 \source{
-created by ZK
-
 created by ZK
 }
 \usage{
 template_zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout_gcamv6p0
-
-template_zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout_gcamv6p0
 }
 \description{
 Template for template_zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout_gcamv6p0
-
-Template for template_zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout_gcamv6p0
 }
 \examples{
-\dontrun{
- library(gcambreakout);
- gcambreakout::template_zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout_gcamv6p0
-}
 \dontrun{
  library(gcambreakout);
  gcambreakout::template_zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout_gcamv6p0
