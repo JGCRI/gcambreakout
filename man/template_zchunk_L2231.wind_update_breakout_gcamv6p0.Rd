@@ -6,29 +6,17 @@
 \title{Template for template_zchunk_L2231.wind_update_breakout_gcamv6p0}
 \format{
 R script
-
-R script
 }
 \source{
-created by ZK
-
 created by ZK
 }
 \usage{
 template_zchunk_L2231.wind_update_breakout_gcamv6p0
-
-template_zchunk_L2231.wind_update_breakout_gcamv6p0
 }
 \description{
 Template for template_zchunk_L2231.wind_update_breakout_gcamv6p0
-
-Template for template_zchunk_L2231.wind_update_breakout_gcamv6p0
 }
 \examples{
-\dontrun{
- library(gcambreakout);
- gcambreakout::template_zchunk_L2231.wind_update_breakout_gcamv6p0
-}
 \dontrun{
  library(gcambreakout);
  gcambreakout::template_zchunk_L2231.wind_update_breakout_gcamv6p0
