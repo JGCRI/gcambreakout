@@ -36,16 +36,16 @@ module_breakout_X201.socioeconomics_APPEND <- function(command, ...) {
     city_pcgdp <- get_data(all_data,"breakout/APPEND_pcgdp", strip_attributes = TRUE)
 
     X201.Pop_APPEND <- city_pop %>%
-      group_by(region) %>%
       complete(nesting(region), year = c(HISTORICAL_YEARS, FUTURE_YEARS)) %>%
+      group_by(region) %>%
       mutate(totalPop = round(approx_fun(year, population) * CONV_MIL_THOUS), socioeconomics.POP_DIGITS) %>%
       ungroup() %>%
       filter(year %in% MODEL_YEARS) %>%
       select(LEVEL2_DATA_NAMES[["Pop"]])
 
     L201.PCGDP_APPEND <- city_pcgdp %>%
-      group_by(region) %>%
       complete(nesting(region), year = c(HISTORICAL_YEARS, FUTURE_YEARS)) %>%
+      group_by(region) %>%
       mutate(pcgdp = approx_fun(year, pcgdp) * gdp_deflator(1990, 2005)) %>%
       ungroup() %>%
       filter(year %in% MODEL_YEARS)
