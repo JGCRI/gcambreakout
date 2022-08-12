@@ -304,12 +304,14 @@ breakout_regions <- function(gcamdataFolder = NULL,
                                        dplyr::filter(
                                          tolower(country_name) == tolower(countriesNew_i[i])
                                        ))$GCAM_region_ID) %>%
-              unique()
+              unique() %>%
+              as.integer()
 
             parent_region[i] <- ((GCAM_region_names %>%
                                     dplyr::filter(
                                       GCAM_region_ID ==  parent_region_ID[i]))$region) %>%
-              unique()
+              unique() %>%
+              as.character()
           } # Close loop across countriesNew_i
 
           countriesNew_i
