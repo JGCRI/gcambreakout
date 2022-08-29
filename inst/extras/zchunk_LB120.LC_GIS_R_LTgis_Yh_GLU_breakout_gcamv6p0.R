@@ -323,6 +323,13 @@ module_aglu_LB120.LC_GIS_R_LTgis_Yh_GLU <- function(command, ...) {
       #....................... gcambreakout close edits
       L120.LC_bm2_R_LT_Yh_GLU
 
+    ##gcambreakout edit, BY 8/11/2022
+    #Copy forest values for Uruguay forward from 2010, so that there is some forest available in 2011-2015
+	#0.007730 is the forest value in 2010 - BY: I think this should be handled manually on a case-by-case basis
+    L120.LC_bm2_R_LT_Yh_GLU <- L120.LC_bm2_R_LT_Yh_GLU %>%
+      mutate(value = if_else((GCAM_region_ID == 33 & GLU == "GLU206" & Land_Type == "Forest" & year >= 2011),0.007730,value))
+
+	### end gcambreakout edit
     # Subset the land types that are not further modified
     L120.LC_bm2_R_UrbanLand_Yh_GLU <- filter(L120.LC_bm2_R_LT_Yh_GLU, Land_Type == "UrbanLand")
     L120.LC_bm2_R_Tundra_Yh_GLU <- filter(L120.LC_bm2_R_LT_Yh_GLU, Land_Type == "Tundra")
