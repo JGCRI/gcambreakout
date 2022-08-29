@@ -237,31 +237,34 @@ module_aglu_LB1321.regional_ag_prices <- function(command, ...) {
     # crop (production_wt_prPmult), divided by the sum of production.
     # production_wt_prPmult = ratio between observed regional price and global average price of the given commodity
 
-    ### SRSdS, 23Aug21. Handling the case of Qatar (this will also work for any other country with this exact same issue).
-    # Locate idx for the row in which NA data is
-    idx <- which(is.na(L1321.prP_R_C_Y_75USDkg), arr.ind=TRUE)
-    idx_row <- idx[1]
+    ## BY 8/29/22- Commenting out for now, the use of dplyr::across causes driver to stop.
+    # Will need an alternative method
 
-    # Use idx_row to locate region, commodity and year in which NA data is
-    reg <- L1321.prP_R_C_Y_75USDkg$GCAM_region_ID[idx_row]
-    ag_com <- L1321.prP_R_C_Y_75USDkg$GCAM_commodity[idx_row]
-    yr <- L1321.prP_R_C_Y_75USDkg$year[idx_row]
-
-    # In L1321.prP_R_C_Y_75USDkg, locate where NA data is and replace such data gap by the data mean of
-    # the previous and following years.
-    L1321.prP_R_C_Y_75USDkg %>%
-      filter((GCAM_region_ID == reg) & (GCAM_commodity == ag_com)) %>%
-      filter((year == yr-1) | (year == yr+1)) -> tbl_filtered
-    tbl_filtered %>%
-      summarise(dplyr::across(where(is.numeric), ~ mean(.x))) -> tbl_filtered_mean
-
-    revenue    <- tbl_filtered_mean$revenue
-    production <- tbl_filtered_mean$production
-    value      <- tbl_filtered_mean$value
-    L1321.prP_R_C_Y_75USDkg$revenue[idx_row]    <- revenue
-    L1321.prP_R_C_Y_75USDkg$production[idx_row] <- production
-    L1321.prP_R_C_Y_75USDkg$value[idx_row]      <- value
-    ###
+    # ### SRSdS, 23Aug21. Handling the case of Qatar (this will also work for any other country with this exact same issue).
+    # # Locate idx for the row in which NA data is
+    # idx <- which(is.na(L1321.prP_R_C_Y_75USDkg), arr.ind=TRUE)
+    # idx_row <- idx[1]
+    #
+    # # Use idx_row to locate region, commodity and year in which NA data is
+    # reg <- L1321.prP_R_C_Y_75USDkg$GCAM_region_ID[idx_row]
+    # ag_com <- L1321.prP_R_C_Y_75USDkg$GCAM_commodity[idx_row]
+    # yr <- L1321.prP_R_C_Y_75USDkg$year[idx_row]
+    #
+    # # In L1321.prP_R_C_Y_75USDkg, locate where NA data is and replace such data gap by the data mean of
+    # # the previous and following years.
+    # L1321.prP_R_C_Y_75USDkg %>%
+    #   filter((GCAM_region_ID == reg) & (GCAM_commodity == ag_com)) %>%
+    #   filter((year == yr-1) | (year == yr+1)) -> tbl_filtered
+    # tbl_filtered %>%
+    #   summarise(dplyr::across(where(is.numeric), ~ mean(.x))) -> tbl_filtered_mean
+    #
+    # revenue    <- tbl_filtered_mean$revenue
+    # production <- tbl_filtered_mean$production
+    # value      <- tbl_filtered_mean$value
+    # L1321.prP_R_C_Y_75USDkg$revenue[idx_row]    <- revenue
+    # L1321.prP_R_C_Y_75USDkg$production[idx_row] <- production
+    # L1321.prP_R_C_Y_75USDkg$value[idx_row]      <- value
+    # ###
 
     L1321.prPmult_R <- L1321.prP_R_C_Y_75USDkg %>%
       rename(prP = value) %>%
