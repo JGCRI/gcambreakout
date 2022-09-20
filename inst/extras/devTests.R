@@ -27,6 +27,23 @@ breakout_regions(gcamdataFolder = gcamdataFolderx,
                  countriesNew = c("Malaysia"),
                  gcam_version=gcam_version_i)
 
+#--------------------------------------
+# SubRegions
+#-------------------------------------
+
+breakout_subregions(gcamdataFolder = gcamdataFolderx,
+                    region = "Thailand",
+                    pop_projection = c(paste0(city_files_folder,"/Subregions_Thailand_pop.csv")),
+                    pcgdp_projection = c(paste0(city_files_folder,"/Subregions_Thailand_pcgdp.csv")))
+
+breakout_subregions(gcamdataFolder = gcamdataFolderx,
+                    region = "Malaysia",
+                    pop_projection = c(paste0(city_files_folder,"/Subregions_Malaysia_pop.csv")),
+                    pcgdp_projection = c(paste0(city_files_folder,"/Subregions_Malaysia_pcgdp.csv")))
+
+
+#restore(gcamdataFolder = gcamdataFolderx)
+
 
 #-----------------------------------------------------------------
 # Breakout a new region for a new region with a single country
@@ -117,21 +134,6 @@ breakout_regions(gcamdataFolder = gcamdataFolderx,
 restore(gcamdataFolder = gcamdataFolderx)  # (OPTIONAL) Uncomment this line and restore the datasystem to original state
 
 
-#--------------------------------------
-# SubRegions
-#-------------------------------------
 
-breakout_subregions(gcamdataFolder = gcamdataFolderx,
-                   region = "Thailand",
-                   pop_projection = c(paste0(city_files_folder,"/Subregions_Thailand_pop.csv")),
-                   pcgdp_projection = c(paste0(city_files_folder,"/Subregions_Thailand_pcgdp.csv")))
-
-breakout_subregions(gcamdataFolder = gcamdataFolderx,
-                   region = "Malaysia",
-                   pop_projection = c(paste0(city_files_folder,"/Subregions_Malaysia_pop.csv")),
-                   pcgdp_projection = c(paste0(city_files_folder,"/Subregions_Malaysia_pcgdp.csv")))
-
-
-#restore(gcamdataFolder = gcamdataFolderx)
 
 

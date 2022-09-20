@@ -88,6 +88,16 @@ module_energy_Xbatch_building_xml_APPEND <- function(command, ...) {
 
     # ===================================================
 
+    # Remove fgas for years not in hfc future
+    X244.fgas_all_units_bld_APPEND %>%
+      dplyr::left_join(X244.hfc_future_bld_APPEND %>%
+                         dplyr::select(Non.CO2,year) %>%
+                         unique() %>%
+                         dplyr::mutate(keep=1)) %>%
+      dplyr::filter(keep==1) %>%
+      dplyr::select(-keep)->
+      X244.fgas_all_units_bld_APPEND
+
     # Produce outputs
     create_xml("building_APPEND.xml") %>%
       add_xml_data(X244.DeleteConsumer_bld_APPEND, "DeleteConsumer") %>%
