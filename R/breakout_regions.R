@@ -62,8 +62,9 @@ breakout_regions <- function(gcamdataFolder = NULL,
     # Files need to be updated in GCAM 6.0
     file_A323.inc_elas_parameter = paste(gcamdataFolder,"/inst/extdata/socioeconomics/A323.inc_elas_parameter.csv",sep = "")
     file_A326.inc_elas_parameter = paste(gcamdataFolder,"/inst/extdata/socioeconomics/A326.inc_elas_parameter.csv",sep = "")
+    file_A62.calibration = paste(gcamdataFolder, "/inst/extdata/energy/A62.calibration.csv",sep = "")
 
-    GCAM6_file_list <- list(file_A323.inc_elas_parameter, file_A326.inc_elas_parameter)
+    GCAM6_file_list <- list(file_A323.inc_elas_parameter, file_A326.inc_elas_parameter, file_A62.calibration)
     file_list <- append(file_list, GCAM6_file_list)
   }
 
@@ -266,6 +267,17 @@ breakout_regions <- function(gcamdataFolder = NULL,
       names(A326.inc_elas_parameter_comments)<-"Col1"
       A326.inc_elas_parameter_comments <- A326.inc_elas_parameter_comments %>%
         dplyr::filter(grepl("#",Col1)); A326.inc_elas_parameter_comments
+    }
+  }
+
+  if(!is.null(file_A62.calibration)){
+    if(file.exists(file_A62.calibration)){
+      A62.calibration = utils::read.csv(file_A62.calibration, sep = ",",comment.char="#") %>% tibble::as_tibble(); A326.inc_elas_parameter
+      A62.calibration_comments <- ((utils::read.csv(file_A62.calibration, header = F))[,1])%>%
+        as.data.frame();
+      names(A62.calibration_comments)<-"Col1"
+      A62.calibration_comments <- A62.calibration_comments %>%
+        dplyr::filter(grepl("#",Col1)); A62.calibration_comments
     }
   }
 
@@ -708,6 +720,40 @@ breakout_regions <- function(gcamdataFolder = NULL,
       }
     }
 
+    #..................
+    # Modify extdata/energy/A62.calibration.csv
+    # .................
+
+    if(!is.null(file_A62.calibration)){
+      if(file.exists(file_A62.calibration)){
+
+        filename <- file_A62.calibration
+        # Assign the value from the parent region to the new country
+        A62.calibration_new <- A62.calibration %>%
+          dplyr::bind_rows(A62.calibration %>%
+                             dplyr::filter(GCAM_region_ID == unique(parent_region_ID)) %>%
+                             dplyr::mutate(GCAM_region_ID = new_region_ID)) %>%
+          unique();
+        #A62.calibration_new %>% as.data.frame()
+
+        file.copy(filename, gsub(".csv","_Original.csv",filename))
+        unlink(filename)
+
+        con <- file(filename, open = "wt")
+        for (i in 1:nrow(A62.calibration_comments)) {
+          writeLines(paste(A62.calibration_comments[i, ]), con)
+        }
+        utils::write.csv(A62.calibration_new, con, row.names = F)
+        close(con)
+        closeAllConnections()
+
+        rlang::inform(paste("Added data for new region: ", regionsNew_i,
+                            " with GCAM_region_ID: ", new_region_ID,
+                            " based on data from parent region: ", unique(parent_region),
+                            " with GCAM_region_ID: ", unique(parent_region_ID),
+                            " to ", filename, sep=""))
+      }
+    }
   }
 
 
