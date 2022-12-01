@@ -40,7 +40,7 @@ jobs:
       - name: Ubuntu config
         if: startsWith(matrix.config.os, 'ubuntu')
         run: |
-          sudo add-apt-repository ppa:ubuntugis/ppa
+          sudo apt-add-repository ppa:ubuntugis/ubuntugis-unstable
           sudo apt-get update
           sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev libudunits2-dev libgdal-dev libgeos-dev libproj-dev libmagick++-dev libavfilter-dev
       
@@ -51,6 +51,8 @@ jobs:
             brew install gdal
             brew install geos
             brew install imagemagick@6
+        env:
+          HOMEBREW_NO_INSTALL_CLEANUP: 1
       
       - name: Install dependencies
         run: |
