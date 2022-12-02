@@ -15,7 +15,7 @@ jobs:
       matrix:
         config:
         - { os: windows-latest, r: 'devel'}
-        - { os: macos-10.15, r: 'devel'}
+        - { os: macos-latest, r: 'devel'}
         - { os: ubuntu-latest, r: 'devel', cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
     
     env:
@@ -23,7 +23,7 @@ jobs:
       GITHUB_PAT: ${{ secrets.GH_PAT}}
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: r-lib/actions/setup-r@v2-branch
         with:
           r-version: '3.6'
@@ -51,8 +51,6 @@ jobs:
             brew install gdal
             brew install geos
             brew install imagemagick@6
-        env:
-          HOMEBREW_NO_INSTALL_CLEANUP: 1
       
       - name: Install dependencies
         run: |
