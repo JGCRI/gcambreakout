@@ -34,7 +34,7 @@ breakout_regions <- function(gcamdataFolder = NULL,
   rlang::inform(paste0("Version of GCAM can be set using the argument `gcam_version`."))
 
   NULL -> Col1-> country_name -> GCAM_region_ID -> region ->iso->IEA_memo_ctry ->
-    file_A326.inc_elas_parameter -> file_A323.inc_elas_parameter
+    file_A326.inc_elas_parameter -> file_A323.inc_elas_parameter->file_A62.calibration
   parent_region_ID <- c()
   parent_region <- c()
   IEA_memo_ctry_df <- data.frame()

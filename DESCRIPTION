@@ -14,7 +14,7 @@ BugReports: https://github.com/JGCRI/gcambreakout/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1
 Imports: 
     dplyr,
     magrittr,
