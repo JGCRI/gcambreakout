@@ -172,31 +172,61 @@
     <loc>/reference/template_zchunk_LB171.LC_R_Cropland_Yh_GLU_irr_breakout_gcamv6p0.html</loc>
   </url>
   <url>
-    <loc>/reference/template_zchunk_X201.socioeconomic_APPEND.html</loc>
+    <loc>/reference/template_zchunk_X201.socioeconomic_APPEND_gcam5p4.html</loc>
   </url>
   <url>
-    <loc>/reference/template_zchunk_X232.industry_APPEND.html</loc>
+    <loc>/reference/template_zchunk_X201.socioeconomic_APPEND_gcam6p0.html</loc>
   </url>
   <url>
-    <loc>/reference/template_zchunk_X244.building_APPEND.html</loc>
+    <loc>/reference/template_zchunk_X232.industry_APPEND_gcam5p4.html</loc>
   </url>
   <url>
-    <loc>/reference/template_zchunk_X254.transportation_APPEND.html</loc>
+    <loc>/reference/template_zchunk_X232.industry_APPEND_gcam6p0.html</loc>
   </url>
   <url>
-    <loc>/reference/template_zchunk_Xbatch_building_xml_APPEND.html</loc>
+    <loc>/reference/template_zchunk_X244.building_APPEND_gcam5p4.html</loc>
   </url>
   <url>
-    <loc>/reference/template_zchunk_Xbatch_industry_xml_APPEND.html</loc>
+    <loc>/reference/template_zchunk_X244.building_APPEND_gcam6p0.html</loc>
   </url>
   <url>
-    <loc>/reference/template_zchunk_Xbatch_liquids_limits_xml_APPEND.html</loc>
+    <loc>/reference/template_zchunk_X254.transportation_APPEND_gcam5p4.html</loc>
   </url>
   <url>
-    <loc>/reference/template_zchunk_Xbatch_socioeconomics_xml_APPEND.html</loc>
+    <loc>/reference/template_zchunk_X254.transportation_APPEND_gcam6p0.html</loc>
   </url>
   <url>
-    <loc>/reference/template_zchunk_Xbatch_transportation_xml_APPEND.html</loc>
+    <loc>/reference/template_zchunk_Xbatch_building_xml_APPEND_gcam5p4.html</loc>
+  </url>
+  <url>
+    <loc>/reference/template_zchunk_Xbatch_building_xml_APPEND_gcam6p0.html</loc>
+  </url>
+  <url>
+    <loc>/reference/template_zchunk_Xbatch_industry_xml_APPEND_gcam5p4.html</loc>
+  </url>
+  <url>
+    <loc>/reference/template_zchunk_Xbatch_industry_xml_APPEND_gcam6p0.html</loc>
+  </url>
+  <url>
+    <loc>/reference/template_zchunk_Xbatch_liquids_limits_xml_APPEND_gcam5p4.html</loc>
+  </url>
+  <url>
+    <loc>/reference/template_zchunk_Xbatch_liquids_limits_xml_APPEND_gcam6p0.html</loc>
+  </url>
+  <url>
+    <loc>/reference/template_zchunk_Xbatch_socioeconomics_xml_APPEND_gcam5p4.html</loc>
+  </url>
+  <url>
+    <loc>/reference/template_zchunk_Xbatch_socioeconomics_xml_APPEND_gcam6p0.html</loc>
+  </url>
+  <url>
+    <loc>/reference/template_zchunk_Xbatch_transportation_xml_APPEND_gcam5p4.html</loc>
+  </url>
+  <url>
+    <loc>/reference/template_zchunk_Xbatch_transportation_xml_APPEND_gcam6p0.html</loc>
+  </url>
+  <url>
+    <loc>/reference/template_zchunk_Xbatch_water_demand_industry_xml_APPEND_gcam6p0.html</loc>
   </url>
   <url>
     <loc>/reference/template_zchunk_batch_ag_For_Past_bio_base_IRR_MGMT_xml_breakout_gcamv6p0.html</loc>
