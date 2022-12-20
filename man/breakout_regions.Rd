@@ -8,7 +8,7 @@ breakout_regions(
   gcamdataFolder = NULL,
   regionsNew = NULL,
   countriesNew = NULL,
-  gcam_version = "5.4"
+  gcam_version = "6.0"
 )
 }
 \arguments{
@@ -23,7 +23,7 @@ A vector if only one region or a list with countries for each regionsNew.
  countriesNew = list(c("New Region 1 Country 1", "New Region 1 Country 2"), c("New Region 2 Country 1", "New Region 2 Country 2"))
  corresponding to regionsNew = c("New Region 1", "New Region 2")))}
 
-\item{gcam_version}{Default = 5.4. Which version of GCAM are the changes being applied to. Default may work on multiple}
+\item{gcam_version}{Default = 6.0. Which version of GCAM are the changes being applied to. Default may work on multiple}
 }
 \description{
 Function to breakout region in gcamdata

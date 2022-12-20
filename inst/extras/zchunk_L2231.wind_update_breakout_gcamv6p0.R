@@ -161,26 +161,24 @@ module_energy_L2231.wind_update <- function(command, ...) {
       select(region, mid.price) -> L2231.mid.price
 
 
-    ## BY 8/29/22- Commenting out for now, the use of dplyr::count causes driver to stop.
-    # Will need an alternative method
-    # #......................
-    # # gcambreakout 17 July 2022
-    # # Add mid.price for regions with only one price point
-    # #......................
-    # (L2231.onshore_wind_curve %>%
-    #     dplyr::count(region) %>%
-    #     dplyr::filter(n==1))$region %>%
-    #   unique()-> L2231.onshore_wind_curve_single_regions
-    #
-    # # Set mid.price to available price
-    # L2231.onshore_wind_curve %>%
-    #   dplyr::filter(region %in% L2231.onshore_wind_curve_single_regions) %>%
-    #   dplyr::select(region, mid.price = price)-> L2231.mid.price_singleprice
-    #
-    # # Combine with L2231.mid.price
-    # L2231.mid.price %>%
-    #   dplyr::bind_rows(L2231.mid.price_singleprice) -> L2231.mid.price
-    # #....................... gcambreakout close edits
+    #......................
+    # gcambreakout 17 July 2022
+    # Add mid.price for regions with only one price point
+    #......................
+    (L2231.onshore_wind_curve %>%
+        dplyr::count(region) %>%
+        dplyr::filter(n==1))$region %>%
+      unique()-> L2231.onshore_wind_curve_single_regions
+
+    # Set mid.price to available price
+    L2231.onshore_wind_curve %>%
+      dplyr::filter(region %in% L2231.onshore_wind_curve_single_regions) %>%
+      dplyr::select(region, mid.price = price)-> L2231.mid.price_singleprice
+
+    # Combine with L2231.mid.price
+    L2231.mid.price %>%
+      dplyr::bind_rows(L2231.mid.price_singleprice) -> L2231.mid.price
+    #....................... gcambreakout close edits
 
     L2231.onshore_wind_curve %>%
       left_join_error_no_match(L2231.mid.price, by = c("region")) -> L2231.onshore_wind_curve

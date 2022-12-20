@@ -518,7 +518,11 @@
 
 
 #-----------------
-# City breakout Templates
+# Subregion breakout Templates
+#-----------------
+
+#-----------------
+# All versions
 #-----------------
 
 #' Template for breakout-helpers.R
@@ -531,105 +535,6 @@
 #'  gcambreakout::template_breakout_helpers
 #' }
 "template_breakout_helpers"
-
-#' Template for zchunk_X201.socioeconomic_APPEND.R
-#'
-#' @source created by NB, ZK
-#' @format R script
-#' @examples
-#' \dontrun{
-#'  library(gcambreakout);
-#'  gcambreakout::template_zchunk_X201.socioeconomic_APPEND
-#' }
-"template_zchunk_X201.socioeconomic_APPEND"
-
-#' Template for zchunk_Xbatch_socioeconomics_xml_APPEND.R
-#'
-#' @source created by NB, ZK
-#' @format R script
-#' @examples
-#' \dontrun{
-#'  library(gcambreakout);
-#'  gcambreakout::template_zchunk_Xbatch_socioeconomics_xml_APPEND
-#' }
-"template_zchunk_Xbatch_socioeconomics_xml_APPEND"
-
-#' Template for zchunk_X244.building_APPEND.R
-#'
-#' @source created by NB, ZK
-#' @format R script
-#' @examples
-#' \dontrun{
-#'  library(gcambreakout);
-#'  gcambreakout::template_zchunk_X244.building_APPEND
-#' }
-"template_zchunk_X244.building_APPEND"
-
-#' Template for zchunk_Xbatch_building_xml_APPEND.R
-#'
-#' @source created by NB, ZK
-#' @format R script
-#' @examples
-#' \dontrun{
-#'  library(gcambreakout);
-#'  gcambreakout::template_zchunk_Xbatch_building_xml_APPEND
-#' }
-"template_zchunk_Xbatch_building_xml_APPEND"
-
-#' Template for zchunk_X232.industry_APPEND.R
-#'
-#' @source created by NB, ZK
-#' @format R script
-#' @examples
-#' \dontrun{
-#'  library(gcambreakout);
-#'  gcambreakout::template_zchunk_X232.industry_APPEND
-#' }
-"template_zchunk_X232.industry_APPEND"
-
-#' Template for zchunk_Xbatch_industry_xml_APPEND.R
-#'
-#' @source created by NB, ZK
-#' @format R script
-#' @examples
-#' \dontrun{
-#'  library(gcambreakout);
-#'  gcambreakout::template_zchunk_Xbatch_industry_xml_APPEND
-#' }
-"template_zchunk_Xbatch_industry_xml_APPEND"
-
-#' Template for zchunk_X254.transportation_APPEND.R
-#'
-#' @source created by NB, ZK
-#' @format R script
-#' @examples
-#' \dontrun{
-#'  library(gcambreakout);
-#'  gcambreakout::zchunk_X254.transportation_APPEND
-#' }
-"template_zchunk_X254.transportation_APPEND"
-
-#' Template for zchunk_Xbatch_transportation_xml_APPEND.R
-#'
-#' @source created by NB, ZK
-#' @format R script
-#' @examples
-#' \dontrun{
-#'  library(gcambreakout);
-#'  gcambreakout::template_zchunk_Xbatch_transportation_xml_APPEND
-#' }
-"template_zchunk_Xbatch_transportation_xml_APPEND"
-
-#' Template for zchunk_Xbatch_liquids_limits_xml_APPEND.R
-#'
-#' @source created by NB, ZK
-#' @format R script
-#' @examples
-#' \dontrun{
-#'  library(gcambreakout);
-#'  gcambreakout::template_zchunk_Xbatch_liquids_limits_xml_APPEND
-#' }
-"template_zchunk_Xbatch_liquids_limits_xml_APPEND"
 
 #' Template for pcgdpProjection file inputs
 #'
@@ -652,4 +557,223 @@
 #'  gcambreakout::template_pop_projection
 #' }
 "template_pop_projection"
+
+#-----------------
+# GCAM v5.4
+#-----------------
+
+#' Template for zchunk_X201.socioeconomic_APPEND_gcam5p4.R
+#'
+#' @source created by NB, ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_X201.socioeconomic_APPEND_gcam5p4
+#' }
+"template_zchunk_X201.socioeconomic_APPEND_gcam5p4"
+
+#' Template for zchunk_Xbatch_socioeconomics_xml_APPEND_gcam5p4.R
+#'
+#' @source created by NB, ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_Xbatch_socioeconomics_xml_APPEND_gcam5p4
+#' }
+"template_zchunk_Xbatch_socioeconomics_xml_APPEND_gcam5p4"
+
+#' Template for zchunk_X244.building_APPEND_gcam5p4.R
+#'
+#' @source created by NB, ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_X244.building_APPEND_gcam5p4
+#' }
+"template_zchunk_X244.building_APPEND_gcam5p4"
+
+#' Template for zchunk_Xbatch_building_xml_APPEND_gcam5p4.R
+#'
+#' @source created by NB, ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_Xbatch_building_xml_APPEND_gcam5p4
+#' }
+"template_zchunk_Xbatch_building_xml_APPEND_gcam5p4"
+
+#' Template for zchunk_X232.industry_APPEND_gcam5p4.R
+#'
+#' @source created by NB, ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_X232.industry_APPEND_gcam5p4
+#' }
+"template_zchunk_X232.industry_APPEND_gcam5p4"
+
+#' Template for zchunk_Xbatch_industry_xml_APPEND_gcam5p4.R
+#'
+#' @source created by NB, ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_Xbatch_industry_xml_APPEND_gcam5p4
+#' }
+"template_zchunk_Xbatch_industry_xml_APPEND_gcam5p4"
+
+#' Template for zchunk_X254.transportation_APPEND_gcam5p4.R
+#'
+#' @source created by NB, ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::zchunk_X254.transportation_APPEND_gcam5p4
+#' }
+"template_zchunk_X254.transportation_APPEND_gcam5p4"
+
+#' Template for zchunk_Xbatch_transportation_xml_APPEND_gcam5p4.R
+#'
+#' @source created by NB, ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_Xbatch_transportation_xml_APPEND_gcam5p4
+#' }
+"template_zchunk_Xbatch_transportation_xml_APPEND_gcam5p4"
+
+#' Template for zchunk_Xbatch_liquids_limits_xml_APPEND_gcam5p4.R
+#'
+#' @source created by NB, ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_Xbatch_liquids_limits_xml_APPEND_gcam5p4
+#' }
+"template_zchunk_Xbatch_liquids_limits_xml_APPEND_gcam5p4"
+
+
+#-----------------
+# GCAM v 6.0
+#-----------------
+
+#' Template for zchunk_X201.socioeconomic_APPEND_gcam6p0.R
+#'
+#' @source created by NB, ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_X201.socioeconomic_APPEND_gcam6p0
+#' }
+"template_zchunk_X201.socioeconomic_APPEND_gcam6p0"
+
+#' Template for zchunk_Xbatch_socioeconomics_xml_APPEND_gcam6p0.R
+#'
+#' @source created by NB, ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_Xbatch_socioeconomics_xml_APPEND_gcam6p0
+#' }
+"template_zchunk_Xbatch_socioeconomics_xml_APPEND_gcam6p0"
+
+#' Template for zchunk_X244.building_APPEND_gcam6p0.R
+#'
+#' @source created by NB, ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_X244.building_APPEND_gcam6p0
+#' }
+"template_zchunk_X244.building_APPEND_gcam6p0"
+
+#' Template for zchunk_Xbatch_building_xml_APPEND_gcam6p0.R
+#'
+#' @source created by NB, ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_Xbatch_building_xml_APPEND_gcam6p0
+#' }
+"template_zchunk_Xbatch_building_xml_APPEND_gcam6p0"
+
+#' Template for zchunk_X232.industry_APPEND_gcam6p0.R
+#'
+#' @source created by NB, ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_X232.industry_APPEND_gcam6p0
+#' }
+"template_zchunk_X232.industry_APPEND_gcam6p0"
+
+#' Template for zchunk_Xbatch_industry_xml_APPEND_gcam6p0.R
+#'
+#' @source created by NB, ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_Xbatch_industry_xml_APPEND_gcam6p0
+#' }
+"template_zchunk_Xbatch_industry_xml_APPEND_gcam6p0"
+
+#' Template for zchunk_X254.transportation_APPEND_gcam6p0.R
+#'
+#' @source created by NB, ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::zchunk_X254.transportation_APPEND_gcam6p0
+#' }
+"template_zchunk_X254.transportation_APPEND_gcam6p0"
+
+#' Template for zchunk_Xbatch_transportation_xml_APPEND_gcam6p0.R
+#'
+#' @source created by NB, ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_Xbatch_transportation_xml_APPEND_gcam6p0
+#' }
+"template_zchunk_Xbatch_transportation_xml_APPEND_gcam6p0"
+
+#' Template for zchunk_Xbatch_liquids_limits_xml_APPEND_gcam6p0.R
+#'
+#' @source created by NB, ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_Xbatch_liquids_limits_xml_APPEND_gcam6p0
+#' }
+"template_zchunk_Xbatch_liquids_limits_xml_APPEND_gcam6p0"
+
+
+#' Template for zchunk_Xbatch_water_demand_industry_xml_APPEND_gcam6p0.R
+#'
+#' @source created by NB, ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_Xbatch_water_demand_industry_xml_APPEND_gcam6p0
+#' }
+"template_zchunk_Xbatch_water_demand_industry_xml_APPEND_gcam6p0"
 

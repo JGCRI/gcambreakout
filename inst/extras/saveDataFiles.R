@@ -75,6 +75,39 @@ mapping_modules <- tibble::tribble(
 
 usethis::use_data(mapping_modules, version=3, overwrite=T)
 
+
+
+# mapping of modules for subregions
+mapping_modules_subregions <- tibble::tribble(
+  ~"module", ~"gcam_version",~"folder", ~"extension",~"error",
+  # GCAM Version 5.4
+  "zchunk_X201.socioeconomic_APPEND_gcam5p4.R","6.0","R",".R","gcamdata: GLU GCAM_region_ID",
+  "zchunk_X232.industry_APPEND_gcam5p4.R","6.0","R",".R","gcamdata: GLU GCAM_region_ID",
+  "zchunk_X244.building_APPEND_gcam5p4.R","6.0","R",".R","gcamdata: GLU GCAM_region_ID",
+  "zchunk_X254.transportation_APPEND_gcam5p4.R","6.0","R",".R","gcamdata: GLU GCAM_region_ID",
+  "zchunk_Xbatch_building_xml_APPEND_gcam5p4.R","6.0","R",".R","gcamdata: GLU GCAM_region_ID",
+  "zchunk_Xbatch_industry_xml_APPEND_gcam5p4.R","6.0","R",".R","gcamdata: GLU GCAM_region_ID",
+  "zchunk_Xbatch_liquids_limits_xml_APPEND_gcam5p4.R","6.0","R",".R","gcamdata: GLU GCAM_region_ID",
+  "zchunk_Xbatch_socioeconomics_xml_APPEND_gcam5p4.R","6.0","R",".R","gcamdata: GLU GCAM_region_ID",
+  "zchunk_Xbatch_transportation_xml_APPEND_gcam5p4.R","6.0","R",".R","gcamdata: GLU GCAM_region_ID",
+
+  # GCAM Version 6.0
+  "zchunk_X201.socioeconomic_APPEND_gcam6p0.R","6.0","R",".R","gcamdata: GLU GCAM_region_ID",
+  "zchunk_X232.industry_APPEND_gcam6p0.R","6.0","R",".R","gcamdata: GLU GCAM_region_ID",
+  "zchunk_X244.building_APPEND_gcam6p0.R","6.0","R",".R","gcamdata: GLU GCAM_region_ID",
+  "zchunk_X254.transportation_APPEND_gcam6p0.R","6.0","R",".R","gcamdata: GLU GCAM_region_ID",
+  "zchunk_Xbatch_building_xml_APPEND_gcam6p0.R","6.0","R",".R","gcamdata: GLU GCAM_region_ID",
+  "zchunk_Xbatch_industry_xml_APPEND_gcam6p0.R","6.0","R",".R","gcamdata: GLU GCAM_region_ID",
+  "zchunk_Xbatch_liquids_limits_xml_APPEND_gcam6p0.R","6.0","R",".R","gcamdata: GLU GCAM_region_ID",
+  "zchunk_Xbatch_socioeconomics_xml_APPEND_gcam6p0.R","6.0","R",".R","gcamdata: GLU GCAM_region_ID",
+  "zchunk_Xbatch_transportation_xml_APPEND_gcam6p0.R","6.0","R",".R","gcamdata: GLU GCAM_region_ID",
+  "zchunk_Xbatch_water_demand_industry_xml_APPEND_gcam6p0.R","6.0","R",".R","gcamdata: GLU GCAM_region_ID"
+
+)%>%
+  dplyr::arrange(module)
+
+usethis::use_data(mapping_modules_subregions, version=3, overwrite=T)
+
 #-------------------
 # Replace gcamdatasystem module templates
 #-------------------
@@ -239,20 +272,24 @@ use_data(template_zchunk_L171.desalination_breakout_gcamv54,version=3, overwrite
 
 
 #-------------------
-# City breakout Templates
+# SubRegion breakout Templates
 #-------------------
+
+#.............................................
+# GCAM v 5.4
+#............................................
 
 # breakout helpers
 template_breakout_helpers <- readr::read_lines(paste0(dataFileFolder,"/breakout_helpers.R"))
 use_data(template_breakout_helpers,version=3, overwrite=T)
 
 # Scoioeconomic R Template
-template_zchunk_X201.socioeconomic_APPEND <- readr::read_lines(paste0(dataFileFolder,"/zchunk_X201.socioeconomic_APPEND.R"))
-use_data(template_zchunk_X201.socioeconomic_APPEND,version=3, overwrite=T)
+template_zchunk_X201.socioeconomic_APPEND_gcam5p4 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_X201.socioeconomic_APPEND_gcam5p4.R"))
+use_data(template_zchunk_X201.socioeconomic_APPEND_gcam5p4,version=3, overwrite=T)
 
 # Socioeconomics Batch Template
-template_zchunk_Xbatch_socioeconomics_xml_APPEND <- readr::read_lines(paste0(dataFileFolder,"/zchunk_Xbatch_socioeconomics_xml_APPEND.R"))
-use_data(template_zchunk_Xbatch_socioeconomics_xml_APPEND,version=3, overwrite=T)
+template_zchunk_Xbatch_socioeconomics_xml_APPEND_gcam5p4 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_Xbatch_socioeconomics_xml_APPEND_gcam5p4.R"))
+use_data(template_zchunk_Xbatch_socioeconomics_xml_APPEND_gcam5p4,version=3, overwrite=T)
 
 # popProjection Template
 template_pop_projection <- data.table::fread(paste0(dataFileFolder,"/template_popProjection.csv")) %>% tibble::as_tibble()
@@ -263,31 +300,90 @@ template_pcgdp_projection <- data.table::fread(paste0(dataFileFolder,"/template_
 use_data(template_pcgdp_projection,version=3, overwrite=T)
 
 # Building R Template
-template_zchunk_X244.building_APPEND <- readr::read_lines(paste0(dataFileFolder,"/zchunk_X244.building_APPEND.R"))
-use_data(template_zchunk_X244.building_APPEND,version=3, overwrite=T)
+template_zchunk_X244.building_APPEND_gcam5p4 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_X244.building_APPEND_gcam5p4.R"))
+use_data(template_zchunk_X244.building_APPEND_gcam5p4,version=3, overwrite=T)
 
 # Building Batch Template
-template_zchunk_Xbatch_building_xml_APPEND <- readr::read_lines(paste0(dataFileFolder,"/zchunk_Xbatch_building_xml_APPEND.R"))
-use_data(template_zchunk_Xbatch_building_xml_APPEND,version=3, overwrite=T)
+template_zchunk_Xbatch_building_xml_APPEND_gcam5p4 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_Xbatch_building_xml_APPEND_gcam5p4.R"))
+use_data(template_zchunk_Xbatch_building_xml_APPEND_gcam5p4,version=3, overwrite=T)
 
 # Industry R Template
-template_zchunk_X232.industry_APPEND <- readr::read_lines(paste0(dataFileFolder,"/zchunk_X232.industry_APPEND.R"))
-use_data(template_zchunk_X232.industry_APPEND,version=3, overwrite=T)
+template_zchunk_X232.industry_APPEND_gcam5p4 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_X232.industry_APPEND_gcam5p4.R"))
+use_data(template_zchunk_X232.industry_APPEND_gcam5p4,version=3, overwrite=T)
 
 # Industry Batch Template
-template_zchunk_Xbatch_industry_xml_APPEND <- readr::read_lines(paste0(dataFileFolder,"/zchunk_Xbatch_industry_xml_APPEND.R"))
-use_data(template_zchunk_Xbatch_industry_xml_APPEND,version=3, overwrite=T)
+template_zchunk_Xbatch_industry_xml_APPEND_gcam5p4 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_Xbatch_industry_xml_APPEND_gcam5p4.R"))
+use_data(template_zchunk_Xbatch_industry_xml_APPEND_gcam5p4,version=3, overwrite=T)
 
 # Transport R Template
-template_zchunk_X254.transportation_APPEND <- readr::read_lines(paste0(dataFileFolder,"/zchunk_X254.transportation_APPEND.R"))
-use_data(template_zchunk_X254.transportation_APPEND,version=3, overwrite=T)
+template_zchunk_X254.transportation_APPEND_gcam5p4 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_X254.transportation_APPEND_gcam5p4.R"))
+use_data(template_zchunk_X254.transportation_APPEND_gcam5p4,version=3, overwrite=T)
 
 # Transport Batch Template
-template_zchunk_Xbatch_transportation_xml_APPEND <- readr::read_lines(paste0(dataFileFolder,"/zchunk_Xbatch_transportation_xml_APPEND.R"))
-use_data(template_zchunk_Xbatch_transportation_xml_APPEND,version=3, overwrite=T)
+template_zchunk_Xbatch_transportation_xml_APPEND_gcam5p4 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_Xbatch_transportation_xml_APPEND_gcam5p4.R"))
+use_data(template_zchunk_Xbatch_transportation_xml_APPEND_gcam5p4,version=3, overwrite=T)
 
 # Industry Batch Template
-template_zchunk_Xbatch_liquids_limits_xml_APPEND <- readr::read_lines(paste0(dataFileFolder,"/zchunk_Xbatch_liquids_limits_xml_APPEND.R"))
-use_data(template_zchunk_Xbatch_liquids_limits_xml_APPEND,version=3, overwrite=T)
+template_zchunk_Xbatch_liquids_limits_xml_APPEND_gcam5p4 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_Xbatch_liquids_limits_xml_APPEND_gcam5p4.R"))
+use_data(template_zchunk_Xbatch_liquids_limits_xml_APPEND_gcam5p4,version=3, overwrite=T)
+
+
+#.............................................
+# GCAM v 6.0
+#............................................
+
+# breakout helpers
+template_breakout_helpers <- readr::read_lines(paste0(dataFileFolder,"/breakout_helpers.R"))
+use_data(template_breakout_helpers,version=3, overwrite=T)
+
+# Scoioeconomic R Template
+template_zchunk_X201.socioeconomic_APPEND_gcam6p0 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_X201.socioeconomic_APPEND_gcam6p0.R"))
+use_data(template_zchunk_X201.socioeconomic_APPEND_gcam6p0,version=3, overwrite=T)
+
+# Socioeconomics Batch Template
+template_zchunk_Xbatch_socioeconomics_xml_APPEND_gcam6p0 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_Xbatch_socioeconomics_xml_APPEND_gcam6p0.R"))
+use_data(template_zchunk_Xbatch_socioeconomics_xml_APPEND_gcam6p0,version=3, overwrite=T)
+
+# popProjection Template
+template_pop_projection <- data.table::fread(paste0(dataFileFolder,"/template_popProjection.csv")) %>% tibble::as_tibble()
+use_data(template_pop_projection,version=3, overwrite=T)
+
+# pcgdpProjection Template
+template_pcgdp_projection <- data.table::fread(paste0(dataFileFolder,"/template_pcgdpProjection.csv")) %>% tibble::as_tibble()
+use_data(template_pcgdp_projection,version=3, overwrite=T)
+
+# Building R Template
+template_zchunk_X244.building_APPEND_gcam6p0 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_X244.building_APPEND_gcam6p0.R"))
+use_data(template_zchunk_X244.building_APPEND_gcam6p0,version=3, overwrite=T)
+
+# Building Batch Template
+template_zchunk_Xbatch_building_xml_APPEND_gcam6p0 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_Xbatch_building_xml_APPEND_gcam6p0.R"))
+use_data(template_zchunk_Xbatch_building_xml_APPEND_gcam6p0,version=3, overwrite=T)
+
+# Industry R Template
+template_zchunk_X232.industry_APPEND_gcam6p0 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_X232.industry_APPEND_gcam6p0.R"))
+use_data(template_zchunk_X232.industry_APPEND_gcam6p0,version=3, overwrite=T)
+
+# Industry Batch Template
+template_zchunk_Xbatch_industry_xml_APPEND_gcam6p0 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_Xbatch_industry_xml_APPEND_gcam6p0.R"))
+use_data(template_zchunk_Xbatch_industry_xml_APPEND_gcam6p0,version=3, overwrite=T)
+
+# Transport R Template
+template_zchunk_X254.transportation_APPEND_gcam6p0 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_X254.transportation_APPEND_gcam6p0.R"))
+use_data(template_zchunk_X254.transportation_APPEND_gcam6p0,version=3, overwrite=T)
+
+# Transport Batch Template
+template_zchunk_Xbatch_transportation_xml_APPEND_gcam6p0 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_Xbatch_transportation_xml_APPEND_gcam6p0.R"))
+use_data(template_zchunk_Xbatch_transportation_xml_APPEND_gcam6p0,version=3, overwrite=T)
+
+# Industry Batch Template
+template_zchunk_Xbatch_liquids_limits_xml_APPEND_gcam6p0 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_Xbatch_liquids_limits_xml_APPEND_gcam6p0.R"))
+use_data(template_zchunk_Xbatch_liquids_limits_xml_APPEND_gcam6p0,version=3, overwrite=T)
+
+# Industry Water Demand Template
+template_zchunk_Xbatch_water_demand_industry_xml_APPEND_gcam6p0 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_Xbatch_water_demand_industry_xml_APPEND_gcam6p0.R"))
+use_data(template_zchunk_Xbatch_water_demand_industry_xml_APPEND_gcam6p0,version=3, overwrite=T)
+
+
 
 

@@ -4,6 +4,7 @@
 #' @param region Default = NULL. Name of The region from which to break out the subregion.
 #' @param pop_projection Default = NULL. Projection of population (millions) for subregions and rest of region.
 #' @param pcgdp_projection Default = NULL. Projection of per capita gdp (thous 2005 USD per capita) for subregions and rest of region.
+#' @param gcam_version Default = 6.0. Which version of GCAM are the changes being applied to. Default may work on multiple
 #' @importFrom magrittr %>%
 #' @importFrom data.table :=
 #' @export
@@ -12,7 +13,8 @@
 breakout_subregions <- function(gcamdataFolder = NULL,
                          region = NULL,
                          pop_projection = NULL,
-                         pcgdp_projection = NULL) {
+                         pcgdp_projection = NULL,
+                         gcam_version = "6.0") {
 
   # Fold Code: Alt + 0
   # Unfold Code: Alt + SHIFT + O
@@ -26,6 +28,14 @@ breakout_subregions <- function(gcamdataFolder = NULL,
     NULL -> population -> year
 
     rlang::inform("Starting breakout_subregions ...")
+    rlang::inform(paste0("Running gcambreakout for GCAM version: ", gcam_version))
+    rlang::inform(paste0("Version of GCAM can be set using the argument `gcam_version`."))
+
+    if(!any(gcam_version %in% c("6.0","5.4"))){
+      rlang::warn(paste0("gcam_version picked: ", gcam_version, "is not available in this version of gcambreakout."))
+      rlang::warn(paste0("Please pick from the following versions: '5.4', '6.0'"))
+      rlang::warn(paste0("Setting to: '6.0'"))
+    }
 
     # Declare File Names
     file_iso_GCAM_regID = paste(gcamdataFolder,"/inst/extdata/common/iso_GCAM_regID.csv",sep = "")
@@ -246,28 +256,57 @@ breakout_subregions <- function(gcamdataFolder = NULL,
     }
 
     # Modify the template R files and replace with new subregions and corresponding region name
-    if(T){
+
+    if(gcam_version == '6.0'){
     # Modify Socioeconomic R Files
-    zchunk_X201 <- stringr::str_replace_all(gcambreakout::template_zchunk_X201.socioeconomic_APPEND, "APPEND", paste0("Subregions_", region))
-    zchunk_Xbatch <- stringr::str_replace_all(gcambreakout::template_zchunk_Xbatch_socioeconomics_xml_APPEND, "APPEND", paste0("Subregions_", region))
+    zchunk_X201 <- stringr::str_replace_all(gcambreakout::template_zchunk_X201.socioeconomic_APPEND_gcam6p0, "APPEND", paste0("Subregions_", region))
+    zchunk_Xbatch <- stringr::str_replace_all(gcambreakout::template_zchunk_Xbatch_socioeconomics_xml_APPEND_gcam6p0, "APPEND", paste0("Subregions_", region))
 
     # Modify Buildings R Files
-    zchunk_X244_build <- stringr::str_replace_all(gcambreakout::template_zchunk_X244.building_APPEND, c("APPEND_REGION" = region, "APPEND"= paste0("Subregions_", region)))
-    zchunk_Xbatch_build <- stringr::str_replace_all(gcambreakout::template_zchunk_Xbatch_building_xml_APPEND, c("APPEND_REGION" = region, "APPEND"= paste0("Subregions_", region)))
+    zchunk_X244_build <- stringr::str_replace_all(gcambreakout::template_zchunk_X244.building_APPEND_gcam6p0, c("APPEND_REGION" = region, "APPEND"= paste0("Subregions_", region)))
+    zchunk_Xbatch_build <- stringr::str_replace_all(gcambreakout::template_zchunk_Xbatch_building_xml_APPEND_gcam6p0, c("APPEND_REGION" = region, "APPEND"= paste0("Subregions_", region)))
 
     # Modify Industry R Files
-    zchunk_X232_ind <- stringr::str_replace_all(gcambreakout::template_zchunk_X232.industry_APPEND, c("APPEND_REGION" = region, "APPEND"= paste0("Subregions_", region)))
-    zchunk_Xbatch_ind <- stringr::str_replace_all(gcambreakout::template_zchunk_Xbatch_industry_xml_APPEND, c("APPEND_REGION" = region, "APPEND"= paste0("Subregions_", region)))
+    zchunk_X232_ind <- stringr::str_replace_all(gcambreakout::template_zchunk_X232.industry_APPEND_gcam6p0, c("APPEND_REGION" = region, "APPEND"= paste0("Subregions_", region)))
+    zchunk_Xbatch_ind <- stringr::str_replace_all(gcambreakout::template_zchunk_Xbatch_industry_xml_APPEND_gcam6p0, c("APPEND_REGION" = region, "APPEND"= paste0("Subregions_", region)))
 
     # Modify Transport R Files
-    zchunk_X254_trn <- stringr::str_replace_all(gcambreakout::template_zchunk_X254.transportation_APPEND, c("APPEND_REGION" = region, "APPEND"= paste0("Subregions_", region)))
-    zchunk_Xbatch_trn <- stringr::str_replace_all(gcambreakout::template_zchunk_Xbatch_transportation_xml_APPEND, c("APPEND_REGION" = region, "APPEND"= paste0("Subregions_", region)))
+    zchunk_X254_trn <- stringr::str_replace_all(gcambreakout::template_zchunk_X254.transportation_APPEND_gcam6p0, c("APPEND_REGION" = region, "APPEND"= paste0("Subregions_", region)))
+    zchunk_Xbatch_trn <- stringr::str_replace_all(gcambreakout::template_zchunk_Xbatch_transportation_xml_APPEND_gcam6p0, c("APPEND_REGION" = region, "APPEND"= paste0("Subregions_", region)))
 
     # Modify Liquid Limits R Files
-    zchunk_Xbatch_liquid_limits <- stringr::str_replace_all(gcambreakout::template_zchunk_Xbatch_liquids_limits_xml_APPEND, c("APPEND_REGION" = region, "APPEND"= paste0("Subregions_", region)))
+    zchunk_Xbatch_liquid_limits <- stringr::str_replace_all(gcambreakout::template_zchunk_Xbatch_liquids_limits_xml_APPEND_gcam6p0, c("APPEND_REGION" = region, "APPEND"= paste0("Subregions_", region)))
+
+    # Modify water_demand_industry R Files
+    zchunk_Xbatch_water_demand_industry <- stringr::str_replace_all(gcambreakout::template_zchunk_Xbatch_water_demand_industry_xml_APPEND_gcam6p0, c("APPEND_REGION" = region, "APPEND"= paste0("Subregions_", region)))
+
+    }
+
+    if(gcam_version == '5.4'){
+    # Modify Socioeconomic R Files
+    zchunk_X201 <- stringr::str_replace_all(gcambreakout::template_zchunk_X201.socioeconomic_APPEND_gcam5p4, "APPEND", paste0("Subregions_", region))
+    zchunk_Xbatch <- stringr::str_replace_all(gcambreakout::template_zchunk_Xbatch_socioeconomics_xml_APPEND_gcam5p4, "APPEND", paste0("Subregions_", region))
+
+    # Modify Buildings R Files
+    zchunk_X244_build <- stringr::str_replace_all(gcambreakout::template_zchunk_X244.building_APPEND_gcam5p4, c("APPEND_REGION" = region, "APPEND"= paste0("Subregions_", region)))
+    zchunk_Xbatch_build <- stringr::str_replace_all(gcambreakout::template_zchunk_Xbatch_building_xml_APPEND_gcam5p4, c("APPEND_REGION" = region, "APPEND"= paste0("Subregions_", region)))
+
+    # Modify Industry R Files
+    zchunk_X232_ind <- stringr::str_replace_all(gcambreakout::template_zchunk_X232.industry_APPEND_gcam5p4, c("APPEND_REGION" = region, "APPEND"= paste0("Subregions_", region)))
+    zchunk_Xbatch_ind <- stringr::str_replace_all(gcambreakout::template_zchunk_Xbatch_industry_xml_APPEND_gcam5p4, c("APPEND_REGION" = region, "APPEND"= paste0("Subregions_", region)))
+
+    # Modify Transport R Files
+    zchunk_X254_trn <- stringr::str_replace_all(gcambreakout::template_zchunk_X254.transportation_APPEND_gcam5p4, c("APPEND_REGION" = region, "APPEND"= paste0("Subregions_", region)))
+    zchunk_Xbatch_trn <- stringr::str_replace_all(gcambreakout::template_zchunk_Xbatch_transportation_xml_APPEND_gcam5p4, c("APPEND_REGION" = region, "APPEND"= paste0("Subregions_", region)))
+
+    # Modify Liquid Limits R Files
+    zchunk_Xbatch_liquid_limits <- stringr::str_replace_all(gcambreakout::template_zchunk_Xbatch_liquids_limits_xml_APPEND_gcam5p4, c("APPEND_REGION" = region, "APPEND"= paste0("Subregions_", region)))
+    }
+
 
     ##### Write modified R files into the R folder
 
+    if(any(gcam_version %in% c('5.4','6.0'))){
     # Write out Breakout helper functions
     readr::write_lines(gcambreakout::template_breakout_helpers,paste0(gcamdataFolder, "/R/breakout_helpers.R"))
     rlang::inform(paste0("Added new file: ", gcamdataFolder, "/R/breakout_helpers.R"))
@@ -303,6 +342,14 @@ breakout_subregions <- function(gcamdataFolder = NULL,
     # Write out Buildings Files
     readr::write_lines(zchunk_Xbatch_liquid_limits, paste0(gcamdataFolder, "/R/zchunk_Xbatch_liquids_limits_xml_Subregions_", region, ".R"))
     rlang::inform(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_Xbatch_liquids_limits_xml_Subregions_", region, ".R"))
+
+
+    if(any(gcam_version %in% c('6.0'))){
+      # Write out Buildings Files
+      readr::write_lines(zchunk_Xbatch_water_demand_industry, paste0(gcamdataFolder, "/R/zchunk_Xbatch_water_demand_industry_xml_Subregions_", region, ".R"))
+      rlang::inform(paste0("Added new file: ", gcamdataFolder, "/R/zchunk_Xbatch_water_demand_industry_xml_Subregions_", region, ".R"))
+      }
+
     }
   }
 
@@ -314,18 +361,18 @@ breakout_subregions <- function(gcamdataFolder = NULL,
   if(T){
   rlang::inform(paste0("Subregions ", paste0(subregions, collapse=", ")," sucessfully broken out from region: ", region, "."))
   rlang::inform(paste0("Please re-install gcamdata and re-run driver from your folder: ",gcamdataFolder))
-  rlang::inform(paste0("After running driver() please add the following xml to your configuration files:"))
+  rlang::inform(paste0("After running driver() please add the following xmls in this order to your configuration files:"))
   rlang::inform(paste0("socioeconomics_Subregions_", region, ".xml"))
   rlang::inform(paste0("buidling_Subregions_", region, ".xml"))
   rlang::inform(paste0("industry_Subregions_", region, ".xml"))
   rlang::inform(paste0("transportation_Subregions_", region, ".xml"))
+  rlang::inform(paste0("water_demand_industry_Subregions_", region, ".xml"))
   rlang::inform(paste0("liquid_limits_Subregions_", region, ".xml"))
   rlang::inform(paste0("Note: If during gcamdatabuild error: 'Error: .../input/gcamdata/man/GCAM_DATA_MAP.Rd:17: Bad /link text'",
                ", delete './input/gcamdata/man/GCAM_DATA_MAP.Rd' and then run devtools::install() in gcamdata.",
                " (Do not rebuild documentation after deleting GCAM_DATA_MAP.Rd."))
   rlang::inform("breakout_subregion complete.")
   }
-
 
 
 

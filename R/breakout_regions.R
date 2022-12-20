@@ -8,7 +8,7 @@
 #' (e.g. c("New Region Country 1, "New Region Country 2) corresponding to a single regionsNew = "New Region" OR
 #'  countriesNew = list(c("New Region 1 Country 1", "New Region 1 Country 2"), c("New Region 2 Country 1", "New Region 2 Country 2"))
 #'  corresponding to regionsNew = c("New Region 1", "New Region 2")))
-#' @param gcam_version Default = 5.4. Which version of GCAM are the changes being applied to. Default may work on multiple
+#' @param gcam_version Default = 6.0. Which version of GCAM are the changes being applied to. Default may work on multiple
 #' @importFrom magrittr %>%
 #' @importFrom data.table :=
 #' @export
@@ -17,12 +17,12 @@
 breakout_regions <- function(gcamdataFolder = NULL,
                      regionsNew = NULL,
                      countriesNew = NULL,
-                     gcam_version = "5.4") {
+                     gcam_version = "6.0") {
 
   # gcamdataFolder = NULL
   # regionsNew = NULL
   # countriesNew = NULL
-  # gcam_version = "5.4"
+  # gcam_version = "6.0"
 
   #..................
   # Initialize variables
@@ -57,6 +57,12 @@ breakout_regions <- function(gcamdataFolder = NULL,
                     file_A_soil_time_scale_R, file_A_soil_time_scale_R, file_emissions_A_regions,
                     file_A23.subsector_interp_R, file_energy_A_regions, file_offshore_wind_potential_scaler,
                     file_EPA_country_map)
+
+  if(!any(gcam_version %in% c("6.0","5.4"))){
+    rlang::warn(paste0("gcam_version picked: ", gcam_version, "is not available in this version of gcambreakout."))
+    rlang::warn(paste0("Please pick from the following versions: '5.4', '6.0'"))
+    rlang::warn(paste0("Setting to: '6.0'"))
+  }
 
   if(gcam_version == '6.0'){
     # Files need to be updated in GCAM 6.0

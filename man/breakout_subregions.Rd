@@ -8,7 +8,8 @@ breakout_subregions(
   gcamdataFolder = NULL,
   region = NULL,
   pop_projection = NULL,
-  pcgdp_projection = NULL
+  pcgdp_projection = NULL,
+  gcam_version = "6.0"
 )
 }
 \arguments{
@@ -19,6 +20,8 @@ breakout_subregions(
 \item{pop_projection}{Default = NULL. Projection of population (millions) for subregions and rest of region.}
 
 \item{pcgdp_projection}{Default = NULL. Projection of per capita gdp (thous 2005 USD per capita) for subregions and rest of region.}
+
+\item{gcam_version}{Default = 6.0. Which version of GCAM are the changes being applied to. Default may work on multiple}
 }
 \description{
 Function to breakout subregion in gcamdata
