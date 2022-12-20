@@ -28,11 +28,18 @@ module_water_batch_water_demand_industry_xml_APPEND <- function(command, ...) {
     parent_region <- "APPEND_REGION"
     subregions <- X201.Pop_APPEND$region
     subregions <- subregions[!subregions %in% "APPEND_REGION"]
+    subregions <- subregions %>% unique(); subregions
 
-    L232.StubTechCoef_subRegion <- L232.TechCoef %>%
-      dplyr::filter(region == parent_region) %>%
-      dplyr::mutate(region = subregions) %>%
-      dplyr::rename(stub.technology = technology); L232.StubTechCoef_subRegion
+    L232.StubTechCoef_subRegion <- data.frame()
+    for(i in subregions){
+
+      L232.StubTechCoef_subRegion_x <- L232.TechCoef %>%
+        dplyr::filter(region == parent_region) %>%
+        dplyr::mutate(region = i) %>%
+        dplyr::rename(stub.technology = technology)
+
+      L232.StubTechCoef_subRegion <- rbind(L232.StubTechCoef_subRegion,L232.StubTechCoef_subRegion_x)
+    }
 
     # ===================================================
 
