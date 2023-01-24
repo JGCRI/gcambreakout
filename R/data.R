@@ -570,6 +570,17 @@
 #' }
 "template_pop_projection"
 
+#' Template for industryShares
+#'
+#' @source created by NB, ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_industry_shares
+#' }
+"template_industry_shares"
+
 #-----------------
 # GCAM v5.4
 #-----------------

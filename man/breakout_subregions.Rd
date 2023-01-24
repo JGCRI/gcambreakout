@@ -9,6 +9,7 @@ breakout_subregions(
   region = NULL,
   pop_projection = NULL,
   pcgdp_projection = NULL,
+  industry_shares = NULL,
   gcam_version = "6.0"
 )
 }

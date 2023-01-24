@@ -35,12 +35,14 @@ breakout_regions(gcamdataFolder = gcamdataFolderx,
 breakout_subregions(gcamdataFolder = gcamdataFolderx,
                     region = "Thailand",
                     pop_projection = c(paste0(city_files_folder,"/Subregions_Thailand_pop.csv")),
-                    pcgdp_projection = c(paste0(city_files_folder,"/Subregions_Thailand_pcgdp.csv")))
+                    pcgdp_projection = c(paste0(city_files_folder,"/Subregions_Thailand_pcgdp.csv")),
+                    industry_shares = c(paste0(city_files_folder,"/Subregions_Thailand_industry_shares.csv")))
 
 breakout_subregions(gcamdataFolder = gcamdataFolderx,
                     region = "Malaysia",
                     pop_projection = c(paste0(city_files_folder,"/Subregions_Malaysia_pop.csv")),
-                    pcgdp_projection = c(paste0(city_files_folder,"/Subregions_Malaysia_pcgdp.csv")))
+                    pcgdp_projection = c(paste0(city_files_folder,"/Subregions_Malaysia_pcgdp.csv")),
+                    industry_shares = c(paste0(city_files_folder,"/Subregions_Malaysia_industry_shares.csv")))
 
 
 #restore(gcamdataFolder = gcamdataFolderx)

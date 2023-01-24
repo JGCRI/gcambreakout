@@ -18,6 +18,7 @@
 module_energy_X232.industry_APPEND <- function(command, ...) {
   if(command == driver.DECLARE_INPUTS) {
     return(c(FILE = "common/GCAM_region_names",
+             FILE = "breakout/APPEND_industry_share",
              "X201.Pop_APPEND",
              "X201.GDP_APPEND",
              "L232.Supplysector_ind",
@@ -110,6 +111,7 @@ module_energy_X232.industry_APPEND <- function(command, ...) {
 
     # Load required inputs
     GCAM_region_names <- get_data(all_data, "common/GCAM_region_names")
+    APPEND_industry_share <- get_data(all_data,"APPEND_industry_share")
     X201.Pop_APPEND <- get_data(all_data, "X201.Pop_APPEND")
     X201.GDP_APPEND <- get_data(all_data, "X201.GDP_APPEND")
     L232.Supplysector_ind <- get_data(all_data, "L232.Supplysector_ind", strip_attributes = TRUE)
@@ -315,71 +317,66 @@ module_energy_X232.industry_APPEND <- function(command, ...) {
       rename(stub.technology = technology) %>%
       mutate(market.name = region)
 
-    X232.pop_gdp_share_APPEND <- X201.Pop_APPEND %>%
-      left_join_error_no_match(X201.GDP_APPEND, by = c("region", "year")) %>%
-      group_by(year) %>%
-      dplyr::filter(region!="APPEND_REGION") %>%
-      mutate(popshare = totalPop / sum(totalPop),
-             gdpshare = GDP / sum(GDP)) %>%
-      ungroup() %>%
-      select(region, year, popshare, gdpshare)
+    # Industry Other Shares
+    APPEND_industry_share %>%
+      dplyr::filter(type=="other") -> APPEND_industry_share_other
 
     X232.StubTechCalInput_indenergy_APPEND <- L232.StubTechCalInput_indenergy %>%
       downscale_to_breakout_regions(data = .,
                                     composite_region = "APPEND_REGION",
                                     disag_regions = c(subregions),
-                                    share_data = X232.pop_gdp_share_APPEND, value.column = "calibrated.value", share.column = "gdpshare")
+                                    share_data = APPEND_industry_share_other, value.column = "calibrated.value", share.column = "share")
 
     X232.StubTechCalInput_indfeed_APPEND <- L232.StubTechCalInput_indfeed %>%
       downscale_to_breakout_regions(data = .,
                                     composite_region = "APPEND_REGION",
                                     disag_regions = c(subregions),
-                                    share_data = X232.pop_gdp_share_APPEND, value.column = "calibrated.value", share.column = "gdpshare")
+                                    share_data = APPEND_industry_share_other, value.column = "calibrated.value", share.column = "share")
 
     X232.StubTechProd_industry_APPEND <- L232.StubTechProd_industry %>%
       downscale_to_breakout_regions(data = .,
                                     composite_region = "APPEND_REGION",
                                     disag_regions = c(subregions),
-                                    share_data = X232.pop_gdp_share_APPEND, value.column = "calOutputValue", share.column = "gdpshare")
+                                    share_data = APPEND_industry_share_other, value.column = "calOutputValue", share.column = "share")
 
     X232.BaseService_ind_APPEND <- L232.BaseService_ind %>%
       downscale_to_breakout_regions(data = .,
                                     composite_region = "APPEND_REGION",
                                     disag_regions = c(subregions),
-                                    share_data = X232.pop_gdp_share_APPEND, value.column = "base.service", share.column = "gdpshare")
+                                    share_data = APPEND_industry_share_other, value.column = "base.service", share.column = "share")
 
     X232.pol_emissions_ind_APPEND <- L201.en_pol_emissions %>%
       filter(supplysector %in% Industry_sectors) %>%
       downscale_to_breakout_regions(data = .,
                                     composite_region = "APPEND_REGION",
                                     disag_regions = c(subregions),
-                                    share_data = X232.pop_gdp_share_APPEND, value.column = "input.emissions", share.column = "gdpshare")
+                                    share_data = APPEND_industry_share_other, value.column = "input.emissions", share.column = "share")
 
     X232.ghg_emissions_ind_APPEND <- L201.en_ghg_emissions %>%
       filter(supplysector %in% Industry_sectors) %>%
       downscale_to_breakout_regions(data = .,
                                     composite_region = "APPEND_REGION",
                                     disag_regions = c(subregions),
-                                    share_data = X232.pop_gdp_share_APPEND, value.column = "input.emissions", share.column = "gdpshare")
+                                    share_data = APPEND_industry_share_other, value.column = "input.emissions", share.column = "share")
 
     X232.nonco2_indproc_APPEND <- L232.nonco2_prc %>%
       filter(supplysector %in% Industry_sectors) %>%
       downscale_to_breakout_regions(data = .,
                                     composite_region = "APPEND_REGION",
                                     disag_regions = c(subregions),
-                                    share_data = X232.pop_gdp_share_APPEND, value.column = "input.emissions", share.column = "gdpshare")
+                                    share_data = APPEND_industry_share_other, value.column = "input.emissions", share.column = "share")
 
     X232.hfc_all_indproc_APPEND <- L241.hfc_all %>%
       downscale_to_breakout_regions(data = .,
                                     composite_region = "APPEND_REGION",
                                     disag_regions = c(subregions),
-                                    share_data = X232.pop_gdp_share_APPEND, value.column = "input.emissions", share.column = "gdpshare")
+                                    share_data = APPEND_industry_share_other, value.column = "input.emissions", share.column = "share")
 
     X232.pfc_all_indproc_APPEND <- L241.pfc_all %>%
       downscale_to_breakout_regions(data = .,
                                     composite_region = "APPEND_REGION",
                                     disag_regions = c(subregions),
-                                    share_data = X232.pop_gdp_share_APPEND, value.column = "input.emissions", share.column = "gdpshare")
+                                    share_data = APPEND_industry_share_other, value.column = "input.emissions", share.column = "share")
 
     # Finally, re-set the market name of the fuel commodities from the default (region where the technology lives) to the
     # "parent" region (APPEND_REGION)

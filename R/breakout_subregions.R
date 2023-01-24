@@ -14,6 +14,7 @@ breakout_subregions <- function(gcamdataFolder = NULL,
                          region = NULL,
                          pop_projection = NULL,
                          pcgdp_projection = NULL,
+                         industry_shares = NULL,
                          gcam_version = "6.0") {
 
   # Fold Code: Alt + 0
@@ -83,17 +84,26 @@ breakout_subregions <- function(gcamdataFolder = NULL,
       rlang::inform("Please provide full path to the 'pop_projection' file as a .csv or enter an R Data Table.")
       rlang::inform("This file must contain population projections for the subregions as well as for the Rest of 'Region'.")
       rlang::inform("It should have the following format as provided in the example gcambreakout::template_pop_projection for region = Thailand and subregions = Bangkok")
-      rlang::inform(gcambreakout::template_pop_projection)
+      print(gcambreakout::template_pop_projection)
       stop("Please provide full path to the 'pop_projection' file as a .csv or enter an R Data Table.")
     }
 
     if(is.null(pcgdp_projection)){
       rlang::inform("Please provide the 'pcgdp_projection' file as a .csv or enter an R Data Table.")
       rlang::inform("This file must contain per capita GDP projections for the subregions as well as for the Rest of 'Region'.")
-      rlang::inform("It should have the following format as provided in the example gcambreakout::template_pcgdp_projection for region = THailand and subregions = Bangkok")
-      rlang::inform(gcambreakout::template_pcgdp_projection)
+      rlang::inform("It should have the following format as provided in the example gcambreakout::template_pcgdp_projection for region = Thailand and subregions = Bangkok")
+      print(gcambreakout::template_pcgdp_projection)
       stop("Please provide the 'pcgdp_projection' file as a .csv or enter an R Data Table.")
     }
+
+    if(is.null(industry_shares)){
+      rlang::inform("Please provide the 'industry_shares' file as a .csv or enter an R Data Table.")
+      rlang::inform("This file must contain % share for industry for each subregion as well as for the Rest of 'Region'.")
+      rlang::inform("It should have the following format as provided in the example gcambreakout::template_industry_shares for region = Thailand and subregions = Bangkok")
+      print(gcambreakout::template_industry_shares)
+      stop("Please provide the 'industry_shares' file as a .csv or enter an R Data Table.")
+    }
+
 
     # Check that population file format is correct and contains both subregions as well as Rest of Region data
     if(any(class(pop_projection) %in% "character")){
@@ -121,10 +131,31 @@ breakout_subregions <- function(gcamdataFolder = NULL,
       stop("Please check PCGDP projection file is formatted correctly.")
     }
 
+    # Check that industry file format is correct and contains both subregions as well as Rest of Region data
+    if(any(class(industry_shares) %in% "character")){
+      if(grepl(".csv",industry_shares)){
+        if(file.exists(industry_shares)){
+          industry_shares_data = utils::read.csv(industry_shares, sep = ",", comment.char = "#")%>% tibble::as_tibble(); industry_shares_data
+        } else {stop(paste0("industry_shares file provided does not exist: ", industry_shares))}
+      }
+    } else { industry_shares_data = industry_shares}
+
+    if (!any(paste0("Rest of ",region) %in% unique(industry_shares_data$region) & ncol(industry_shares_data)==4)){
+      stop("Please check industry_shares file is formatted correctly.")
+    }
+
+    # Check Industry Shares are complete
+    industry_shares_data %>%
+      dplyr::filter(region != region) %>%
+      dplyr::group_by(type,year) %>%
+      dplyr::mutate(total_check=sum(share)) -> total_share_check
+    if(any(total_share_check$total_check!=100)){stop("Total shares for subregions and rest of region in industry_share.csv do not equal 100.")}
 
     subregions_pop <- unique(pop$region)
     subregions_pcgdp <- unique(pcgdp$region)
+    subregions_industry <- unique(industry_shares_data$region)
     if(!any(subregions_pop %in% subregions_pcgdp)){stop("subregions in pop_projection and pcgdp_projection file must be the same.")}
+    if(!any(subregions_pop %in% subregions_industry)){stop("subregions in pop_projection and industry_shares file must be the same.")}
     subregions <- subregions_pop
 
     rlang::inform(paste0("Starting breakout for subregions: ", paste0(subregions,collapse=", ")))
@@ -154,6 +185,12 @@ breakout_subregions <- function(gcamdataFolder = NULL,
         rlang::inform(paste0("File: ", breakoutFolder, "/Subregions_", region, "_pcgdp.csv",
                      " alread exists and will be overwritten."))
         unlink(paste0(breakoutFolder, "/Subregions_", region, "_pcgdp.csv"))
+      }
+
+      if(file.exists(paste0(breakoutFolder, "/Subregions_", region, "_industry_shares.csv"))){
+        rlang::inform(paste0("File: ", breakoutFolder, "/Subregions_", region, "_industry_shares.csv",
+                             " alread exists and will be overwritten."))
+        unlink(paste0(breakoutFolder, "/Subregions_", region, "_industry_shares.csv"))
       }
 
       if(file.exists(paste0(gcamdataFolder, "/R/zchunk_Xbatch_socioeconomics_xml_Subregions_", region, ".R"))){
@@ -253,7 +290,24 @@ breakout_subregions <- function(gcamdataFolder = NULL,
     utils::write.csv(pcgdp, con, row.names = F)
     close(con)
     closeAllConnections()
+
+    # Add comments to industry share files
+    filename = paste0(breakoutFolder, "/Subregions_", region, "_industry_shares.csv")
+    con <- file(filename, open = "wt")
+    comments <- data.frame(Comments=
+                             c(paste0("# File: Subregions_", region, "_industry_shares.csv"),
+                               paste0("# Title: Subregions and rest-of-", region," shares for different types of industrial sectors"),
+                               "# Units: Percentage",
+                               "# Description: Computed off-line",
+                               "# Column types: cicn",
+                               "# ----------"))
+    for (i in 1:nrow(comments)) {
+      writeLines(paste(comments[i, ]), con)
     }
+    utils::write.csv(industry_shares_data, con, row.names = F)
+    close(con)
+    closeAllConnections()
+  }
 
     # Modify the template R files and replace with new subregions and corresponding region name
 
@@ -368,9 +422,9 @@ breakout_subregions <- function(gcamdataFolder = NULL,
   rlang::inform(paste0("transportation_Subregions_", region, ".xml"))
   rlang::inform(paste0("water_demand_industry_Subregions_", region, ".xml"))
   rlang::inform(paste0("liquid_limits_Subregions_", region, ".xml"))
-  rlang::inform(paste0("Note: If during gcamdatabuild error: 'Error: .../input/gcamdata/man/GCAM_DATA_MAP.Rd:17: Bad /link text'",
-               ", delete './input/gcamdata/man/GCAM_DATA_MAP.Rd' and then run devtools::install() in gcamdata.",
-               " (Do not rebuild documentation after deleting GCAM_DATA_MAP.Rd."))
+  # rlang::inform(paste0("Note: If during gcamdatabuild error: 'Error: .../input/gcamdata/man/GCAM_DATA_MAP.Rd:17: Bad /link text'",
+  #              ", delete './input/gcamdata/man/GCAM_DATA_MAP.Rd' and then run devtools::install() in gcamdata.",
+  #              " (Do not rebuild documentation after deleting GCAM_DATA_MAP.Rd."))
   rlang::inform("breakout_subregion complete.")
   }
 

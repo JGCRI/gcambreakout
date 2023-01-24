@@ -1,0 +1,131 @@
+# File: Subregions_Thailand_industry_share.csv
+# Title: Subregions and rest-of-Thailand shares for different types of industrial sectors
+# Units: Percentage
+# Description: Computed off-line
+# Column types: cin
+# ----------
+region,year,type,share
+Bangkok,1971,other,5
+Bangkok,1972,other,5
+Bangkok,1973,other,5
+Bangkok,1974,other,5
+Bangkok,1975,other,5
+Bangkok,1976,other,5
+Bangkok,1977,other,5
+Bangkok,1978,other,5
+Bangkok,1979,other,5
+Bangkok,1980,other,5
+Bangkok,1981,other,5
+Bangkok,1982,other,5
+Bangkok,1983,other,5
+Bangkok,1984,other,5
+Bangkok,1985,other,5
+Bangkok,1986,other,5
+Bangkok,1987,other,5
+Bangkok,1988,other,5
+Bangkok,1989,other,5
+Bangkok,1990,other,5
+Bangkok,1991,other,5
+Bangkok,1992,other,5
+Bangkok,1993,other,5
+Bangkok,1994,other,5
+Bangkok,1995,other,5
+Bangkok,1996,other,5
+Bangkok,1997,other,5
+Bangkok,1998,other,5
+Bangkok,1999,other,5
+Bangkok,2000,other,5
+Bangkok,2001,other,5
+Bangkok,2002,other,5
+Bangkok,2003,other,5
+Bangkok,2004,other,5
+Bangkok,2005,other,5
+Bangkok,2006,other,5
+Bangkok,2007,other,5
+Bangkok,2008,other,5
+Bangkok,2009,other,5
+Bangkok,2010,other,5
+Bangkok,2011,other,5
+Bangkok,2012,other,5
+Bangkok,2013,other,5
+Bangkok,2014,other,5
+Bangkok,2015,other,5
+Bangkok,2020,other,5
+Bangkok,2025,other,5
+Bangkok,2030,other,5
+Bangkok,2035,other,5
+Bangkok,2040,other,5
+Bangkok,2045,other,5
+Bangkok,2050,other,5
+Bangkok,2055,other,5
+Bangkok,2060,other,5
+Bangkok,2065,other,5
+Bangkok,2070,other,5
+Bangkok,2075,other,5
+Bangkok,2080,other,5
+Bangkok,2085,other,5
+Bangkok,2090,other,5
+Bangkok,2095,other,5
+Bangkok,2100,other,5
+Rest of Thailand,1971,other,95
+Rest of Thailand,1972,other,95
+Rest of Thailand,1973,other,95
+Rest of Thailand,1974,other,95
+Rest of Thailand,1975,other,95
+Rest of Thailand,1976,other,95
+Rest of Thailand,1977,other,95
+Rest of Thailand,1978,other,95
+Rest of Thailand,1979,other,95
+Rest of Thailand,1980,other,95
+Rest of Thailand,1981,other,95
+Rest of Thailand,1982,other,95
+Rest of Thailand,1983,other,95
+Rest of Thailand,1984,other,95
+Rest of Thailand,1985,other,95
+Rest of Thailand,1986,other,95
+Rest of Thailand,1987,other,95
+Rest of Thailand,1988,other,95
+Rest of Thailand,1989,other,95
+Rest of Thailand,1990,other,95
+Rest of Thailand,1991,other,95
+Rest of Thailand,1992,other,95
+Rest of Thailand,1993,other,95
+Rest of Thailand,1994,other,95
+Rest of Thailand,1995,other,95
+Rest of Thailand,1996,other,95
+Rest of Thailand,1997,other,95
+Rest of Thailand,1998,other,95
+Rest of Thailand,1999,other,95
+Rest of Thailand,2000,other,95
+Rest of Thailand,2001,other,95
+Rest of Thailand,2002,other,95
+Rest of Thailand,2003,other,95
+Rest of Thailand,2004,other,95
+Rest of Thailand,2005,other,95
+Rest of Thailand,2006,other,95
+Rest of Thailand,2007,other,95
+Rest of Thailand,2008,other,95
+Rest of Thailand,2009,other,95
+Rest of Thailand,2010,other,95
+Rest of Thailand,2011,other,95
+Rest of Thailand,2012,other,95
+Rest of Thailand,2013,other,95
+Rest of Thailand,2014,other,95
+Rest of Thailand,2015,other,95
+Rest of Thailand,2020,other,95
+Rest of Thailand,2025,other,95
+Rest of Thailand,2030,other,95
+Rest of Thailand,2035,other,95
+Rest of Thailand,2040,other,95
+Rest of Thailand,2045,other,95
+Rest of Thailand,2050,other,95
+Rest of Thailand,2055,other,95
+Rest of Thailand,2060,other,95
+Rest of Thailand,2065,other,95
+Rest of Thailand,2070,other,95
+Rest of Thailand,2075,other,95
+Rest of Thailand,2080,other,95
+Rest of Thailand,2085,other,95
+Rest of Thailand,2090,other,95
+Rest of Thailand,2095,other,95
+Rest of Thailand,2100,other,95

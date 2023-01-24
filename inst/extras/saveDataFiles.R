@@ -298,6 +298,10 @@ use_data(template_pop_projection,version=3, overwrite=T)
 template_pcgdp_projection <- data.table::fread(paste0(dataFileFolder,"/template_pcgdpProjection.csv")) %>% tibble::as_tibble()
 use_data(template_pcgdp_projection,version=3, overwrite=T)
 
+# industryShares Template
+template_industry_shares <- data.table::fread(paste0(dataFileFolder,"/template_industryShares.csv")) %>% tibble::as_tibble()
+use_data(template_industry_shares,version=3, overwrite=T)
+
 # Building R Template
 template_zchunk_X244.building_APPEND_gcam5p4 <- readr::read_lines(paste0(dataFileFolder,"/zchunk_X244.building_APPEND_gcam5p4.R"))
 use_data(template_zchunk_X244.building_APPEND_gcam5p4,version=3, overwrite=T)
