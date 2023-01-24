@@ -18,7 +18,7 @@
 module_energy_X232.industry_APPEND <- function(command, ...) {
   if(command == driver.DECLARE_INPUTS) {
     return(c(FILE = "common/GCAM_region_names",
-             FILE = "breakout/APPEND_industry_share",
+             FILE = "breakout/APPEND_industry_shares",
              "X201.Pop_APPEND",
              "X201.GDP_APPEND",
              "L232.Supplysector_ind",
