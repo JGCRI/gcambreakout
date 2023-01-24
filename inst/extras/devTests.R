@@ -6,6 +6,7 @@ gcamdataFolderx <- "C:/gcam/gcam-core_stash/input/gcamdata"
 city_files_folder <- "C:/gcam/gcam-core_stash/input/gcamdata/inst/extdata/breakout"
 gcam_version_i="6.0"
 #gcamdataFolderx <- "C:/gcam/gcam-v5.4-Windows-Release-Package/input/gcamdata"
+#gcamdataFolderx <- "C:/gcam/gcam-v6.0-Windows-Release-Package/input/gcamdata"
 
 countries_allowed <- read.csv(paste0(gcamdataFolderx,"/inst/extdata/common/iso_GCAM_regID.csv"), comment.char = '#', header=T); countries_allowed$country_name%>%sort()
 current_GCAM_regions <- read.csv(paste0(gcamdataFolderx,"/inst/extdata/common/GCAM_region_names.csv"), comment.char = '#', header=T); current_GCAM_regions%>%arrange(GCAM_region_ID)

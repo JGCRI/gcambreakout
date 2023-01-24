@@ -516,6 +516,18 @@
 "template_zchunk_batch_land_input_5_IRR_MGMT_xml_breakout_gcamv6p0"
 
 
+#' Template for template_zchunk_batch_hydrogen_xml_breakout_gcamv6p0
+#'
+#' @source created by ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zchunk_batch_hydrogen_xml_breakout_gcamv6p0
+#' }
+"template_zchunk_batch_hydrogen_xml_breakout_gcamv6p0"
+
+
 
 #-----------------
 # Subregion breakout Templates
