@@ -1,7 +1,7 @@
 context("test restore")
 library(gcambreakout); library(testthat)
 
-test_that("restore generates original files", {
+test_that("restore generates original files for gcam v5p4", {
 
   # Reset data test data
   gcamdataFolderOriginal = paste(getwd(),"/original",sep="")
@@ -12,7 +12,8 @@ test_that("restore generates original files", {
 
   gcambreakout::breakout_regions(gcamdataFolder = gcamdataFolder,
                           regionsNew = "Thailand Laos",
-                          countriesNew = c("Thailand","Lao Peoples Democratic Republic"))
+                          countriesNew = c("Thailand","Lao Peoples Democratic Republic"),
+                          gcam_version = "5.4")
 
   gcambreakout::restore(gcamdataFolder = paste(getwd(),"/test",sep=""))
 

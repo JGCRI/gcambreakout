@@ -319,7 +319,8 @@ module_energy_X232.industry_APPEND <- function(command, ...) {
 
     # Industry Other Shares
     APPEND_industry_share %>%
-      dplyr::filter(type=="other") -> APPEND_industry_share_other
+      dplyr::filter(type=="other") %>%
+      dplyr::mutate(share=share/100)-> APPEND_industry_share_other
 
     X232.StubTechCalInput_indenergy_APPEND <- L232.StubTechCalInput_indenergy %>%
       downscale_to_breakout_regions(data = .,

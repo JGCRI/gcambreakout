@@ -418,9 +418,9 @@ breakout_subregions <- function(gcamdataFolder = NULL,
   rlang::inform(paste0("After running driver() please add the following xmls in this order to your configuration files:"))
   rlang::inform(paste0("socioeconomics_Subregions_", region, ".xml"))
   rlang::inform(paste0("buidling_Subregions_", region, ".xml"))
+  rlang::inform(paste0("water_demand_industry_Subregions_", region, ".xml"))
   rlang::inform(paste0("industry_Subregions_", region, ".xml"))
   rlang::inform(paste0("transportation_Subregions_", region, ".xml"))
-  rlang::inform(paste0("water_demand_industry_Subregions_", region, ".xml"))
   rlang::inform(paste0("liquid_limits_Subregions_", region, ".xml"))
   # rlang::inform(paste0("Note: If during gcamdatabuild error: 'Error: .../input/gcamdata/man/GCAM_DATA_MAP.Rd:17: Bad /link text'",
   #              ", delete './input/gcamdata/man/GCAM_DATA_MAP.Rd' and then run devtools::install() in gcamdata.",

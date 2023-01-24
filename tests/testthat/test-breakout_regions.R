@@ -1,7 +1,7 @@
 context("test breakout_regions")
 library(gcambreakout); library(testthat)
 
-test_that("breakout_regions generates new files", {
+test_that("breakout_regions generates new files for gcam5p4", {
 
   # Reset data test data
   gcamdataFolderOriginal = paste(getwd(),"/original",sep="")
@@ -12,7 +12,8 @@ test_that("breakout_regions generates new files", {
 
   gcambreakout::breakout_regions(gcamdataFolder = gcamdataFolder,
                           regionsNew = "Thailand Laos",
-                          countriesNew = c("Thailand","Lao Peoples Democratic Republic"))
+                          countriesNew = c("Thailand","Lao Peoples Democratic Republic"),
+                          gcam_version = "5.4")
 
   expect_true(all(
     file.exists(paste(getwd(),"/test/inst/extdata/common/iso_GCAM_regID_Original.csv",sep = "")),
