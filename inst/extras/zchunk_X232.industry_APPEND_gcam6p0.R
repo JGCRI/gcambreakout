@@ -111,7 +111,7 @@ module_energy_X232.industry_APPEND <- function(command, ...) {
 
     # Load required inputs
     GCAM_region_names <- get_data(all_data, "common/GCAM_region_names")
-    APPEND_industry_share <- get_data(all_data,"APPEND_industry_shares")
+    APPEND_industry_share <- get_data(all_data,"breakout/APPEND_industry_shares")
     X201.Pop_APPEND <- get_data(all_data, "X201.Pop_APPEND")
     X201.GDP_APPEND <- get_data(all_data, "X201.GDP_APPEND")
     L232.Supplysector_ind <- get_data(all_data, "L232.Supplysector_ind", strip_attributes = TRUE)
