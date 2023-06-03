@@ -23,7 +23,8 @@ Imports:
     tibble,
     stringr,
     readr,
-	rlang
+	rlang,
+	kableExtra
 VignetteBuilder: 
     knitr,
 	kableExtra,

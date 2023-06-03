@@ -13,7 +13,8 @@ resourse_files:
 knitr::opts_chunk$set(results = "hide", echo = FALSE, out.width = "75%", fig.align = 'center',
                      message = FALSE, warning = FALSE, error = FALSE, eval = TRUE,
                      fig.cap = "center", kable.styling = "bootstrap",
-                     kable.table.attr = "style='margin-left: auto; margin-right: auto;'")
+                     kable.table.attr = "style='margin-left: auto; margin-right: auto;'",
+                     rmarkdown.html_vignette.check_title = FALSE)
 ```
 
 <!-------------------------->
