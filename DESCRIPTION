@@ -26,6 +26,7 @@ Imports:
 	rlang
 VignetteBuilder: 
     knitr,
+	kableExtra,
     pander
 Depends: 
     R (>= 2.10)
