@@ -53,6 +53,13 @@
   </a>
 </li>
 <li>
+  <a href="../articles/regional.html">
+    <span class="fa fa-globe"></span>
+     
+    GCAM Regional Versions
+  </a>
+</li>
+<li>
   <a href="../articles/debug.html">
     <span class="fas fa-bug"></span>
      
@@ -91,7 +98,7 @@
 
       
 
-      </header><script src="userguide_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>User Guide</h1>
@@ -114,9 +121,11 @@
 <p>Before running gcambreakout you will need:</p>
 <ul>
 <li>A running version of GCAM version 5.4</li>
-<li>IEA_EnergyBalances_2019.csv file placed in the ./input/inst/extdata/energy</li>
+<li>IEA_EnergyBalances_2019.csv file placed in the
+./input/inst/extdata/energy</li>
 <li>CEDS data placed in input/gcamdata/inst/extdata/emissions/CEDS</li>
-<li>NOTE: The CEDS data and IEA_EnergyBalances_2019.csv is proprietary data and only accesible to internal JGCRI staff at <a href="https://stash.pnnl.gov/scm/jgcri/gcam-proprietary-data" class="external-link uri">https://stash.pnnl.gov/scm/jgcri/gcam-proprietary-data</a>.</li>
+<li>NOTE: The CEDS data and IEA_EnergyBalances_2019.csv is proprietary
+data and only accesible to internal JGCRI staff at <a href="https://stash.pnnl.gov/scm/jgcri/gcam-proprietary-data" class="external-link uri">https://stash.pnnl.gov/scm/jgcri/gcam-proprietary-data</a>.</li>
 </ul>
 <!--------------------------><!-------------------------->
 </div>
@@ -127,7 +136,12 @@
 <!-------------------------->
 <p align="center">
 <img src="vignetteFigs/divider.png"></p>
-<p><code>gcambreakout</code> works by editing the raw input files that define the regional structure in the <code>gcamdata</code> system. <code>gcamdata</code> is a folder inside every version of GCAM that contains all the input data and R code that is required to create the XML files that go into GCAM. The following files are edited with new regions added to them:</p>
+<p><code>gcambreakout</code> works by editing the raw input files that
+define the regional structure in the <code>gcamdata</code> system.
+<code>gcamdata</code> is a folder inside every version of GCAM that
+contains all the input data and R code that is required to create the
+XML files that go into GCAM. The following files are edited with new
+regions added to them:</p>
 <ul>
 <li>./input/gcamdata/inst/extdata/common/iso_GCAM_regID.csv</li>
 <li>./input/gcamdata/inst/extdata/common/GCAM_region_names.csv</li>
@@ -138,17 +152,26 @@
 <li>./input/gcamdata/inst/extdata/energy/A_regions.csv</li>
 <li>./input/gcamdata/inst/extdata/energy/offshore_wind_potential_scaler.csv</li>
 </ul>
-<p>Once these files have been changed the <code>gcamdata</code> system must be re-built and the <code>driver</code> function has to be re-run to re-generated all the XML files. <code>gcambreakout</code> has the following functions:</p>
+<p>Once these files have been changed the <code>gcamdata</code> system
+must be re-built and the <code>driver</code> function has to be re-run
+to re-generated all the XML files. <code>gcambreakout</code> has the
+following functions:</p>
 <ul>
 <li>
-<code><a href="../reference/breakout_regions.html">breakout_regions()</a></code> : Used to breakout countries from the existing 32 regions in GCAM Core. Countries chosen must come from the same parent region.</li>
+<code><a href="../reference/breakout_regions.html">breakout_regions()</a></code> : Used to breakout countries from
+the existing 32 regions in GCAM Core. Countries chosen must come from
+the same parent region.</li>
 <li>
-<code>breakout_city()</code>: Used to breakout cities from any existing GCAM region, including new regions that are created using <code><a href="../reference/breakout_regions.html">breakout_regions()</a></code>
+<code>breakout_city()</code>: Used to breakout cities from any
+existing GCAM region, including new regions that are created using
+<code><a href="../reference/breakout_regions.html">breakout_regions()</a></code>
 </li>
 <li>
-<code><a href="../reference/restore.html">restore()</a></code>: Used to restore the original files if desired (OPTIONAL)</li>
+<code><a href="../reference/restore.html">restore()</a></code>: Used to restore the original files if
+desired (OPTIONAL)</li>
 </ul>
-<p><strong>Note: Broken out regions will not have electricity trade with other regions.</strong></p>
+<p><strong>Note: Broken out regions will not have electricity trade with
+other regions.</strong></p>
 <!-------------------------->
 <!-------------------------->
 </div>
@@ -159,7 +182,15 @@
 <!-------------------------->
 <p align="center">
 <img src="vignetteFigs/divider.png"></p>
-<p>The <code><a href="../reference/breakout_regions.html">breakout_regions()</a></code> function can be used to breakout new regions in GCAM. Users can breakout a single new region composed of one or more countries or several new regions each composed of one or more countries. The new region name can be any name the user wants however the countries that make up the new region must be one of the countries listed in: <strong>./input/gcamdata/inst/extdata/common/iso_GCAM_regID.csv</strong> file. The following examples show how to breakout a single and multiple new regions composed of single and multiple countries.</p>
+<p>The <code><a href="../reference/breakout_regions.html">breakout_regions()</a></code> function can be used to breakout
+new regions in GCAM. Users can breakout a single new region composed of
+one or more countries or several new regions each composed of one or
+more countries. The new region name can be any name the user wants
+however the countries that make up the new region must be one of the
+countries listed in:
+<strong>./input/gcamdata/inst/extdata/common/iso_GCAM_regID.csv</strong>
+file. The following examples show how to breakout a single and multiple
+new regions composed of single and multiple countries.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/JGCRI/gcambreakout" class="external-link">gcambreakout</a></span><span class="op">)</span>; <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span></span>
@@ -224,20 +255,32 @@
 <!-------------------------->
 <p align="center">
 <img src="vignetteFigs/divider.png"></p>
-<p>To breakout subregions (e.g.provinces, states, cities) users need to provide the following:</p>
+<p>To breakout subregions (e.g.provinces, states, cities) users need to
+provide the following:</p>
 <ul>
-<li>region: The parent region from which the subregions are being broken out</li>
-<li>pop_projection: An R data table or a path to a .csv file which has columns <code>region</code>, <code>year</code>, <code>population</code>. The <code>population</code> should be in <code>millions</code>.</li>
-<li>pcgdp_projection: An R data table or a path to a .csv file which has columns <code>region</code>, <code>year</code>, <code>pcgdp</code>. The <code>pcgdp</code> should be in <code>thous 2005 USD per capita</code>
+<li>region: The parent region from which the subregions are being broken
+out</li>
+<li>pop_projection: An R data table or a path to a .csv file which has
+columns <code>region</code>, <code>year</code>, <code>population</code>.
+The <code>population</code> should be in <code>millions</code>.</li>
+<li>pcgdp_projection: An R data table or a path to a .csv file which has
+columns <code>region</code>, <code>year</code>, <code>pcgdp</code>. The
+<code>pcgdp</code> should be in
+<code>thous 2005 USD per capita</code>
 </li>
 </ul>
-<p>The <code>region</code> column in the tables above should include each new subregion as well as a region named “<strong>Rest of PARENT_REGION_NAME</strong>”. Example tables are provided as <code><a href="../reference/template_pcgdp_projection.html">gcambreakout::template_pcgdp_projection</a></code> and <code><a href="../reference/template_pop_projection.html">gcambreakout::template_pop_projection</a></code> for breaking out Bangkok from the larger Thailand region.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="co"># This will only work if after Thailand has been broken out as a separate region</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="kw">breakout_subregion</span>(<span class="dt">gcamdataFolder =</span> gcamdataFolderx,</span>
-<span id="cb2-4"><a href="#cb2-4"></a>                   <span class="dt">region =</span> <span class="st">"Thailand"</span>,</span>
-<span id="cb2-5"><a href="#cb2-5"></a>                   <span class="dt">pop_projection =</span> gcambreakout<span class="op">::</span>template_pop_projection),</span>
-<span id="cb2-6"><a href="#cb2-6"></a>                   pcgdp_projection =<span class="st"> </span>gcambreakout<span class="op">::</span>template_pcgdp_projection<span class="er">)</span></span></code></pre></div>
+<p>The <code>region</code> column in the tables above should include
+each new subregion as well as a region named “<strong>Rest of
+PARENT_REGION_NAME</strong>”. Example tables are provided as
+<code><a href="../reference/template_pcgdp_projection.html">gcambreakout::template_pcgdp_projection</a></code> and
+<code><a href="../reference/template_pop_projection.html">gcambreakout::template_pop_projection</a></code> for breaking out
+Bangkok from the larger Thailand region.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This will only work if after Thailand has been broken out as a separate region</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">breakout_subregion</span>(<span class="at">gcamdataFolder =</span> gcamdataFolderx,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">region =</span> <span class="st">"Thailand"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pop_projection =</span> gcambreakout<span class="sc">::</span>template_pop_projection),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                   pcgdp_projection <span class="ot">=</span> gcambreakout<span class="sc">::</span>template_pcgdp_projection<span class="er">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># Example format of gcambreakout::template_pop_projection</span></span>
@@ -437,7 +480,11 @@
 <!-------------------------->
 <p align="center">
 <img src="vignetteFigs/divider.png"></p>
-<p>Users can also restore back to the original files by running the following code. This will replace the newly created files with the versions appended with ’_Original’ and delete the appended files. The gcamdata system will have to be rebuilt using ‘install &amp; restart’ from R Studio once again followed by driver().</p>
+<p>Users can also restore back to the original files by running the
+following code. This will replace the newly created files with the
+versions appended with ’_Original’ and delete the appended files. The
+gcamdata system will have to be rebuilt using ‘install &amp; restart’
+from R Studio once again followed by driver().</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/JGCRI/gcambreakout" class="external-link">gcambreakout</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/restore.html">restore</a></span><span class="op">(</span>gcamdataFolder <span class="op">=</span> <span class="st">"PATH_TO_GCAM_FOLDER/input/gcamdata"</span><span class="op">)</span></span></code></pre></div>

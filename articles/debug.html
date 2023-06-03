@@ -53,6 +53,13 @@
   </a>
 </li>
 <li>
+  <a href="../articles/regional.html">
+    <span class="fa fa-globe"></span>
+     
+    GCAM Regional Versions
+  </a>
+</li>
+<li>
   <a href="../articles/debug.html">
     <span class="fas fa-bug"></span>
      
@@ -91,7 +98,7 @@
 
       
 
-      </header><script src="debug_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Debug Regions</h1>
@@ -111,16 +118,24 @@
 </h2>
 <!-------------------------->
 <!-------------------------->
-<p>When a new region is broken out using <code>gcambreakout</code> several errors can arise as a result of missing or modified data for the new region broken out or the remaining region left behind. These errors can occur at four different points in the workflow which include:</p>
+<p>When a new region is broken out using <code>gcambreakout</code>
+several errors can arise as a result of missing or modified data for the
+new region broken out or the remaining region left behind. These errors
+can occur at four different points in the workflow which include:</p>
 <ol style="list-style-type: decimal">
 <li>
-<code>gcambreakout</code>: The error may occur when running gcam breakout itself. Related to availability of raw data.</li>
+<code>gcambreakout</code>: The error may occur when running gcam
+breakout itself. Related to availability of raw data.</li>
 <li>
-<code>gcamdata</code>: The error may occur when regenerating package data. Related to processing the modified raw data.</li>
+<code>gcamdata</code>: The error may occur when regenerating package
+data. Related to processing the modified raw data.</li>
 <li>
-<code>xmls</code> The output XMLs may have several NA or NAN values. These won’t show up as errors but can be identified after examinging the XMLs.</li>
+<code>xmls</code> The output XMLs may have several NA or NAN values.
+These won’t show up as errors but can be identified after examinging the
+XMLs.</li>
 <li>
-<code>GCAM errors</code>: And finally all XMLs may be produced cleanly but GCAM may give calibration or other errors.</li>
+<code>GCAM errors</code>: And finally all XMLs may be produced
+cleanly but GCAM may give calibration or other errors.</li>
 </ol>
 <!--------------------------><!-------------------------->
 </div>
@@ -134,7 +149,7 @@
 <div class="section level3">
 <h3 id="gcambreakout-errors">gcambreakout errors<a class="anchor" aria-label="anchor" href="#gcambreakout-errors"></a>
 </h3>
-<table style="width:100%;" class="table">
+<table style="width:99%;" class="table">
 <colgroup>
 <col width="13%">
 <col width="20%">
@@ -149,7 +164,9 @@
 </tr></thead>
 <tbody><tr class="odd">
 <td><ul>
-<li>Error in left_join_error_no_match(., L123.LC_bm2_R_Past_Y_GLU, by = c(“GCAM_region_ID”,: left_join_no_match: NA values in new data columns</li>
+<li>Error in left_join_error_no_match(., L123.LC_bm2_R_Past_Y_GLU, by =
+c(“GCAM_region_ID”,: left_join_no_match: NA values in new data
+columns</li>
 </ul></td>
 <td><ul>
 <li>zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout.R</li>
@@ -188,7 +205,8 @@
 <!-------------------------->
 <p align="center">
 <img src="vignetteFigs/divider.png"></p>
-<p>Discus country in general. Regional issues, sectoral resources, size in region etc.</p>
+<p>Discus country in general. Regional issues, sectoral resources, size
+in region etc.</p>
 <div class="section level3">
 <h3 id="gcambreakout">gcambreakout<a class="anchor" aria-label="anchor" href="#gcambreakout"></a>
 </h3>
@@ -198,8 +216,8 @@
 <h3 id="gcamdata">gcamdata<a class="anchor" aria-label="anchor" href="#gcamdata"></a>
 </h3>
 <p><strong>Error 1:</strong></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>Error <span class="cf">in</span> <span class="kw">left_join_error_no_match</span>(., L123.LC_bm2_R_Past_Y_GLU, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">"GCAM_region_ID"</span>,  <span class="op">:</span><span class="st"> </span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="st">  </span>left_join_no_match<span class="op">:</span><span class="st"> </span><span class="ot">NA</span> values <span class="cf">in</span> new data columns</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">left_join_error_no_match</span>(., L123.LC_bm2_R_Past_Y_GLU, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"GCAM_region_ID"</span>,  <span class="sc">:</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  left_join_no_match<span class="sc">:</span> <span class="cn">NA</span> values <span class="cf">in</span> new data columns</span></code></pre></div>
 <p><strong>Solution 1:</strong></p>
 <ol style="list-style-type: decimal">
 <li>zchunk_LB120.LC_GIS_R_LTgis_Yh_GLU_breakout.R</li>
@@ -210,7 +228,7 @@
 <li>Details on fix:</li>
 </ul>
 <ol start="2" style="list-style-type: decimal">
-<li>zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout.R"<br>
+<li>zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout.R”<br>
 </li>
 </ol>
 <ul>
@@ -222,14 +240,26 @@
 <div class="section level3">
 <h3 id="xml">XML<a class="anchor" aria-label="anchor" href="#xml"></a>
 </h3>
-<p><strong>Error 1:</strong> File ‘all_fgas_emissions.xml’ - the supplysector “comm cooling” was not correctly built due to a lack of data in the IEA_EnergyBalances_2019.csv file. Specifically, the IEA_EnergyBalances_2019.csv shows zero electricity consumption in the commercial sector (‘COMMPUB’ flow in the IEA_EnergyBalances_2019.csv) of Angola in all historical years.</p>
+<p><strong>Error 1:</strong> File ‘all_fgas_emissions.xml’ - the
+supplysector “comm cooling” was not correctly built due to a lack of
+data in the IEA_EnergyBalances_2019.csv file. Specifically, the
+IEA_EnergyBalances_2019.csv shows zero electricity consumption in the
+commercial sector (‘COMMPUB’ flow in the IEA_EnergyBalances_2019.csv) of
+Angola in all historical years.</p>
 <p><strong>Solution 1:</strong></p>
-<p>File ‘zchunk_LA100.IEA_downscale_ctry.R’ (located at input/gcamdata/R) was modified to make sure a non-zero amount of electricity consumption exists in the commercial sector of Angola in the historical years (see section ‘UP FRONT ADJUSTMENTS (UFA)’, specifically section ‘UFA5’ in this R code, which shows the assumptions made for Angola). However, users can modify these assumptions based on specific data available for Angola.</p>
+<p>File ‘zchunk_LA100.IEA_downscale_ctry.R’ (located at
+input/gcamdata/R) was modified to make sure a non-zero amount of
+electricity consumption exists in the commercial sector of Angola in the
+historical years (see section ‘UP FRONT ADJUSTMENTS (UFA)’, specifically
+section ‘UFA5’ in this R code, which shows the assumptions made for
+Angola). However, users can modify these assumptions based on specific
+data available for Angola.</p>
 </div>
 <div class="section level3">
 <h3 id="gcam">GCAM<a class="anchor" aria-label="anchor" href="#gcam"></a>
 </h3>
-<p>No errors (tested using the GCAM reference scenario and after correcting all errors above).</p>
+<p>No errors (tested using the GCAM reference scenario and after
+correcting all errors above).</p>
 <!-------------------------->
 <!-------------------------->
 </div>
@@ -241,7 +271,8 @@
 <!-------------------------->
 <p align="center">
 <img src="vignetteFigs/divider.png"></p>
-<p>Discus country in general. Regional issues, sectoral resources, size in region etc.</p>
+<p>Discus country in general. Regional issues, sectoral resources, size
+in region etc.</p>
 <div class="section level3">
 <h3 id="gcambreakout-1">gcambreakout<a class="anchor" aria-label="anchor" href="#gcambreakout-1"></a>
 </h3>
@@ -251,8 +282,8 @@
 <h3 id="gcamdata-1">gcamdata<a class="anchor" aria-label="anchor" href="#gcamdata-1"></a>
 </h3>
 <p><strong>Error 1:</strong></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>Error <span class="cf">in</span> <span class="kw">left_join_error_no_match</span>(., L123.LC_bm2_R_Past_Y_GLU, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">"GCAM_region_ID"</span>,  <span class="op">:</span><span class="st"> </span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="st">  </span>left_join_no_match<span class="op">:</span><span class="st"> </span><span class="ot">NA</span> values <span class="cf">in</span> new data columns</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">left_join_error_no_match</span>(., L123.LC_bm2_R_Past_Y_GLU, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"GCAM_region_ID"</span>,  <span class="sc">:</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  left_join_no_match<span class="sc">:</span> <span class="cn">NA</span> values <span class="cf">in</span> new data columns</span></code></pre></div>
 <p><strong>Solution 1:</strong></p>
 </div>
 <div class="section level3">
@@ -263,7 +294,8 @@
 <div class="section level3">
 <h3 id="gcam-1">GCAM<a class="anchor" aria-label="anchor" href="#gcam-1"></a>
 </h3>
-<p>No errors (tested using the GCAM reference scenario and after correcting all errors above).</p>
+<p>No errors (tested using the GCAM reference scenario and after
+correcting all errors above).</p>
 </div>
 </div>
   </div>
