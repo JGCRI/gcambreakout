@@ -63,6 +63,7 @@ restore <- function(gcamdataFolder = NULL) {
   # Cities
   file_list_cities <- list.files(paste0(gcamdataFolder,"/R"), full.names = T)
   file_list_cities <- file_list_cities[grepl("zchunk_X",file_list_cities)]
+  file_list_cities <- file_list_cities[!grepl("building_breakout",file_list_cities)] # Remove breakout files from list
 
   }
 

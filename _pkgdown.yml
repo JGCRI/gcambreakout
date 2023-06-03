@@ -8,6 +8,9 @@ navbar:
     - text: "User Guide"
       icon: fas fa-book
       href: articles/userguide.html
+    - text: "GCAM Regional Versions"
+      icon: fa fa-globe
+      href: articles/regional.html
     - text: "Debug Regions"
       icon: fas fa-bug
       href: articles/debug.html
@@ -17,6 +20,6 @@ navbar:
     - icon: fa-newspaper-o
       text: "News"
       href: news/index.html
-      
+
 toc:
   depth: 4

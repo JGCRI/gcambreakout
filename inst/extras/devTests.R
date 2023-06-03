@@ -136,7 +136,3 @@ breakout_regions(gcamdataFolder = gcamdataFolderx,
 # Users can confirm that a new region has been added by opening the .csv file: ./input/gcamdata/inst/extdata/common/GCAM_region_names.csv
 restore(gcamdataFolder = gcamdataFolderx)  # (OPTIONAL) Uncomment this line and restore the datasystem to original state
 
-
-
-
-
