@@ -68,17 +68,17 @@ The table belows shows the versions of GCAM with new or enhanced regions along w
 library(kableExtra); library(dplyr)
 
 data.frame(
-  name = c('GCAM-KSA', 'GCAM-Australia', 'GCAM-Chile', 'GCAM-Korea', 'GCAM-CCDR', 'GCAM-EU'),
-  gcam_version = c('v6.0', 'v6.0', 'v6.0', '?','v5.4','v6.0'),
-  new_regions = c("Saudia Arabia", 'Australia', 'Chile', 'South Korea (Enhanced)',
+  name = c('GCAM-KSA', 'GCAM-Australia', 'GCAM-Chile', 'GCAM-LAC', 'GCAM-CCDR'),
+  gcam_version = c('v6.0', 'v6.0', 'v6.0', '?','v5.4'),
+  new_regions = c("Saudia Arabia", 'Australia', 'Chile', 'Uruguay',
                   'Multiple (Azerbaijan, Paraguay, Angola, Burkina Faso, Chad, Mali, Madagascar, Mauritania, Ghana, Cambodia, Democratic Republic of the Congo, Republic of Congo, Guinea-Bissau, Liberia, Ivory Coast)', 
                   'Bulgaria, Croatia, Cyprus, Czech Republic, Estonia, Hungary, Lithuania, Latvia, Malta, Poland, Romania, Slovakia, Slovenia, Austria, Belgium, Germany, Denmark, Spain, Finland, France, United Kingdom, Greece, Ireland, Italy, Luxembourg, Netherlands, Portugal, Sweden, Switzerland, Iceland, Norway'),
-  POC = c("Puneet Kamboj - puneet.kamboj@kapsarc.org", "Yeliz Simsek - yeliz.simsek@anu.edu.au", "Paelina DeStephano - paelina.destephano@pnnl.gov", 'Suduk Kim - suduk@ajou.ac.kr',
-          "Silvia Regina Santos Da Silva - ssantosd@gmu.edu", "Jon Sampedro - jon.sampedro@bc3research.org, Dirk Jan Van de Ven - dj.vandeven@bc3research.org"),
-  Insitution = c("KAPSARC", "Australian National University", "PNNL", "Ajou University",
-                 "George Mason University", "BC3"),
-  Link = c("https://github.com/KAPSARC/gcam-ksa", "None", "None", "None", 
-           "None", "None")) %>% 
+  POC = c("Puneet Kamboj - puneet.kamboj@kapsarc.org", "Yeliz Simsek - yeliz.simsek@anu.edu.au", "Paelina DeStephano - paelina.destephano@pnnl.gov", 'Brinda Yarlagadda - brinday@umd.edu; Tom Wild - thomas.wild@pnnl.gov',
+          "Silvia Regina Santos Da Silva - ssantosd@gmu.edu"),
+  Insitution = c("KAPSARC", "Australian National University", "PNNL", "PNNL",
+                 "George Mason University"),
+  Link = c("https://github.com/KAPSARC/gcam-ksa", "None", "None", "https://github.com/FeralFlows/GCAM-LAC/tree/6.0", 
+           "None")) %>% 
   kbl() %>%
   kable_styling(bootstrap_options = c("bordered","striped", "hover", "condensed", "responsive"), position="center", full_width = T) %>%
   row_spec(0, background = "#2A2A2A", color = "white") %>%
@@ -104,12 +104,13 @@ The table belows shows the versions of GCAM with subregions along with the POC a
 library(kableExtra); library(dplyr)
 
 data.frame(
-  name = c('GCAM-USA', 'GCAM-China', 'GCAM-India'),
-  gcam_version = c('core','?', '?'),
-  new_subregions = c("50 states + DC", "Provinces", "States"),
-  POC = c("Matthew Binsted - matthew.binsed@pnnl.gov, Gokul Iyer - gokul.iyer@pnnl.gov", "Qian Zhang - qiangzhang@tsinghua.edu.cn", "Vaibhav Chaturvedi - vaibhav.chaturvedi@ceew.in" ),
-  Insitution = c("PNNL", "Tsinghua University", "Council on Energy, Environment and Water (CEEW)"),
-  Link = c("https://github.com/JGCRI/gcam-core","None","None")) %>% 
+  name = c('GCAM-USA', 'GCAM-Korea','GCAM-China', 'GCAM-India', 'GCAM-EU'),
+  gcam_version = c('core','v5.3', '5.0', '?', 'v7.0 (in-progress)'),
+  new_subregions = c("50 states + DC", "17 Provinces","Provinces", "States","Bulgaria, Croatia, Cyprus, Czech Republic, Estonia, Hungary, Lithuania, Latvia, Malta, Poland, Romania, Slovakia, Slovenia, Austria, Belgium, Germany, Denmark, Spain, Finland, France, United Kingdom, Greece, Ireland, Italy, Luxembourg, Netherlands, Portugal, Sweden, Switzerland, Iceland, Norway
+"),
+  POC = c("Matthew Binsted - matthew.binsed@pnnl.gov, Gokul Iyer - gokul.iyer@pnnl.gov", "Suduk Kim - suduk@ajou.ac.kr, Seungho Jeon - sidus44@naver.com, MinYoung Roh - rohmin9122@gmail.com", "Qiang Zhang - qiangzhang@tsinghua.edu.cn", "Vaibhav Chaturvedi - vaibhav.chaturvedi@ceew.in", "Jon Sampedro - jon.sampedro@bc3research.org, Dirk Jan Van de Ven - dj.vandeven@bc3research.org"),
+  Insitution = c("PNNL", "Ajou University","Tsinghua University", "Council on Energy, Environment and Water (CEEW)", "BC3"),
+  Link = c("https://github.com/JGCRI/gcam-core","None","None","None","None")) %>% 
   kbl() %>%
   kable_styling(bootstrap_options = c("bordered","striped", "hover", "condensed", "responsive"), position="center", full_width = T) %>%
   row_spec(0, background = "#2A2A2A", color = "white") %>%
