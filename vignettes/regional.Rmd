@@ -2,7 +2,7 @@
 title: "GCAM Regional Versions"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Guide}
+  %\VignetteIndexEntry{regional}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 resourse_files:
