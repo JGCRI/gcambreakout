@@ -103,13 +103,13 @@ The table belows shows the versions of GCAM with subregions along with the POC a
 library(kableExtra); library(dplyr)
 
 data.frame(
-  name = c('GCAM-USA', 'GCAM-Korea','GCAM-China', 'GCAM-India', 'GCAM-EU'),
-  gcam_version = c('core','v5.3', '5.0', '?', 'v7.0 (in-progress)'),
-  new_subregions = c("50 states + DC", "17 Provinces","Provinces", "States","Bulgaria, Croatia, Cyprus, Czech Republic, Estonia, Hungary, Lithuania, Latvia, Malta, Poland, Romania, Slovakia, Slovenia, Austria, Belgium, Germany, Denmark, Spain, Finland, France, United Kingdom, Greece, Ireland, Italy, Luxembourg, Netherlands, Portugal, Sweden, Switzerland, Iceland, Norway
+  name = c('GCAM-USA', 'GCAM-Canada','GCAM-Korea','GCAM-China', 'GCAM-India', 'GCAM-SEA' ,'GCAM-EU'),
+  gcam_version = c('core','v5.3','v5.3', '5.0', '?', 'v5.3 (v6.0 still to be minted)','v7.0 (in-progress)'),
+  new_subregions = c("50 states + DC", "10 provinces + 3 territories","17 Provinces","Provinces", "36 States and Union Territories ","Malaysia + Kuala Lumpur, Thailand + Bangkok, Nonthaburi, Samut Prakan ","Bulgaria, Croatia, Cyprus, Czech Republic, Estonia, Hungary, Lithuania, Latvia, Malta, Poland, Romania, Slovakia, Slovenia, Austria, Belgium, Germany, Denmark, Spain, Finland, France, United Kingdom, Greece, Ireland, Italy, Luxembourg, Netherlands, Portugal, Sweden, Switzerland, Iceland, Norway
 "),
-  POC = c("Matthew Binsted - matthew.binsed@pnnl.gov, Gokul Iyer - gokul.iyer@pnnl.gov", "Suduk Kim - suduk@ajou.ac.kr, Seungho Jeon - sidus44@naver.com, MinYoung Roh - rohmin9122@gmail.com", "Qiang Zhang - qiangzhang@tsinghua.edu.cn", "Vaibhav Chaturvedi - vaibhav.chaturvedi@ceew.in", "Jon Sampedro - jon.sampedro@bc3research.org, Dirk Jan Van de Ven - dj.vandeven@bc3research.org"),
-  Insitution = c("PNNL", "Ajou University","Tsinghua University", "Council on Energy, Environment and Water (CEEW)", "BC3"),
-  Link = c("https://github.com/JGCRI/gcam-core","None","None","None","None")) %>% 
+  POC = c("Matthew Binsted - matthew.binsed@pnnl.gov, Gokul Iyer - gokul.iyer@pnnl.gov", "Matthew Binsted - matthew.binsed@pnnl.gov, Evan Davies - evan.davies@ualberta.ca","Suduk Kim - suduk@ajou.ac.kr, Seungho Jeon - sidus44@naver.com, MinYoung Roh - rohmin9122@gmail.com", "Qiang Zhang - qiangzhang@tsinghua.edu.cn", "Vaibhav Chaturvedi - vaibhav.chaturvedi@ceew.in, Zaid Khan - zaid.khan@ceew.in", "Zarrar Khan - zarrar.khan@pnnl.gov, (Malaysia) Prof. Ho Chin Siong Canselori - ho@utm.my, (Thailand) Prof Bundit Lim (bundit.lim@gmail.com)","Jon Sampedro - jon.sampedro@bc3research.org, Dirk Jan Van de Ven - dj.vandeven@bc3research.org"),
+  Insitution = c("PNNL", "University of Alberta / PNNL", "Ajou University","Tsinghua University", "Council on Energy, Environment and Water (CEEW)","PNNL / Thammasat University / University of Technology Malaysia", "BC3"),
+  Link = c("https://github.com/JGCRI/gcam-core","Private repo","None","None","None","https://zenodo.org/record/7259736","None")) %>% 
   kbl() %>%
   kable_styling(bootstrap_options = c("bordered","striped", "hover", "condensed", "responsive"), position="center", full_width = T) %>%
   row_spec(0, background = "#2A2A2A", color = "white") %>%
