@@ -136,3 +136,32 @@ breakout_regions(gcamdataFolder = gcamdataFolderx,
 # Users can confirm that a new region has been added by opening the .csv file: ./input/gcamdata/inst/extdata/common/GCAM_region_names.csv
 restore(gcamdataFolder = gcamdataFolderx)  # (OPTIONAL) Uncomment this line and restore the datasystem to original state
 
+
+
+#-----------------------------------------------------------------
+# GCAM 7 - Breakout Nepal/Bhutan
+#-----------------------------------------------------------------
+
+# library(devtools)
+# install_github("JGCRI/gcambreakout")
+library(gcambreakout); library(dplyr)
+
+gcamdataFolderx <- "C:/gcam/gcamv7p0_southasia/input/gcamdata"
+gcam_version_i="7.0"
+
+countries_allowed <- read.csv(paste0(gcamdataFolderx,"/inst/extdata/common/iso_GCAM_regID.csv"), comment.char = '#', header=T); countries_allowed$country_name%>%sort()
+current_GCAM_regions <- read.csv(paste0(gcamdataFolderx,"/inst/extdata/common/GCAM_region_names.csv"), comment.char = '#', header=T); current_GCAM_regions%>%arrange(GCAM_region_ID)
+
+
+restore(gcamdataFolder = gcamdataFolderx)  # (OPTIONAL) Uncomment this line and restore the datasystem to original state
+
+breakout_regions(gcamdataFolder = gcamdataFolderx,
+                 regionsNew = c("Bhutan"),
+                 countriesNew = c("Bhutan"),
+                 gcam_version=gcam_version_i)
+
+# gcamdataFolder = gcamdataFolderx
+# regionsNew = c("Bhutan")
+# countriesNew = c("Bhutan")
+# gcam_version=gcam_version_i
+

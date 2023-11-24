@@ -17,7 +17,7 @@
 breakout_regions <- function(gcamdataFolder = NULL,
                      regionsNew = NULL,
                      countriesNew = NULL,
-                     gcam_version = "6.0") {
+                     gcam_version = "7.0") {
 
   # gcamdataFolder = NULL
   # regionsNew = NULL
@@ -34,7 +34,8 @@ breakout_regions <- function(gcamdataFolder = NULL,
   rlang::inform(paste0("Version of GCAM can be set using the argument `gcam_version`."))
 
   NULL -> Col1-> country_name -> GCAM_region_ID -> region ->iso->IEA_memo_ctry ->
-    file_A326.inc_elas_parameter -> file_A323.inc_elas_parameter->file_A62.calibration
+    file_A326.inc_elas_parameter -> file_A323.inc_elas_parameter->file_A62.calibration->file_WSA_gcam_mapping->
+    file_GCAM_region_pipeline_bloc_export -> file_GCAM_region_pipeline_bloc_import
   parent_region_ID <- c()
   parent_region <- c()
   IEA_memo_ctry_df <- data.frame()
@@ -58,21 +59,44 @@ breakout_regions <- function(gcamdataFolder = NULL,
                     file_A23.subsector_interp_R, file_energy_A_regions, file_offshore_wind_potential_scaler,
                     file_EPA_country_map)
 
-  if(!any(gcam_version %in% c("6.0","5.4"))){
+  if(!any(gcam_version %in% c("7.0","6.0","5.4"))){
     rlang::warn(paste0("gcam_version picked: ", gcam_version, "is not available in this version of gcambreakout."))
-    rlang::warn(paste0("Please pick from the following versions: '5.4', '6.0'"))
-    rlang::warn(paste0("Setting to: '6.0'"))
+    rlang::warn(paste0("Please pick from the following versions: '5.4', '6.0', '7.0'"))
+    rlang::warn(paste0("Setting to: '7.0'"))
   }
 
-  if(gcam_version == '6.0'){
+  # Files for Version 6.0 & 7.0
+  if(any(gcam_version %in% c('7.0','6.0'))){
     # Files need to be updated in GCAM 6.0
     file_A323.inc_elas_parameter = paste(gcamdataFolder,"/inst/extdata/socioeconomics/A323.inc_elas_parameter.csv",sep = "")
     file_A326.inc_elas_parameter = paste(gcamdataFolder,"/inst/extdata/socioeconomics/A326.inc_elas_parameter.csv",sep = "")
+
+    temp_file_list <- list(file_A323.inc_elas_parameter, file_A326.inc_elas_parameter, file_A62.calibration)
+    file_list <- append(file_list, temp_file_list)
+  }
+
+  # Files for Version 7.0 only
+  if(any(gcam_version %in% c('7.0'))){
+    # Files need to be updated in GCAM 6.0
+    file_WSA_gcam_mapping = paste(gcamdataFolder,"/inst/extdata/energy/mappings/WSA_gcam_mapping.csv",sep = "")
+    file_GCAM_region_pipeline_bloc_export = paste(gcamdataFolder,"/inst/extdata/energy/GCAM_region_pipeline_bloc_export.csv",sep = "")
+    file_GCAM_region_pipeline_bloc_import = paste(gcamdataFolder,"/inst/extdata/energy/GCAM_region_pipeline_bloc_import.csv",sep = "")
+
+    temp_file_list <- list(file_WSA_gcam_mapping, file_GCAM_region_pipeline_bloc_export, file_GCAM_region_pipeline_bloc_import)
+    file_list <- append(file_list, temp_file_list)
+  }
+
+  # Files for Version 6.0 Only
+  if(any(gcam_version %in% c('6.0'))){
+    # Files need to be updated in GCAM 6.0
     file_A62.calibration = paste(gcamdataFolder, "/inst/extdata/energy/A62.calibration.csv",sep = "")
 
-    GCAM6_file_list <- list(file_A323.inc_elas_parameter, file_A326.inc_elas_parameter, file_A62.calibration)
-    file_list <- append(file_list, GCAM6_file_list)
+    temp_file_list <- list(file_A62.calibration)
+    file_list <- append(file_list, temp_file_list)
   }
+
+  file_list <- na.omit(unlist(file_list))
+
 
   }
 
@@ -287,6 +311,39 @@ breakout_regions <- function(gcamdataFolder = NULL,
     }
   }
 
+  if(!is.null(file_WSA_gcam_mapping)){
+    if(file.exists(file_WSA_gcam_mapping)){
+      WSA_gcam_mapping = utils::read.csv(file_WSA_gcam_mapping, sep = ",",comment.char="#") %>% tibble::as_tibble(); WSA_gcam_mapping
+      WSA_gcam_mapping_comments <- ((utils::read.csv(file_WSA_gcam_mapping, header = F))[,1])%>%
+        as.data.frame();
+      names(WSA_gcam_mapping_comments)<-"Col1"
+      WSA_gcam_mapping_comments <- WSA_gcam_mapping_comments %>%
+        dplyr::filter(grepl("#",Col1)); WSA_gcam_mapping_comments
+    }
+  }
+
+  if(!is.null(file_GCAM_region_pipeline_bloc_export)){
+    if(file.exists(file_GCAM_region_pipeline_bloc_export)){
+      GCAM_region_pipeline_bloc_export = utils::read.csv(file_GCAM_region_pipeline_bloc_export, sep = ",",comment.char="#") %>% tibble::as_tibble(); GCAM_region_pipeline_bloc_export
+      GCAM_region_pipeline_bloc_export_comments <- ((utils::read.csv(file_GCAM_region_pipeline_bloc_export, header = F))[,1])%>%
+        as.data.frame();
+      names(GCAM_region_pipeline_bloc_export_comments)<-"Col1"
+      GCAM_region_pipeline_bloc_export_comments <- GCAM_region_pipeline_bloc_export_comments %>%
+        dplyr::filter(grepl("#",Col1)); GCAM_region_pipeline_bloc_export_comments
+    }
+  }
+
+  if(!is.null(file_GCAM_region_pipeline_bloc_import)){
+    if(file.exists(file_GCAM_region_pipeline_bloc_import)){
+      GCAM_region_pipeline_bloc_import = utils::read.csv(file_GCAM_region_pipeline_bloc_import, sep = ",",comment.char="#") %>% tibble::as_tibble(); GCAM_region_pipeline_bloc_import
+      GCAM_region_pipeline_bloc_import_comments <- ((utils::read.csv(file_GCAM_region_pipeline_bloc_import, header = F))[,1])%>%
+        as.data.frame();
+      names(GCAM_region_pipeline_bloc_import_comments)<-"Col1"
+      GCAM_region_pipeline_bloc_import_comments <- GCAM_region_pipeline_bloc_import_comments %>%
+        dplyr::filter(grepl("#",Col1)); GCAM_region_pipeline_bloc_import_comments
+    }
+  }
+
   rlang::inform("All files read.")
   }
 
@@ -371,6 +428,18 @@ breakout_regions <- function(gcamdataFolder = NULL,
 
         file.copy(filename, gsub(".csv","_Original.csv",filename))
         unlink(filename)
+
+        # Parent region file used in the updated code to get parent regions
+        filename_parent <- paste0(gsub(".csv","_Original_parent.csv",filename)); filename_parent
+        iso_GCAM_regID_comments_parent <- iso_GCAM_regID_comments %>%
+          dplyr::mutate(Col1 = gsub(basename(filename),basename(filename_parent), Col1))
+        con <- file(filename_parent, open = "wt")
+        for (i in 1:nrow(iso_GCAM_regID_comments_parent)) {
+          writeLines(paste(iso_GCAM_regID_comments_parent[i, ]), con)
+        }
+        utils::write.csv(iso_GCAM_regID, con, row.names = F)
+        close(con)
+        closeAllConnections()
 
         con <- file(filename, open = "wt")
         for (i in 1:nrow(iso_GCAM_regID_comments)) {
@@ -760,6 +829,114 @@ breakout_regions <- function(gcamdataFolder = NULL,
                             " to ", filename, sep=""))
       }
     }
+
+
+    #..................
+    # Modify extdata/energy/mappings/WSA_gcam_mapping.csv
+    # .................
+
+    if(!is.null(file_WSA_gcam_mapping)){
+      if(file.exists(file_WSA_gcam_mapping)){
+
+        filename <- file_WSA_gcam_mapping
+        # Assign the value from the parent region to the new country
+        WSA_gcam_mapping_new <- WSA_gcam_mapping %>%
+          dplyr::bind_rows(WSA_gcam_mapping %>%
+                             dplyr::filter(GCAM_region == unique(parent_region)) %>%
+                             dplyr::mutate(GCAM_region = regionsNew_i)) %>%
+          unique();
+        #A62.calibration_new %>% as.data.frame()
+
+        file.copy(filename, gsub(".csv","_Original.csv",filename))
+        unlink(filename)
+
+        con <- file(filename, open = "wt")
+        for (i in 1:nrow(WSA_gcam_mapping_comments)) {
+          writeLines(paste(WSA_gcam_mapping_comments[i, ]), con)
+        }
+        utils::write.csv(WSA_gcam_mapping_new, con, row.names = F)
+        close(con)
+        closeAllConnections()
+
+        rlang::inform(paste("Added data for new region: ", regionsNew_i,
+                            " with GCAM_region_ID: ", new_region_ID,
+                            " based on data from parent region: ", unique(parent_region),
+                            " with GCAM_region_ID: ", unique(parent_region_ID),
+                            " to ", filename, sep=""))
+      }
+    }
+
+
+    #..................
+    # Modify extdata/energy/GCAM_region_pipeline_bloc_export.csv
+    # .................
+
+    if(!is.null(file_GCAM_region_pipeline_bloc_export)){
+      if(file.exists(file_GCAM_region_pipeline_bloc_export)){
+
+        filename <- file_GCAM_region_pipeline_bloc_export
+        # Assign the value from the parent region to the new country
+        GCAM_region_pipeline_bloc_export_new <- GCAM_region_pipeline_bloc_export %>%
+          dplyr::bind_rows(GCAM_region_pipeline_bloc_export %>%
+                             dplyr::filter(origin.region == unique(parent_region)) %>%
+                             dplyr::mutate(origin.region = regionsNew_i)) %>%
+          unique();
+
+        file.copy(filename, gsub(".csv","_Original.csv",filename))
+        unlink(filename)
+
+        con <- file(filename, open = "wt")
+        for (i in 1:nrow(GCAM_region_pipeline_bloc_export_comments)) {
+          writeLines(paste(GCAM_region_pipeline_bloc_export_comments[i, ]), con)
+        }
+        utils::write.csv(GCAM_region_pipeline_bloc_export_new, con, row.names = F)
+        close(con)
+        closeAllConnections()
+
+        rlang::inform(paste("Added data for new region: ", regionsNew_i,
+                            " with GCAM_region_ID: ", new_region_ID,
+                            " based on data from parent region: ", unique(parent_region),
+                            " with GCAM_region_ID: ", unique(parent_region_ID),
+                            " to ", filename, sep=""))
+      }
+    }
+
+
+    #..................
+    # Modify extdata/energy/GCAM_region_pipeline_bloc_import.csv
+    # .................
+
+    if(!is.null(file_GCAM_region_pipeline_bloc_import)){
+      if(file.exists(file_GCAM_region_pipeline_bloc_import)){
+
+        filename <- file_GCAM_region_pipeline_bloc_import
+        # Assign the value from the parent region to the new country
+        GCAM_region_pipeline_bloc_import_new <- GCAM_region_pipeline_bloc_import %>%
+          dplyr::bind_rows(GCAM_region_pipeline_bloc_import %>%
+                             dplyr::filter(region == unique(parent_region)) %>%
+                             dplyr::mutate(region = regionsNew_i)) %>%
+          unique();
+
+        file.copy(filename, gsub(".csv","_Original.csv",filename))
+        unlink(filename)
+
+        con <- file(filename, open = "wt")
+        for (i in 1:nrow(GCAM_region_pipeline_bloc_import_comments)) {
+          writeLines(paste(GCAM_region_pipeline_bloc_import_comments[i, ]), con)
+        }
+        utils::write.csv(GCAM_region_pipeline_bloc_import_new, con, row.names = F)
+        close(con)
+        closeAllConnections()
+
+        rlang::inform(paste("Added data for new region: ", regionsNew_i,
+                            " with GCAM_region_ID: ", new_region_ID,
+                            " based on data from parent region: ", unique(parent_region),
+                            " with GCAM_region_ID: ", unique(parent_region_ID),
+                            " to ", filename, sep=""))
+      }
+    }
+
+
   }
 
 
@@ -810,7 +987,7 @@ breakout_regions <- function(gcamdataFolder = NULL,
 
 
     } else {
-      warning(paste0("Module: ", module_i, "is indicated as requiring replacement but does not exist in the version of gcamdata being used."))
+      warning(paste0("Module: ", module_i, " is indicated as requiring replacement but does not exist in the version of gcamdata being used."))
     }
 
     } # Close module loop

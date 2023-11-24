@@ -8,7 +8,7 @@
 R script
 }
 \source{
-created by BY
+created by ZK
 }
 \usage{
 template_A_recent_feed_modifications_breakout_gcamv6p0

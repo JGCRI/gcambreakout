@@ -8,7 +8,7 @@ breakout_regions(
   gcamdataFolder = NULL,
   regionsNew = NULL,
   countriesNew = NULL,
-  gcam_version = "6.0"
+  gcam_version = "7.0"
 )
 }
 \arguments{

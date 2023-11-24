@@ -187,7 +187,7 @@
 
 #' Template for template_A_recent_feed_modifications_breakout_gcamv6p0
 #'
-#' @source created by BY
+#' @source created by ZK
 #' @format R script
 #' @examples
 #' \dontrun{
@@ -198,7 +198,7 @@
 
 #' Template for template_zchunk_LA100.0_LDS_preprocessing_breakout_gcamv6p0
 #'
-#' @source created by BY
+#' @source created by ZK
 #' @format R script
 #' @examples
 #' \dontrun{
@@ -209,7 +209,7 @@
 
 #' Template for template_zchunk_LA100.IEA_downscale_ctry_breakout_gcamv6p0
 #'
-#' @source created by BY
+#' @source created by ZK
 #' @format R script
 #' @examples
 #' \dontrun{
@@ -231,7 +231,7 @@
 
 #' Template for template_zchunk_LA111.rsrc_fos_Prod_breakout_gcamv6p0
 #'
-#' @source created by BY
+#' @source created by ZK
 #' @format R script
 #' @examples
 #' \dontrun{
@@ -242,7 +242,7 @@
 
 #' Template for template_zchunk_LA120.offshore_wind_breakout_gcamv6p0
 #'
-#' @source created by BY
+#' @source created by ZK
 #' @format R script
 #' @examples
 #' \dontrun{
@@ -253,7 +253,7 @@
 
 #' Template for template_zchunk_LA1012.en_bal_EFW_breakout_gcamv6p0
 #'
-#' @source created by BY
+#' @source created by ZK
 #' @format R script
 #' @examples
 #' \dontrun{
@@ -264,7 +264,7 @@
 
 #' Template for template_zchunk_LA1321.cement_breakout_gcamv6p0
 #'
-#' @source created by BY
+#' @source created by ZK
 #' @format R script
 #' @examples
 #' \dontrun{
@@ -297,7 +297,7 @@
 
 #' Template for template_zchunk_LB123.LC_R_MgdPastFor_Yh_GLU_breakout_gcamv6p0
 #'
-#' @source created by BY
+#' @source created by ZK
 #' @format R script
 #' @examples
 #' \dontrun{
@@ -308,7 +308,7 @@
 
 #' Template for template_zchunk_LB142.ag_Fert_IO_R_C_Y_GLU_breakout_gcamv6p0
 #'
-#' @source created by BY
+#' @source created by ZK
 #' @format R script
 #' @examples
 #' \dontrun{
@@ -330,7 +330,7 @@
 
 #' Template for template_zchunk_LB1321.regional_ag_prices_breakout_gcamv6p0
 #'
-#' @source created by BY
+#' @source created by ZK
 #' @format R script
 #' @examples
 #' \dontrun{
@@ -341,7 +341,7 @@
 
 #' Template for template_zchunk_L133.water_demand_livestock_breakout_gcamv6p0
 #'
-#' @source created by BY
+#' @source created by ZK
 #' @format R script
 #' @examples
 #' \dontrun{
@@ -352,7 +352,7 @@
 
 #' Template for template_zchunk_L171.desalination_breakout_gcamv6p0
 #'
-#' @source created by BY
+#' @source created by ZK
 #' @format R script
 #' @examples
 #' \dontrun{
@@ -363,7 +363,7 @@
 
 #' Template for template_zchunk_L203.water_td_breakout_gcamv6p0
 #'
-#' @source created by BY
+#' @source created by ZK
 #' @format R script
 #' @examples
 #' \dontrun{
@@ -374,7 +374,7 @@
 
 #' Template for template_zchunk_L223.electricity_breakout_gcamv6p0
 #'
-#' @source created by BY
+#' @source created by ZK
 #' @format R script
 #' @examples
 #' \dontrun{
@@ -527,6 +527,97 @@
 #' }
 "template_zchunk_batch_hydrogen_xml_breakout_gcamv6p0"
 
+#-----------------
+# GCAM 7.0
+#-----------------
+
+#' Template for template_zenergy_L120.offshore_wind_breakout_gcamv7p0
+#'
+#' @source created by ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zenergy_L120.offshore_wind_breakout_gcamv7p0
+#' }
+"template_zenergy_L120.offshore_wind_breakout_gcamv7p0"
+
+#' template_zaglu_L100.FAO_SUA_PrimaryEquivalent_breakout_gcamv7p0
+#'
+#' @source created by ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zaglu_L100.FAO_SUA_PrimaryEquivalent_breakout_gcamv7p0
+#' }
+"template_zaglu_L100.FAO_SUA_PrimaryEquivalent_breakout_gcamv7p0"
+
+#' template_zsocio_L2323.iron_steel_Inc_Elas_scenarios_breakout_gcamv7p0
+#'
+#' @source created by ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zsocio_L2323.iron_steel_Inc_Elas_scenarios_breakout_gcamv7p0
+#' }
+"template_zsocio_L2323.iron_steel_Inc_Elas_scenarios_breakout_gcamv7p0"
+
+#' template_zsocio_L2326.aluminum_Inc_Elas_scenarios_breakout_gcamv7p0
+#'
+#' @source created by ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zsocio_L2326.aluminum_Inc_Elas_scenarios_breakout_gcamv7p0
+#' }
+"template_zsocio_L2326.aluminum_Inc_Elas_scenarios_breakout_gcamv7p0"
+
+#' template_zsocio_zsocio_L180.GDP_macro_breakout_gcamv7p0
+#'
+#' @source created by ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zsocio_L180.GDP_macro_breakout_gcamv7p0
+#' }
+"template_zsocio_L180.GDP_macro_breakout_gcamv7p0"
+
+#' template_zenergy_L2231.wind_update_breakout_gcamv7p0
+#'
+#' @source created by ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zenergy_L2231.wind_update_breakout_gcamv7p0
+#' }
+"template_zenergy_L2231.wind_update_breakout_gcamv7p0"
+
+#' template_zenergy_L2391.gas_trade_flows_breakout_gcamv7p0
+#'
+#' @source created by ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zenergy_L2391.gas_trade_flows_breakout_gcamv7p0
+#' }
+"template_zenergy_L2391.gas_trade_flows_breakout_gcamv7p0"
+
+#' template_zemissions_L112.ceds_ghg_en_R_S_T_Y_breakout_gcamv7p0
+#'
+#' @source created by ZK
+#' @format R script
+#' @examples
+#' \dontrun{
+#'  library(gcambreakout);
+#'  gcambreakout::template_zemissions_L112.ceds_ghg_en_R_S_T_Y_breakout_gcamv7p0
+#' }
+"template_zemissions_L112.ceds_ghg_en_R_S_T_Y_breakout_gcamv7p0"
 
 
 #-----------------
