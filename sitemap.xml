@@ -61,6 +61,9 @@
     <loc>/reference/template_pop_projection.html</loc>
   </url>
   <url>
+    <loc>/reference/template_zaglu_L100.FAO_SUA_PrimaryEquivalent_breakout_gcamv7p0.html</loc>
+  </url>
+  <url>
     <loc>/reference/template_zchunk_L133.water_demand_livestock_breakout_gcamv54.html</loc>
   </url>
   <url>
@@ -248,5 +251,26 @@
   </url>
   <url>
     <loc>/reference/template_zchunk_batch_land_input_5_IRR_MGMT_xml_breakout_gcamv6p0.html</loc>
+  </url>
+  <url>
+    <loc>/reference/template_zemissions_L112.ceds_ghg_en_R_S_T_Y_breakout_gcamv7p0.html</loc>
+  </url>
+  <url>
+    <loc>/reference/template_zenergy_L120.offshore_wind_breakout_gcamv7p0.html</loc>
+  </url>
+  <url>
+    <loc>/reference/template_zenergy_L2231.wind_update_breakout_gcamv7p0.html</loc>
+  </url>
+  <url>
+    <loc>/reference/template_zenergy_L2391.gas_trade_flows_breakout_gcamv7p0.html</loc>
+  </url>
+  <url>
+    <loc>/reference/template_zsocio_L180.GDP_macro_breakout_gcamv7p0.html</loc>
+  </url>
+  <url>
+    <loc>/reference/template_zsocio_L2323.iron_steel_Inc_Elas_scenarios_breakout_gcamv7p0.html</loc>
+  </url>
+  <url>
+    <loc>/reference/template_zsocio_L2326.aluminum_Inc_Elas_scenarios_breakout_gcamv7p0.html</loc>
   </url>
 </urlset>
